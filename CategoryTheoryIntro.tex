@@ -43,6 +43,7 @@
 			\end{center}
 
 			\item (4)ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
+			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意すべきである。
 
 			射$h,g$の合成$h\circ g$は次のように表せる。
 			また対象$A$と対象$B$の間の射は一つとは限らないので、必ずしも$h\circ g=f$が成り立つわけではない。
@@ -166,7 +167,7 @@
 	圏論での同型は直感的には二つの対象の持つ振る舞いが一致するような同値関係として扱われる。
 	これを圏論の言葉で記述する。
 	\begin{prop}
-		$A\cong A' \Longleftrightarrow$任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して、同型射を$i,i^{-1}$とすると$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
+		$A\cong A' \Longleftrightarrow$任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して、$A\cong A'$の同型射を$i,i^{-1}$とすると$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -184,7 +185,7 @@
 	もし、$A$と$A'$の振る舞いが一致するならば、$f$とある変換$i$を経由した$f'$、つまり$f'\circ i$が等しくなり、同様に$f'$とある変換$i^{-1}$を経由した$f$、つまり$f\circ i^{-1}$が等しくなるはずである。
 
 	\begin{proof}
-		$(\Longleftarrow)$ $f=f'\circ i$、$f'=f\circ i^{-1}$にそれぞれを代入することで$f'\circ i\circ i^{-1}=f'$、$f\circ i^{-1}\circ i=f$が成り立つ。これらは$i,i^{-1}$に対して任意の$X,f$について成り立つから、$X,f$に$A,id_A$と$A',id_A'$を当てはめると、それぞれ$i\circ i^{-1}=id_A$、$i^{-1}\circ i=id_A'$が成り立つ。
+		$(\Longleftarrow)$ $f=f'\circ i$、$f'=f\circ i^{-1}$にそれぞれもう一方をお互いに代入することで$f'\circ i\circ i^{-1}=f'$、$f\circ i^{-1}\circ i=f$が成り立つ。これらは$i,i^{-1}$に対して任意の$X,f$について成り立つから、$X,f$に$A,id_A$と$A',id_A'$を当てはめると、それぞれ$i\circ i^{-1}=id_A$、$i^{-1}\circ i=id_A'$が成り立つ。
 
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -207,7 +208,7 @@
 		\end{center}
 
 
-		$(\Longrightarrow)$ 任意の対象$X$と射$\mor{f}{A}{X}$に対して$f$に対応する射$f'$を$i^{-1}\circ f$とすると、$f'=f\circ i^{-1}$となり、両辺に$i$を合成して$f'\circ i=f\circ i^{-1}\circ i$となり、$A\cong A'$の定義より$f'\circ i=f$よって求められる条件を満たした$f'$の存在を示せた。
+		$(\Longrightarrow)$ 任意の対象$X$と射$\mor{f}{A}{X}$に対して$f$に対応する射$f'$を$f\circ i^{-1}$とすると、$f'=f\circ i^{-1}$となり、両辺に$i$を合成して$f'\circ i=f\circ i^{-1}\circ i$となり、$A\cong A'$の定義より$f'\circ i=f$。よって求められる条件を満たした$f'$の存在を示せた。とう
 	\end{proof}
 
 
