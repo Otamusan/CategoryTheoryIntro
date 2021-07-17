@@ -19,8 +19,7 @@
 	\tableofcontents
 	\section{はじめに}
 	圏論は抽象代数学で生まれ、現在では代数学、幾何学、数学基礎論や、計算機科学、言語学、認知科学、哲学などにも応用されている。
-	本資料はその圏論の入門のための資料である。
-	最終的な目的はデカルト閉圏を定義し、小さい圏の圏$\cat{Cat}$がデカルト閉圏であることを示す。
+	本資料は数学基礎論や計算機科学で特に使われるデカルト閉圏を中心に解説していく。
 	また他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。
 	\section{圏と公理}
 	\begin{define}
@@ -49,9 +48,9 @@
 			また対象$A$と対象$B$の間の射は一つとは限らないので、必ずしも$h\circ g=f$が成り立つわけではない。
 			\begin{center}
 				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$a$};
-					\node (b) at (2, 0) {$b$};
-					\node (c) at (1, -1.5) {$c$};
+					\node (a) at (0, 0) {$A$};
+					\node (b) at (2, 0) {$B$};
+					\node (c) at (1, -1.5) {$C$};
 					\draw[->] (a) to[bend right=30] node {$f$}(b);
 					\draw[->] (a) to[bend right=-30] node {$h\circ g$}(b);
 					\draw[->] (a) to node[swap] {$g$}(c);
@@ -96,26 +95,24 @@
 		\end{itemize}
 	\end{define}
 
-	次に圏の具体例としてスライス圏と呼ばれる圏を定義する。
-	\begin{define}[スライス圏]
-		圏$\cat{C}$と$\cat{C}$のある対象$A$に対するスライス圏$\cat{C}/A$は以下のように定義する。
-		\begin{itemize}
-			\item (1)
-			$\cat{C}$の任意の対象$X$において$\mor{f}{A}{X}$となるような射を$\cat{C}/A$の対象$S_f$とする。
-			\item (2)
-			$\cat{C}/A$の対象である$\mor{f}{A}{X}$と$\mor{g}{B}{X}$に対して射$\mor{h}{A}{B}$が存在し、$g\circ h=g$が成り立つとき、射$h$を$\cat{C}/A$の射$\mor{s_h}{S_f}{S_g}$とする。
-			\item (3)
-		\end{itemize}
-
-	\end{define}
-
 	%\subsection{前順序圏}
 	%前順序集合は反射律と推移律を満たす順序集合である。
 	%この前順序集合$P$の元を対象、ある元$a,b$の間の順序関係$a\leq b$を$a$から$b$への射とする圏を$\cat{Pre}$とすると、反%射律より恒等射の存在が、推移律より射の結合則が満たされる。
 
 	%圏$\cat{Pre}$では任意の二対象の間の射が高々一つしかない。
 	%そのため、恒等射の性質や結合則に現れる等式は必ず成り立つ。
+	次に圏の具体例としてスライス圏と呼ばれる圏を定義する。
+	%\begin{define}[スライス圏]
+	%	圏$\cat{C}$と$\cat{C}$のある対象$A$に対するスライス圏$\cat{C}/A$は以下のように定義する。
+	%	\begin{itemize}
+	%		\item (1)
+	%		$\cat{C}$の
+	%		\item (2)
+	%		$\cat{C}/A$の対象である$\mor{f}{A}{X}$と$\mor{g}{B}{X}$に対して射$\mor{h}{A}{B}$が存在し、$g\circ h=g$が成り立つとき、射$h$を$\cat{C}/A$の射$\mor{s_h}{S_f}{S_g}$とする。
+	%		\item (3)
+	%	\end{itemize}
 
+	%\end{define}
 	\section{圏論の基本概念}
 	まずはこれまで図示してきた図式について数学的な定義を与える。
 	\begin{define}[図式(部分圏)]
@@ -172,9 +169,9 @@
 		$A\cong A' \Longleftrightarrow$任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して、同型射を$i,i^{-1}$とすると$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
 		\begin{center}
 			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$a$};
-				\node (a') at (0, -2) {$a'$};
-				\node (x) at (2, 0) {$x$};
+				\node (a) at (0, 0) {$A$};
+				\node (a') at (0, -2) {$A'$};
+				\node (x) at (2, 0) {$X$};
 				\draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$i$}(a');
 				\draw[->,transform canvas={xshift=3pt}] (a') to node[swap] {$i^{-1}$}(a);
 				\draw[->] (a) to node {$f$}(x);
