@@ -142,10 +142,10 @@
 			\draw[->] (e) to node {$m$}(f);
 		\end{tikzpicture}
 	\end{center}
+	\subsection{同型}
 	\begin{define}[同型]
 		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$f\circ f^{-1}=id_B$と$f^{-1}\circ f=id_A$を満たすようなある二つの射$\mor{f}{A}{B}$とその逆射$\mor{f^{-1}}{B}{A}$が存在するときである。
 		また、このような射$f,f^{-1}$を同型射と呼ぶ。
-
 	\end{define}
 	\begin{center}
 		\begin{tikzpicture}[auto]
@@ -231,6 +231,38 @@
 	射を適用した元もまた終対象からの射になるから$f\circ a$もまた対象$B$の元になる。
 	終対象の定義や、ある対象と終対象からその対象への射の全体が等価になることについては、当分先になるであろうが後に説明する。
 	これから説明する圏論の概念たちの解説に使用するためここで軽く説明した。
+	\subsection{演習問題}
+	\begin{enumerate}
+		\item 以下の図式において左側の正方形の図式と右側の正方形の図式がそれぞれ可換になるとき、二つを合わせた長方形の図式が可換になることを示せ。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 0) {$A$};
+					\node (b) at (2, 0) {$B$};
+					\node (c) at (4, 0) {$C$};
+					\node (d) at (0, -2) {$D$};
+					\node (e) at (2, -2) {$E$};
+					\node (f) at (4, -2) {$F$};
+					\draw[->] (a) to node {$g$}(b);
+					\draw[->] (b) to node {$h$}(c);
+					\draw[->] (a) to node {$i$}(d);
+					\draw[->] (b) to node {$j$}(e);
+					\draw[->] (c) to node {$k$}(f);
+					\draw[->] (d) to node {$l$}(e);
+					\draw[->] (e) to node {$m$}(f);
+				\end{tikzpicture}
+				\begin{tikzpicture}[auto]
+					\node (a) at (4, 0) {$A$};
+					\node (c) at (8, 0) {$C$};
+					\node (d) at (4, -2) {$D$};
+					\node (f) at (8, -2) {$F$};
+					\draw[->] (a) to node {$h\circ g$}(c);
+					\draw[->] (d) to node {$m\circ l$}(f);
+					\draw[->] (a) to node {$i$}(d);
+					\draw[->] (c) to node {$k$}(f);
+				\end{tikzpicture}
+			\end{center}
+		\item $A\cong B$かつ$B\cong C$ならば$A\cong C$であることを示せ。
+	\end{enumerate}
 
 	\section{普遍性}
 	普遍性はある対象と射を特徴づけるために使用される。
@@ -564,6 +596,13 @@
 
 		よって$!_1\circ {!_1}'=id_1$と${!_1}'\circ!_1=id_1'$が成り立ち、$!_1$、${!_1}'$が同型射になるから$1\cong 1'$が成り立つ。
 	\end{proof}
+
+	\subsection{演習問題}
+	\begin{enumerate}
+		\item 積$A\times B$において、$\tuple{\pi_A,\pi_B}=id_{A\times B}$を示せ。
+		\item 対象$A,B$と終対象$1$において、任意の射$\mor{f}{A}{B}$に対して$!_B\circ f=!_A$が成り立つことを示せ。
+		\item $A\times 1\cong A$を示せ。(Hint: $\pi_A$と$\tuple{id_A,!_X}$が同型射であることを示せばよい)
+	\end{enumerate}
 	\section{関手}
 	\section{自然変換}
 	\section{随伴関手}
