@@ -22,12 +22,13 @@
 	本資料は数学基礎論や計算機科学で特に使われるデカルト閉圏を中心に解説していく。
 	また他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。
 	\section{圏と公理}
+
 	\begin{define}
 		ある圏$\cat{C}$は、以下の要素と演算、公理から構成される。
-		\begin{itemize}
-			\item (1)対象の集合$\obj{C}\ni A,B,C...$
-			\item (2)射の集合$Mor(\cat{C})\ni f,g,h...$
-			\item (3)射から対象への二つの演算$dom,cod$、もし$dom(f)=A$、$cod(f)=B$であれば、$f\in Mor(A,B)$または$\mor{f}{A}{B}$と表す。
+		\begin{description}
+			\item[対象] 対象の集合$\obj{C}\ni A,B,C...$
+			\item[射] 射の集合$Mor(\cat{C})\ni f,g,h...$
+			\item[ドメインとコドメイン] 射から対象への二つの演算$dom,cod$、もし$dom(f)=A$、$cod(f)=B$であれば、$f\in Mor(A,B)$または$\mor{f}{A}{B}$と表す。
 			また、$f$に対する$dom(f)$をドメイン、$cod(f)$をコドメインと呼ぶ。
 
 			ある対象$A,B,C$、ある射$\mor{f}{A}{B}$、$\mor{g}{A}{C}$、$\mor{h}{C}{B}$について考えるとき、以下のような図式を用いて議論を行うことがある。
@@ -42,7 +43,7 @@
 				\end{tikzpicture}
 			\end{center}
 
-			\item (4)ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
+			\item[射の合成] ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
 			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意すべきである。
 
 			射$h,g$の合成$h\circ g$は次のように表せる。
@@ -58,8 +59,8 @@
 					\draw[->] (c) to node[swap] {$h$}(b);
 				\end{tikzpicture}
 			\end{center}
-			\item (5)恒等射と呼ばれる特別な射$\mor{id_A}{A}{A}$が任意の対象に存在する。
-			\item (6)結合則$h\circ (g\circ f)=(h\circ g)\circ f$が合成可能な任意の射$f,g,h$で成り立つ。
+			\item[恒等射の存在] 恒等射と呼ばれる特別な射$\mor{id_A}{A}{A}$が任意の対象に存在する。
+			\item[結合律] 結合則$h\circ (g\circ f)=(h\circ g)\circ f$が合成可能な任意の射$f,g,h$で成り立つ。
 
 				\begin{center}
 				\begin{tikzpicture}[auto]
@@ -76,7 +77,7 @@
 					\draw[->] (a) to[bend left=30] node {$(h\circ g)\circ f$}(d);
 				\end{tikzpicture}
 			\end{center}
-			\item (7)任意の対象$A$と対応する恒等射$\mor{id_A}{A}{A}$、任意の射$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$において$id_A\circ f=f$、$g\circ id_A=g$が成り立つ。
+			\item[単位元律] 任意の対象$A$と対応する恒等射$\mor{id_A}{A}{A}$、任意の射$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$において$id_A\circ f=f$、$g\circ id_A=g$が成り立つ。
 
 			恒等射をある射に合成しても、合成する前の射と等しくなることから、直感的に恒等射は何も行わない射のように考えられる。
 
@@ -93,7 +94,7 @@
 					\draw[->] (b) to node {$g\circ id_A$}(c);
 				\end{tikzpicture}
 			\end{center}
-		\end{itemize}
+		\end{description}
 	\end{define}
 
 	%\subsection{前順序圏}
@@ -103,15 +104,117 @@
 	%圏$\cat{Pre}$では任意の二対象の間の射が高々一つしかない。
 	%そのため、恒等射の性質や結合則に現れる等式は必ず成り立つ。
 	次に圏の具体例としてスライス圏と呼ばれる圏を定義する。
-	%\begin{define}[スライス圏]
-	%	圏$\cat{C}$と$\cat{C}$のある対象$A$に対するスライス圏$\cat{C}/A$は以下のように定義する。
-	%	\begin{itemize}
-	%		\item (1)
-	%		$\cat{C}$の
-	%		\item (2)
-	%		$\cat{C}/A$の対象である$\mor{f}{A}{X}$と$\mor{g}{B}{X}$に対して射$\mor{h}{A}{B}$が存在し、$g\circ h=g$が成り立つとき、射$h$を$\cat{C}/A$の射$\mor{s_h}{S_f}{S_g}$とする。
-	%		\item (3)
-	%	\end{itemize}
+	\begin{define}[スライス圏]
+		ある圏$\cat{C}$、圏$\cat{C}$のある対象$X$によるスライス圏$\cat{C}/X$は、
+		\begin{description}
+			\item[対象] $\cat{C}$の任意の対象$A$に対する任意の射$\mor{f}{A}{X}$を、$\cat{C}/X$の対象$f_A$とする。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 0) {$A$};
+					\node (b) at (2, 0) {$B$};
+					\node (x) at (1, 2) {$X$};
+					\draw[->] (a) to node {$f$}(x);
+					\draw[->] (b) to node[swap] {$g$}(x);
+					\node (catc) at (-1, 1) {$\cat{C}$};
+
+					\node (fa) at (0, -1) {$f_A$};
+					\node (gb) at (2, -1) {$g_B$};
+					\node (catc) at (-1, -1) {$\cat{C}/X$};
+				\end{tikzpicture}
+			\end{center}
+			また射が対象なのであって、$f_A$、$f'_A$の二射はどちらも$A$から$X$への射であるが、$\cat{C}/X$において$f_A=f'_A$とは限らない。
+
+			\item[射] 射$\mor{f}{A}{X}$、$\mor{g}{B}{X}$において、$g\circ h=f$となるような射$\mor{h}{A}{B}$を$\cat{C}/X$の射$\mor{h_{AB}}{f_A}{f_B}$とする。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 0) {$A$};
+					\node (b) at (2, 0) {$B$};
+					\node (x) at (1, 2) {$X$};
+					\draw[->] (a) to node {$f$}(x);
+					\draw[->] (b) to node[swap] {$g$}(x);
+					\draw[->] (a) to node {$h$}(b);
+					\node (catc) at (-1, 1) {$\cat{C}$};
+
+					\node (fa) at (0, -1) {$f_A$};
+					\node (gb) at (2, -1) {$g_B$};
+					\node (catc) at (-1, -1) {$\cat{C}/X$};
+					\draw[->] (fa) to node {$h_{AB}$}(gb);
+				\end{tikzpicture}
+			\end{center}
+			\item[射の合成]　射$\mor{i_{AB}}{f_A}{g_B}$と$\mor{j_{BC}}{g_B}{h_C}$の合成$j_{BC}\circ i_{AC}$を、$j_{BC}\circ i_{AB}=(j\circ i)_{AC}$と定義する。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 0) {$A$};
+					\node (b) at (2, 0) {$B$};
+					\node (c) at (4, 0) {$C$};
+					\node (x) at (2, 2) {$X$};
+					\draw[->] (a) to node {$f$}(x);
+					\draw[->] (b) to node[swap] {$g$}(x);
+					\draw[->] (c) to node[swap] {$h$}(x);
+					\draw[->] (a) to node {$i$}(b);
+					\draw[->] (b) to node {$j$}(c);
+					\node (catc) at (-1, 1) {$\cat{C}$};
+
+					\node (fa) at (0, -1) {$f_A$};
+					\node (gb) at (2, -1) {$g_B$};
+					\node (hc) at (4, -1) {$h_C$};
+					\node (catc) at (-1, -1) {$\cat{C}/X$};
+					\draw[->] (fa) to node {$i_{AB}$}(gb);
+					\draw[->] (gb) to node {$j_{BC}$}(hc);
+				\end{tikzpicture}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 0) {$A$};
+					\node (c) at (4, 0) {$C$};
+					\node (x) at (2, 2) {$X$};
+					\draw[->] (a) to node {$f$}(x);
+					\draw[->] (c) to node[swap] {$h$}(x);
+					\draw[->] (a) to node {$j\circ i$}(c);
+					\node (fa) at (0, -1) {$f_A$};
+					\node (hc) at (4, -1) {$h_C$};
+					\draw[->] (fa) to node {$j_{BC}\circ i_{AC}=(j\circ i)_{AC}$}(hc);
+				\end{tikzpicture}
+			\end{center}
+			\item[恒等射の存在] 対象$f_A$の恒等射$\mor{id_{f_A}}{f_A}{f_A}$を$id_{f_A}=(id_A)_{AA}$と定義する。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a1) at (0, 0) {$A$};
+					\node (a2) at (2, 0) {$A$};
+					\node (x) at (1, 2) {$X$};
+					\draw[->] (a1) to node {$f$}(x);
+					\draw[->] (a2) to node[swap] {$f$}(x);
+					\draw[->] (a1) to node {$id_A$}(a2);
+					\node (catc) at (-1, 1) {$\cat{C}$};
+
+					\node (fa1) at (0, -1) {$f_A$};
+					\node (fa2) at (2, -1) {$f_B$};
+					\node (catc) at (-1, -1) {$\cat{C}/X$};
+					\draw[->] (fa1) to node {\scriptsize{$id_{f_A}=(id_A)_{AA}$}}(fa2);
+				\end{tikzpicture}
+			\end{center}
+
+			\item[結合律] 射$\mor{j_{AB}}{f_A}{g_B}$、$\mor{k_{BC}}{g_B}{h_C}$、$\mor{l_{CD}}{h_C}{i_D}$の合成において、
+			\begin{eqnarray*}
+				l_{CD}\circ (k_{BC}\circ j_{AB})&=&l_{CD}\circ(k\circ j)_{AC} \\
+				&=&(l\circ(k\circ j))_{AD} \\
+				&=&((l\circ k)\circ j)_{AD} \\
+				&=&(l\circ k)_{BD}\circ j_{AB} \\
+				&=&(l_{CD}\circ k_{BC})\circ j_{AB}
+			\end{eqnarray*}
+			となり、結合律を満たす。
+			\item[単位元律] 任意の射$\mor{i_{AB}}{f_A}{g_B}$、$\mor{j_{BC}}{g_B}{h_C}$と恒等射$\mor{id_{g_B}}{g_B}{g_B}$において、
+			\begin{eqnarray*}
+				id_{g_B}\circ i_{AB}&=&(id_B)_{BB}\circ i_{AB}\\
+				&=&(id_B\circ i)_{AB}\\
+				&=&i_{AB}
+			\end{eqnarray*}
+			\begin{eqnarray*}
+				j_{BC}\circ id_{g_B}&=&j_{BC}\circ (id_B)_{BB}\\
+				&=&(j\circ id_B)_{BC}\\
+				&=&j_{BC}
+			\end{eqnarray*}
+			となるから$\cat{C}/X$の恒等射は実際に恒等射の性質を満たす。
+		\end{description}
+	\end{define}
 
 	%\end{define}
 	\section{圏論の基本概念}
@@ -330,11 +433,12 @@
 	\end{itemize}
 
 	\subsection{積}
-	\begin{define}
+	\begin{define}[積]
 
 		積$A\times B$と二つの射$\mor{\pi_A}{A\times B}{A}$、$\mor{\pi_B}{A\times B}{B}$がある二対象$A,B$における積であるとは、ある対象$X$と二つの射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$が存在するとき、図を可換にする、つまり$\pi_A\circ\tuple{f,g}=f$、$\pi_B\circ\tuple{f,g}=g$が成り立つような$\tuple{f,g}$が一意に存在する。
 		また$\pi_A$、$\pi_B$を射影射、$\tuple{f,g}$を$f$と$g$の対と呼ぶ。
-		ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は積を持つという。
+
+		すべての圏、すべての二対象に対して積が存在するわけではないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は積を持つという。
 
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -583,8 +687,8 @@
 		終対象から終対象への射は恒等射ただ一つである。
 	\end{prop}
 	\begin{proof}
-		終対象$1$に対して、対$(X,{})$に$(1,{})$を当てはめて考えると、$\mor{!_1}{1}{1}$は無条件で一意に定まる。
-		すべての対象に恒等射は存在するから、$id_1=!_1$となり、一意に定まる。
+		終対象$1$に対して、対$(X,\{\})$に$(1,\{\})$を当てはめて考えると、$\mor{!_1}{1}{1}$は無条件で一意に定まる。
+		すべての対象に恒等射は存在するから、$id_1=!_1$となり、一意に定まる。-657t
 	\end{proof}
 	終対象から終対象の射を終対象の元とみなすと、終対象は元がただ一つしかない対象であると分かる。
 
