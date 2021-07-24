@@ -13,6 +13,9 @@
 \newtheorem{proof}{証明}[section]
 \newtheorem{prop}{命題}[section]
 \newtheorem{define}{定義}[section]
+\numberwithin{proof}{subsection}
+\numberwithin{prop}{subsection}
+\numberwithin{define}{subsection}
 \begin{document}
 	\title{圏論入門}
 	\maketitle
@@ -250,6 +253,25 @@
 			\draw[->] (e) to node {$m$}(f);
 		\end{tikzpicture}
 	\end{center}
+
+	\subsection{元}
+		集合論では集合から集合への関数の性質を述べるのに集合の元を用いることが多いが、圏の対象では一般的に元を取ることができない。
+		しかしある圏$\cat{C}$に終対象$1$と呼ばれる特別な対象が存在するとき、$\cat{C}$の任意の対象$A$のある元(global elements)はある射$\mor{a}{1}{A}$で表せる。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (2, 0) {$A$};
+				\node (b) at (2, -2) {$B$};
+				\node (1) at (0, 0) {$1$};
+				\draw[->] (1) to node {$a$}(a);
+				\draw[->] (1) to node[swap] {$f\circ a$}(b);
+				\draw[->] (a) to node {$f$}(b);
+			\end{tikzpicture}
+		\end{center}
+
+		射$\mor{f}{A}{B}$に対して$\mor{a}{1}{A}$を適用する操作は、そのまま関数の合成$\mor{f\circ a}{1}{B}$で表せる。
+		また射を適用した元もまた終対象からの射になるから$f\circ a$もまた対象$B$の元になる。
+		終対象の定義や、ある対象と終対象からその対象への射の全体が等価になることについては、当分先になるであろうが後に説明する。
+		任意の圏に終対象が存在するわけではないが、これから説明する圏論の概念たちの解説に使用するためここで軽く説明した。
 	\subsection{同型}
 	圏論では対象の性質を射の性質で説明すると述べたが、対象の等しさを射の等しさで説明した同型という概念がある。
 	\begin{define}[同型]
@@ -278,71 +300,28 @@
 			\draw[->] (b) to node[swap] {$f$}(a);
 		\end{tikzpicture}
 	\end{center}
-	次に同型であることと、それらの周りの射が等価になることが同値になることを確かめる。
-	\begin{prop}[同型と射の対応] \label{isomorphism-and-arrow}
-		$A\cong A' \Longleftrightarrow$ ある射$\mor{i}{A}{A'},\mor{i^{-1}}{A'}{A}$が存在し、任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
+
+	\begin{prop}
+		圏$\cat{C}$で$A\cong A'$が成り立つ$\Longleftrightarrow$スライス圏$\cat{C}/X$で$f_A\cong f'_{A'}$
+	\end{prop}
+	\begin{proof}
+		$(\Longrightarrow)$
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
-				\node (a') at (0, -2) {$A'$};
-				\node (x) at (2, 0) {$X$};
-				\draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$i$}(a');
-				\draw[->,transform canvas={xshift=3pt}] (a') to node[swap] {$i^{-1}$}(a);
+				\node (a') at (2, 0) {$A'$};
+				\node (x) at (1, 2) {$X$};
 				\draw[->] (a) to node {$f$}(x);
 				\draw[->] (a') to node[swap] {$f'$}(x);
+				\node (catc) at (-1, 1) {$\cat{C}$};
+
+				\node (fa) at (0, -2) {$f_A$};
+				\node (f'a') at (2, -2) {$f'_{A'}$};
+				\node (catc) at (-1, -2) {$\cat{C}/X$};
 			\end{tikzpicture}
 		\end{center}
-	\end{prop}
-	$A$と$A'$の間にある相互変換となる射である同型射$\mor{i}{A}{A'}$、$\mor{i^{-1}}{A'}{A}$が存在して、$A$と$A'$の振る舞いとして任意の$X$と任意の射$\mor{f}{A}{X}$とそれに対応する$\mor{f'}{A'}{X}$を考える。
-	もし、$A$と$A'$の振る舞いが一致するならば、$f$とある変換$i$を経由した$f'$、つまり$f'\circ i$が等しくなり、同様に$f'$とある変換$i^{-1}$を経由した$f$、つまり$f\circ i^{-1}$が等しくなるはずである。
-
-	\begin{proof}
-		$(\Longleftarrow)$ $f=f'\circ i$、$f'=f\circ i^{-1}$にそれぞれもう一方をお互いに代入することで$f'=f'\circ i\circ i^{-1}$、$f=f\circ i^{-1}\circ i$が成り立つ。これらは$i,i^{-1}$に対して任意の$X,f$について成り立つから、$X,f$に$A,id_A$と$A',id_A'$を当てはめると、それぞれ$i\circ i^{-1}=id_A$、$i^{-1}\circ i=id_A'$が成り立つ。
-
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$A$};
-				\node (a') at (0, -2) {$A'$};
-				\node (x) at (2, 0) {$A$};
-				\draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$i$}(a');
-				\draw[->,transform canvas={xshift=3pt}] (a') to node[swap] {$i^{-1}$}(a);
-				\draw[->] (a) to node {$id_A$}(x);
-				\draw[->] (a') to node[swap] {$i^{-1}$}(x);
-
-				\node (a2) at (4, 0) {$A$};
-				\node (a'2) at (4, -2) {$A'$};
-				\node (x2) at (6, 0) {$A'$};
-				\draw[->,transform canvas={xshift=-3pt}] (a2) to node[swap] {$i$}(a'2);
-				\draw[->,transform canvas={xshift=3pt}] (a'2) to node[swap] {$i^{-1}$}(a2);
-				\draw[->] (a2) to node {$i$}(x2);
-				\draw[->] (a'2) to node[swap] {$id_{A'}$}(x2);
-			\end{tikzpicture}
-		\end{center}
-
-
-		$(\Longrightarrow)$ 任意の対象$X$と射$\mor{f}{A}{X}$に対して$f$に対応する射$f'$を$f\circ i^{-1}$とすると、$f'=f\circ i^{-1}$となり、両辺に$i$を合成して$f'\circ i=f\circ i^{-1}\circ i$となり、$A\cong A'$の定義より$f'\circ i=f$。よって求められる条件を満たした$f'$の存在を示せた。とう
 	\end{proof}
 
-
-	今回は$A\cong A'$とそれらから伸びる射$\mor{f}{A}{X}$、$\mor{f'}{A'}{X}$の関係性を見たが、$A\cong A'$とそれらへ伸びる射$\mor{g}{Y}{A}$、$\mor{g'}{Y}{A'}$の関係においても同様に成り立つ。
-	\subsection{元}
-	集合論では集合から集合への関数の性質を述べるのに集合の元を用いることが多いが、圏の対象では一般的に元を取ることができない。
-	しかしある圏$\cat{C}$に終対象$1$と呼ばれる特別な対象が存在するとき、$\cat{C}$の任意の対象$A$のある元(global elements)はある射$\mor{a}{1}{A}$で表せる。
-	\begin{center}
-		\begin{tikzpicture}[auto]
-			\node (a) at (2, 0) {$A$};
-			\node (b) at (2, -2) {$B$};
-			\node (1) at (0, 0) {$1$};
-			\draw[->] (1) to node {$a$}(a);
-			\draw[->] (1) to node[swap] {$f\circ a$}(b);
-			\draw[->] (a) to node {$f$}(b);
-		\end{tikzpicture}
-	\end{center}
-
-	射$\mor{f}{A}{B}$に対して$\mor{a}{1}{A}$を適用する操作は、そのまま関数の合成$\mor{f\circ a}{1}{B}$で表せる。
-	射を適用した元もまた終対象からの射になるから$f\circ a$もまた対象$B$の元になる。
-	終対象の定義や、ある対象と終対象からその対象への射の全体が等価になることについては、当分先になるであろうが後に説明する。
-	これから説明する圏論の概念たちの解説に使用するためここで軽く説明した。
 	\subsection{演習問題}
 	\begin{enumerate}
 		\item 以下の図式において左側の正方形の図式と右側の正方形の図式がそれぞれ可換になるとき、二つを合わせた長方形の図式が可換になることを示せ。
