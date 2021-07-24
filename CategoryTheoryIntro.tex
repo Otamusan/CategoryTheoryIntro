@@ -31,7 +31,7 @@
 		\begin{description}
 			\item[対象] 対象の集合$\obj{C}\ni A,B,C...$
 			\item[射] 射の集合$Mor(\cat{C})\ni f,g,h...$
-			\item[ドメインとコドメイン] 射から対象への二つの演算$dom,cod$、もし$dom(f)=A$、$cod(f)=B$であれば、$f\in Mor(A,B)$または$\mor{f}{A}{B}$と表す。
+			\item[ドメインとコドメイン]~\\ 射から対象への二つの演算$dom,cod$、もし$dom(f)=A$、$cod(f)=B$であれば、$f\in Mor(A,B)$または$\mor{f}{A}{B}$と表す。
 			また、$f$に対する$dom(f)$をドメイン、$cod(f)$をコドメインと呼ぶ。
 
 			ある対象$A,B,C$、ある射$\mor{f}{A}{B}$、$\mor{g}{A}{C}$、$\mor{h}{C}{B}$について考えるとき、以下のような図式を用いて議論を行うことがある。
@@ -46,7 +46,7 @@
 				\end{tikzpicture}
 			\end{center}
 
-			\item[射の合成] ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
+			\item[射の合成]~\\ ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
 			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意してほしい。
 
 			射$h,g$の合成$h\circ g$は次のように表せる。
@@ -80,11 +80,19 @@
 					\draw[->] (a) to[bend left=30] node {$(h\circ g)\circ f$}(d);
 				\end{tikzpicture}
 			\end{center}
-			\item[単位元律] 任意の対象$A$と対応する恒等射$\mor{id_A}{A}{A}$、任意の射$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$において$id_A\circ f=f$、$g\circ id_A=g$が成り立つ。
+			\item[単位元律]~\\ 任意の対象$A$と対応する恒等射$\mor{id_A}{A}{A}$、任意の射$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$において$id_A\circ f=f$、$g\circ id_A=g$が成り立つ。
 
 			恒等射をある射に合成しても、合成する前の射と等しくなることから、直感的に恒等射は何も行わない射のように考えられる。
 
 			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (x) at (0, 0) {$X$};
+					\node (a) at (2, 0) {$A$};
+					\node (y) at (4, 0) {$Y$};
+					\draw[->] (x) to node {$f$}(a);
+					\draw[->,loop above, looseness=20] (a) to node {$id_A$}(a);
+					\draw[->] (a) to node {$g$}(y);
+				\end{tikzpicture}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 0) {$X$};
 					\node (b) at (2, 0) {$A$};
@@ -99,129 +107,6 @@
 			\end{center}
 		\end{description}
 	\end{define}
-
-	\subsection{スライス圏}
-	次に圏の具体例としてスライス圏と呼ばれる圏を定義する。
-	\begin{define}[スライス圏]
-		ある圏$\cat{C}$、圏$\cat{C}$のある対象$X$によるスライス圏$\cat{C}/X$は、
-		\begin{description}
-			\item[対象] $\cat{C}$の任意の対象$A$に対する任意の射$\mor{f}{A}{X}$を、$\cat{C}/X$の対象$f_A$とする。
-			\begin{center}
-				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$A$};
-					\node (b) at (2, 0) {$B$};
-					\node (x) at (1, 2) {$X$};
-					\draw[->] (a) to node {$f$}(x);
-					\draw[->] (b) to node[swap] {$g$}(x);
-					\node (catc) at (-1, 1) {$\cat{C}$};
-
-					\node (fa) at (0, -1) {$f_A$};
-					\node (gb) at (2, -1) {$g_B$};
-					\node (catc) at (-1, -1) {$\cat{C}/X$};
-				\end{tikzpicture}
-			\end{center}
-			また射が対象なのであって、$f_A$、$f'_A$の二射はどちらも$A$から$X$への射であるが、$\cat{C}/X$において$f_A=f'_A$とは限らない。
-
-			\item[射] 射$\mor{f}{A}{X}$、$\mor{g}{B}{X}$において、$g\circ h=f$となるような射$\mor{h}{A}{B}$を$\cat{C}/X$の射$\mor{h_{AB}}{f_A}{f_B}$とする。
-			\begin{center}
-				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$A$};
-					\node (b) at (2, 0) {$B$};
-					\node (x) at (1, 2) {$X$};
-					\draw[->] (a) to node {$f$}(x);
-					\draw[->] (b) to node[swap] {$g$}(x);
-					\draw[->] (a) to node {$h$}(b);
-					\node (catc) at (-1, 1) {$\cat{C}$};
-
-					\node (fa) at (0, -1) {$f_A$};
-					\node (gb) at (2, -1) {$g_B$};
-					\node (catc) at (-1, -1) {$\cat{C}/X$};
-					\draw[->] (fa) to node {$h_{AB}$}(gb);
-				\end{tikzpicture}
-			\end{center}
-			\item[射の合成]　射$\mor{i_{AB}}{f_A}{g_B}$と$\mor{j_{BC}}{g_B}{h_C}$の合成$j_{BC}\circ i_{AC}$を、$j_{BC}\circ i_{AB}=(j\circ i)_{AC}$と定義する。
-			射の定義より、$g\circ i=f$、$h\circ j=g$が成り立つから、
-				\begin{alignat*}{2}
-					f&=g\circ i &　(i_{AB}の定義) \\
-					&=h\circ j \circ i　& (j_{BC}の定義) \\
-					&=h\circ(j\circ i)　&
-				\end{alignat*}
-				となり、射$\mor{(j\circ i)_{AC}}{f_A}{h_C}$は実際にスライス圏の射の定義を満たす。
-			\begin{center}
-				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$A$};
-					\node (b) at (2, 0) {$B$};
-					\node (c) at (4, 0) {$C$};
-					\node (x) at (2, 2) {$X$};
-					\draw[->] (a) to node {$f$}(x);
-					\draw[->] (b) to node[swap] {$g$}(x);
-					\draw[->] (c) to node[swap] {$h$}(x);
-					\draw[->] (a) to node {$i$}(b);
-					\draw[->] (b) to node {$j$}(c);
-					\node (catc) at (-1, 1) {$\cat{C}$};
-
-					\node (fa) at (0, -1) {$f_A$};
-					\node (gb) at (2, -1) {$g_B$};
-					\node (hc) at (4, -1) {$h_C$};
-					\node (catc) at (-1, -1) {$\cat{C}/X$};
-					\draw[->] (fa) to node {$i_{AB}$}(gb);
-					\draw[->] (gb) to node {$j_{BC}$}(hc);
-				\end{tikzpicture}
-				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$A$};
-					\node (c) at (4, 0) {$C$};
-					\node (x) at (2, 2) {$X$};
-					\draw[->] (a) to node {$f$}(x);
-					\draw[->] (c) to node[swap] {$h$}(x);
-					\draw[->] (a) to node {$j\circ i$}(c);
-					\node (fa) at (0, -1) {$f_A$};
-					\node (hc) at (4, -1) {$h_C$};
-					\draw[->] (fa) to node {$j_{BC}\circ i_{AC}=(j\circ i)_{AC}$}(hc);
-				\end{tikzpicture}
-			\end{center}
-			\item[恒等射の存在] 対象$f_A$の恒等射$\mor{id_{f_A}}{f_A}{f_A}$を$id_{f_A}=(id_A)_{AA}$と定義する。また$f\circ id_A=f$でありスライス圏の射の定義を満たす
-			\begin{center}
-				\begin{tikzpicture}[auto]
-					\node (a1) at (0, 0) {$A$};
-					\node (a2) at (2, 0) {$A$};
-					\node (x) at (1, 2) {$X$};
-					\draw[->] (a1) to node {$f$}(x);
-					\draw[->] (a2) to node[swap] {$f$}(x);
-					\draw[->] (a1) to node {$id_A$}(a2);
-					\node (catc) at (-1, 1) {$\cat{C}$};
-
-					\node (fa1) at (0, -1) {$f_A$};
-					\node (fa2) at (2, -1) {$f_B$};
-					\node (catc) at (-1, -1) {$\cat{C}/X$};
-					\draw[->] (fa1) to node {\scriptsize{$id_{f_A}=(id_A)_{AA}$}}(fa2);
-				\end{tikzpicture}
-			\end{center}
-
-			\item[結合律] 射$\mor{j_{AB}}{f_A}{g_B}$、$\mor{k_{BC}}{g_B}{h_C}$、$\mor{l_{CD}}{h_C}{i_D}$の合成において、
-			\begin{alignat*}{2}
-				l_{CD}\circ (k_{BC}\circ j_{AB})&=l_{CD}\circ(k\circ j)_{AC}&(スライス圏の射の合成) \\
-				&=(l\circ(k\circ j))_{AD}&(スライス圏の射の合成) \\
-				&=((l\circ k)\circ j)_{AD}&(射の結合則) \\
-				&=(l\circ k)_{BD}\circ j_{AB}&(スライス圏の射の合成) \\
-				&=(l_{CD}\circ k_{BC})\circ j_{AB}&(スライス圏の射の合成)
-			\end{alignat*}
-			となり、結合律を満たす。
-			\item[単位元律] 任意の射$\mor{i_{AB}}{f_A}{g_B}$、$\mor{j_{BC}}{g_B}{h_C}$と恒等射$\mor{id_{g_B}}{g_B}{g_B}$において、
-			\begin{alignat*}{2}
-				id_{g_B}\circ i_{AB}&=(id_B)_{BB}\circ i_{AB}&(スライス圏の恒等射)\\
-				&=(id_B\circ i)_{AB}&(スライス圏の射の合成)\\
-				&=i_{AB}
-			\end{alignat*}
-			\begin{alignat*}{2}
-				j_{BC}\circ id_{g_B}&=j_{BC}\circ (id_B)_{BB}&(スライス圏の恒等射)\\
-				&=(j\circ id_B)_{BC}&(スライス圏の射の合成)\\
-				&=j_{BC}
-			\end{alignat*}
-			となり、$\cat{C}/X$の恒等射は実際に恒等射の性質を満たす。
-		\end{description}
-	\end{define}
-
-	%\end{define}
 	\section{圏論の基本概念}
 	圏論では対象の性質をその対象をドメイン、コドメインとする射の性質によって与える。
 	直感的にはある対象を述べる場合、「どのように構成されるか」ではなく「どのように振舞うか」で述べるように思える。
@@ -300,28 +185,6 @@
 			\draw[->] (b) to node[swap] {$f$}(a);
 		\end{tikzpicture}
 	\end{center}
-
-	\begin{prop}
-		圏$\cat{C}$で$A\cong A'$が成り立つ$\Longleftrightarrow$スライス圏$\cat{C}/X$で$f_A\cong f'_{A'}$
-	\end{prop}
-	\begin{proof}
-		$(\Longrightarrow)$
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$A$};
-				\node (a') at (2, 0) {$A'$};
-				\node (x) at (1, 2) {$X$};
-				\draw[->] (a) to node {$f$}(x);
-				\draw[->] (a') to node[swap] {$f'$}(x);
-				\node (catc) at (-1, 1) {$\cat{C}$};
-
-				\node (fa) at (0, -2) {$f_A$};
-				\node (f'a') at (2, -2) {$f'_{A'}$};
-				\node (catc) at (-1, -2) {$\cat{C}/X$};
-			\end{tikzpicture}
-		\end{center}
-	\end{proof}
-
 	\subsection{演習問題}
 	\begin{enumerate}
 		\item 以下の図式において左側の正方形の図式と右側の正方形の図式がそれぞれ可換になるとき、二つを合わせた長方形の図式が可換になることを示せ。
@@ -356,78 +219,18 @@
 	\end{enumerate}
 
 	\section{普遍性}
-	普遍性はある対象と射を特徴づけるために使用される。
-	この段階で普遍性を用いた各概念を一般化することはできないが、この章で扱う普遍性に限定して一般化する。
-	\begin{itemize}
-		\item (1) ある圏$\cat{C}$のある図式$\cat{D}$が存在する。
-
-		また例として、以下の図式における普遍性を考える。
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (i) at (0, 0) {$I$};
-				\node (j) at (2, 0) {$J$};
-				\draw[->] (i) to node {$k$}(j);
-			\end{tikzpicture}
-		\end{center}
-		\item (2) (1)の図式$\cat{D}$に対して圏$\cat{C}$のある対象$U$と、$U$から図式$D$の任意の対象$A$に対してある射$\mor{\tau_A}{U}{A}$が存在する。
-
-		また対象$U$と任意の対象$A$に存在する射の全体を対として$(U,(\mor{\tau_A}{U}{A})_{A\in D})$と表す。
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (i) at (0, 0) {$I$};
-				\node (j) at (2, 0) {$J$};
-				\node (u) at (1, 2) {$U$};
-				\draw[->] (i) to node {$k$}(j);
-				\draw[->] (u) to node[swap] {$\tau_I$}(i);
-				\draw[->] (u) to node {$\tau_J$}(j);
-			\end{tikzpicture}
-		\end{center}
-		\item (3)図式$\cat{D}$と対$(U,(\tau_A)_{A\in D})$を合わせた図式が可換になる。
-
-		すなわち、図式$\cat{D}$の任意の射$\mor{f}{A}{B}$と$\mor{\tau_A}{U}{A}$の合成$\mor{f\circ\tau_A}{U}{B}$が$\mor{\tau_B}{U}{B}$と等しくなる。
-
-		今考えている図式で表すなら$f\circ\tau_I=\tau_J$となる。
-		\item (4)
-		(2)と(3)を同様に満たすようなまた別の対$(X,(\mor{\phi_A}{X}{A})_{A\in D})$が存在するとき、ある射$\mor{u}{X}{U}$が存在する。
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (i) at (0, 0) {$I$};
-				\node (j) at (2, 0) {$J$};
-				\node (u) at (1, 2) {$U$};
-				\node (x) at (3, 2) {$X$};
-				\draw[->] (i) to node[swap] {$k$}(j);
-				\draw[->] (u) to node[swap] {$\tau_I$}(i);
-				\draw[->] (u) to node[transform canvas={xshift=-3pt,yshift=3pt}] {$\tau_J$}(j);
-				\draw[->] (x) to node[swap,transform canvas={xshift=3pt,yshift=-18pt}] {$\phi_I$}(i);
-				\draw[->] (x) to node {$\phi_J$}(j);
-			\end{tikzpicture}
-			\begin{tikzpicture}[auto]
-				\node (i) at (0, 0) {$I$};
-				\node (j) at (2, 0) {$J$};
-				\node (u) at (1, 2) {$U$};
-				\node (x) at (3, 2) {$X$};
-				\draw[->] (i) to node[swap] {$k$}(j);
-				\draw[->] (x) to node[swap] {$u$}(u);
-				\draw[->] (u) to node[swap] {$\tau_I$}(i);
-				\draw[->] (u) to node[transform canvas={xshift=-3pt,yshift=3pt}] {$\tau_J$}(j);
-				\draw[->] (x) to node[swap,transform canvas={xshift=3pt,yshift=-18pt}] {$\phi_I$}(i);
-				\draw[->] (x) to node {$\phi_J$}(j);
-			\end{tikzpicture}
-		\end{center}
-		\item (5)
-		(4)図式$\cat{D}$と二つの対$(U,(\tau_A)_{A\in D})$、$(X,(\phi_A)_{A\in D})$を合わせた図式に対して、射$\mor{u}{X}{U}$はこの図式を可換にし、このような射は一意に定まる。
-
-		すなわち、図式$\cat{D}$の任意の対象$A$において、$\tau_A\circ u =\phi_A$が成り立つ。
-	\end{itemize}
-
+	普遍性はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に定まる。というように記述され、図式中の射と一意に定まる射の対応関係を示すことが多い。
 	\subsection{積}
 	\begin{define}[積]
-
-		積$A\times B$と二つの射$\mor{\pi_A}{A\times B}{A}$、$\mor{\pi_B}{A\times B}{B}$がある二対象$A,B$における積であるとは、ある対象$X$と二つの射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$が存在するとき、図を可換にする、つまり$\pi_A\circ\tuple{f,g}=f$、$\pi_B\circ\tuple{f,g}=g$が成り立つような$\tuple{f,g}$が一意に存在する。
-		また$\pi_A$、$\pi_B$を射影射、$\tuple{f,g}$を$f$と$g$の対と呼ぶ。
-
-		すべての圏、すべての二対象に対して積が存在するわけではないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は積を持つという。
-
+		対象$A$と$B$が積を持つとは、以下の条件を満たす組$(A\times B,\pi_A,\pi_B)$が存在するときである。
+		\begin{description}
+		\item[積対象と射影射]ある積対象$A\times B$とある二つの射$\mor{\pi_A}{A\times B}{A}$、$\mor{\pi_B}{A\times B}{B}$が存在する。
+		この時、積対象と射影射の組$(A\times B,\pi_A,\pi_B)$を$A,B$の積と呼ぶ。
+		\item[任意の対象からの射]任意の対象$X$と二つの射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$の組を$(X,f,g)$とする。
+		\item[射の対]任意の組$(X,f,g)$に対して射の対と呼ばれる射$\mor{\tuple{f,g}}{X}{A\times B}$が存在する。
+		\item[普遍性]射の対は図式を可換にし、$(X,f,g)$に対して一意に定まる。
+		すなわち、$\pi_A\circ\tuple{f,g}=f$、$\pi_B\circ\tuple{f,g}=g$が成り立つような$\tuple{f,g}$が一意に定まる。
+		\end{description}
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -441,24 +244,10 @@
 				\draw[->] (x) to node {$\tuple{f,g}$}(ab);
 			\end{tikzpicture}
 		\end{center}
+		すべての圏、すべての二対象に対して積が存在するとは限らないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は積を持つという。
 	\end{define}
 
 	つまり、ある射$\mor{h}{X}{A\times B}$が存在して$\pi_A\circ h=f$、$\pi_B\circ h=g$を満たすとき、このような射は一意に存在するから$h=\tuple{f,g}$となる。
-
-	上の定義を普遍性の一般化に基づいて改めて定義すると、
-	\begin{itemize}
-		\item (1)
-		図式$\cat{D}$として、二つの対象$A,B$、それぞれの恒等射$id_A$、$id_B$で構成される図式を考える。
-		\item (2)対$(U,(\tau_A)_{A\in D})$を$(A\times B,\{\pi_A,\pi_B\})$として考える。
-		\item (3)
-		今回は図式に含まれる射が恒等射のみであるため、可換性が無条件に成り立つ。
-		\item (4)
-		任意の対象$X$の射から、$A,B$への射をそれぞれ$\mor{f}{X}{A}$、$\mor{g}{X}{B}$とする。
-		対$(X,(\phi_A)_{A\in D})$を$(X,\{f,g\})$として考える。
-		そして射$u$を$\tuple{f,g}$とする。
-		\item (5)
-		これらの図式が可換になる、つまり$\pi_A\circ\tuple{f,g}=f$、$\pi_B\circ\tuple{f,g}=g$が成り立つような射$\tuple{f,g}$が一意に定まる。
-	\end{itemize}
 
 	ここで$X$に終対象$1$を当てはめると、$A$のある元$a$、$B$のある元$b$に対して$\pi_A\circ\tuple{a,b}=a$、$\pi_B\circ\tuple{a,b}=b$が成り立つような$\tuple{a,b}$が一意に定まる。
 	直感的には$\pi_A$と$\pi_B$は$A\times B$の元$\tuple{a,b}$からそれぞれ$A$の元と$B$の元を取りだす。もし$A\times B$のまた別の元$\mor{h}{1}{A\times B}$からも$a$と$b$が取り出せたなら、$h=\tuple{a,b}$となることがわかる。
@@ -482,7 +271,7 @@
 		$\mor{f}{X}{A}$、$\mor{g}{X}{B}$、$\mor{h}{Y}{X}$に対して$\tuple{f,g}\circ h=\tuple{f\circ h,g\circ h}$が成り立つ
 	\end{prop}
 	\begin{proof}
-		積$A\times B$に対し、(4)の対$(X,\{f,g\})$に$(Y,\{f\circ h, g\circ h\})$を当てはめると、(5)よりこの図式を可換にする対象と射の対$\mor{\tuple{f\circ h,g\circ h}}{Y}{A\times B}$が存在し一意に定まる。
+		積$A\times B$に対し、対$(X,f,g)$に$(Y,f\circ h, g\circ h)$を当てはめると、積の普遍性よりこの図式を可換にする射の対$\mor{\tuple{f\circ h,g\circ h}}{Y}{A\times B}$が存在し一意に定まる。
 		よって$\tuple{f,g}\circ h=\tuple{f\circ h,g\circ h}$が成り立つ。
 	\end{proof}
 
@@ -514,10 +303,24 @@
 			\draw[->] (ab) to node[swap] {$\pi_B$}(b);
 		\end{tikzpicture}
 	\end{center}
-	$y$を終対象、$h$を元とすれば射の対がどのような操作かがわかるだろう。
+	また$Y$に終対象$1$、$h$に元$\mor{x}{1}{X}$を当てはめると、同様に$\tuple{f,g}\circ x=\tuple{f\circ x,g\circ x}$となる。
+	つまり射の対は与えられた元にそれぞれの射を適用し、また対をとするような射だと考えられる。
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (y) at (8.5, 4) {$1$};
+			\node (a) at (6, 0) {$A$};
+			\node (b) at (11, 0) {$B$};
+			\node (ab) at (8.5, 0) {$A\times B$};
+			\draw[->, transform canvas={xshift=2pt}] (y) to node[yshift=-30pt] {$\tuple{f,g}\circ x$}(ab);
+			\draw[->, transform canvas={xshift=-2pt}] (y) to node[yshift=-30pt, swap] {\scriptsize{$\tuple{f\circ x,g\circ x}$}}(ab);
+			\draw[->] (y) to node[swap] {$f\circ x$}(a);
+			\draw[->] (y) to node {$g\circ x$}(b);
+			\draw[->] (ab) to node {$\pi_A$}(a);
+			\draw[->] (ab) to node[swap] {$\pi_B$}(b);
+		\end{tikzpicture}
+	\end{center}
 
 	次に、任意の積から任意の積への射である、射の積を定義していく。
-	二つの対象から二つの対象へ射を一つの射に纏めることから、直感的に射の積は並列処理のように思える。
 	\begin{define}[射の積]
 		射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して射の積$\mor{f\times g}{A\times B}{A'\times B'}$を$f\times g = \tuple{f\circ\pi_A,g\circ\pi_B}$と定義する。
 		\begin{center}
@@ -539,7 +342,7 @@
 		\end{center}
 	\end{define}
 	射の対は任意の対象から任意の積への射であるのに対し、射の積は任意の積から任意の積への射である。
-
+	二つの対象から二つの対象へ射を一つの射に纏めることから、直感的に射の積は並列処理のように思える。
 
 	\begin{prop}[積と合成の交換]
 		射の積$\mor{f\times g}{A\times B}{A'\times B'}$、$\mor{f'\times g'}{A'\times B'}{A''\times B''}$に対して、$(f'\times g')\circ(f\times g)=(f'\circ f)\times(g'\circ g)$が成り立つ。
@@ -547,7 +350,7 @@
 	\begin{proof}
 		上の図式と下の図式はそれぞれ射の積の図式であり可換であるため、図式全体も可換になる。
 
-		また積$A''\times B''$において、(4)の対$(X,\{f,g\})$に$(A\times B,\{f'\circ f\circ\pi_A$と$g'\circ g\circ\pi_B\})$を当てはめると射$\mor{\tuple{f'\circ f\circ\pi_A,g'\circ g\circ\pi_B}}{A\times B}{A''\times B''}$が存在する。
+		また積$A''\times B''$において、対$(X,f,g)$に$(A\times B,f'\circ f\circ\pi_A$,$g'\circ g\circ\pi_B)$を当てはめると射$\mor{\tuple{f'\circ f\circ\pi_A,g'\circ g\circ\pi_B}}{A\times B}{A''\times B''}$が存在する。
 
 		また射の積の定義より、$\tuple{f'\circ f\circ\pi_A,g'\circ g\circ\pi_B}=(f'\circ f)\times(g'\circ g)$が成り立つ。
 
@@ -585,8 +388,8 @@
 				\draw[->] (ab) to node{$g'\circ g\circ\pi_B$}(b'');
 				\draw[->] (ab'') to node[swap]{$\pi_{A''}$}(a'');
 				\draw[->] (ab'') to node{$\pi_{B''}$}(b'');
-				\draw[->,transform canvas={xshift=2pt}] (ab) to (ab'');
-				\draw[->,transform canvas={xshift=-2pt}] (ab) to (ab'');
+				\draw[->,transform canvas={xshift=2pt}] (ab) to node[sloped]{\scriptsize{$(f'\times g')\circ(f\times g)$}} (ab'');
+				\draw[->,transform canvas={xshift=-2pt}] (ab) to node[sloped,swap]{\scriptsize{$(f'\circ f)\times(g'\circ g)$}}(ab'');
 			\end{tikzpicture}
 		\end{center}
 	\end{proof}
@@ -596,9 +399,9 @@
 		$A$と$B$の積$A\times B$に対して、同様に$A$と$B$の積である対象$P$と射影射$\mor{\rho_A}{P}{A}$、$\mor{\rho_B}{P}{B}$が存在するとき、$A\times B\cong P$が成り立つ。またこの時、積は同型を除いて一意と呼ぶことがある。
 	\end{prop}
 	\begin{proof}
-		積$A\times B$において、(4)の対$(X,\{f,g\})$に$(P,\{\rho_A,\rho_B\})$を当てはめると積の図式になる。よって射の対$\tuple{\rho_A,\rho_B}$が存在する。
+		積$(A\times B,\pi_A,\pi_B)$において、対$(X,f,g)$に$(P,\rho_A,\rho_B)$を当てはめると射の対$\tuple{\rho_A,\rho_B}$が得られる。
 
-		逆に積$P$において(4)の対$(X,\{f,g\})$に$(A\times B,\{\pi_A,\pi_B\})$を当てはめると積の図式になる。よって射の対$\tuple{\pi_A,\pi_B}$が存在する。
+		逆に積$(P,\rho_A,\rho_B)$において対$(X,f,g)$に$(A\times B,\pi_A,\pi_B)$を当てはめると射の対$\tuple{\pi_A,\pi_B}$が得られる。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -613,7 +416,7 @@
 				\draw[->] (ab) to node{$\pi_B$}(b);
 			\end{tikzpicture}
 		\end{center}
-		ここで、射$\mor{\tuple{\rho_A,\rho_B}\circ\tuple{\pi_A,\pi_B}}{A\times B}{A\times B}$を射の対とする積の図式を考える、つまり積$A\times B$において対$(X,\{f,g\})$に$(A\times B,\{\pi_A,\pi_B\})$を当てはめると二つの射の対の可換性からこの積図式も可換になり、射$\tuple{\rho_A,\rho_B}\circ\tuple{\pi_A,\pi_B}$は実際に射の対になる。ここで恒等射$\mor{id_{A\times B}}{A\times B}{A\times B}$は同様に積図式を可換にするから$id_{A\times B}$もまた射の対になる。
+		ここで、射$\mor{\tuple{\rho_A,\rho_B}\circ\tuple{\pi_A,\pi_B}}{A\times B}{A\times B}$を射の対とする積の図式を考える、つまり積$(A\times B,\pi_A,\pi_B)$において対$(X,f,g)$に$(A\times B,\pi_A,\pi_B)$を当てはめると二つの射の対の可換性からこの積図式も可換になり、射$\tuple{\rho_A,\rho_B}\circ\tuple{\pi_A,\pi_B}$は実際に射の対になる。ここで恒等射$\mor{id_{A\times B}}{A\times B}{A\times B}$は同様に図式を可換にするから$id_{A\times B}$もまた射の対になる。
 
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -650,34 +453,27 @@
 			同様に射$\mor{\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}}{P}{P}$を射の対とする積の図式を考えると、$\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}=id_{P}$が成り立つ。
 			すると$\tuple{\pi_A,\pi_B}$と$\tuple{\rho_A,\rho_B}$はそれぞれ同型射になり、同型射の存在が示せたので$A\times B\cong P$を示せた。
 	\end{proof}
-	積の定義(2)の対として$(A\times B,\{\pi_A,\pi_B\})$を一様に取ったが、仮に別の積対象と射影射の積を取ったとしても、同じ対象の積であれば同型になるし、命題\ref{isomorphism-and-arrow}より射影射も等価になる。
 	\subsection{終対象}
 	\begin{define}[終対象]
 		ある圏$\cat{C}$に終対象が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が一意に存在するときである。
-	\end{define}
-	普遍性の一般化に基づいて改めて定義してみると、
-	\begin{itemize}
-		\item (1)
-		図式$\cat{D}$として、射と対象が一つも含まれない空圏$\cat{0}$を当てはめる。空圏は圏の公理を満たせるほどの射も対象も存在しないが、公理に違反しないため圏とみなせる。また、積を構成する図式と違って、圏$\cat{C}$の図式としての空圏は一通りしかない。
-		\item (2)
-		対$(U,(\tau_A)_{A\in D})$に$(1,{})$を当てはめる。図式中に対象が存在しないため、各対象への射は考慮しなくてよい。
-		\item (3)
-		図式に射が含まれないので無条件で可換性が成り立つ。
-		\item (4)
-		対$(X,(\phi_A)_{A\in D})$も(2)と同様に$(X,{})$と表せる。射の可換性どころか各対象への射の存在すら必要ないので、圏$\cat{C}$に含まれるすべての対象$X$における対を考えることができる。
-		\item (5)
-		終対象$1$から$X$への射$\mor{!_X}{X}{1}$が一意に定まる。同様に図式中に射が存在しないため可換性は成り立たない。
-	\end{itemize}
-	積の普遍性によって一意に定まる射である射の対は、与えられた図式$\cat{D}$の対象$A,B$や、$U$から図式の各対象への射$\pi_A,\pi_B$、$X$から図式の各対象への射$f,g$などの複数の対象や射によって決定されるが、終対象では与えられた図式は圏$\cat{C}$において一意に定まるし、$U$から各対象への射と$X$から各対象への射も考慮されないため一意に定まる。
-	そのため射の一意性は無条件で成り立つ。
 
-	まずは積でも示したように終対象を元を用いて調べてみる。
+		元とは射の向きが逆であることに注意してほしい。
+	\end{define}
+	射の対$\mor{\tuple{f,g}}{X}{A\times B}$は射$f,g$に対して一意に存在するのであったが、終対象への射$\mor{!_X}{X}{1}$は対応する射が存在しない。そのため、終対象への射は無条件で一意に存在することになる。
 	\begin{prop}[終対象から終対象への射]
 		終対象から終対象への射は恒等射ただ一つである。
 	\end{prop}
 	\begin{proof}
-		終対象$1$に対して、対$(X,\{\})$に$(1,\{\})$を当てはめて考えると、$\mor{!_1}{1}{1}$は無条件で一意に定まる。
-		すべての対象に恒等射は存在するから、$id_1=!_1$となり、一意に定まる。-657t
+		終対象$1$に対して、終対象から終対象への射$\mor{!_1}{1}{1}$は無条件で一意に定まる。
+		すべての対象に恒等射は存在するから、$id_1=!_1$となり、一意に定まる。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (1) at (0, 0) {$1$};
+				\node (1') at (2, 0) {$1$};
+				\draw[->,transform canvas={yshift=2pt}] (1) to node{$!_{1}$}(1');
+				\draw[->,transform canvas={yshift=-2pt}] (1) to node[swap]{$id_1$}(1');
+			\end{tikzpicture}
+		\end{center}
 	\end{proof}
 	終対象から終対象の射を終対象の元とみなすと、終対象は元がただ一つしかない対象であると分かる。
 
@@ -688,11 +484,21 @@
 		終対象$1$における$1'$からの一意に定まる射$\mor{!_1}{1'}{1}$と終対象$1'$における$1$からの一意に定まる射$\mor{{!_1}'}{1}{1'}$の合成$\mor{!_1\circ {!_1}'}{1}{1}$と$\mor{{!_1}'\circ!_1}{1'}{1'}$はそれぞれ終対象から終対象への射である。
 
 		よって$!_1\circ {!_1}'=id_1$と${!_1}'\circ!_1=id_1'$が成り立ち、$!_1$、${!_1}'$が同型射になるから$1\cong 1'$が成り立つ。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (1) at (0, 0) {$1$};
+				\node (1') at (2, 0) {$1'$};
+				\draw[->,transform canvas={yshift=2pt}] (1) to node{$!_{1'}$}(1');
+				\draw[->,transform canvas={yshift=-2pt}] (1') to node{$!'_1$}(1);
+				\draw[->,loop left ,looseness=20] (1) to node{$!'_1\circ !_{1'}$}(1);
+				\draw[->,loop right ,looseness=20] (1') to node{$\circ !_{1'}!'_1$}(1');
+			\end{tikzpicture}
+		\end{center}
 	\end{proof}
 
 	\subsection{演習問題}
 	\begin{enumerate}
-		\item 積$A\times B$において、$\tuple{\pi_A,\pi_B}=id_{A\times B}$を示せ。
+		\item 積$A\times B$において$\tuple{\pi_A,\pi_B}=id_{A\times B}$を示せ。
 		\item 対象$A,B$と終対象$1$において、任意の射$\mor{f}{A}{B}$に対して$!_B\circ f=!_A$が成り立つことを示せ。
 		\item $A\times 1\cong A$を示せ。(Hint: $\pi_A$と$\tuple{id_A,!_X}$が同型射であることを示せばよい)
 	\end{enumerate}
