@@ -44,7 +44,7 @@
 			\end{center}
 
 			\item[射の合成] ある射$f,g$が$cod(f)=dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、射の合成$\mor{g\circ f}{X}{Y}$が行える。
-			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意すべきである。
+			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意してほしい。
 
 			射$h,g$の合成$h\circ g$は次のように表せる。
 			また対象$A$と対象$B$の間の射は一つとは限らないので、必ずしも$h\circ g=f$が成り立つわけではない。
@@ -97,12 +97,7 @@
 		\end{description}
 	\end{define}
 
-	%\subsection{前順序圏}
-	%前順序集合は反射律と推移律を満たす順序集合である。
-	%この前順序集合$P$の元を対象、ある元$a,b$の間の順序関係$a\leq b$を$a$から$b$への射とする圏を$\cat{Pre}$とすると、反%射律より恒等射の存在が、推移律より射の結合則が満たされる。
-
-	%圏$\cat{Pre}$では任意の二対象の間の射が高々一つしかない。
-	%そのため、恒等射の性質や結合則に現れる等式は必ず成り立つ。
+	\subsection{スライス圏}
 	次に圏の具体例としてスライス圏と呼ばれる圏を定義する。
 	\begin{define}[スライス圏]
 		ある圏$\cat{C}$、圏$\cat{C}$のある対象$X$によるスライス圏$\cat{C}/X$は、
@@ -142,6 +137,13 @@
 				\end{tikzpicture}
 			\end{center}
 			\item[射の合成]　射$\mor{i_{AB}}{f_A}{g_B}$と$\mor{j_{BC}}{g_B}{h_C}$の合成$j_{BC}\circ i_{AC}$を、$j_{BC}\circ i_{AB}=(j\circ i)_{AC}$と定義する。
+			射の定義より、$g\circ i=f$、$h\circ j=g$が成り立つから、
+				\begin{alignat*}{2}
+					f&=g\circ i &　(i_{AB}の定義) \\
+					&=h\circ j \circ i　& (j_{BC}の定義) \\
+					&=h\circ(j\circ i)　&
+				\end{alignat*}
+				となり、射$\mor{(j\circ i)_{AC}}{f_A}{h_C}$は実際にスライス圏の射の定義を満たす。
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 0) {$A$};
@@ -174,7 +176,7 @@
 					\draw[->] (fa) to node {$j_{BC}\circ i_{AC}=(j\circ i)_{AC}$}(hc);
 				\end{tikzpicture}
 			\end{center}
-			\item[恒等射の存在] 対象$f_A$の恒等射$\mor{id_{f_A}}{f_A}{f_A}$を$id_{f_A}=(id_A)_{AA}$と定義する。
+			\item[恒等射の存在] 対象$f_A$の恒等射$\mor{id_{f_A}}{f_A}{f_A}$を$id_{f_A}=(id_A)_{AA}$と定義する。また$f\circ id_A=f$でありスライス圏の射の定義を満たす
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a1) at (0, 0) {$A$};
@@ -193,31 +195,34 @@
 			\end{center}
 
 			\item[結合律] 射$\mor{j_{AB}}{f_A}{g_B}$、$\mor{k_{BC}}{g_B}{h_C}$、$\mor{l_{CD}}{h_C}{i_D}$の合成において、
-			\begin{eqnarray*}
-				l_{CD}\circ (k_{BC}\circ j_{AB})&=&l_{CD}\circ(k\circ j)_{AC} \\
-				&=&(l\circ(k\circ j))_{AD} \\
-				&=&((l\circ k)\circ j)_{AD} \\
-				&=&(l\circ k)_{BD}\circ j_{AB} \\
-				&=&(l_{CD}\circ k_{BC})\circ j_{AB}
-			\end{eqnarray*}
+			\begin{alignat*}{2}
+				l_{CD}\circ (k_{BC}\circ j_{AB})&=l_{CD}\circ(k\circ j)_{AC}&(スライス圏の射の合成) \\
+				&=(l\circ(k\circ j))_{AD}&(スライス圏の射の合成) \\
+				&=((l\circ k)\circ j)_{AD}&(射の結合則) \\
+				&=(l\circ k)_{BD}\circ j_{AB}&(スライス圏の射の合成) \\
+				&=(l_{CD}\circ k_{BC})\circ j_{AB}&(スライス圏の射の合成)
+			\end{alignat*}
 			となり、結合律を満たす。
 			\item[単位元律] 任意の射$\mor{i_{AB}}{f_A}{g_B}$、$\mor{j_{BC}}{g_B}{h_C}$と恒等射$\mor{id_{g_B}}{g_B}{g_B}$において、
-			\begin{eqnarray*}
-				id_{g_B}\circ i_{AB}&=&(id_B)_{BB}\circ i_{AB}\\
-				&=&(id_B\circ i)_{AB}\\
-				&=&i_{AB}
-			\end{eqnarray*}
-			\begin{eqnarray*}
-				j_{BC}\circ id_{g_B}&=&j_{BC}\circ (id_B)_{BB}\\
-				&=&(j\circ id_B)_{BC}\\
-				&=&j_{BC}
-			\end{eqnarray*}
-			となるから$\cat{C}/X$の恒等射は実際に恒等射の性質を満たす。
+			\begin{alignat*}{2}
+				id_{g_B}\circ i_{AB}&=(id_B)_{BB}\circ i_{AB}&(スライス圏の恒等射)\\
+				&=(id_B\circ i)_{AB}&(スライス圏の射の合成)\\
+				&=i_{AB}
+			\end{alignat*}
+			\begin{alignat*}{2}
+				j_{BC}\circ id_{g_B}&=j_{BC}\circ (id_B)_{BB}&(スライス圏の恒等射)\\
+				&=(j\circ id_B)_{BC}&(スライス圏の射の合成)\\
+				&=j_{BC}
+			\end{alignat*}
+			となり、$\cat{C}/X$の恒等射は実際に恒等射の性質を満たす。
 		\end{description}
 	\end{define}
 
 	%\end{define}
 	\section{圏論の基本概念}
+	圏論では対象の性質をその対象をドメイン、コドメインとする射の性質によって与える。
+	直感的にはある対象を述べる場合、「どのように構成されるか」ではなく「どのように振舞うか」で述べるように思える。
+
 	まずはこれまで図示してきた図式について数学的な定義を与える。
 	\begin{define}[図式(部分圏)]
 		ある圏$\cat{C}$のある図式(部分圏)とは、圏$\cat{C}$に含まれるいくつかの対象と、いくつかの射で構成される圏であり、任意の対象に対応する恒等射を含み、図式中の任意の合成可能な二射$\mor{f}{X}{Y},\mor{g}{Y}{Z}$が含まれるとき、その合成射$g\circ f$も含むような圏である。
@@ -246,12 +251,18 @@
 		\end{tikzpicture}
 	\end{center}
 	\subsection{同型}
+	圏論では対象の性質を射の性質で説明すると述べたが、対象の等しさを射の等しさで説明した同型という概念がある。
 	\begin{define}[同型]
 		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$f\circ f^{-1}=id_B$と$f^{-1}\circ f=id_A$を満たすようなある二つの射$\mor{f}{A}{B}$とその逆射$\mor{f^{-1}}{B}{A}$が存在するときである。
 		また、このような射$f,f^{-1}$を同型射と呼ぶ。
 	\end{define}
 	\begin{center}
 		\begin{tikzpicture}[auto]
+			\node (a) at (-4, -1) {$A$};
+			\node (b) at (-2, -1) {$B$};
+			\draw[->,transform canvas={yshift=-3pt}] (a) to node[swap] {$f$}(b);
+			\draw[->,transform canvas={yshift=3pt}] (b) to node[swap] {$f^{-1}$}(a);
+
 			\node (a) at (0, 0) {$A$};
 			\node (b) at (2, 0) {$B$};
 			\node (b') at (0, -2) {$B$};
@@ -267,10 +278,9 @@
 			\draw[->] (b) to node[swap] {$f$}(a);
 		\end{tikzpicture}
 	\end{center}
-	圏論での同型は直感的には二つの対象の持つ振る舞いが一致するような同値関係として扱われる。
-	これを圏論の言葉で記述する。
-	\begin{prop}
-		$A\cong A' \Longleftrightarrow$任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して、$A\cong A'$の同型射を$i,i^{-1}$とすると$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
+	次に同型であることと、それらの周りの射が等価になることが同値になることを確かめる。
+	\begin{prop}[同型と射の対応] \label{isomorphism-and-arrow}
+		$A\cong A' \Longleftrightarrow$ ある射$\mor{i}{A}{A'},\mor{i^{-1}}{A'}{A}$が存在し、任意の対象$X$、任意の射$\mor{f}{A}{X}$に対してある射$\mor{f'}{A'}{X}$が存在して$f'\circ i=f$、$f\circ i^{-1}=f'$が成り立つ。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -283,12 +293,11 @@
 			\end{tikzpicture}
 		\end{center}
 	\end{prop}
-
 	$A$と$A'$の間にある相互変換となる射である同型射$\mor{i}{A}{A'}$、$\mor{i^{-1}}{A'}{A}$が存在して、$A$と$A'$の振る舞いとして任意の$X$と任意の射$\mor{f}{A}{X}$とそれに対応する$\mor{f'}{A'}{X}$を考える。
 	もし、$A$と$A'$の振る舞いが一致するならば、$f$とある変換$i$を経由した$f'$、つまり$f'\circ i$が等しくなり、同様に$f'$とある変換$i^{-1}$を経由した$f$、つまり$f\circ i^{-1}$が等しくなるはずである。
 
 	\begin{proof}
-		$(\Longleftarrow)$ $f=f'\circ i$、$f'=f\circ i^{-1}$にそれぞれもう一方をお互いに代入することで$f'\circ i\circ i^{-1}=f'$、$f\circ i^{-1}\circ i=f$が成り立つ。これらは$i,i^{-1}$に対して任意の$X,f$について成り立つから、$X,f$に$A,id_A$と$A',id_A'$を当てはめると、それぞれ$i\circ i^{-1}=id_A$、$i^{-1}\circ i=id_A'$が成り立つ。
+		$(\Longleftarrow)$ $f=f'\circ i$、$f'=f\circ i^{-1}$にそれぞれもう一方をお互いに代入することで$f'=f'\circ i\circ i^{-1}$、$f=f\circ i^{-1}\circ i$が成り立つ。これらは$i,i^{-1}$に対して任意の$X,f$について成り立つから、$X,f$に$A,id_A$と$A',id_A'$を当てはめると、それぞれ$i\circ i^{-1}=id_A$、$i^{-1}\circ i=id_A'$が成り立つ。
 
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -662,6 +671,7 @@
 			同様に射$\mor{\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}}{P}{P}$を射の対とする積の図式を考えると、$\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}=id_{P}$が成り立つ。
 			すると$\tuple{\pi_A,\pi_B}$と$\tuple{\rho_A,\rho_B}$はそれぞれ同型射になり、同型射の存在が示せたので$A\times B\cong P$を示せた。
 	\end{proof}
+	積の定義(2)の対として$(A\times B,\{\pi_A,\pi_B\})$を一様に取ったが、仮に別の積対象と射影射の積を取ったとしても、同じ対象の積であれば同型になるし、命題\ref{isomorphism-and-arrow}より射影射も等価になる。
 	\subsection{終対象}
 	\begin{define}[終対象]
 		ある圏$\cat{C}$に終対象が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が一意に存在するときである。
