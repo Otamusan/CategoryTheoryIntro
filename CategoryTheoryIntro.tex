@@ -4,7 +4,7 @@
 \usepackage{url}
 \newcommand{\cat}[1]{\boldsymbol{#1}}
 \newcommand{\arrow}{\rightarrow}
-\newcommand{\functor}{\rightarrow}
+\newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
 \newcommand{\nat}{\Rightarrow}
 \newcommand{\tuple}[1]{\langle #1\rangle}
 \newcommand{\obj}[1]{Obj(\cat{#1})}
@@ -503,6 +503,130 @@
 		\item $A\times 1\cong A$を示せ。(Hint: $\pi_A$と$\tuple{id_A,!_X}$が同型射であることを示せばよい)
 	\end{enumerate}
 	\section{関手}
+	これまでの議論はすべて一つの圏の上で行われてきたが、これからはある圏とまた別の圏の関係について考えていく。
+	\begin{define}
+		ある圏$\cat{C}$からある圏$\cat{D}$への関手$\functor{F}{C}{D}$は以下の関数と公理から構成される。
+		また例として、以下の射と対象で構成される圏$\cat{C},\cat{D}$と二つの関手$\functor{T}{C}{D}$、$\functor{S}{C}{D}$を見ていく。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 2) {$A$};
+				\node (b) at (0, 0) {$B$};
+				\node (c) at (2, 1) {$C$};
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (b) to node{$g$}(c);
+				\draw[->] (a) to node{$g\circ f$}(c);
+
+				\node (x) at (4, 2) {$X$};
+				\node (y) at (4, 0) {$Y$};
+				\node (w) at (6, 2) {$W$};
+				\node (z) at (6, 0) {$Z$};
+				\draw[->] (x) to node{$i$}(y);
+				\draw[->] (y) to node{$j$}(z);
+				\draw[->] (x) to node{$j\circ i$}(z);
+				\draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$k$}(w);
+				\draw[->,transform canvas={yshift=2pt}] (x) to node{$k\circ h$}(w);
+				\draw[->,loop left ,looseness=10] (x) to node{$h$}(x);
+
+				\node (catc) at (1, 3) {$\cat{C}$};
+				\node (catd) at (5, 3) {$\cat{D}$};
+				%\draw[->,bend right = 15] (catc) to node{$T$}(catd);
+				%\draw[->,bend left = 15] (catc) to node{$S$}(catd);
+			\end{tikzpicture}
+		\end{center}
+		\begin{description}
+		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数$\mor{F}{Obj(\cat{C})}{Obj(\cat{D})}$。
+		関手$T$の対象関数$T$を\[T(A)=X,\ T(B)=Y,\ T(C)=Z\]と定義する。
+		また関手$S$の対象関数$S$を\[S(A)=X,\ S(B)=X,\ S(C)=W\]と定義する。
+		\item[射関数]$\cat{C}$の任意の射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数$\mor{F}{Mor(A,B)}{Mor(FA,FB)}$。対象関数と射関数は記法で区別しないことと、$Tf$ののようにかっこを省略する場合もあることに注意してほしい。
+
+		関手$T$の射関数$T$を\[T(f)=i,\ T(g)=j,\ T(g\circ f)=j\circ i\]と定義する。また各対象の恒等射の対応は
+		\begin{align*}
+			T(id_A)&=id_{TA}\\
+			&=id_{X}　\text{($TA=X$)}\\
+			T(id_B)&=id_{TB}\\
+			&=id_{Y}　\text{($TB=Y$)}\\
+			T(id_C)&=id_{TC}\\
+			&=id_{Z}　\text{($TC=Z$)}
+		\end{align*}とする。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 2) {$A$};
+				\node (b) at (0, 0) {$B$};
+				\node (c) at (2, 1) {$C$};
+				\node (x) at (4, 2) {$X$};
+				\node (y) at (4, 0) {$Y$};
+				\node (z) at (6, 1) {$Z$};
+				\draw[-,dashed] (a) to (x);
+				\draw[-,dashed] (b) to (y);
+				\draw[-,dashed] (c) to (z);
+
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (b) to node{$g$}(c);
+				\draw[->] (a) to node{$g\circ f$}(c);
+
+				\draw[-, line width=4pt,draw=white] (x) to (y);
+				\draw[->] (x) to node[yshift =10]{$i$}(y);
+				\draw[->] (y) to node[swap]{$j$}(z);
+				\draw[->] (x) to node{$j\circ i$}(z);
+				\node (catc) at (1, 3) {$\cat{C}$};
+				\node (catd) at (5, 3) {$\cat{D}$};
+				\draw[->] (catc) to node{$T$}(catd);
+
+			\end{tikzpicture}
+		\end{center}
+		関手$S$の射関数$S$を\[S(f)=h,\ S(g)=k,\ S(g\circ f)=k\circ h\]と定義する。
+		恒等射の対応は
+		\begin{align*}
+			S(id_A)&=id_{SA}\\
+			&=id_{X}　\text{($SA=X$)}\\
+			S(id_B)&=id_{SB}\\
+			&=id_{X}　\text{($SB=X$)}\\
+			S(id_C)&=id_{SC}\\
+			&=id_{W}　\text{($SC=W$)}
+		\end{align*}
+		とする。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 2) {$A$};
+				\node (b) at (0, 0) {$B$};
+				\node (c) at (2, 1) {$C$};
+				\node (x) at (4, 2) {$X$};
+				\node (y) at (4, 0) {$X$};
+				\node (z) at (6, 1) {$W$};
+				\draw[-,dashed] (a) to (x);
+				\draw[-,dashed] (b) to (y);
+				\draw[-,dashed] (c) to (z);
+
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (b) to node{$g$}(c);
+				\draw[->] (a) to node{$g\circ f$}(c);
+
+				\draw[-, line width=4pt,draw=white] (x) to (y);
+				\draw[->] (x) to node[yshift =10]{$h$}(y);
+				\draw[->] (y) to node[swap]{$k$}(z);
+				\draw[->] (x) to node{$k\circ h$}(z);
+				\node (catc) at (1, 3) {$\cat{C}$};
+				\node (catd) at (5, 3) {$\cat{D}$};
+				\draw[->] (catc) to node{$T$}(catd);
+
+			\end{tikzpicture}
+		\end{center}
+		\item[恒等射の保存] 射関数は圏$\cat{C}$の恒等射を$\cat{D}$の恒等射に対応させる。つまり$F(id_A)=id_{FA}$が成り立つ。
+
+		関手$T,S$でも定義を見れば成り立つことがすぐに分かる。
+		\item[射の合成の保存]$cod(f)=dom(g)$であるとき、$F(g\circ f)=Fg\circ Ff$が成り立つ。
+
+		関手$T,S$においてそれぞれ
+		\begin{align*}
+			T(g\circ f)&=j\circ i&&\text{($T(g\circ f)$の定義)}\\
+			&=Tg\circ Tf&&\text{($Tg,Tf$の定義)}\\
+			S(g\circ f)&=k\circ h&&\text{($S(g\circ f)$の定義)}\\
+			&=Sg\circ Sf&&\text{($Sg,Sf$の定義)}\\
+		\end{align*}
+		が成り立つから射の合成を保つことがわかる。
+		\end{description}
+	\end{define}
+
 	\section{自然変換}
 	\section{随伴関手}
 	\section{デカルト閉圏}
