@@ -394,7 +394,6 @@
 		\end{center}
 	\end{proof}
 	射の積を並列での合成とみなすならば、射の合成は直列での合成を表し、積と合成の交換はどちらの合成を先に計算しても結果が変わらないことを表す。
-
 	\begin{prop}[積の一意性]
 		$A$と$B$の積$A\times B$に対して、同様に$A$と$B$の積である対象$P$と射影射$\mor{\rho_A}{P}{A}$、$\mor{\rho_B}{P}{B}$が存在するとき、$A\times B\cong P$が成り立つ。またこの時、積は同型を除いて一意と呼ぶことがある。
 	\end{prop}
@@ -453,6 +452,28 @@
 			同様に射$\mor{\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}}{P}{P}$を射の対とする積の図式を考えると、$\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}=id_{P}$が成り立つ。
 			すると$\tuple{\pi_A,\pi_B}$と$\tuple{\rho_A,\rho_B}$はそれぞれ同型射になり、同型射の存在が示せたので$A\times B\cong P$を示せた。
 	\end{proof}
+	積の一意性の証明では、ある積に対して別の積の射影射の対を取ったが、自身の射影射の対を取るとどうなるのか考えてみる。
+	\begin{prop}[射影射の対]
+		ある積$(A\times B,\pi_A,\pi_B)$に対して$\tuple{\pi_A,\pi_B}=id_{A\times B}$が成り立つ。
+	\end{prop}
+	\begin{proof}
+		積$(A\times B,\pi_A,\pi_B)$に対して組$(X,f,g)$に$(A\times B,\pi_A,\pi_B)$を当てはめる。
+		すると、$\pi_{A}\circ id_{A\times B}=\pi_{A}$と$\pi_{B}\circ id_{A\times B}=\pi_{B}$が成り立つから、$id_{A\times B}$は$\pi_A$と$\pi_B$の対になる。よって射の対の一意性より、$\tuple{\pi_A,\pi_B}=id_{A\times B}$が成り立つ。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$A$};
+				\node (ab) at (3, 0) {$A\times B$};
+				\node (b) at (6, 0) {$B$};
+				\node (p) at (3, 3) {$A\times B$};
+				\draw[->] (p) to node[swap]{$\pi_A$}(a);
+				\draw[->] (p) to node{$\pi_B$}(b);
+				\draw[->,transform canvas={xshift=2pt}] (p) to node{\scriptsize{$\tuple{\pi_A,\pi_B}$}}(ab);
+				\draw[->,transform canvas={xshift=-2pt}] (p) to node[swap]{$id_{A\times B}$}(ab);
+				\draw[->] (ab) to node{$\pi_A$}(a);
+				\draw[->] (ab) to node{$\pi_B$}(b);
+			\end{tikzpicture}
+		\end{center}
+	\end{proof}
 	\subsection{終対象}
 	\begin{define}[終対象]
 		ある圏$\cat{C}$に終対象が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が一意に存在するときである。
@@ -498,7 +519,6 @@
 
 	\subsection{演習問題}
 	\begin{enumerate}
-		\item 積$A\times B$において$\tuple{\pi_A,\pi_B}=id_{A\times B}$を示せ。
 		\item 対象$A,B$と終対象$1$において、任意の射$\mor{f}{A}{B}$に対して$!_B\circ f=!_A$が成り立つことを示せ。
 		\item $A\times 1\cong A$を示せ。(Hint: $\pi_A$と$\tuple{id_A,!_X}$が同型射であることを示せばよい)
 	\end{enumerate}
@@ -574,6 +594,7 @@
 
 			\end{tikzpicture}
 		\end{center}
+		この図での点線は対象の写像的な対応を表しているのであって、実際に射が存在するわけではないことに注意してほしい。
 		関手$S$の射関数$S$を\[S(f)=h,\ S(g)=k,\ S(g\circ f)=k\circ h\]と定義する。
 		恒等射の対応は
 		\begin{align*}
@@ -618,14 +639,87 @@
 
 		関手$T,S$においてそれぞれ
 		\begin{align*}
-			T(g\circ f)&=j\circ i&&\text{($T(g\circ f)$の定義)}\\
-			&=Tg\circ Tf&&\text{($Tg,Tf$の定義)}\\
-			S(g\circ f)&=k\circ h&&\text{($S(g\circ f)$の定義)}\\
-			&=Sg\circ Sf&&\text{($Sg,Sf$の定義)}\\
+			T(g\circ f)&=j\circ i&\text{($T(g\circ f)$の定義)}\\
+			&=Tg\circ Tf&\text{($Tg,Tf$の定義)}\\
+			S(g\circ f)&=k\circ h&\text{($S(g\circ f)$の定義)}\\
+			&=Sg\circ Sf&\text{($Sg,Sf$の定義)}
 		\end{align*}
 		が成り立つから射の合成を保つことがわかる。
 		\end{description}
 	\end{define}
+	\begin{prop}[図式の圏論的な定義]
+		添字圏と呼ばれる圏$\cat{J}$から図式を取りたい圏$\cat{C}$への関手は図式である。
+		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$J$を図式の骨組み、関手$\functor{F}{I}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
+
+		実際に図式に求められる性質は関手の定義によって満たされることがわかる。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 2) {$I$};
+				\node (b) at (0, 0) {$J$};
+				\node (c) at (2, 1) {$K$};
+				\node (x) at (4, 2) {$A$};
+				\node (y) at (4, 0) {$B$};
+				\node (z) at (6, 1) {$C$};
+				\draw[-,dashed] (a) to (x);
+				\draw[-,dashed] (b) to (y);
+				\draw[-,dashed] (c) to (z);
+
+				\draw[->] (a) to node{$i$}(b);
+				\draw[->] (b) to node{$j$}(c);
+				\draw[->] (a) to node{$j\circ i$}(c);
+
+				\draw[-, line width=4pt,draw=white] (x) to (y);
+				\draw[->] (x) to node[yshift =10]{$f$}(y);
+				\draw[->] (y) to node[swap]{$g$}(z);
+				\draw[->] (x) to node{$g\circ f$}(z);
+				\node (catc) at (1, 3) {$\cat{I}$};
+				\node (catd) at (5, 3) {$\cat{C}$};
+				\draw[->] (catc) to node{$F$}(catd);
+
+			\end{tikzpicture}
+		\end{center}
+	\end{prop}
+	\begin{define}[積関手]
+		以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を積関手と呼ぶ。
+		\begin{description}
+			\item[対象関数] 対象関数を$(-\times B)(A)=A\times B$と定義する。
+			\item[射関数] 圏$C$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して射関数を\[\mor{(-\times B)(f)=f\times id_B}{A\times B}{A'\times B}\]と定義する。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (ab) at (2, 2) {$A\times B$};
+					\node (a'b) at (2, 0) {$A'\times B$};
+					\node (catc1) at (0, 3) {$\cat{C}$};
+					\node (catc2) at (2, 3) {$\cat{C}$};
+					\draw[-,dashed] (a) to (ab);
+					\draw[-,dashed] (a') to (a'b);
+
+					\draw[->] (catc1) to node{$-\times B$}(catc2);
+					\draw[->] (a) to node[swap]{$f$}(a');
+					\draw[->] (ab) to node[swap]{$f\times id_B$}(a'b);
+				\end{tikzpicture}
+			\end{center}
+			\item[恒等射の保存] $(-\times B)(id_A)=id_{(-\times B)(A)}$を示せばよい。
+			\begin{align*}
+				(-\times B)(id_A)&=id_A\times id_B&\text{(射関数の定義)}\\
+				&=\tuple{id_A\circ\pi_A,id_B\circ\pi_B}&\text{(射の積の定義)}\\
+				&=\tuple{\pi_A,\pi_B}&\text{(恒等射の性質)}\\
+				&=id_{A\times B}&\text{(射影射の対)}\\
+				&=id_{(-\times B)(A)}&\text{(対象関数の定義)}
+			\end{align*}
+			よって積関手は恒等射を保つことが示せた。
+			\item[射の合成の保存]任意の対象$A,A',A''$と任意の射$\mor{f}{A}{A'},\mor{f'}{A'}{A''}$に対して\[(-\times B)(f'\circ f)=(-\times B)(f')\circ(-\times B)(f)\]が成り立つことを示せばよい。
+			\begin{align*}
+				(-\times B)(f'\circ f)&=(f'\circ f)\times id_B&\text{(射関数の定義)}\\
+				&=(f'\circ f)\times (id_B\circ id_B)&\text{(恒等射の性質)}\\
+				&=(f'\times id_B)\circ(f\times id_B)&\text{(積と合成の交換)}\\
+				&=(-\times B)(f')\circ(-\times B)(f)&\text{(射関数の定義)}
+			\end{align*}
+			よって積関手は射の合成を保つことが示せた。
+		\end{description}
+	\end{define}
+	\subsection{小さい圏の圏}
 
 	\section{自然変換}
 	\section{随伴関手}
