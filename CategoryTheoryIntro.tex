@@ -3,6 +3,7 @@
 \usepackage{amsmath}
 \usepackage{url}
 \newcommand{\cat}[1]{\boldsymbol{#1}}
+\newcommand{\catcat}{\mathbf{Cat}}
 \newcommand{\arrow}{\rightarrow}
 \newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
 \newcommand{\nat}{\Rightarrow}
@@ -452,7 +453,7 @@
 			同様に射$\mor{\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}}{P}{P}$を射の対とする積の図式を考えると、$\tuple{\pi_A,\pi_B}\circ\tuple{\rho_A,\rho_B}=id_{P}$が成り立つ。
 			すると$\tuple{\pi_A,\pi_B}$と$\tuple{\rho_A,\rho_B}$はそれぞれ同型射になり、同型射の存在が示せたので$A\times B\cong P$を示せた。
 	\end{proof}
-	積の一意性の証明では、ある積に対して別の積の射影射の対を取ったが、自身の射影射の対を取るとどうなるのか考えてみる。
+		積の一意性の証明では、ある積に対して別の積の射影射の対を取ったが、自身の射影射の対を取るとどうなるのか考えてみ。
 	\begin{prop}[射影射の対]
 		ある積$(A\times B,\pi_A,\pi_B)$に対して$\tuple{\pi_A,\pi_B}=id_{A\times B}$が成り立つ。
 	\end{prop}
@@ -716,11 +717,139 @@
 				&=(f'\times id_B)\circ(f\times id_B)&\text{(積と合成の交換)}\\
 				&=(-\times B)(f')\circ(-\times B)(f)&\text{(射関数の定義)}
 			\end{align*}
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (a'') at (0, -2) {$A''$};
+					\node (ab) at (2, 2) {$A\times B$};
+					\node (a'b) at (2, 0) {$A'\times B$};
+					\node (a''b) at (2, -2) {$A''\times B$};
+					\node (catc1) at (0, 3) {$\cat{C}$};
+					\node (catc2) at (2, 3) {$\cat{C}$};
+					\draw[-,dashed] (a) to (ab);
+					\draw[-,dashed] (a') to (a'b);
+					\draw[-,dashed] (a'') to (a''b);
+					\draw[->] (catc1) to node{$-\times B$}(catc2);
+					\draw[->] (a) to node[swap]{$f$}(a');
+					\draw[->] (a') to node[swap]{$f'$}(a'');
+					\draw[->] (ab) to node[swap]{$f\times id_B$}(a'b);
+					\draw[->] (a'b) to node[swap]{$f'\times id_B$}(a''b);
+					\draw[->,bend left =30] (ab) to node{$(f'\circ f)\times id_B$}(a''b);
+				\end{tikzpicture}
+			\end{center}
 			よって積関手は射の合成を保つことが示せた。
 		\end{description}
 	\end{define}
-	\subsection{小さい圏の圏}
+	関手は二つの関数から構成されるから、これらの関数の合成によって関手の合成が定義できそうである。
+	さてこの合成関手が実際に関手になるか確かめる。
+	\begin{define}[合成関手]
+		関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を以下の要素によって定義する。
+		\begin{description}
+			\item[対象関数]関手$F,G$のそれぞれの対象関数$F,G$に対して$G\circ F$の対象関数を$G\circ F$と定義する。
+			つまり圏$\cat{C}$の任意の対象$A$に対して$(G\circ F)(A)=G(FA)$となるような関数である。
+			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数もまた$G\circ F$と定義する。
+			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)(f)=G(Ff)}{GFA}{GF{A'}}\]となるような関数である。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (fa) at (2, 2) {$FA$};
+					\node (fa') at (2, 0) {$FA'$};
+					\node (gfa) at (4, 2) {$GFA$};
+					\node (gfa') at (4, 0) {$GFA'$};
+					\node (catc) at (0, 3) {$\cat{C}$};
+					\node (catc') at (2, 3) {$\cat{C'}$};
+					\node (catc'') at (4, 3) {$\cat{C''}$};
+					\draw[-,dashed] (a) to (fa);
+					\draw[-,dashed] (a') to (fa');
+					\draw[-,dashed] (fa) to (gfa);
+					\draw[-,dashed] (fa') to (gfa');
+					\draw[->] (catc) to node{$F$}(catc');
+					\draw[->] (catc') to node{$G$}(catc'');
 
+					\draw[->] (a) to node{$f$}(a');
+					\draw[->] (fa) to node{$Ff$}(fa');
+					\draw[->] (gfa) to node{$GFf$}(gfa');
+
+				\end{tikzpicture}
+			\end{center}
+			また紛らわしくない場合は合成関手$G\circ F$を$GF$と略すことにする。
+			\item[恒等射の保存]　$GF(id_A)=id_{GFA}$を示せばよい。
+				\begin{align*}
+					GF(id_A)&=G(F(id_A))&\text{(射関数の定義)}\\
+					&=G(id_{FA})&\text{(関手$F$の恒等射の保存)}\\
+					&=id_{GFA}&\text{(関手$G$の恒等射の保存)}
+				\end{align*}
+			よって合成関手は恒等射を保つ。
+			\item[射の合成の保存]　$GF(g\circ f)=GFg\circ GFf$を示せばよい。
+				\begin{align*}
+					GF(g\circ f)&=G(F(g\circ f))&\text{(射関数の定義)}\\
+					&=G(Fg\circ Ff)&\text{(関手$F$の射の合成の保存)}\\
+					&=GFg\circ GFf&\text{(関手$G$の射の合成の保存)}
+				\end{align*}
+			よって合成関手は射の合成を保つ。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (a'') at (0, -2) {$A''$};
+					\node (fa) at (2, 2) {$FA$};
+					\node (fa') at (2, 0) {$FA'$};
+					\node (fa'') at (2, -2) {$FA''$};
+					\node (gfa) at (4, 2) {$GFA$};
+					\node (gfa') at (4, 0) {$GFA'$};
+					\node (gfa'') at (4, -2) {$GFA''$};
+					\node (catc) at (0, 3) {$\cat{C}$};
+					\node (catc') at (2, 3) {$\cat{C'}$};
+					\node (catc'') at (4, 3) {$\cat{C''}$};
+					\draw[-,dashed] (a) to (fa);
+					\draw[-,dashed] (a') to (fa');
+					\draw[-,dashed] (a'') to (fa'');
+					\draw[-,dashed] (fa) to (gfa);
+					\draw[-,dashed] (fa') to (gfa');
+					\draw[-,dashed] (fa'') to (gfa'');
+					\draw[->] (catc) to node{$F$}(catc');
+					\draw[->] (catc') to node{$G$}(catc'');
+
+					\draw[->] (a) to node{$f$}(a');
+					\draw[->] (a') to node{$g$}(a'');
+
+					\draw[->] (fa) to node{$Ff$}(fa');
+					\draw[->] (fa') to node{$Fg$}(fa'');
+
+					\draw[->] (gfa) to node[swap]{$GFf$}(gfa');
+					\draw[->] (gfa') to node[swap]{$GFg$}(gfa'');
+					\draw[->,bend left =30] (gfa) to node{$GF(g\circ f)$}(gfa'');
+				\end{tikzpicture}
+			\end{center}
+		\end{description}
+	\end{define}
+	\subsection{小さい圏の圏}
+	\begin{define}[小さい圏の圏]
+		小さい圏の圏$\catcat$は以下の要素で構成される
+		\begin{description}
+			\item[対象]　任意の小さい圏
+			\item[射]　任意の圏$\cat{A,B}$の間の任意の関手$\functor{F}{A}{B}$
+			\item[射の合成]　関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を定義する。
+			対象関数と射関数をそれぞれ$(G\circ F)(X)=G(FX)$、$(G\circ F)(f)=G(Ff)$のように
+			$F\circ G$の対象関数、射関数をそれそれ
+			\item[恒等射の存在]
+			\item[結合律]
+			\item[単位元律]
+		\end{description}
+	\end{define}
+	\begin{define}[一点離散圏]
+		content...
+	\end{define}
+	\begin{prop}[$\catcat$の終対象]
+		$\cat{1}$は$\catcat$における終対象である。
+	\end{prop}
+	\begin{define}[積圏]
+
+	\end{define}
+	\subsection{反変関手}
+	\subsection{表現可能関手}
 	\section{自然変換}
 	\section{随伴関手}
 	\section{デカルト閉圏}
