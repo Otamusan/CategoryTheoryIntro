@@ -741,14 +741,15 @@
 			よって積関手は射の合成を保つことが示せた。
 		\end{description}
 	\end{define}
-	関手は二つの関数から構成されるから、これらの関数の合成によって関手の合成が定義できそうである。
-	さてこの合成関手が実際に関手になるか確かめる。
+	\subsection{小さい圏の圏}
+	関手は圏から圏への一種の写像であるため、圏を対象とし関手を射とするような圏である圏の圏を考えることができそうである。
+	まずは合成射、恒等射にあたる関手を定義していく。
 	\begin{define}[合成関手]
 		関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を以下の要素によって定義する。
 		\begin{description}
 			\item[対象関数]関手$F,G$のそれぞれの対象関数$F,G$に対して$G\circ F$の対象関数を$G\circ F$と定義する。
 			つまり圏$\cat{C}$の任意の対象$A$に対して$(G\circ F)(A)=G(FA)$となるような関数である。
-			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数もまた$G\circ F$と定義する。
+			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数もまた$G\circ F$と定義する。このように関手の合成はそれぞれの関手の対象関数、射関数の合成に還元して考える。
 			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)(f)=G(Ff)}{GFA}{GF{A'}}\]となるような関数である。
 			\begin{center}
 				\begin{tikzpicture}[auto]
@@ -825,26 +826,45 @@
 			\end{center}
 		\end{description}
 	\end{define}
-	\subsection{小さい圏の圏}
-	\begin{define}[小さい圏の圏]
-		小さい圏の圏$\catcat$は以下の要素で構成される
+	\begin{define}[恒等関手]
+		任意の圏$\cat{C}$の恒等関手$\functor{Id_{\cat{C}}}{C}{C}$を以下の要素で定義する。
 		\begin{description}
-			\item[対象]　任意の小さい圏
-			\item[射]　任意の圏$\cat{A,B}$の間の任意の関手$\functor{F}{A}{B}$
-			\item[射の合成]　関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を定義する。
-			対象関数と射関数をそれぞれ$(G\circ F)(X)=G(FX)$、$(G\circ F)(f)=G(Ff)$のように
-			$F\circ G$の対象関数、射関数をそれそれ
-			\item[恒等射の存在]
-			\item[結合律]
-			\item[単位元律]
+			\item[対象関数] 対象関数を恒等写像$Id_{\cat{C}}(A)=A$と定義する。
+			\item[射関数] 射関数を恒等写像$Id_{\cat{C}}(f)=f$と定義する。
+			\item[恒等射の保存] $Id_{\cat{C}}(id_C)=id_C=id_{Id_{\cat{C}}}$より恒等射を保つ
+			\item[射の合成の保存] $Id_{\cat{C}}(g\circ f)=g\circ f=Id_{\cat{C}}(g)\circ Id_{\cat{C}}(f)$より射の合成を保つ。
 		\end{description}
 	\end{define}
+	\begin{define}[小さい圏の圏]
+		小さい圏の圏$\catcat$は以下の要素で構成される。
+
+		小さい圏の「小さい」とは簡単に説明をするのであれば自己言及を防ぐための条件付けであり、実際に$\catcat$は小さい圏ではないため$\catcat$の対象にはならない。
+		\begin{description}
+			\item[対象]　任意の小さい圏
+			\item[射]　任意の小さい圏$\cat{A,B}$の間の任意の関手$\functor{F}{A}{B}$
+			\item[射の合成]　関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$に対して合成した関手$\functor{G\circ F}{C}{C'}$をとる操作を射の合成とする。
+			\item[恒等射の存在]任意の圏$\cat{A}$の恒等関手$Id_{\cat{A}}$を恒等射とする。
+			\item[結合律]
+			$H\circ (G\circ F)=(H\circ G)\circ F$が合成可能な任意の関手$F,G,H$で成り立つことを示せばよい。
+
+			関手の等しさは関手を構成する対象関数と射関数の等しさで示す。関手の合成は射関数と対象関数の合成に還元される。写像の合成では結合律が成り立つから確かに関手の合成の結合律も成り立つ。
+			\item[単位元律]
+			任意の圏$\cat{C}$の恒等関手$id_{\cat{C}}$と任意の関手$\functor{F}{X}{C}$、$\functor{G}{C}{Y}$において$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立つことを示せばよい。
+
+			同様に恒等関手との合成は恒等写像の合成に還元されるため、確かに関手の単位元律は成り立つ。
+		\end{description}
+	\end{define}
+
 	\begin{define}[一点離散圏]
-		content...
+		一つの対象と一つの恒等射で構成される圏$\cat{1}$を一点離散圏とよぶ。
 	\end{define}
 	\begin{prop}[$\catcat$の終対象]
 		$\cat{1}$は$\catcat$における終対象である。
 	\end{prop}
+	\begin{proof}
+		任意の圏$C$から一点離散圏$\cat{1}$への関手$!_{\cat{C}}$を考える。
+		$\cat{1}$のただ一つの対象$*$と恒等射$id_*$とすると、射関数、対象関数ともに圏$\cat{C}$の対象、射の$*$、$id_*$への割り当ては一意に定まる。
+	\end{proof}
 	\begin{define}[積圏]
 
 	\end{define}
