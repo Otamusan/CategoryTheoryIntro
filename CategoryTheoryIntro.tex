@@ -35,6 +35,7 @@
 			\begin{description}
 			\item[対象] 対象の集合$A,B,C...\in\obj{C}$
 			\item[射] 任意の対象$A,B$における射の集合$f,g,h...\in\arset{C}{A}{B}$
+			このような射の集合は任意の対象の組み合わせごとに存在する。
 			また$f\in\arset{C}{A}{B}$を$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$をドメイン、$B$をコドメインと呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表せる。
 
 			ある対象$A,B,C$、ある射$\mor{f}{A}{B}$、$\mor{g}{A}{C}$、$\mor{h}{C}{B}$について考えるとき、以下のような図式を用いて説明を行う。
@@ -754,10 +755,13 @@
 		\end{center}
 		\begin{quote}
 			\begin{description}
-		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数$\mor{F}{Obj(\cat{C})}{Obj(\cat{D})}$。
+		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]。
 		関手$T$の対象関数$T$を\[T(A)=X,\ T(B)=Y,\ T(C)=Z\]と定義する。
 		また関手$S$の対象関数$S$を\[S(A)=X,\ S(B)=X,\ S(C)=W\]と定義する。
-		\item[射関数]$\cat{C}$の任意の射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数$\mor{F}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}$。対象関数と射関数は記法で区別しないことと、$Tf$ののように括弧を省略する場合もあることに注意してほしい。
+		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する関数$F_{A,B}$を総称して射関数$F$と呼ぶことにする。
+
+		つまり、圏$\cat{C}$に含まれる任意の射$\mor{f}{A}{B}$、$\mor{k}{X}{Y}$に対して\[F(f)=F_{A,B}(f)\]\[F(k)=F_{X,Y}(k)\]と置き換えてほしい。
+		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もあることにも注意してほしい。
 
 		関手$T$の射関数$T$を\[T(f)=i,\ T(g)=j,\ T(g\circ f)=j\circ i\]と定義する。また各対象の恒等射の対応は
 		\begin{align*}
@@ -835,7 +839,7 @@
 		\item[恒等射の保存] 射関数は圏$\cat{C}$の恒等射を$\cat{D}$の恒等射に対応させる。つまり$F(id_A)=id_{FA}$が成り立つ。
 
 		関手$T,S$でも定義を見れば成り立つことがすぐに分かる。
-		\item[射の合成の保存]$cod(f)=dom(g)$であるとき、$F(g\circ f)=Fg\circ Ff$が成り立つ。
+		\item[射の合成の保存]$\cod(f)=\dom(g)$であるとき、$F(g\circ f)=Fg\circ Ff$が成り立つ。
 
 		関手$T,S$においてそれぞれ
 		\begin{align*}
@@ -882,11 +886,16 @@
 	\end{prop}
 	このように関手は考えている圏の特定の対象や射をピックアップすることが可能である。
 	\begin{define}[積関手]
-		以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を積関手と呼ぶ。
+		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を積関手と呼ぶ。
 		\begin{quote}
 			\begin{description}
 			\item[対象関数] 対象関数を$(-\times B)(A)=A\times B$と定義する。
-			\item[射関数] 圏$C$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して射関数を\[\mor{(-\times B)(f)=f\times id_B}{A\times B}{A'\times B}\]と定義する。
+			\item[射関数] 圏$C$の任意の対象$A,A'$に対する関数$(-\times B)_{A,A'}$を任意の射$\mor{f}{A}{A'}$に対して
+			\begin{align*}
+				(-\times B)_{A,A'}(f)&=\mor{f\times id_B}{(-\times B)(A)}{(-\times B)(A)}\\
+				&=\mor{f\times id_B}{A\times B}{A'\times B}
+			\end{align*}
+			と定義する。同様に任意の対象$A,A'$に対して存在する関数$(-\times B)_{A,A'}$を総称して$(-\times B)$を射関数とする。
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 2) {$A$};
@@ -952,10 +961,12 @@
 		関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を以下の要素によって定義する。
 		\begin{quote}
 			\begin{description}
-			\item[対象関数]関手$F,G$のそれぞれの対象関数$F,G$に対して$G\circ F$の対象関数を$G\circ F$と定義する。
-			つまり圏$\cat{C}$の任意の対象$A$に対して$(G\circ F)(A)=G(FA)$となるような写像である。
-			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数もまた$G\circ F$と定義する。このように関手の合成はそれぞれの関手の対象関数、射関数の合成に還元して考える。
-			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)(f)=G(Ff)}{GFA}{GF{A'}}\]となるような写像である。
+			\item[対象関数]関手$F,G$のそれぞれの対象関数$F,G$に対して$G\circ F$の対象関数を$G\circ F$と定義する。つまり圏$\cat{C}$の任意の対象$A$に対して\[(G\circ F)(A)=G(FA)\]となるような写像である。
+			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数を$G\circ F$と定義する。
+			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)_{}(f)=G(Ff)}{GFA}{GF{A'}}\]となるような写像である。
+
+			各二対象ごとの射関数も見ていくと、関手$F,G$のそれぞれの関数\[\mor{F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C'}{FA}{FA'}}\]\[\mor{G_{FA,FA'}}{\arset{C'}{FA}{FA'}}{\arset{C''}{GFA}{GFA'}}\]に対して$G\circ F$の関数を\[(G\circ F)_{A,A'}=\mor{G_{FA,FA'}\circ F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C''}{GFA}{GFA'}}\]と定義する。このように関手の合成はそれぞれの関手の対象関数、射関数の合成に還元して考える。
+
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 2) {$A$};
@@ -1055,7 +1066,7 @@
 				\item[恒等射の存在]任意の圏$\cat{A}$の恒等関手$Id_{\cat{A}}$を恒等射とする。
 				\item[結合律]
 				$H\circ (G\circ F)=(H\circ G)\circ F$が合成可能な任意の関手$F,G,H$で成り立つことを示せばよい。
-				関手の等しさは関手を構成する対象関数と射関数の等しさで示す。関手の合成は射関数と対象関数の合成に還元される。写像の合成では結合律が成り立つから確かに関手の合成の結合律も成り立つ。
+				関手の等しさは関手を構成する対象関数と射関数の等しさで示す。関手の合成は射関数と対象関数の合成に還元されるが、写像の合成では結合律が成り立つから確かに関手の合成の結合律も成り立つ。
 				\item[単位元律]
 				任意の圏$\cat{C}$の恒等関手$id_{\cat{C}}$と任意の関手$\functor{F}{X}{C}$、$\functor{G}{C}{Y}$において$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立つことを示せばよい。
 
@@ -1063,7 +1074,6 @@
 			\end{description}
 		\end{quote}
 	\end{define}
-
 	\subsection{積圏と一点離散圏}
 	\begin{define}[積圏]
 		ある圏$\cat{A,B}$に対する積圏$\cat{A\times B}$を以下の要素で定義する。
@@ -1073,7 +1083,8 @@
 
 				すなわち、圏$\cat{A}$と圏$\cat{B}$の任意の対象$A,B$の対$\tuple{A,B}$が$\cat{A\times B}$の対象である。
 				$\obj{A}\times\obj{B}$は直積集合であり、集合の圏の積対象であることに注意してほしい。
-				\item[射]　\[\arset{(A\times B)}{\tuple{A,B}}{\tuple{A',B'}}=\arset{A}{A}{A'}\times\arset{B}{B}{B'}\]
+				また対象$\tuple{A,B}$そのものは積対象ではないことに注意してほしい。今回積とみなすのは対象ではなく圏の方である。
+				\item[射]　任意の対象$\tuple{A,B},\tuple{A',B'}$に対してその射集合をそれぞれ\[\arset{(A\times B)}{\tuple{A,B}}{\tuple{A',B'}}=\arset{A}{A}{A'}\times\arset{B}{B}{B'}\]と定義する。
 
 				すなわち、圏$\cat{A}$の射$\mor{f}{A}{A'}$と圏$\cat{B}$の射$\mor{g}{B}{B'}$の対\[\mor{\tuple{f,g}}{\tuple{A,B}}{\tuple{A',B'}}\]が$\cat{A\times B}$の射である。
 				同様に$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$も直積集合であり、集合の圏の積対象である。
@@ -1093,6 +1104,8 @@
 						\node (catb) at (3.5, 1) {$\cat{A\times B}$};
 					\end{tikzpicture}
 				\end{center}
+				積圏の対象を$\tuple{A,B}$のように表したのは、のちに説明するが実際に関手の対で表せるからである。
+				しかし積圏の射、例えば$\tuple{f,g}$は表記こそ射の対に似ているが、実際の振る舞いについては射の積に似ている。この違いに注意してほしい。
 				\item[射の合成] 射$\mor{\tuple{f,g}}{\tuple{A,B}}{\tuple{A',B'}}$と$\mor{\tuple{f',g'}}{\tuple{A',B'}}{\tuple{A'',B''}}$の合成射\[\mor{\tuple{f',g'}\circ\tuple{f,g}}{\tuple{A,B}}{\tuple{A'',B''}}\]を\[\tuple{f',g'}\circ\tuple{f,g}=\tuple{f'\circ f,g'\circ g}\]と定義する。
 				\begin{center}
 					\begin{tikzpicture}[auto]
@@ -1138,6 +1151,8 @@
 			\end{description}
 		\end{quote}
 	\end{define}
+
+
 	\begin{define}[射影関手]
 		関手$\functor{\Pi_A}{A\times B}{A}$を以下の写像で定義する。
 		\begin{quote}
@@ -1162,11 +1177,42 @@
 		関手$\functor{F}{X}{A}$と$\functor{G}{X}{B}$の対$\functor{\tuple{F,G}}{X}{A\times B}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{description}
-				\item[対象関数] 関手$F,G$の対象関数$\mor{F}{\obj{X}}{\obj{A}}$、$\mor{G}{\obj{X}}{\obj{B}}$の対\[\mor{\tuple{F,G}}{\obj{X}}{\obj{A\times B}}\]を対象関数とする。
+				\item[対象関数] 関手$F,G$の対象関数$\mor{F}{\obj{X}}{\obj{A}}$、$\mor{G}{\obj{X}}{\obj{B}}$の対
+				\begin{align*}
+					&\mor{\tuple{F,G}}{\obj{X}}{\obj{A\times B}}\\
+					=&\mor{\tuple{F,G}}{\obj{X}}{\obj{A}\times \obj{B}}
+				\end{align*}
+				を対象関数とする。
 				すなわち圏$\cat{X}$の対象$X$に対して$\tuple{F,G}(X)=\tuple{FX,GX}$となるような写像である。
 				\item[射関数]
-				関手$F,G$の射関数$\mor{F}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}},\ \mor{G}{\arset{X}{X}{X'}}{\arset{B}{GX}{GX'}}$の対\[\mor{\tuple{F,G}}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}\times\arset{B}{GX}{GX'}}\]を射関数とする。
+				関手$F,G$の対象$X,X'$に対する射関数$\mor{F_{X,X'}}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}},\ \mor{G_{X,X'}}{\arset{X}{X}{X'}}{\arset{B}{GX}{GX'}}$の対
+				\begin{align*}
+					&\mor{\tuple{F,G}_{X,X'}&&}{\arset{X}{X}{X'}}{\arset{A\times B}{\tuple{FX,GX}}{\tuple{FX',GX'}}}\\
+					=&	\mor{\tuple{F_{X,X'},G_{X,X'}}&&}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}\times\arset{B}{GX}{GX'}}
+				\end{align*}
+				を射関数とする。
 				すなわち射$\mor{f}{X}{X'}$に対して\[\mor{\tuple{F,G}(f)=\tuple{Ff,Gf}}{\tuple{FX,GX}}{\tuple{FX',GX'}}\]となるような写像である。
+
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (x) at (-1.5, 0) {$X$};
+						\node (x') at (-1.5, -2) {$X'$};
+						\node (a) at (0, 0) {$FX$};
+						\node (a') at (0, -2) {$FX'$};
+						\node (b) at (1.5, 0) {$GX$};
+						\node (b') at (1.5, -2) {$GX'$};
+						\node (ab) at (3.5, 0) {$\tuple{FX,GX}$};
+						\node (ab') at (3.5, -2) {$\tuple{FX',GX'}$};
+						\draw[->] (x) to node{$f$}(x');
+						\draw[->] (a) to node{$Ff$}(a');
+						\draw[->] (b) to node{$Gf$}(b');
+						\draw[->] (ab) to node{$\tuple{Ff,Gf}$}(ab');
+						\node (cata) at (-1.5, 1) {$\cat{X}$};
+						\node (cata) at (0, 1) {$\cat{A}$};
+						\node (catb) at (1.5, 1) {$\cat{B}$};
+						\node (catb) at (3.5, 1) {$\cat{A\times B}$};
+					\end{tikzpicture}
+				\end{center}
 				\item[恒等射の保存]
 				\begin{align*}
 					\tuple{F,G}(id_X)&=\tuple{F(id_X),G(id_X)}&\text{(射関数の定義)}\\
@@ -1189,7 +1235,41 @@
 		積圏$\cat{A\times B}$と射影関手$\Pi_A,\Pi_B$の組$(\cat{A\times B},\Pi_A,\Pi_B)$は$\cat{Cat}$における積である。
 	\end{prop}
 	\begin{proof}
-		積$(\cat{A\times B},\Pi_A,\Pi_B)$において、圏$\cat{X}$、関手$\functor{F}{X}{A}$、$\functor{G}{X}{B}$で構成される任意の組$(\cat{X},F,G)$に対して、$\Pi_A\circ\tuple{F,G}=F,\ \Pi_B\circ\tuple{F,G}=G$が成り立つような関手の対$\tuple{F,G}$が一意に存在することを示せばよい。
+		積$(\cat{A\times B},\Pi_A,\Pi_B)$において、圏$\cat{X}$、関手$\functor{F}{X}{A}$、$\functor{G}{X}{B}$で構成される任意の組$(\cat{X},F,G)$に対して、$\Pi_A\circ\tuple{F,G}=F,\ \Pi_B\circ\tuple{F,G}=G$が成り立つような関手の対$\functor{\tuple{F,G}}{X}{A\times B}$が一意に存在することを示せばよい。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$\cat{A}$};
+				\node (ab) at (2, 0) {$\cat{A\times B}$};
+				\node (b) at (4, 0) {$\cat{B}$};
+				\node (x) at (2, 2) {$\cat{X}$};
+				\draw[->] (x) to node[swap]{$F$}(a);
+				\draw[->] (x) to node{$G$}(b);
+				\draw[->] (ab) to node{$\Pi_A$}(a);
+				\draw[->] (ab) to node[swap]{$\Pi_B$}(b);
+				\draw[->] (x) to node{$\tuple{F,G}$}(ab);
+			\end{tikzpicture}
+		\end{center}
+		端的に述べるなら積圏、関手の対、射影関手の各々が持つ対象関数、射関数はそれぞれ積対象、射の対、射影射で構成されることから、積の普遍性を満たすのは自明に思えるが、一つ一つ確認していく。
+
+		関手$F,G$の対象関数$F,G$、射影関手$\Pi_A,\Pi_B$の対象関数$\pi_{\obj{A}},\pi_{\obj{B}}$、そして関手の対の対象関数$\tuple{F,G}$は、その定義により積の図式となる。
+		すなわち対象関数$F,G$に対して対象関数$\tuple{F,G}$は一意に存在する。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$\obj{A}$};
+				\node (ab) at (4, 0) {$\obj{A}\times\obj{B}$};
+				\node (abp) at (4, -1) {$\obj{A\times B}$};
+				\node (b) at (8, 0) {$\obj{B}$};
+				\node (x) at (4, 2) {$\obj{X}$};
+				\draw[double distance=2pt] (ab) to (abp);
+				\draw[->] (x) to node[swap]{$F$}(a);
+				\draw[->] (x) to node{$G$}(b);
+				\draw[->] (ab) to node{$\pi_{\obj{A}}$}(a);
+				\draw[->] (ab) to node[swap]{$\pi_{\obj{B}}$}(b);
+				\draw[->] (x) to node{$\tuple{F,G}$}(ab);
+			\end{tikzpicture}
+		\end{center}
+		同様に各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_A,\Pi_B)$は積の普遍性を満たす。
+
 	\end{proof}
 	\begin{define}[一点離散圏]
 	一つの対象と一つの恒等射で構成される圏$\cat{1}$を一点離散圏とよぶ。
@@ -1198,26 +1278,134 @@
 		$\cat{1}$は$\cat{Cat}$における終対象である。
 	\end{prop}
 	\begin{proof}
-		任意の圏$C$から一点離散圏$\cat{1}$への関手$!_{\cat{C}}$を考える。
+		任意の圏$\cat{C}$から一点離散圏$\cat{1}$への関手$!_{\cat{C}}$を考える。
 		まず$\cat{1}$の対象$*$と射$id_*$は一つしか存在しない。そのため一点集合を$1$として
 		\[\obj{1}=1,\ \arset{1}{*}{*}=1\]が成り立つ。
-		すると、対象関数$\mor{!_{\cat{C}}}{\obj{C}}{\obj{1}}$、射関数$\mor{!_{\cat{C}}}{\arset{C}{A}{B}}{\arset{1}{*}{*}}$がそれぞれ一点集合への写像になり、それぞれ一意に存在することがわかる。
 
+		よって対象関数$!_{\cat{C}}$は
+		\begin{align*}
+			&\mor{!_{\cat{C}}}{\obj{C}}{\obj{1}}\\
+			=&\mor{!_{\cat{C}}}{\obj{C}}{1}
+		\end{align*}
+		となり一点集合への写像であることがわかる。よって任意の対象$A$に対して$!_{\cat{C}}(A)=*$が成り立ち、このような対象関数が一意に存在することが分かった。
+
+		また任意の二対象$A,B$に対する射関数は
+		\begin{align*}
+			&\mor{{!_{\cat{C}}}_{A,B}}{\arset{C}{A}{B}}{\arset{1}{!_{\cat{C}}(A)}{!_{\cat{C}}(B)}}\\
+			=&\mor{{!_{\cat{C}}}_{A,B}}{\arset{C}{A}{B}}{\arset{1}{*}{*}}\\
+			=&\mor{{!_{\cat{C}}}_{A,B}}{\arset{C}{A}{B}}{1}\\
+		\end{align*}と書ける。
+		よって二対象$A,B$に対する各射関数も一意に存在することが分かった。
+
+		関手$!_{\cat{C}}$のすべての構成要素が圏$\cat{C}$に対して一意に存在することわかる。
 		よって任意の圏$\cat{C}$から一点離散圏$\cat{1}$への関手は一意に存在するから、一点離散圏$\cat{1}$は$\cat{Cat}$における終対象であることが示せた。
 	\end{proof}
 	\begin{prop}[圏における元]
 		任意の圏$\cat{C}$の元、つまり関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{prop}
 	\begin{proof}
-		関手$\functor{A}{1}{C}$は対象関数$\mor{F}{\obj{1}}{\obj{C}}$、射関数$\mor{F}{\arset{1}{*}{*}}{\arset{C}{A}{A}}$で構成される。このとき、$\obj{1}$は一点集合であるから、対象関数$F$は$\obj{C}$の元である。
+		関手$\functor{A}{1}{C}$は対象関数$\mor{F}{\obj{1}}{\obj{C}}$、射関数$\mor{F}{\arset{1}{*}{*}}{\arset{C}{F(*)}{F(*)}}$で構成される。このとき、$\obj{1}$は一点集合であるから、対象関数$F$は$\obj{C}$の元である。
 
-		また射関数も同様に$\arset{C}{A}{A}$の元であるが、恒等射の保存より写される射は恒等射ただ一つであり、射関数は対象関数に対して一通りにしか定義できないから考慮しなくてもよい。
+		また射関数も同様に$\arset{C}{F(*)}{F(*)}$の元であるが、恒等射の保存より写される射は恒等射ただ一つであり、射関数は対象関数に対して一通りにしか定義できないから考慮しなくてもよい。
 
 		よって関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{proof}
+	積圏$\cat{A\times B}$の対象を$\tuple{A,B}$と表したのは、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$が$\cat{A\times B}$の対象になるからである。
+
 	\subsection{特殊な関手}
+	対象や射を二つ取るような2変数関数のような関手について考える。
 	\begin{define}[双関手]
-		積圏からの関手、つまり$\functor{F}{C\times D}{E}$となるような関手を双関手とする。
+		積圏からの関手、つまり$\functor{F}{A\times B}{C}$となるような関手を双関手とする。
+
+		また積圏の任意の対象$\tuple{A,B}$に対し、\[F(\tuple{A,B})=F(A,B)\]と略記する。
+		さらに積圏の射$\mor{\tuple{f,id_B}}{\tuple{A,B}}{\tuple{A,B'}}$において\[F(\tuple{f,id_B})=F(f,B)\]と表記する。
+	\end{define}
+	双関手について特に証明することはないが、圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (a) at (0, 0) {$A$};
+			\node (a') at (0, -2.5) {$A'$};
+			\node (b) at (2, 1) {$B$};
+			\node (b') at (4.5, 1) {$B'$};
+			\node (ab) at (2, 0) {$\tuple{A,B}$};
+			\node (a'b) at (2, -2.5) {$\tuple{A',B}$};
+			\node (ab') at (4.5, 0) {$\tuple{A,B'}$};
+			\node (a'b') at (4.5, -2.5) {$\tuple{A',B'}$};
+
+			\node (fab) at (8, 0) {$F(A,B)$};
+			\node (fa'b) at (8, -2.5) {$F(A',B)$};
+			\node (fab') at (10.5, 0) {$F(A,B')$};
+			\node (fa'b') at (10.5, -2.5) {$F(A',B')$};
+
+			\node (cata) at (-1, -1.25) {$\cat{A}$};
+			\node (catb) at (3.25, 2) {$\cat{B}$};
+			\node (catab) at (3.25, -3.5) {$\cat{A\times B}$};
+			\node (catc) at (9.25, -3.5) {$\cat{C}$};
+
+			\draw[->] (a) to node[swap]{$f$}(a');
+			\draw[->] (b) to node{$g$}(b');
+			\draw[->] (ab) to node[swap]{$\tuple{f,id_B}$}(a'b);
+			\draw[->] (ab') to node{$\tuple{f,id_{B'}}$}(a'b');
+			\draw[->] (ab) to node{$\tuple{id_A,g}$}(ab');
+			\draw[->] (a'b) to node[swap]{$\tuple{id_{A'},g}$}(a'b');
+			\draw[->] (ab) to node{$\tuple{f,g}$}(a'b');
+
+			\draw[->] (fab) to node[swap]{$F(f,B)$}(fa'b);
+			\draw[->] (fab') to node{$F(f,B')$}(fa'b');
+			\draw[->] (fab) to node{$F(A,g)$}(fab');
+			\draw[->] (fa'b) to node[swap]{$F(A',g)$}(fa'b');
+			\draw[->] (fab) to node{$F(f,g)$}(fa'b');
+			\draw[->] (catab) to node{$F$}(catc);
+		\end{tikzpicture}
+	\end{center}
+	次に双関手の例として積関手$\functor{-\times B}{C}{C}$を双関手に拡張しようと思う。
+	\begin{define}[双積関手]
+		積を持つ圏$\cat{C}$上の双積関手$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
+		また以下の証明で登場するすべての射の表記$\tuple{f,g}$は射の対ではなく積圏の射の方である。
+		\begin{quote}
+			\begin{description}
+				\item[対象関数] 対象関数を積圏$\cat{C\times C}$の任意の対象$\tuple{A,B}$に対して\[(-\times -)(A,B)=A\times B\]と定義する。
+				\item[射関数] 二対象$\tuple{A,B},\tuple{A',B'}$に対する射関数を任意の射$\mor{\tuple{f,g}}{\tuple{A,B}}{\tuple{A',B'}}$に対して\[(-\times -)_{\tuple{A,B},\tuple{A',B'}}(f,g)=f\times g\]と定義する。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (ab) at (0, 0) {$\tuple{A,B}$};
+						\node (a'b') at (0, -2) {$\tuple{A',B'}$};
+						\node (pab) at (3, 0) {$A\times B$};
+						\node (pa'b') at (3, -2) {$A'\times B'$};
+						\node (catcc) at (0, 1) {$\cat{C\times C}$};
+						\node (catc) at (3, 1) {$\cat{C}$};
+						\draw[-,dashed] (ab) to (pab);
+						\draw[-,dashed] (a'b') to (pa'b');
+						\draw[->] (ab) to node{$\tuple{f,g}$}(a'b');
+						\draw[->] (pab) to node{$f\times g$}(pa'b');
+						\draw[->] (catcc) to node{$(-\times-)$}(catc);
+					\end{tikzpicture}
+				\end{center}
+
+				\item[恒等射の保存] $(-\times -)(id_{\tuple{A,B}})=id_{(-\times-)(A,B)}$を示せばよい。
+				\begin{align*}
+					(-\times -)(id_{\tuple{A,B}})&=id_A\times id_B&\text{(射関数の定義)}\\
+					&=\tuple{id_A\circ\pi_A,id_B\circ\pi_B}&\text{(射の積の定義)}\\
+					&=id_{A\times B}&\text{(射影射の対)}\\
+					&=id_{(-\times-)(A,B)}&\text{(対象関数の定義)}
+				\end{align*}
+				よって恒等射を保つ。
+				\item[射の合成の保存] $(-\times -)(f',g')\circ(-\times-)(f,g)=(-\times-)(\tuple{f',g'}\circ\tuple{f,g})$を示せばよい。
+				\begin{align*}
+					(-\times -)(f',g')\circ(-\times-)(f,g)&=(f'\times g')\circ(f\times g)&\text{(射関数の定義)}\\
+					&=(f'\circ f)\times(g'\circ g)&\text{(積と合成の交換)}\\
+					&=(-\times-)(f'\circ f,g'\circ g)&\text{(射関数の定義)}\\
+					&=(-\times-)(\tuple{f'\circ f,g'\circ g})\\
+					&=(-\times-)(\tuple{f',g'}\circ\tuple{f,g})&\text{(積圏の射の合成の定義)}
+				\end{align*}
+				よって射の合成を保つ。
+			\end{description}
+		\end{quote}
+	\end{define}
+	対象の積と圏の積が紛らわしいが、イメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$\tuple{A,B}$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。当然挿入と表現したが圏$\cat{C}$に任意の二対象の積が存在することが条件であるため、正確には既存の積に割り当てる操作と表現すべきかもしれない。
+
+	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
+	\begin{define}[反変関手]
 	\end{define}
 	\subsection{表現可能関手}
 	\section{自然変換}
