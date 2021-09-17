@@ -8,11 +8,13 @@
 \newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
 \newcommand{\nat}{\Rightarrow}
 \newcommand{\tuple}[1]{\langle #1\rangle}
+\newcommand{\objr}[1]{\mathrm{Obj}(#1)}
 \newcommand{\obj}[1]{\mathrm{Obj}(\cat{#1})}
 \newcommand{\mor}[3]{#1:#2\arrow #3}
 \newcommand{\dom}{\mathrm{dom}}
 \newcommand{\cod}{\mathrm{cod}}
 \newcommand{\arset}[3]{\cat{#1}(#2,#3)}
+\newcommand{\arsetr}[3]{#1(#2,#3)}
 \newtheorem{proof}{証明}[section]
 \newtheorem{prop}{命題}[section]
 \newtheorem{define}{定義}[section]
@@ -755,10 +757,10 @@
 		\end{center}
 		\begin{quote}
 			\begin{description}
-		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]。
-		関手$T$の対象関数$T$を\[T(A)=X,\ T(B)=Y,\ T(C)=Z\]と定義する。
+		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
+		そして関手$T$の対象関数$T$を\[T(A)=X,\ T(B)=Y,\ T(C)=Z\]と定義する。
 		また関手$S$の対象関数$S$を\[S(A)=X,\ S(B)=X,\ S(C)=W\]と定義する。
-		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する関数$F_{A,B}$を総称して射関数$F$と呼ぶことにする。
+		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
 
 		つまり、圏$\cat{C}$に含まれる任意の射$\mor{f}{A}{B}$、$\mor{k}{X}{Y}$に対して\[F(f)=F_{A,B}(f)\]\[F(k)=F_{X,Y}(k)\]と置き換えてほしい。
 		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もあることにも注意してほしい。
@@ -799,6 +801,7 @@
 			\end{tikzpicture}
 		\end{center}
 		この図での点線は対象の写像的な対応を表しているのであって、実際に射が存在するわけではないことに注意してほしい。
+
 		関手$S$の射関数$S$を\[S(f)=h,\ S(g)=k,\ S(g\circ f)=k\circ h\]と定義する。
 		恒等射の対応は
 		\begin{align*}
@@ -895,7 +898,7 @@
 				(-\times B)_{A,A'}(f)&=\mor{f\times id_B}{(-\times B)(A)}{(-\times B)(A)}\\
 				&=\mor{f\times id_B}{A\times B}{A'\times B}
 			\end{align*}
-			と定義する。同様に任意の対象$A,A'$に対して存在する関数$(-\times B)_{A,A'}$を総称して$(-\times B)$を射関数とする。
+			と定義する。同様に任意の対象$A,A'$に対して存在する射関数$(-\times B)_{A,A'}$を総称して$(-\times B)$と呼ぶ。
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 2) {$A$};
@@ -1049,7 +1052,7 @@
 			\begin{description}
 				\item[対象関数] 対象関数を恒等写像$Id_{\cat{C}}(A)=A$と定義する。
 				\item[射関数] 射関数を恒等写像$Id_{\cat{C}}(f)=f$と定義する。
-				\item[恒等射の保存] $Id_{\cat{C}}(id_C)=id_C=id_{Id_{\cat{C}}}$より恒等射を保つ
+				\item[恒等射の保存] $Id_{\cat{C}}(id_C)=id_C=id_{Id_{\cat{C}}(C)}$より恒等射を保つ
 				\item[射の合成の保存] $Id_{\cat{C}}(g\circ f)=g\circ f=Id_{\cat{C}}(g)\circ Id_{\cat{C}}(f)$より射の合成を保つ。
 			\end{description}
 		\end{quote}
@@ -1066,11 +1069,24 @@
 				\item[恒等射の存在]任意の圏$\cat{A}$の恒等関手$Id_{\cat{A}}$を恒等射とする。
 				\item[結合律]
 				$H\circ (G\circ F)=(H\circ G)\circ F$が合成可能な任意の関手$F,G,H$で成り立つことを示せばよい。
-				関手の等しさは関手を構成する対象関数と射関数の等しさで示す。関手の合成は射関数と対象関数の合成に還元されるが、写像の合成では結合律が成り立つから確かに関手の合成の結合律も成り立つ。
+				二つの関手が等しいことを示すにはそれぞれを構成する対象関数と射関数が等しいことを示せばよい。
+				対象関数については、関手$F,G,H$の対象関数$F,G,H$に対して$H\circ (G\circ F)=(H\circ G)\circ F$は明らかに成り立つ。
+				射関数については、
+				\begin{align*}
+					(H\circ (G\circ F))_{A,A'}&=H_{GFA,GFA'}\circ (G\circ F)_{A,A}&\text{(射関数の合成の定義)}\\
+					&=H_{GFA,GFA'}\circ (G_{FA,FA'}\circ F_{A,A'})&\text{(射関数の合成の定義)}\\
+					&=(H_{GFA,GFA'}\circ G_{FA,FA'})\circ F_{A,A'}&\text{(写像の結合則)}\\
+					&=(H\circ G)_{FA,FA'}\circ F_{A,A'}&\text{(射関数の合成の定義)}\\
+					&=(H\circ (G\circ F))_{A,A'}&\text{(射関数の合成の定義)}
+				\end{align*}
+				となり、射関数においても結合則が成り立つ。
 				\item[単位元律]
-				任意の圏$\cat{C}$の恒等関手$id_{\cat{C}}$と任意の関手$\functor{F}{X}{C}$、$\functor{G}{C}{Y}$において$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立つことを示せばよい。
+				任意の圏$\cat{C}$の恒等関手$Id_{\cat{C}}$と任意の関手$\functor{F}{X}{C}$、$\functor{G}{C}{Y}$において$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立つことを示せばよい。
 
-				同様に恒等関手との合成は恒等写像の合成に還元されるため、確かに関手の単位元律は成り立つ。
+				恒等関手の対象関数、射関数ともに恒等写像
+				\[\mor{Id_\cat{C}=id_{\obj{A}}}{\obj{A}}{\obj{A}}\]
+				\[\mor{Id_{\cat{C}A,A'}=id_{\arset{C}{A}{A'}}}{\arset{C}{A}{A'}}{\arset{C}{A}{A'}}\]
+				となるため、写像の単位元律より$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立ち単位元則が成り立つ。
 			\end{description}
 		\end{quote}
 	\end{define}
@@ -1268,7 +1284,7 @@
 				\draw[->] (x) to node{$\tuple{F,G}$}(ab);
 			\end{tikzpicture}
 		\end{center}
-		同様に各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_A,\Pi_B)$は積の普遍性を満たす。
+		各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_A,\Pi_B)$は積の普遍性を満たす。
 
 	\end{proof}
 	\begin{define}[一点離散圏]
@@ -1402,11 +1418,163 @@
 			\end{description}
 		\end{quote}
 	\end{define}
-	対象の積と圏の積が紛らわしいが、イメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$\tuple{A,B}$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。当然挿入と表現したが圏$\cat{C}$に任意の二対象の積が存在することが条件であるため、正確には既存の積に割り当てる操作と表現すべきかもしれない。
+	対象の積と圏の積が紛らわしいが、イメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$\tuple{A,B}$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。挿入と表現したが圏$\cat{C}$に任意の二対象の積が存在することが条件であるため、正確には既存の積に割り当てる操作と表現すべきかもしれない。
 
 	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
-	\begin{define}[反変関手]
+	\begin{define}[双対圏]
+		ある圏$\cat{C}$に対する双対圏$\cat{C}^{op}$を以下の要素で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象]　$\obj{C^{op}}=\obj{C}$とする。
+
+				また圏$\cat{C}$の対象$A$に対応する双対圏$\cat{C^{op}}$の対象も$A$であるが、$\cat{C^{op}}$の対象は$A^{op}$として表記上区別する。
+				\item[射]　任意の二対象$A^{op}, B^{op}$に対して射集合を\[\arset{C^{op}}{B^{op}}{A^{op}}=\arset{C}{A}{B}\]と定義する。
+				同様に射$\mor{f}{A}{B}$に対応する射を表記上$\mor{f^{op}}{B^{op}}{A^{op}}$とする。
+				圏$\cat{C}$と双対圏$\cat{C^{op}}$では射の向きが入れ替わっていることに注意してほしい。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (fa) at (1.5, 0) {$A^{op}$};
+						\node (fb) at (1.5, -1.5) {$B^{op}$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catd) at (1.5, 1) {$\cat{C^{op}}$};
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (fb) to node{$f^{op}$}(fa);
+					\end{tikzpicture}
+				\end{center}
+				\item[射の合成] 圏$\cat{C}$の射$\mor{f}{A}{B}$、$\mor{g}{B}{C}$の合成射$\mor{g\circ f}{A}{C}$に対して、双対圏$\cat{C}^{op}$の射$\mor{f^{op}}{B^{op}}{A^{op}}$、$\mor{g^{op}}{C^{op}}{B^{op}}$の合成射を
+				\[\mor{(g\circ f)^{op}=f^{op}\circ g^{op}}{C^{op}}{A^{op}}\]
+				と定義する。
+				圏$\cat{C}$と$\cat{C}^{op}$では射の合成の順序が入れ替わっていることに注意してほしい。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (1.5, -1) {$B$};
+						\node (c) at (0, -2) {$C$};
+						\node (fa) at (4, 0) {$A^{op}$};
+						\node (fb) at (5.5, -1) {$B^{op}$};
+						\node (fc) at (4, -2) {$C^{op}$};
+						\node (catc) at (0.75, 1) {$\cat{C}$};
+						\node (catd) at (4.75, 1) {$\cat{C^{op}}$};
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (b) to node{$g$}(c);
+						\draw[->] (a) to node[swap]{$g\circ f$}(c);
+						\draw[->] (fb) to node[swap]{$f^{op}$}(fa);
+						\draw[->] (fc) to node[swap]{$g^{op}$}(fb);
+						\draw[->] (fc) to node{$(g\circ f)^{op}$}(fa);
+					\end{tikzpicture}
+				\end{center}
+				\item[恒等射の存在]圏$\cat{C}$の任意の恒等射$\mor{id_A}{A}{A}$に対して、双対圏$\cat{C}^{op}$の恒等射を\[\mor{(id_A)^{op}=id_{A^{op}}}{A^{op}}{A^{op}}\]と定義する。
+				\item[結合律]　合成可能な任意の射$f^{op},g^{op},h^{op}$において、
+				\begin{align*}
+					(f^{op}\circ g^{op})\circ h^{op}&=(g\circ f)^{op}\circ h^{op}\\
+					&=(h\circ(g\circ f))^{op}\\
+					&=((h\circ g)\circ f)^{op}\\
+					&=f^{op}\circ (h\circ g)^{op}\\
+					&=f^{op}\circ (g^{op}\circ h^{op})
+				\end{align*}
+				となるので結合律を満たす。
+				\item[単位元律]任意の恒等射$id_{A^{op}}$、任意の射$\mor{f^{op}}{X^{op}}{A^{op}}$、$\mor{g^{op}}{A^{op}}{Y^{op}}$に対し$id_{A^{op}}\circ f^{op}=f^{op}$、$g^{op}\circ id_{A^{op}}=g^{op}$を示せばよい。
+				\begin{align*}
+					id_{A^{op}}\circ f^{op}&={id_A}^{op}\circ f^{op}&\text{(双対圏の恒等射の定義)}\\
+					&=(f\circ id_A)^{op}&\text{(双対圏の射の合成の定義)}\\
+					&=f^{op}&\text{(単位元律)}\\
+					g^{op}\circ id_{A^{op}}&=g^{op}\circ {id_A}^{op}&\text{(双対圏の恒等射の定義)}\\
+					&=(id_A\circ g)^{op}&\text{(双対圏の射の合成の定義)}\\
+					&=g^{op}&\text{(単位元律)}\\
+				\end{align*}
+				よって単位元律を見たす。
+			\end{description}
+		\end{quote}
 	\end{define}
+	次に双対圏のように射の向きを反転させて写すような関手である反変関手を定義する。
+	\begin{define}[反変関手]
+		圏$\cat{C}$から圏$\cat{D}$への反変関手と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象関数] $\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
+				これは通常の関手と同じである。
+				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (fa) at (1.5, 0) {$FA$};
+						\node (fb) at (1.5, -1.5) {$FB$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catd) at (1.5, 1) {$\cat{D}$};
+						\draw[-,dashed] (a) to (fa);
+						\draw[-,dashed] (b) to (fb);
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (fb) to node{$Ff$}(fa);
+						\draw[->] (catc) to node{$F$}(catd);
+					\end{tikzpicture}
+				\end{center}
+				双対圏を取る操作と同じように、射を写すときは射の向きを逆にする。
+				\item[恒等射の保存] $F(id_A)=id_{FA}$が任意の恒等射で成り立つ。
+				\item[射の合成の保存] 合成可能な任意の二射$f,g$において\[F(g\circ f)=Ff\circ Fg\]が成り立つ。
+
+
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (c) at (0, -3) {$C$};
+						\node (fa) at (1.5, 0) {$FA$};
+						\node (fb) at (1.5, -1.5) {$FB$};
+						\node (fc) at (1.5, -3) {$FC$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catd) at (1.5, 1) {$\cat{D}$};
+						\draw[-,dashed] (a) to (fa);
+						\draw[-,dashed] (b) to (fb);
+						\draw[-,dashed] (c) to (fc);
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (b) to node{$g$}(c);
+						\draw[->] (fb) to node{$Ff$}(fa);
+						\draw[->] (fc) to node{$Fg$}(fb);
+						\draw[->,bend right = 30] (fc) to node[swap]{$F(g\circ f)=Ff\circ Fg$}(fa);
+						\draw[->] (catc) to node{$F$}(catd);
+					\end{tikzpicture}
+				\end{center}
+				双対圏の射の合成と同じように、合成射を写すときは合成の順序を逆にして写す。
+			\end{description}
+		\end{quote}
+	\end{define}
+	反変関手に対して通常の関手を共変関手と呼ぶことにする。
+	また反変関手$\functor{F}{C}{D}$は共変関手$\functor{F}{C^{op}}{D}$とみなせる。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (0, -1.5) {$B$};
+				\node (fa) at (1.5, 0) {$FA$};
+				\node (fb) at (1.5, -1.5) {$FB$};
+				\node (catc) at (0, 1) {$\cat{C}$};
+				\node (catd) at (1.5, 1) {$\cat{D}$};
+				\draw[-,dashed] (a) to (fa);
+				\draw[-,dashed] (b) to (fb);
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (fb) to node{$Ff$}(fa);
+				\draw[->] (catc) to node{$F$}(catd);
+
+				\node (a) at (3.5, 0) {$A$};
+				\node (b) at (3.5, -1.5) {$B$};
+				\node (aop) at (5, 0) {$A^{op}$};
+				\node (bop) at (5, -1.5) {$B^{op}$};
+				\node (fa) at (6.5, 0) {$FA$};
+				\node (fb) at (6.5, -1.5) {$FB$};
+				\node (catcop) at (3.5, 1) {$\cat{C}$};
+				\node (catc) at (5, 1) {$\cat{C^{op}}$};
+				\node (catd) at (6.5, 1) {$\cat{D}$};
+				\draw[-,dashed] (aop) to (fa);
+				\draw[-,dashed] (bop) to (fb);
+				\draw[->] (bop) to node{$f^{op}$}(aop);
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (fb) to node{$Ff$}(fa);
+				\draw[->] (catc) to node{$F$}(catd);
+			\end{tikzpicture}
+
+		\end{center}
 	\subsection{表現可能関手}
 	\section{自然変換}
 	\section{随伴関手}
