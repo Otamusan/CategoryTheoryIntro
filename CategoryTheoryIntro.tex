@@ -37,6 +37,7 @@
 			\begin{description}
 			\item[対象] 対象の集合$A,B,C...\in\obj{C}$
 			\item[射] 任意の対象$A,B$における射の集合$f,g,h...\in\arset{C}{A}{B}$
+
 			このような射の集合は任意の対象の組み合わせごとに存在する。
 			また$f\in\arset{C}{A}{B}$を$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$をドメイン、$B$をコドメインと呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表せる。
 
@@ -1285,7 +1286,6 @@
 			\end{tikzpicture}
 		\end{center}
 		各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_A,\Pi_B)$は積の普遍性を満たす。
-
 	\end{proof}
 	\begin{define}[一点離散圏]
 	一つの対象と一つの恒等射で構成される圏$\cat{1}$を一点離散圏とよぶ。
@@ -1418,7 +1418,7 @@
 			\end{description}
 		\end{quote}
 	\end{define}
-	対象の積と圏の積が紛らわしいが、イメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$\tuple{A,B}$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。挿入と表現したが圏$\cat{C}$に任意の二対象の積が存在することが条件であるため、正確には既存の積に割り当てる操作と表現すべきかもしれない。
+	対象の積と圏の積が紛らわしいが、まず圏の積の対象$\tuple{A,B}$は$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$\tuple{A,B}$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。挿入と表現したが圏$\cat{C}$に任意の二対象の積が存在することが条件であるため、正確には既存の積に割り当てる操作と表現すべきかもしれない。
 
 	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
 	\begin{define}[双対圏]
@@ -1575,7 +1575,344 @@
 			\end{tikzpicture}
 
 		\end{center}
-	\subsection{表現可能関手}
+	\subsection{Hom関手}
+	関手の対、射影関手を定義する際、射集合を集合の圏の対象としてそれらの間の射を考えたが、元の圏に対して集合の圏の射集合やその間の射がどのように関係するかを見ていく。
+	\begin{define}[共変射写像]
+		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{A}$に射$f$を左から合成する写像を
+		\begin{align*}
+			&\mor{\arset{C}{X}{f}}{\arset{C}{X}{A}}{\arset{C}{X}{B}}\\
+			&\arset{C}{X}{f}(g)=f\circ g
+		\end{align*}
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (x) at (-1.5, 0) {$X$};
+				\node (x2) at (-1.5, -1.5) {$X$};
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (0, -1.5) {$B$};
+				\node (ca) at (2, 0) {$\arset{C}{X}{A}$};
+				\node (cb) at (2, -1.5) {$\arset{C}{X}{B}$};
+				\node (catc) at (-0.75, 1) {$\cat{C}$};
+				\node (catc) at (2, 1) {$\cat{Set}$};
+				\draw[->] (ca) to node{$\arset{C}{X}{f}$}(cb);
+				\draw[->] (a) to node{$f$}(b);
+				\draw[double distance=2pt] (x) to (x2);
+				\draw[->] (x) to node{$g$}(a);
+				\draw[->] (x2) to node[swap]{$f\circ g$}(b);
+			\end{tikzpicture}
+		\end{center}
+		と定義する。
+	\end{define}
+	\begin{prop}[共変射写像の恒等射の保存]
+		圏$\cat{C}$の任意の対象$X,A$において
+		\[\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}\]が成り立つ。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (x) at (-1.5, 0) {$X$};
+				\node (x2) at (-1.5, -1.5) {$X$};
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (0, -1.5) {$A$};
+				\node (ca) at (2, 0) {$\arset{C}{X}{A}$};
+				\node (cb) at (2, -1.5) {$\arset{C}{X}{A}$};
+				\node (catc) at (-0.75, 1) {$\cat{C}$};
+				\node (catc) at (2, 1) {$\cat{Set}$};
+				\draw[->] (ca) to node{$\arset{C}{X}{id_A}$}(cb);
+				\draw[->] (a) to node{$id_A$}(b);
+				\draw[double distance=2pt] (x) to (x2);
+				\draw[->] (x) to node{$g$}(a);
+				\draw[->] (x2) to node[swap]{$g$}(b);
+			\end{tikzpicture}
+		\end{center}
+	\end{prop}
+	\begin{proof}
+		任意の射$\mor{g}{X}{A}$に対して
+		\begin{align*}
+			\arset{C}{X}{id_A}(g)&=id_A\circ g&\text{(共変射写像の定義)}\\
+			&=g&\text{(単位元律)}\\
+			&=id_{\arset{C}{X}{A}}(g)&\text{($\cat{Set}$の恒等射の定義)}\\
+		\end{align*}
+		よって$\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}$が成り立つ。
+	\end{proof}
+	\begin{prop}[共変射写像の合成の保存]
+		圏$\cat{C}$の任意の対象$X,A,B,C$と射$\mor{f}{A}{B}$、$\mor{g}{B}{C}$、$\mor{h}{X}{A}$に対して、
+		\[\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}\]が成り立つ。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (x) at (-1.5, 0) {$X$};
+				\node (x2) at (-1.5, -1.5) {$X$};
+				\node (x3) at (-1.5, -3) {$X$};
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (0, -1.5) {$B$};
+				\node (c) at (0, -3) {$C$};
+				\node (ca) at (2, 0) {$\arset{C}{X}{A}$};
+				\node (cb) at (2, -1.5) {$\arset{C}{X}{B}$};
+				\node (cc) at (2, -3) {$\arset{C}{X}{C}$};
+				\node (catc) at (-0.75, 1) {$\cat{C}$};
+				\node (catc) at (2, 1) {$\cat{Set}$};
+				\draw[->] (ca) to node{$\arset{C}{X}{f}$}(cb);
+				\draw[->] (cb) to node{$\arset{C}{X}{g}$}(cc);
+				\draw[->] (a) to node{$f$}(b);
+				\draw[->] (b) to node{$g$}(c);
+				\draw[double distance=2pt] (x) to (x2);
+				\draw[double distance=2pt] (x2) to (x3);
+				\draw[->] (x) to node{$h$}(a);
+				\draw[->] (x2) to node[swap]{$f\circ h$}(b);
+				\draw[->] (x3) to node[swap]{$g\circ(f\circ h)$}(c);
+			\end{tikzpicture}
+		\end{center}
+	\end{prop}
+	\begin{proof}
+		任意の射$\mor{h}{X}{A}$に対して
+		\begin{align*}
+			\arset{C}{X}{g\circ f}(h)&=(g\circ f)\circ h&\text{(共変射関数の定義)}\\
+			&=g\circ(f\circ h)&\text{(結合則)}\\
+			&=\arset{C}{X}{g}(f\circ h)&\text{(共変射関数の定義)}\\
+			&=\arset{C}{X}{g}(\arset{C}{X}{f}(h))&\text{(共変射関数の定義)}\\
+			&=\arset{C}{X}{g}\circ\arset{C}{X}{f}(h)&\text{(写像の合成の定義)}\\
+		\end{align*}
+		よって$\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}$が成り立つ。
+	\end{proof}
+	ここまでの共変射写像の性質から、射から共変射写像を取る操作は関手とみなせることに気が付けたかもしれない。実際にHom関手と呼ばれる関手が定義できる・。
+	\begin{define}[共変Hom関手]
+		任意の圏$\cat{C}$とそのある対象$X$における共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$を以下の要素で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象関数] 圏$\cat{C}$の任意の対象$A$に対して対象関数を
+				\begin{align*}
+					&\mor{\arset{C}{X}{-}}{\obj{C}}{\obj{Set}}\\
+					&\arset{C}{X}{-}(A)=\arset{C}{X}{A}
+				\end{align*}
+				と定義する。
+				\item[射関数] 圏$\cat{C}$の任意の対象$A,B$、射$\mor{f}{A}{B}$に対して射関数を
+				\begin{align*}
+					&\mor{\arset{C}{X}{-}_{A,B}}{\arset{C}{A}{B}}{\arset{Set}{\arset{C}{X}{A}}{\arset{C}{X}{B}}}\\
+					&\arset{C}{X}{-}_{A,B}(f)=\arset{C}{X}{f}
+				\end{align*}
+				と定義する。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (ca) at (2, 0) {$\arset{C}{X}{A}$};
+						\node (cb) at (2, -1.5) {$\arset{C}{X}{B}$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catset) at (2, 1) {$\cat{Set}$};
+						\draw[->] (ca) to node{$\arset{C}{X}{f}$}(cb);
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (catc) to node{$\arset{C}{X}{-}$}(catset);
+						\draw[-,dashed] (a) to (ca);
+						\draw[-,dashed] (b) to (cb);
+					\end{tikzpicture}
+				\end{center}
+				\item[恒等射の保存] 共変射写像の合成の保存より、$\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}$が成り立つ。
+				\item[射の合成の保存] 共変射写像の恒等射の保存より、$\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}$が成り立つ。
+			\end{description}
+		\end{quote}
+	\end{define}
+	共変射写像では射を左から合成する写像を考えたが、次は射を右から合成する写像である反変射写像を考える。
+	\begin{define}[反変射写像]
+		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{B}$に射$f$を右から合成する写像を
+		\begin{align*}
+			&\mor{\arset{C}{f}{X}}{\arset{C}{B}{X}}{\arset{C}{A}{X}}\\
+			&\arset{C}{f}{X}(g)=g\circ f
+		\end{align*}
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (x) at (0, 0) {$X$};
+				\node (x2) at (0, -1.5) {$X$};
+				\node (a) at (-1.5, 0) {$A$};
+				\node (b) at (-1.5, -1.5) {$B$};
+				\node (ca) at (2, 0) {$\arset{C}{A}{X}$};
+				\node (cb) at (2, -1.5) {$\arset{C}{B}{X}$};
+				\node (catc) at (-0.75, 1) {$\cat{C}$};
+				\node (catc) at (2, 1) {$\cat{Set}$};
+				\draw[->] (cb) to node{$\arset{C}{f}{X}$}(ca);
+				\draw[->] (a) to node{$f$}(b);
+				\draw[double distance=2pt] (x) to (x2);
+				\draw[->] (a) to node{$g\circ f$}(x);
+				\draw[->] (b) to node[swap]{$g$}(x2);
+			\end{tikzpicture}
+		\end{center}
+		と定義する。共変射写像と違い、射$f$に対して$\arset{C}{f}{X}$の向きが逆になっている。
+	\end{define}
+	また反変射写像をとる操作を射関数とした関手は反変関手として定義する。
+		\begin{define}[反変Hom関手]
+		任意の圏$\cat{C}$とそのある対象$X$における反変Hom関手$\functor{\arset{C}{X}{-}}{C^{op}}{Set}$を以下の要素で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象関数] 圏$\cat{C}$の任意の対象$A$に対して対象関数を
+				\begin{align*}
+					&\mor{\arset{C}{-}{X}}{\obj{C}}{\obj{Set}}\\
+					&\arset{C}{-}{X}(A)=\arset{C}{X}{A}
+				\end{align*}
+				と定義する。
+				\item[射関数] 圏$\cat{C}$の任意の対象$A,B$、射$\mor{f}{A}{B}$に対して射関数を
+				\begin{align*}
+					&\mor{\arset{C}{-}{X}_{A,B}}{\arset{C}{A}{B}}{\arset{Set}{\arset{C}{B}{X}}{\arset{C}{A}{X}}}\\
+					&\arset{C}{-}{X}_{A,B}(f)=\arset{C}{f}{X}
+				\end{align*}
+				と定義する。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (ca) at (2, 0) {$\arset{C}{A}{X}$};
+						\node (cb) at (2, -1.5) {$\arset{C}{B}{X}$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catset) at (2, 1) {$\cat{Set}$};
+						\draw[->] (cb) to node{$\arset{C}{f}{X}$}(ca);
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (catc) to node[swap]{$\arset{C}{-}{X}$}(catset);
+						\draw[-,dashed] (a) to (ca);
+						\draw[-,dashed] (b) to (cb);
+					\end{tikzpicture}
+				\end{center}
+				\item[恒等射の保存] 共変射写像の合成の保存と同様に$\arset{C}{id_A}{X}=id_{\arset{C}{A}{X}}$が成り立つ。
+				\item[射の合成の保存] 共変射写像の恒等射の保存と同様に$\arset{C}{g\circ f}{X}=\arset{C}{f}{X}\circ\arset{C}{g}{X}$が成り立つ。
+			\end{description}
+		\end{quote}
+	\end{define}
+	\begin{prop}[Hom関手の積の保存]
+		圏$\cat{C}$の積$A\times B$に対して、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
+	\end{prop}
+	\begin{proof}
+		$\arset{C}{X}{A}\times\arset{C}{X}{B}$は$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であるが、$\arset{C}{X}{A\times B}$も同様に$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であることを示せばよい。
+		射影射をそれぞれ
+		\begin{align*}
+			&\pi_{\arset{C}{X}{A}}=\mor{\arset{C}{X}{\pi_A}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{A}}\\
+			&\pi_{\arset{C}{X}{B}}=\mor{\arset{C}{X}{\pi_B}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{B}}
+		\end{align*}
+		として、組$(\arset{C}{X}{A\times B},\arset{C}{X}{\pi_A},\arset{C}{X}{\pi_B})$が積の普遍性を満たすことを証明する。つまり$\cat{Set}$の任意の対象$Y$と任意の二射$\mor{i}{Y}{\arset{C}{X}{A}}$、$\mor{j}{Y}{\arset{C}{X}{B}}$に対して、
+		\begin{align*}
+			&\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i\\
+			&\arset{C}{X}{\pi_B}\circ\tuple{i,j}=j
+		\end{align*}
+		が成り立つような射$\mor{\tuple{i,j}}{Y}{\arset{C}{X}{A\times B}}$が一意に存在することを示せばよい。
+
+		まずは図式を可換にする$\tuple{i,j}$が存在することを示す。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (set) at (3, 3) {$\cat{Set}$};
+				\node (xa) at (0, 0) {$\arset{C}{X}{A}$};
+				\node (xab) at (3, 0) {$\arset{C}{X}{A\times B}$};
+				\node (xb) at (6, 0) {$\arset{C}{X}{B}$};
+				\node (y) at (3, 2) {$Y$};
+				\draw[->] (xab) to node{$\arset{C}{X}{\pi_A}$}(xa);
+				\draw[->] (xab) to node[swap]{$\arset{C}{X}{\pi_B}$}(xb);
+				\draw[->] (y) to node[swap]{$i$}(xa);
+				\draw[->] (y) to node{$j$}(xb);
+				\draw[->] (y) to node{$\tuple{i,j}$}(xab);
+			\end{tikzpicture}
+		\end{center}
+		ここで対象$Y$の任意の元$y$を取り適用すると、圏$\cat{C}$の射$\mor{i(y)}{X}{A}$、$\mor{j(y)}{X}{B}$が得られる。
+
+		射$i,j$は$\cat{Set}$の射であるが、値を適用した$i(y),j(y)$もまた$\cat{C}$の射であることに注意してほしい。もし圏$\cat{C}$で対象$X$の元$x$が取れるなら、さらに値を適用して対象$A$の元$i(y)(x)$が取れる。
+
+		圏$\cat{C}$の積$(A\times B,\pi_A,\pi_B)$に対して射$i(y),j(y)$の射の対\[\mor{\tuple{i(y),j(y)}}{X}{A\times B}\]を考える。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (4, 0) {$B$};
+				\node (ab) at (2, 0) {$A\times B$};
+				\node (x) at (2, 2) {$X$};
+				\draw[->] (ab) to node {$\pi_A$}(a);
+				\draw[->] (ab) to node[swap] {$\pi_B$}(b);
+				\draw[->] (x) to node[swap] {$i(y)$}(a);
+				\draw[->] (x) to node {$j(y)$}(b);
+				\draw[->] (x) to node {\scriptsize{$\tuple{i(y),j(y)}$}}(ab);
+			\end{tikzpicture}
+		\end{center}
+		このような射の対は任意の射$i(y),j(y)$に対して存在するから、任意の$y$に対しても存在する。
+		よって$\cat{Set}$の射の対$\tuple{i,j}$を任意の$y$に対して\[\tuple{i,j}(y)=\tuple{i(y),j(y)}\]と定義できた。
+		次に$\tuple{i,j}$が図式を可換にすることを示す。
+
+		同様に$Y$の任意の元$y$に対し
+		\begin{align*}
+			\arset{C}{X}{\pi_A}\circ\tuple{i,j}(y)&=\arset{C}{X}{\pi_A}(\tuple{i,j}(y))&\text{(射の合成の定義)}\\
+			&=\arset{C}{X}{\pi_A}(\tuple{i(y),j(y)})&\text{($\tuple{i,j}$の定義)}\\
+			&=\pi_A\circ(\tuple{i(y),j(y)})&\text{(共変射写像の定義)}\\
+			&=i(y)&\text{(射の対の可換性)}
+		\end{align*}
+		よって$\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i$が成り立つ。同様に$\arset{C}{X}{\pi_B}\circ\tuple{i,j}=j$も成り立つ。
+
+		次に射の対$\tuple{i,j}$の一意性を示す。
+		ある射$\mor{k}{Y}{\arset{C}{X}{A\times B}}$が
+		\begin{align*}
+			&\arset{C}{X}{\pi_A}\circ k=i\\
+			&\arset{C}{X}{\pi_B}\circ k=j
+		\end{align*}
+		を満たすとき、$h=\tuple{i,j}$が成り立つことを示せばよい。
+
+		$Y$の任意の元$y$に対し
+		\begin{align*}
+			i(y)&=(\arset{C}{X}{\pi_A}\circ k)(y)\\
+			&=\arset{C}{X}{\pi_A}(k(y))&\text{(射の合成の定義)}\\
+			&=\pi_A\circ(k(y))&\text{(共変射写像の定義)}
+		\end{align*}
+		よって$\pi_A\circ(k(y))=i(y)$が成り立つ。同様に$\pi_A\circ(k(y))=i(y)$も成り立つ。
+		すると$\cat{C}$の積$A\times B$の射の対$\tuple{i,j}(y)$の一意性より、$k(y)=\tuple{i,j}(y)$となる。
+		これは任意の$y$で成り立つから$k=\tuple{i,j}$となり、$\tuple{i,j}$は$i,j$に対して一意に存在することが示せた。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 0) {$A$};
+				\node (b) at (4, 0) {$B$};
+				\node (ab) at (2, 0) {$A\times B$};
+				\node (x) at (2, 2) {$X$};
+				\draw[->] (ab) to node {$\pi_A$}(a);
+				\draw[->] (ab) to node[swap] {$\pi_B$}(b);
+				\draw[->] (x) to node[swap] {$i(y)$}(a);
+				\draw[->] (x) to node {$j(y)$}(b);
+				\draw[->,transform canvas={xshift=+2pt}] (x) to node {\scriptsize{$\tuple{i,j}(y)$}}(ab);
+				\draw[->,transform canvas={xshift=-2pt}] (x) to node[swap] {\scriptsize{$k(y)$}}(ab);
+			\end{tikzpicture}
+		\end{center}
+		よって組$(\arset{C}{X}{A\times B},\arset{C}{X}{\pi_A},\arset{C}{X}{\pi_B})$は積の普遍性を満たす。つまり$\arset{C}{X}{A\times B}$は$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であり、積の一意性より、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
+	\end{proof}
+	かなり長い証明になってしまったが、$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$を示すだけなら同型射となるような射を定義して同型射であることを証明すればよい。こちらの方が簡単ではあるが、射集合を用いた議論に慣れてもらうためこのように証明した。
+
+	さてこの同型の意味を考えると、任意の二射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$と射の対$\mor{\tuple{f,g}}{X}{A\times B}$が一対一対応をする、ということになる。つまり積の普遍性で述べた存在と一意性が$\cat{Set}$の同型で述べた存在と一意性で表せることがわかる。
+
+	次に自明ではあるが、共変Hom関手が終対象を保つことを同様に証明する。
+	\begin{prop}[Hom関手の終対象の保存]
+		圏$\cat{C}$の終対象$1$と圏$\cat{Set}$の任意の対象$X$と終対象$I$に対して\[\arset{C}{X}{1}\cong I\]が成り立つ。
+	\end{prop}
+	\begin{proof}
+		$\arset{C}{X}{1}$が$\cat{Set}$における終対象であることを示せばよい。つまり$\cat{Set}$の任意の対象$Y$に対して\[\mor{!_Y}{Y}{\arset{C}{X}{1}}\]が一意に存在することを証明する。
+
+		射$\mor{!_Y}{Y}{\arset{C}{X}{1}}$が少なくとも一つは存在すると仮定する。
+		対象$Y$の任意の元$y$を$!_Y$に適用すると圏$\cat{C}$の射$\mor{!_Y(y)}{X}{1}$が得られるが、終対象$1$の普遍性よりこのような射は少なくとも一つは存在する。よって任意の$y$において$!_Y(y)$が存在するから、実際に射$!_Y$は存在する。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (set) at (1, 1) {$\cat{Set}$};
+				\node (1) at (0, 0) {$Y$};
+				\node (1') at (2, 0) {$\arset{C}{X}{1}$};
+				\node (set) at (5, 1) {$\cat{C}$};
+				\node (x) at (4, 0) {$X$};
+				\node (t) at (6, 0) {$1$};
+				\draw[->] (1) to node{$!_Y$}(1');
+				\draw[->] (x) to node{$!_Y(y)$}(t);
+			\end{tikzpicture}
+		\end{center}
+		次に$\mor{!_Y}{Y}{\arset{C}{X}{1}}$の一意性を示す。つまり射$\mor{h}{Y}{\arset{C}{X}{1}}$が存在したとき、$!_Y=h$が成り立てばよい。
+
+		対象$Y$の任意の元$y$において射$\mor{h(y)}{X}{1}$圏$\cat{C}$の終対象の普遍性より、$\mor{!_Y(y)}{X}{1}$なる射は一意に存在する。よって$!_Y(y)=h(y)$となり、任意の元$y$で成り立つから$!_Y=h$となる。
+
+
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (set) at (1, 1) {$\cat{Set}$};
+				\node (1) at (0, 0) {$Y$};
+				\node (1') at (2, 0) {$\arset{C}{X}{1}$};
+				\node (set) at (5, 1) {$\cat{C}$};
+				\node (x) at (4, 0) {$X$};
+				\node (t) at (6, 0) {$1$};
+				\draw[->,transform canvas={yshift=2pt}] (1) to node{$!_Y$}(1');
+				\draw[->,transform canvas={yshift=2pt}] (x) to node{$!_Y(y)$}(t);
+				\draw[->,transform canvas={yshift=-2pt}] (1) to node[swap]{$h$}(1');
+				\draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$h(y)$}(t);
+			\end{tikzpicture}
+		\end{center}
+		$\mor{!_Y}{Y}{\arset{C}{X}{1}}$なる射が一意に存在することが示せたから、$\arset{C}{X}{1}$は$\cat{Set}$における終対象となる。よって終対象の一意性より、\[\arset{C}{X}{1}\cong I\]が成り立つ。
+	\end{proof}
 	\section{自然変換}
 	\section{随伴関手}
 	\section{デカルト閉圏}
