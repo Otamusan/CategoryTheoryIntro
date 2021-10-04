@@ -3,10 +3,13 @@
 \usepackage{bbm}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
+\usetikzlibrary{matrix,arrows}
+
 \newcommand{\cat}[1]{\mathbbm{#1}}
 \newcommand{\arrow}{\rightarrow}
 \newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
-\newcommand{\nat}{\Rightarrow}
+\newcommand{\nat}[3]{#1:#2\Rightarrow #3}
+\newcommand{\natf}[5]{#1:#2\Rightarrow #3:\cat{#4}\arrow \cat{#5}}
 \newcommand{\tuple}[1]{\langle #1\rangle}
 \newcommand{\objr}[1]{\mathrm{Obj}(#1)}
 \newcommand{\obj}[1]{\mathrm{Obj}(\cat{#1})}
@@ -32,7 +35,7 @@
 	\section{圏と公理}
 
 	\begin{define}
-		ある圏$\cat{C}$は、以下の要素と演算、公理から構成される。
+		ある圏$\cat{C}$は以下で定義される対象の集合$\obj{C}$と任意の二対象$A,B$に対する射の集合$\arset{C}{A}{B}$、演算、公理から構成される。
 		\begin{quote}
 			\begin{description}
 			\item[対象] 対象の集合$A,B,C...\in\obj{C}$
@@ -131,10 +134,10 @@
 		圏$\cat{Set}$を以下の要素から構成する。
 		\begin{quote}
 			\begin{description}
-				\item[対象] 小さな集合の集合$A,B,C...\in\obj{Set})$
+				\item[対象] $\obj{Set}$を小さな集合の集合とする。
 
 				「小さい」は自己言及を避けるための条件であり、実際に$\obj{Set}$は大きい集合となるため$\obj{Set}$には含まれない。
-				\item[射] 小さな集合$A$から小さな集合$B$への写像の集合$f,g,h...\in\arset{Set}{A}{B}$
+				\item[射] 二対象$A,B$に対する射集合$\arset{Set}{A}{B}$を小さな集合$A$から小さな集合$B$への写像の集合$\arset{Set}{A}{B}$とする。
 
 				また紛らわしい場合を除いて小さい集合を集合と呼ぶことにする。
 				\item[射の合成] 　二つの写像$\mor{f}{A}{B}$、$\mor{g}{B}{C}$の合成写像$\mor{g\circ f}{A}{C}$を$A$の任意の元$a$に対して\[(g\circ f)(a)=g(f(a))\]となるように定義する。
@@ -746,6 +749,7 @@
 				\draw[->] (x) to node{$i$}(y);
 				\draw[->] (y) to node{$j$}(z);
 				\draw[->] (x) to node{$j\circ i$}(z);
+				\draw[->] (w) to node{$l$}(z);
 				\draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$k$}(w);
 				\draw[->,transform canvas={yshift=2pt}] (x) to node{$k\circ h$}(w);
 				\draw[->,loop left ,looseness=10] (x) to node{$h$}(x);
@@ -780,12 +784,18 @@
 				\node (a) at (0, 2) {$A$};
 				\node (b) at (0, 0) {$B$};
 				\node (c) at (2, 1) {$C$};
-				\node (x) at (4, 2) {$X$};
-				\node (y) at (4, 0) {$Y$};
-				\node (z) at (6, 1) {$Z$};
-				\draw[-,dashed] (a) to (x);
-				\draw[-,dashed] (b) to (y);
-				\draw[-,dashed] (c) to (z);
+				\node (ta) at (4, 2) {$TA$};
+				\node (tb) at (4, 0) {$TB$};
+				\node (tc) at (6, 1) {$TC$};
+				\node (x) at (8, 2) {$X$};
+				\node (y) at (8, 0) {$Y$};
+				\node (z) at (10, 1) {$Z$};
+
+				\node (e) at (7, 1) {$=$};
+
+				\draw[-,dashed] (a) to (ta);
+				\draw[-,dashed] (b) to (tb);
+				\draw[-,dashed] (c) to (tc);
 
 				\draw[->] (a) to node{$f$}(b);
 				\draw[->] (b) to node{$g$}(c);
@@ -795,6 +805,12 @@
 				\draw[->] (x) to node[yshift =10]{$i$}(y);
 				\draw[->] (y) to node[swap]{$j$}(z);
 				\draw[->] (x) to node{$j\circ i$}(z);
+
+				\draw[-, line width=4pt,draw=white] (ta) to (tb);
+				\draw[->] (ta) to node[yshift =10]{$Tf$}(tb);
+				\draw[->] (tb) to node[swap]{$Tg$}(tc);
+				\draw[->] (ta) to node{$T(g\circ f)$}(tc);
+
 				\node (catc) at (1, 3) {$\cat{C}$};
 				\node (catd) at (5, 3) {$\cat{D}$};
 				\draw[->] (catc) to node{$T$}(catd);
@@ -819,12 +835,18 @@
 				\node (a) at (0, 2) {$A$};
 				\node (b) at (0, 0) {$B$};
 				\node (c) at (2, 1) {$C$};
-				\node (x) at (4, 2) {$X$};
-				\node (y) at (4, 0) {$X$};
-				\node (z) at (6, 1) {$W$};
-				\draw[-,dashed] (a) to (x);
-				\draw[-,dashed] (b) to (y);
-				\draw[-,dashed] (c) to (z);
+				\node (ta) at (4, 2) {$SA$};
+				\node (tb) at (4, 0) {$SB$};
+				\node (tc) at (6, 1) {$SC$};
+				\node (x) at (8, 2) {$X$};
+				\node (y) at (8, 0) {$X$};
+				\node (z) at (10, 1) {$W$};
+
+				\node (e) at (7, 1) {$=$};
+
+				\draw[-,dashed] (a) to (ta);
+				\draw[-,dashed] (b) to (tb);
+				\draw[-,dashed] (c) to (tc);
 
 				\draw[->] (a) to node{$f$}(b);
 				\draw[->] (b) to node{$g$}(c);
@@ -834,9 +856,15 @@
 				\draw[->] (x) to node[yshift =10]{$h$}(y);
 				\draw[->] (y) to node[swap]{$k$}(z);
 				\draw[->] (x) to node{$k\circ h$}(z);
+
+				\draw[-, line width=4pt,draw=white] (ta) to (tb);
+				\draw[->] (ta) to node[yshift =10]{$Sf$}(tb);
+				\draw[->] (tb) to node[swap]{$Sg$}(tc);
+				\draw[->] (ta) to node{$S(g\circ f)$}(tc);
+
 				\node (catc) at (1, 3) {$\cat{C}$};
 				\node (catd) at (5, 3) {$\cat{D}$};
-				\draw[->] (catc) to node{$T$}(catd);
+				\draw[->] (catc) to node{$S$}(catd);
 
 			\end{tikzpicture}
 		\end{center}
@@ -1914,6 +1942,281 @@
 		$\mor{!_Y}{Y}{\arset{C}{X}{1}}$なる射が一意に存在することが示せたから、$\arset{C}{X}{1}$は$\cat{Set}$における終対象となる。よって終対象の一意性より、\[\arset{C}{X}{1}\cong I\]が成り立つ。
 	\end{proof}
 	\section{自然変換}
+	次に関手の間の射である自然変換を定義する。
+	\begin{define}
+		二つの関手$\functor{F,G}{C}{D}$の間の自然変換$\natf{\alpha}{F}{G}{C}{D}$は以下で定義される成分と呼ばれる射で構成される。
+		\begin{quote}
+			\begin{description}
+				\item[成分] 圏$\cat{C}$の任意の対象$X$に対する自然変換$\alpha$の成分$\alpha_X$とは\[\mor{\alpha_X}{FX}{GX}\]となるような射である。つまりこの成分をすべての対象の分だけ集めたものが自然変換である。
+				\item[自然性]
+				自然変換とその成分は以下の自然性を満たさなければならない。
+
+				圏$\cat{C}$の任意の射$\mor{f}{A}{B}$を関手$F,G$で写した射$\mor{Ff}{FA}{FB}$、$\mor{Gf}{GA}{GB}$に対して、\[Gf\circ\alpha_A=\alpha_B\circ Ff\]が成り立つことを自然性と呼ぶ。
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (A) at (0, 0.75) {$A$};
+						\node (B) at (1.5, 0.75) {$B$};
+						\node (FA) at (3, 1.5) {$FA$};
+						\node (FB) at (4.5, 1.5) {$FB$};
+						\node (GA) at (3, 0) {$GA$};
+						\node (GB) at (4.5, 0) {$GB$};
+
+						\node (catc) at (0.75, 3) {$\cat{C}$};
+						\node (catd) at (3.75, 3) {$\cat{D}$};
+
+						\draw[->] (A) to node{$f$}(B);
+						\draw[->] (FA) to node{$Ff$}(FB);
+						\draw[->] (GA) to node{$Gf$}(GB);
+						\draw[->] (FA) to node{$\alpha_A$}(GA);
+						\draw[->] (FB) to node{$\alpha_B$}(GB);
+
+						\draw[->,bend left = 30] (catc) to node (funcf){$F$}(catd);
+						\draw[->,bend right = 30] (catc) to node (funcg)[swap]{$G$}(catd);
+						\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+					\end{tikzpicture}
+				\end{center}
+				つまり自然変換は関手$F,G$で写された対象同士に成分で橋を架け、自然性を用いて橋と橋の間に肉付けを行うイメージである。
+			\end{description}
+		\end{quote}
+		次に具体的な自然変換の例を紹介する。
+	\end{define}
+	圏$\cat{C,D}$を以下の対象、射で構成される。また$l\circ k=j\circ i$とする。
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (a) at (0, 2) {$A$};
+			\node (b) at (0, 0) {$B$};
+			\node (c) at (2, 1) {$C$};
+			\draw[->] (a) to node{$f$}(b);
+			\draw[->] (b) to node{$g$}(c);
+			\draw[->] (a) to node{$g\circ f$}(c);
+
+			\node (x) at (4, 2) {$X$};
+			\node (y) at (4, 0) {$Y$};
+			\node (w) at (6, 2) {$W$};
+			\node (z) at (6, 0) {$Z$};
+			\draw[->] (x) to node{$i$}(y);
+			\draw[->] (y) to node{$j$}(z);
+			\draw[->] (x) to node{$j\circ i$}(z);
+			\draw[->] (w) to node{$l$}(z);
+			\draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$k$}(w);
+			\draw[->,transform canvas={yshift=2pt}] (x) to node{$k\circ h$}(w);
+			\draw[->,loop left ,looseness=10] (x) to node{$h$}(x);
+
+			\node (catc) at (1, 3) {$\cat{C}$};
+			\node (catd) at (5, 3) {$\cat{D}$};
+		\end{tikzpicture}
+	\end{center}
+	関手$\functor{S,T}{C}{D}$を以下の対象と射の対応によって定義される関手とする。
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (ta) at (4, 2) {$SA$};
+			\node (tb) at (4, 0) {$SB$};
+			\node (tc) at (6, 1) {$SC$};
+			\node (x) at (8, 2) {$X$};
+			\node (y) at (8, 0) {$X$};
+			\node (z) at (10, 1) {$W$};
+
+			\node (e) at (7, 1) {$=$};
+
+			\draw[-, line width=4pt,draw=white] (x) to (y);
+			\draw[->] (x) to node[yshift =10]{$h$}(y);
+			\draw[->] (y) to node[swap]{$k$}(z);
+			\draw[->] (x) to node{$k\circ h$}(z);
+
+			\draw[-, line width=4pt,draw=white] (ta) to (tb);
+			\draw[->] (ta) to node[yshift =10]{$Sf$}(tb);
+			\draw[->] (tb) to node[swap]{$Sg$}(tc);
+			\draw[->] (ta) to node{$S(g\circ f)$}(tc);
+
+			\node (catd) at (7, 3) {$\cat{D}$};
+		\end{tikzpicture}
+	\end{center}
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (ta) at (4, 2) {$TA$};
+			\node (tb) at (4, 0) {$TB$};
+			\node (tc) at (6, 1) {$TC$};
+			\node (x) at (8, 2) {$X$};
+			\node (y) at (8, 0) {$Y$};
+			\node (z) at (10, 1) {$Z$};
+
+			\node (e) at (7, 1) {$=$};
+
+			\draw[-, line width=4pt,draw=white] (x) to (y);
+			\draw[->] (x) to node[yshift =10]{$i$}(y);
+			\draw[->] (y) to node[swap]{$j$}(z);
+			\draw[->] (x) to node{$j\circ i$}(z);
+
+			\draw[-, line width=4pt,draw=white] (ta) to (tb);
+			\draw[->] (ta) to node[yshift =10]{$Tf$}(tb);
+			\draw[->] (tb) to node[swap]{$Tg$}(tc);
+			\draw[->] (ta) to node{$T(g\circ f)$}(tc);
+
+			\node (catd) at (7, 3) {$\cat{D}$};
+		\end{tikzpicture}
+	\end{center}
+	関手$S,T$の間の自然変換$\natf{\alpha}{S}{T}{C}{D}$を以下の成分で定義する。
+	\begin{align*}
+		\mor{\alpha_A}{SA}{TA}&=\mor{h}{X}{X}\\
+		\mor{\alpha_B}{SB}{TB}&=\mor{i}{X}{Y}\\
+		\mor{\alpha_C}{SC}{TC}&=\mor{l}{W}{Z}
+	\end{align*}
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (sa) at (0, 2) {$SA$};
+			\node (sb) at (2, 2) {$SB$};
+			\node (sc) at (4, 2) {$SC$};
+			\node (ta) at (0, 0) {$TA$};
+			\node (tb) at (2, 0) {$TB$};
+			\node (tc) at (4, 0) {$TC$};
+			\node (e) at (5, 1) {$=$};
+			\draw[->] (sa) to node{$Sf$}(sb);
+			\draw[->] (sb) to node{$Sg$}(sc);
+			\draw[->] (ta) to node{$Tf$}(tb);
+			\draw[->] (tb) to node{$Tg$}(tc);
+			\draw[->] (sa) to node{$\alpha_A$}(ta);
+			\draw[->] (sb) to node{$\alpha_B$}(tb);
+			\draw[->] (sc) to node{$\alpha_C$}(tc);
+
+			\node (sa') at (6, 2) {$X$};
+			\node (sb') at (8, 2) {$X$};
+			\node (sc') at (10, 2) {$W$};
+			\node (ta') at (6, 0) {$X$};
+			\node (tb') at (8, 0) {$Y$};
+			\node (tc') at (10, 0) {$Z$};
+			\draw[->] (sa') to node{$h$}(sb');
+			\draw[->] (sb') to node{$k$}(sc');
+			\draw[->] (ta') to node{$i$}(tb');
+			\draw[->] (tb') to node{$j$}(tc');
+			\draw[->] (sa') to node{$h$}(ta');
+			\draw[->] (sb') to node{$i$}(tb');
+			\draw[->] (sc') to node{$l$}(tc');
+		\end{tikzpicture}
+	\end{center}
+	すると、
+	\begin{align*}
+		\alpha_B\circ Sf&=i\circ h\\
+		&=Tf\circ\alpha_A\\
+		\alpha_C\circ Sg&=l\circ k\\
+		&=j\circ i\\
+		&=Tg\circ\alpha_B
+	\end{align*}
+	となり、このような成分の定義は自然性を満たす。
+	よって確かに$\alpha$は自然変換となる。
+
+	次に自然変換の例を示す。
+
+	ある圏$\cat{C}$の任意の対象$X$の恒等射$\mor{id_X}{X}{X}$はすべての対象に存在するため自然変換の成分$id$とみなせるかもしれない。
+	実際に圏$\cat{C}$の二つの恒等関手$\functor{Id_C}{C}{C}$の間の自然変換\[\natf{id}{Id_C}{Id_C}{C}{C}\]を考えると、対象$X$に対する成分は$\mor{id}{Id(X)}{Id(X)}=\mor{id}{X}{X}$となる。
+	また任意の射$\mor{f}{A}{B}$において\[id_B\circ f=f\circ id_A\]が成り立つから、確かに自然性を満たす。
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (A) at (0, 1) {$A$};
+			\node (B) at (2, 1) {$B$};
+			\node (FA) at (4, 2) {$Id(A)$};
+			\node (FB) at (6, 2) {$Id(B)$};
+			\node (GA) at (4, 0) {$Id(A)$};
+			\node (GB) at (6, 0) {$Id(B)$};
+
+			\node (e) at (7.5, 1) {$=$};
+
+			\node (catc) at (1, 4) {$\cat{C}$};
+			\node (catd) at (5, 4) {$\cat{D}$};
+
+			\draw[->] (A) to node{$f$}(B);
+			\draw[->] (FA) to node{$Id(f)$}(FB);
+			\draw[->] (GA) to node{$Id(f)$}(GB);
+			\draw[->] (FA) to node{$id_A$}(GA);
+			\draw[->] (FB) to node{$id_B$}(GB);
+
+			\node (FA) at (8.5, 2) {$A$};
+			\node (FB) at (10.5, 2) {$B$};
+			\node (GA) at (8.5, 0) {$A$};
+			\node (GB) at (10.5, 0) {$B$};
+			\draw[->] (FA) to node{$id_A$}(GA);
+			\draw[->] (FB) to node{$id_B$}(GB);
+			\draw[->] (FA) to node{$f$}(FB);
+			\draw[->] (GA) to node{$f$}(GB);
+			\draw[->,bend left = 20] (catc) to node (funcf){$Id_C$}(catd);
+			\draw[->,bend right = 20] (catc) to node (funcg)[swap]{$Id_C$}(catd);
+			\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$id$] {} (funcg);
+		\end{tikzpicture}
+	\end{center}
+	となり、確かに恒等射を成分とする自然変換$id$は自然性を満たす。
+
+	次に自然変換$\natf{id}{Id_C}{Id_C}{C}{C}$を恒等関手$\functor{Id_C}{C}{C}$だけでなく、任意の関手$\functor{F}{C}{D}$で考えられるように一般化する。
+	\begin{define}[恒等自然変換]
+		関手$\functor{F}{C}{D}$に対して恒等自然変換$\natf{ID_F}{F}{F}{C}{D}$を、圏$C$の任意の対象$X$において\[(ID_F)_{X}=id_{FX}\]と定義する。
+
+		これは\[(ID_F)_B\circ Ff=Ff\circ(ID_F)_A\]より自然性を満たす。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (A) at (0, 0.75) {$A$};
+				\node (B) at (1.5, 0.75) {$B$};
+				\node (FA) at (3, 1.5) {$FA$};
+				\node (FB) at (4.5, 1.5) {$FB$};
+				\node (GA) at (3, 0) {$FA$};
+				\node (GB) at (4.5, 0) {$FB$};
+
+				\node (catc) at (0.75, 3) {$\cat{C}$};
+				\node (catd) at (3.75, 3) {$\cat{D}$};
+
+				\draw[->] (A) to node{$f$}(B);
+				\draw[->] (FA) to node{$Ff$}(FB);
+				\draw[->] (GA) to node{$Ff$}(GB);
+				\draw[->] (FA) to node[swap]{\scriptsize{$(ID_F)_A$}}(GA);
+				\draw[->] (FB) to node{\scriptsize{$(ID_F)_B$}}(GB);
+
+				\draw[->,bend left = 30] (catc) to node (funcf){$F$}(catd);
+				\draw[->,bend right = 30] (catc) to node (funcg)[swap]{$F$}(catd);
+				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$ID_F$] {} (funcg);
+			\end{tikzpicture}
+		\end{center}
+	\end{define}
+	\begin{define}[合成自然変換]
+		任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$の合成自然変換$\nat{\beta\cdot\alpha}{F}{H}$を、圏$\cat{C}$の任意の対象$X$における成分\[(\beta\cdot\alpha)_X=\mor{\beta_X\circ\alpha_X}{FX}{HX}\]によって定義する。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (A) at (0, 0) {$A$};
+				\node (B) at (1.5, 0) {$B$};
+				\node (FA) at (3, 1.5) {$FA$};
+				\node (FB) at (4.5, 1.5) {$FB$};
+				\node (GA) at (3, 0) {$GA$};
+				\node (GB) at (4.5, 0) {$GB$};
+				\node (HA) at (3, -1.5) {$HA$};
+				\node (HB) at (4.5, -1.5) {$HB$};
+				\node (catc) at (0.75, 3) {$\cat{C}$};
+				\node (catd) at (3.75, 3) {$\cat{D}$};
+
+				\draw[->] (A) to node{$f$}(B);
+				\draw[->] (FA) to node{$Ff$}(FB);
+				\draw[->] (GA) to node{$Gf$}(GB);
+				\draw[->] (HA) to node{$Hf$}(HB);
+				\draw[->] (FA) to node{$\alpha_A$}(GA);
+				\draw[->] (FB) to node{$\alpha_B$}(GB);
+				\draw[->] (GA) to node{$\beta_A$}(HA);
+				\draw[->] (GB) to node{$\beta_B$}(HB);
+				\draw[->,bend left = 50] (catc) to node (funcf){$F$}(catd);
+				\draw[->] (catc) to node[yshift =-7,fill=white] (funcg){$G$}(catd);
+				\draw[->,bend right = 50] (catc) to node (funch)[swap]{$H$}(catd);
+				\draw[double,double equal sign distance,-implies,shorten >=2pt,shorten <=3pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+				\draw[double,double equal sign distance,-implies,shorten >=3pt,shorten <=2pt] (funcg) -- node[label=right:$\beta$] {} (funch);
+			\end{tikzpicture}
+		\end{center}
+		すると任意の射$\mor{f}{A}{B}$において
+		\begin{align*}
+			(\beta\cdot\alpha)_B\circ Ff&=\beta_B\circ\alpha_B\circ Ff&\text{(合成自然変換の成分)}\\
+			&=\beta_B\circ Gf\circ \alpha_A&\text{($\alpha$の自然性)}\\
+			&=Hf\circ\beta_A\circ\alpha_A&\text{($\beta$の自然性)}\\
+			&=Hf\circ(\beta\cdot\alpha)_A&\text{(合成自然変換の成分)}
+		\end{align*}
+		となり、$\beta\cdot\alpha$は確かに自然性を満たす。
+	\end{define}
+	\subsection{水平合成}
+	\subsection{関手圏}
+	\subsection{自然同型と同値}
+	\subsection{エンド}
+	\section{極限}
 	\section{随伴関手}
 	\section{デカルト閉圏}
 	\section{米田の補題}
