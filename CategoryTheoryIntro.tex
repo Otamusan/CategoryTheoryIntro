@@ -18,6 +18,7 @@
 \newcommand{\cod}{\mathrm{cod}}
 \newcommand{\arset}[3]{\cat{#1}(#2,#3)}
 \newcommand{\arsetr}[3]{#1(#2,#3)}
+\newcommand{\pcobj}[1]{[#1]}
 \newtheorem{proof}{証明}[section]
 \newtheorem{prop}{命題}[section]
 \newtheorem{define}{定義}[section]
@@ -256,11 +257,15 @@
 	\end{center}
 	同型は対象同士の相互互換のような関係性を表していると感じられる。
 	\begin{prop}[集合の圏の同型]
-		$A\cong B$ならば同型射$\mor{i}{A}{B}$が全単射である。
+		$A\cong B$$\Longleftrightarrow$同型射$\mor{i}{A}{B}$が全単射。
 
 		また全単射は、任意の元$\mor{b}{1}{B}$に対して、$i(a)=b$が成り立つようなある元$\mor{a}{1}{A}$が一意に存在することであり、この対応を一対一対応と呼ぶ。
 	\end{prop}
+
 	\begin{proof}
+		$(\Longleftarrow)$だけ証明する。
+
+
 		まずは$b$に対する等式を満たすような$a$が存在することを示す
 		任意の元$\mor{b}{1}{B}$にたいして対応する元$\mor{a}{1}{A}$を$a=i^{-1}(b)$とする。すると
 		\begin{align*}
@@ -866,7 +871,8 @@
 			\end{align*}
 		となる。この$\mor{e_{x(*)}}{1}{A}$は$1$の任意の元$*$に対し$e_{x(*)}(*)=x(*)$が成り立つから$i\circ i^{-1}=e_{x(*)}=x$となる。よって$i\circ i^{-1}=id_{\arset{Set}{1}{A}}$が成り立つ。
 
-		また任意の元$\mor{a}{1}{A}$に対し\begin{align*}
+		また任意の元$\mor{a}{1}{A}$に対し
+		\begin{align*}
 			(i^{-1}\circ i)(a)&=i^{-1}(i(x))&\text{(写像の合成の定義)}\\
 			&=i^{-1}(e_a)&\text{(iの定義)}\\
 			&=e_a(*)&\text{($i^{-1}$の定義)}\\
@@ -923,7 +929,7 @@
 		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
 
 		つまり、圏$\cat{C}$に含まれる任意の射$\mor{f}{A}{B}$、$\mor{k}{X}{Y}$に対して\[F(f)=F_{A,B}(f)\]\[F(k)=F_{X,Y}(k)\]と置き換えてほしい。
-		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もあることにも注意してほしい。
+		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もある。
 
 		関手$T$の射関数$T$を\[T(f)=i,\ T(g)=j,\ T(g\circ f)=j\circ i\]と定義する。また各対象の恒等射の対応は
 		\begin{align*}
@@ -1099,7 +1105,7 @@
 					\draw[->] (ab) to node[swap]{$f\times id_B$}(a'b);
 				\end{tikzpicture}
 			\end{center}
-			\item[恒等射の保存] $(-\times B)(id_A)=id_{(-\times B)(A)}$を示せばよい。
+			\item[恒等射の保存] 射影射の対が恒等射になることを用いて$(-\times B)(id_A)=id_{(-\times B)(A)}$を示せばよい。
 			\begin{align*}
 				(-\times B)(id_A)&=id_A\times id_B&\text{(射関数の定義)}\\
 				&=\tuple{id_A\circ\pi_A,id_B\circ\pi_B}&\text{(射の積の定義)}\\
@@ -1108,7 +1114,7 @@
 				&=id_{(-\times B)(A)}&\text{(対象関数の定義)}
 			\end{align*}
 			よって積関手は恒等射を保つことが示せた。
-			\item[射の合成の保存]任意の対象$A,A',A''$と任意の射$\mor{f}{A}{A'},\mor{f'}{A'}{A''}$に対して\[(-\times B)(f'\circ f)=(-\times B)(f')\circ(-\times B)(f)\]が成り立つことを示せばよい。
+			\item[射の合成の保存]任意の対象$A,A',A''$と任意の射$\mor{f}{A}{A'},\mor{f'}{A'}{A''}$に対して\[(-\times B)(f'\circ f)=(-\times B)(f')\circ(-\times B)(f)\]が成り立つことを、積と合成の交換から示す。
 			\begin{align*}
 				(-\times B)(f'\circ f)&=(f'\circ f)\times id_B&\text{(射関数の定義)}\\
 				&=(f'\circ f)\times (id_B\circ id_B)&\text{(恒等射の性質)}\\
@@ -1152,7 +1158,7 @@
 			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数を$G\circ F$と定義する。
 			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)_{}(f)=G(Ff)}{GFA}{GF{A'}}\]となるような写像である。
 
-			各二対象ごとの射関数も見ていくと、関手$F,G$のそれぞれの関数\[\mor{F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C'}{FA}{FA'}}\]\[\mor{G_{FA,FA'}}{\arset{C'}{FA}{FA'}}{\arset{C''}{GFA}{GFA'}}\]に対して$G\circ F$の関数を\[(G\circ F)_{A,A'}=\mor{G_{FA,FA'}\circ F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C''}{GFA}{GFA'}}\]と定義する。このように関手の合成はそれぞれの関手の対象関数、射関数の合成に還元して考える。
+			各二対象ごとの射関数も見ていくと、関手$F,G$のそれぞれの関数\[\mor{F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C'}{FA}{FA'}}\]\[\mor{G_{FA,FA'}}{\arset{C'}{FA}{FA'}}{\arset{C''}{GFA}{GFA'}}\]に対して$G\circ F$の関数を\[(G\circ F)_{A,A'}=\mor{G_{FA,FA'}\circ F_{A,A'}}{\arset{C}{A}{A'}}{\arset{C''}{GFA}{GFA'}}\]となる。このように関手の合成はそれぞれの関手の対象関数、射関数の合成に還元して考える。
 
 			\begin{center}
 				\begin{tikzpicture}[auto]
@@ -1255,7 +1261,7 @@
 				$H\circ (G\circ F)=(H\circ G)\circ F$が合成可能な任意の関手$F,G,H$で成り立つことを示せばよい。
 				二つの関手が等しいことを示すにはそれぞれを構成する対象関数と射関数が等しいことを示せばよい。
 				対象関数については、関手$F,G,H$の対象関数$F,G,H$に対して$H\circ (G\circ F)=(H\circ G)\circ F$は明らかに成り立つ。
-				射関数については、
+				射関数についても写像の結合律に還元すると、
 				\begin{align*}
 					(H\circ (G\circ F))_{A,A'}&=H_{GFA,GFA'}\circ (G\circ F)_{A,A}&\text{(射関数の合成の定義)}\\
 					&=H_{GFA,GFA'}\circ (G_{FA,FA'}\circ F_{A,A'})&\text{(射関数の合成の定義)}\\
@@ -1270,7 +1276,7 @@
 				恒等関手の対象関数、射関数ともに恒等写像
 				\[\mor{Id_\cat{C}=id_{\obj{A}}}{\obj{A}}{\obj{A}}\]
 				\[\mor{Id_{\cat{C}A,A'}=id_{\arset{C}{A}{A'}}}{\arset{C}{A}{A'}}{\arset{C}{A}{A'}}\]
-				となるため、写像の単位元律より$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立ち単位元則が成り立つ。
+				となるため、写像の単位元律より$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立ち単位元律が成り立つ。
 			\end{description}
 		\end{quote}
 	\end{define}
@@ -1281,12 +1287,12 @@
 			\begin{description}
 				\item[対象]　\[\obj{A\times B}=\obj{A}\times\obj{B}\]
 
-				すなわち、圏$\cat{A}$と圏$\cat{B}$の任意の対象$A,B$の対$\tuple{A,B}$が$\cat{A\times B}$の対象であり、紛らわしくないように\[\tuple{A,B}=[A,B]\]と表記する。
+				すなわち、圏$\cat{A}$と圏$\cat{B}$の任意の対象$A,B$の対$\tuple{A,B}$が$\cat{A\times B}$の対象であり、紛らわしくないように\[\tuple{A,B}=\pcobj{A,B}\]と表記する。
 
-				また$\obj{A}\times\obj{B}$は直積集合であり、集合の圏の積対象であるが、対象$[A,B]$そのものは積対象ではないことに注意してほしい。今回積とみなすのは対象ではなく圏の方である。
-				\item[射]　任意の対象$[A,B],[A,B]$に対してその射集合をそれぞれ\[\arset{(A\times B)}{[A,B]}{[A,B]}=\arset{A}{A}{A'}\times\arset{B}{B}{B'}\]と定義する。
+				また$\obj{A}\times\obj{B}$は直積集合であり、集合の圏の積対象であるが、対象$\pcobj{A,B}$そのものは積の普遍性を持たないことに注意してほしい。今回積とみなすのは対象ではなく圏の方である。
+				\item[射]　任意の対象$\pcobj{A,B},\pcobj{A',B'}$に対してその射集合をそれぞれ\[\arset{(A\times B)}{\pcobj{A,B}}{\pcobj{A',B'}}=\arset{A}{A}{A'}\times\arset{B}{B}{B'}\]と定義する。
 
-				すなわち、圏$\cat{A}$の射$\mor{f}{A}{A'}$と圏$\cat{B}$の射$\mor{g}{B}{B'}$の対\[\mor{\tuple{f,g}}{[A,B]}{[A',B']}\]が$\cat{A\times B}$の射であり、対象と同様に\[\tuple{f,g}=[f,g]\]と表記する。
+				すなわち、圏$\cat{A}$の射$\mor{f}{A}{A'}$と圏$\cat{B}$の射$\mor{g}{B}{B'}$の元の対\[\mor{\tuple{f,g}}{[A,B]}{[A',B']}\]が$\cat{A\times B}$の射であり、対象と同様に\[\tuple{f,g}=\pcobj{f,g}\]と表記する。
 				同様に$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$も直積集合であり、集合の圏の積対象である。
 				\begin{center}
 					\begin{tikzpicture}[auto]
@@ -1294,17 +1300,17 @@
 						\node (a') at (0, -2) {$A'$};
 						\node (b) at (1.5, 0) {$B$};
 						\node (b') at (1.5, -2) {$B'$};
-						\node (ab) at (3.5, 0) {$[A,B]$};
-						\node (ab') at (3.5, -2) {$[A,B]$};
+						\node (ab) at (3.5, 0) {$\pcobj{A,B}$};
+						\node (ab') at (3.5, -2) {$\pcobj{A',B'}$};
 						\draw[->] (a) to node{$f$}(a');
 						\draw[->] (b) to node{$g$}(b');
-						\draw[->] (ab) to node{$[f,g]$}(ab');
+						\draw[->] (ab) to node{$\pcobj{f,g}$}(ab');
 						\node (cata) at (0, 1) {$\cat{A}$};
 						\node (catb) at (1.5, 1) {$\cat{B}$};
 						\node (catb) at (3.5, 1) {$\cat{A\times B}$};
 					\end{tikzpicture}
 				\end{center}
-				\item[射の合成] 射$\mor{[f,g]}{[A,B]}{[A',B']}$と$\mor{[f',g']}{[A',B']}{[A'',B'']}$の合成射\[\mor{[f',g']\circ[f,g]}{[A,B]}{[A',B']}\]を\[[f',g']\circ[f,g]=[f'\circ f,g'\circ g]\]と定義する。
+				\item[射の合成] 射$\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}$と$\mor{\pcobj{f',g'}}{\pcobj{A',B'}}{\pcobj{A'',B''}}$の合成射\[\mor{\pcobj{f',g'}\circ\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}\]を\[\pcobj{f',g'}\circ\pcobj{f,g}=\pcobj{f'\circ f,g'\circ g}\]と定義する。
 				\begin{center}
 					\begin{tikzpicture}[auto]
 						\node (a) at (0, 0) {$A$};
@@ -1313,37 +1319,37 @@
 						\node (b) at (1.5, 0) {$B$};
 						\node (b') at (1.5, -2) {$B'$};
 						\node (b'') at (1.5, -4) {$B''$};
-						\node (ab) at (3.5, 0) {$[A,B]$};
-						\node (ab') at (3.5, -2) {$[A',B']$};
-						\node (ab'') at (3.5, -4) {$[A'',B'']$};
+						\node (ab) at (3.5, 0) {$\pcobj{A,B}$};
+						\node (ab') at (3.5, -2) {$\pcobj{A',B'}$};
+						\node (ab'') at (3.5, -4) {$\pcobj{A'',B''}$};
 						\draw[->] (a) to node{$f$}(a');
 						\draw[->] (a') to node{$f'$}(a'');
 						\draw[->] (b) to node{$g$}(b');
 						\draw[->] (b') to node{$g'$}(b'');
-						\draw[->] (ab) to node[swap]{$[f,g]$}(ab');
-						\draw[->] (ab') to node[swap]{$[f',g']$}(ab'');
-						\draw[->,bend left =40] (ab) to node{$[f'\circ f,g'\circ g]$}(ab'');
+						\draw[->] (ab) to node[swap]{$\pcobj{f,g}$}(ab');
+						\draw[->] (ab') to node[swap]{$\pcobj{f',g'}$}(ab'');
+						\draw[->,bend left =40] (ab) to node{$\pcobj{f'\circ f,g'\circ g}$}(ab'');
 						\node (cata) at (0, 1) {$\cat{A}$};
 						\node (catb) at (1.5, 1) {$\cat{B}$};
 						\node (catb) at (3.5, 1) {$\cat{A\times B}$};
 					\end{tikzpicture}
 				\end{center}
-				\item[恒等射の存在]　対象$[A,B]$の恒等射$id_{[A,B]}$を\[id_{[A,B]}=[id_A,id_B]\]と定義する。
-				\item[結合律]$([f'',g'']\circ[f',g'])\circ[f,g]=[f'',g'']\circ([f',g']\circ[f,g])$を示せばよい。
+				\item[恒等射の存在]　対象$[A,B]$の恒等射$id_{\pcobj{A,B}}$を\[id_{\pcobj{A,B}}=\pcobj{id_A,id_B}\]と定義する。
+				\item[結合律]$(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})$を示せばよい。
 				\begin{align*}
-					([f'',g'']\circ[f',g'])\circ[f,g]&=[(f''\circ f')\circ f,(g''\circ g')\circ g]&\text{(積圏の射の合成の定義)}\\
-					&=[f''\circ (f'\circ f),g''\circ (g'\circ g)]&\text{(圏$\cat{A,B}$の結合則)}\\
-					&=[f'',g'']\circ([f',g']\circ[f,g])&\text{(積圏の射の合成の定義)}
+					(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}&=\pcobj{(f''\circ f')\circ f,(g''\circ g')\circ g}&\text{(積圏の射の合成の定義)}\\
+					&=\pcobj{f''\circ (f'\circ f),g''\circ (g'\circ g)}&\text{(圏$\cat{A,B}$の結合則)}\\
+					&=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})&\text{(積圏の射の合成の定義)}
 				\end{align*}
 				よって成り立つ。
-				\item[単位元律]任意の対象$[A,B]$と恒等射$id_{[A,B]}$、任意の射$\mor{[f,g]}{[X,Y]}{[A,B]}$、$\mor{[f',g']}{[A,B]}{[X',Y']}$において\[id_{[A,B]}\circ[f,g]=[f,g],\ [f',g']\circ id_{[A,B]}=[f',g']\]が成り立つことを示せばよい。
+				\item[単位元律]任意の対象$\pcobj{A,B}$と恒等射$id_{\pcobj{A,B}}$、任意の射$\mor{\pcobj{f,g}}{\pcobj{X,Y}}{\pcobj{A,B}}$、$\mor{\pcobj{f',g'}}{\pcobj{A,B}}{\pcobj{X',Y'}}$において\[id_{\pcobj{A,B}}\circ\pcobj{f,g}=\pcobj{f,g}],\ \pcobj{f',g'}\circ id_{\pcobj{A,B}}=\pcobj{f',g'}\]が成り立つことを示せばよい。
 				\begin{align*}
-					id_{[A,B]}\circ[f,g]&=[id_A,id_B]\circ[f,g]&\text{(圏$\cat{A\times B}$の恒等射の定義)}\\
-					&=[id_A\circ f,id_B\circ g]&\text{(圏$\cat{A\times B}$の射の合成の定義)}\\
-					&=[f,g]&\text{(圏$\cat{A,B}$の単位元律)}\\
-					[f',g']\circ id_{[A,B]}&=[f',g']\circ[id_A,id_B]&\text{(圏$\cat{A\times B}$の恒等射の定義)}\\
-					&=[f'\circ id_A,g'\circ id_B]&\text{(圏$\cat{A\times B}$の射の合成の定義)}\\
-					&=[f',g']&\text{(圏$\cat{A,B}$の単位元律)}
+					id_{\pcobj{A,B}}\circ\pcobj{f,g}&=\pcobj{id_A,id_B}\circ\pcobj{f,g}&\text{(圏$\cat{A\times B}$の恒等射の定義)}\\
+					&=\pcobj{id_A\circ f,id_B\circ g}&\text{(圏$\cat{A\times B}$の射の合成の定義)}\\
+					&=\pcobj{f,g}&\text{(圏$\cat{A,B}$の単位元律)}\\
+					\pcobj{f',g'}\circ id_{\pcobj{A,B}}&=\pcobj{f',g'}\circ\pcobj{id_A,id_B}&\text{(圏$\cat{A\times B}$の恒等射の定義)}\\
+					&=\pcobj{f'\circ id_A,g'\circ id_B}&\text{(圏$\cat{A\times B}$の射の合成の定義)}\\
+					&=\pcobj{f',g'}&\text{(圏$\cat{A,B}$の単位元律)}
 				\end{align*}
 				よって単位元律が成り立つ。
 			\end{description}
@@ -1356,15 +1362,15 @@
 		\begin{quote}
 			\begin{description}
 				\item[対象関数] 積圏の対象の定義より、圏$\cat{A\times B}$の対象の集合は$\obj{A}\times\obj{B}$である。これを集合の圏における積とみなし、射影写像\[\mor{\Pi_A=\pi_{\obj{A}}}{\obj{A}\times\obj{B}}{\obj{A}}\]を対象関数とする。
-				すなわち$\Pi_A([A,B])=A$となるような写像である。
+				すなわち$\Pi_A(\pcobj{A,B})=A$となるような写像である。
 				\item[射関数] 対象関数と同様に射集合$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$の射影写像\[\mor{\Pi_A=\pi_{\arset{A}{A}{A'}}}{\arset{A}{A}{A'}\times\arset{B}{B}{B'}}{\arset{A}{A}{A'}}\]を射関数とする。
-				すなわち$\Pi_A([f,g])=f$となるような写像である。
-				\item[恒等射の保存] $\Pi_A(id_{A\times B})=\Pi_A([id_A,id_B])=id_A$より恒等射を保つ
+				すなわち$\Pi_A(\pcobj{f,g})=f$となるような写像である。
+				\item[恒等射の保存] $\Pi_A(id_{A\times B})=\Pi_A(\pcobj{id_A,id_B})=id_A$より恒等射を保つ
 				\item[射の合成の保存]
 				\begin{align*}
-					\Pi_A([f',g']\circ[f,g])&=\Pi_A([f'\circ f, g'\circ g])&\text{($\cat{A\times B}$の射の合成の定義)}\\
+					\Pi_A(\pcobj{f',g'}\circ\pcobj{f,g})&=\Pi_A(\pcobj{f'\circ f, g'\circ g})&\text{($\cat{A\times B}$の射の合成の定義)}\\
 					&=f'\circ f&\text{(射関数の定義)}\\
-					&=\Pi_A([f',g'])\circ\Pi_A([f,g])&\text{(射関数の定義)}
+					&=\Pi_A(\pcobj{f',g'})\circ\Pi_A(\pcobj{f,g})&\text{(射関数の定義)}
 				\end{align*}
 				よって射の合成を保つ。
 			\end{description}
@@ -1381,7 +1387,7 @@
 					=&\mor{\tuple{F,G}}{\obj{X}}{\obj{A}\times \obj{B}}
 				\end{align*}
 				を対象関数とする。
-				すなわち圏$\cat{X}$の対象$X$に対して$\tuple{F,G}(X)=[FX,GX]$となるような写像である。
+				すなわち圏$\cat{X}$の対象$X$に対して$\tuple{F,G}(X)=\pcobj{FX,GX}$となるような写像である。
 				\item[射関数]
 				関手$F,G$の対象$X,X'$に対する射関数$\mor{F_{X,X'}}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}},\ \mor{G_{X,X'}}{\arset{X}{X}{X'}}{\arset{B}{GX}{GX'}}$の対
 				\begin{align*}
@@ -1389,7 +1395,7 @@
 					=&	\mor{\tuple{F_{X,X'},G_{X,X'}}&&}{\arset{X}{X}{X'}}{\arset{A}{FX}{FX'}\times\arset{B}{GX}{GX'}}
 				\end{align*}
 				を射関数とする。
-				すなわち射$\mor{f}{X}{X'}$に対して\[\mor{\tuple{F,G}(f)=[Ff,Gf]}{[FX,GX]}{[FX',GX']}\]となるような写像である。
+				すなわち射$\mor{f}{X}{X'}$に対して\[\mor{\tuple{F,G}(f)=\pcobj{Ff,Gf}}{\pcobj{FX,GX}}{\pcobj{FX',GX'}}\]となるような写像である。
 
 				\begin{center}
 					\begin{tikzpicture}[auto]
@@ -1413,16 +1419,16 @@
 				\end{center}
 				\item[恒等射の保存]
 				\begin{align*}
-					\tuple{F,G}(id_X)&=[F(id_X),G(id_X)]&\text{(射関数の定義)}\\
-					&=[id_{FX},id_{GX}]&\text{($F,G$の恒等射の保存)}\\
-					&=id_{[FX,GX]}&\text{(積圏の恒等射の定義)}
+					\tuple{F,G}(id_X)&=\pcobj{F(id_X),G(id_X)}&\text{(射関数の定義)}\\
+					&=\pcobj{id_{FX},id_{GX}}&\text{($F,G$の恒等射の保存)}\\
+					&=id_{\pcobj{FX,GX}}&\text{(積圏の恒等射の定義)}
 				\end{align*}
 			よって恒等射を保つ
 				\item[射の合成の保存]
 				\begin{align*}
-					\tuple{F,G}(f'\circ f)&=[F(f'\circ f),G(f'\circ f)]&\text{(射関数の定義)}\\
-					&=[Ff'\circ Ff, Gf'\circ Gf]&\text{($F,G$の射の合成の保存)}\\
-					&=[Ff',Gf']\circ[Ff,Gf]&\text{(積圏の射の合成の定義)}\\
+					\tuple{F,G}(f'\circ f)&=\pcobj{F(f'\circ f),G(f'\circ f)}&\text{(射関数の定義)}\\
+					&=\pcobj{Ff'\circ Ff, Gf'\circ Gf}&\text{($F,G$の射の合成の保存)}\\
+					&=\pcobj{Ff',Gf'}\circ\pcobj{Ff,Gf}&\text{(積圏の射の合成の定義)}\\
 					&=\tuple{F,G}(f')\circ\tuple{F,G}(f)&\text{(射関数の定義)}
 				\end{align*}
 			よって射の合成を保つ。
@@ -1514,8 +1520,8 @@
 	\begin{define}[双関手]
 		積圏からの関手、つまり$\functor{F}{A\times B}{C}$となるような関手を双関手とする。
 
-		また積圏の任意の対象$[A,B]$に対し、\[F([A,B])=F(A,B)\]と略記する。
-		さらに積圏の射$\mor{[f,id_B]}{[A,B]}{[A,B']}$において\[F([f,id_B])=F(f,B)\]と表記する。
+		また積圏の任意の対象$[A,B]$に対し、\[F(\pcobj{A,B})=F(A,B)\]と略記する。
+		さらに積圏の射$\mor{\pcobj{f,id_B}}{\pcobj{A,B}}{\pcobj{A,B'}}$において\[F(\pcobj{f,id_B})=F(f,B)\]と表記する。
 	\end{define}
 	双関手について特に証明することはないが、圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。
 	\begin{center}
@@ -1524,10 +1530,10 @@
 			\node (a') at (0, -2.5) {$A'$};
 			\node (b) at (2, 1) {$B$};
 			\node (b') at (4.5, 1) {$B'$};
-			\node (ab) at (2, 0) {$[A,B]$};
-			\node (a'b) at (2, -2.5) {$[A',B]$};
-			\node (ab') at (4.5, 0) {$[A,B]$};
-			\node (a'b') at (4.5, -2.5) {$[A',B']$};
+			\node (ab) at (2, 0) {$\pcobj{A,B}$};
+			\node (a'b) at (2, -2.5) {$\pcobj{A',B}$};
+			\node (ab') at (4.5, 0) {$\pcobj{A,B}$};
+			\node (a'b') at (4.5, -2.5) {$\pcobj{A',B'}$};
 
 			\node (fab) at (8, 0) {$F(A,B)$};
 			\node (fa'b) at (8, -2.5) {$F(A',B)$};
@@ -1541,11 +1547,11 @@
 
 			\draw[->] (a) to node[swap]{$f$}(a');
 			\draw[->] (b) to node{$g$}(b');
-			\draw[->] (ab) to node[swap]{$[f,id_B]$}(a'b);
-			\draw[->] (ab') to node{$[f,id_{B'}]$}(a'b');
-			\draw[->] (ab) to node{$[id_A,g]$}(ab');
-			\draw[->] (a'b) to node[swap]{$[id_{A'},g]$}(a'b');
-			\draw[->] (ab) to node{$[f,g]$}(a'b');
+			\draw[->] (ab) to node[swap]{$\pcobj{f,id_B}$}(a'b);
+			\draw[->] (ab') to node{$\pcobj{f,id_{B'}}$}(a'b');
+			\draw[->] (ab) to node{$\pcobj{id_A,g}$}(ab');
+			\draw[->] (a'b) to node[swap]{$\pcobj{id_{A'},g}$}(a'b');
+			\draw[->] (ab) to node{$\pcobj{f,g}$}(a'b');
 
 			\draw[->] (fab) to node[swap]{$F(f,B)$}(fa'b);
 			\draw[->] (fab') to node{$F(f,B')$}(fa'b');
@@ -1560,45 +1566,45 @@
 		積を持つ圏$\cat{C}$上の双積関手$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{description}
-				\item[対象関数] 対象関数を積圏$\cat{C\times C}$の任意の対象$\tuple{A,B}$に対して\[(-\times -)(A,B)=A\times B\]と定義する。
-				\item[射関数] 二対象$[A,B],[A',B']$に対する射関数を任意の射$\mor{[f,g]}{[A,B]}{[A',B']}$に対して\[(-\times -)_{[A,B],[A',B']}(f,g)=f\times g\]と定義する。
+				\item[対象関数] 対象関数を積圏$\cat{C\times C}$の任意の対象$\pcobj{A,B}$に対して\[(-\times -)(A,B)=A\times B\]と定義する。
+				\item[射関数] 二対象$\pcobj{A,B},\pcobj{A',B'}$に対する射関数を任意の射$\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}$に対して\[(-\times -)_{\pcobj{A,B},\pcobj{A',B'}}(f,g)=f\times g\]と定義する。
 				\begin{center}
 					\begin{tikzpicture}[auto]
-						\node (ab) at (0, 0) {$[A,B]$};
-						\node (a'b') at (0, -2) {$[A',B']$};
+						\node (ab) at (0, 0) {$\pcobj{A,B}$};
+						\node (a'b') at (0, -2) {$\pcobj{A',B'}$};
 						\node (pab) at (3, 0) {$A\times B$};
 						\node (pa'b') at (3, -2) {$A'\times B'$};
 						\node (catcc) at (0, 1) {$\cat{C\times C}$};
 						\node (catc) at (3, 1) {$\cat{C}$};
 						\draw[-,dashed] (ab) to (pab);
 						\draw[-,dashed] (a'b') to (pa'b');
-						\draw[->] (ab) to node{$[f,g]$}(a'b');
+						\draw[->] (ab) to node{$\pcobj{f,g}$}(a'b');
 						\draw[->] (pab) to node{$f\times g$}(pa'b');
 						\draw[->] (catcc) to node{$(-\times-)$}(catc);
 					\end{tikzpicture}
 				\end{center}
 
-				\item[恒等射の保存] $(-\times -)(id_{[A,B]})=id_{(-\times-)(A,B)}$を示せばよい。
+				\item[恒等射の保存] $(-\times -)(id_{\pcobj{A,B}})=id_{(-\times-)(A,B)}$を示せばよい。
 				\begin{align*}
-					(-\times -)(id_{[A,B]})&=id_A\times id_B&\text{(射関数の定義)}\\
-					&=[id_A\circ\pi_A,id_B\circ\pi_B]&\text{(射の積の定義)}\\
+					(-\times -)(id_{\pcobj{A,B}})&=id_A\times id_B&\text{(射関数の定義)}\\
+					&=\pcobj{id_A\circ\pi_A,id_B\circ\pi_B}&\text{(射の積の定義)}\\
 					&=id_{A\times B}&\text{(射影射の対)}\\
 					&=id_{(-\times-)(A,B)}&\text{(対象関数の定義)}
 				\end{align*}
 				よって恒等射を保つ。
-				\item[射の合成の保存] $(-\times -)(f',g')\circ(-\times-)(f,g)=(-\times-)([f',g']\circ[f,g])$を示せばよい。
+				\item[射の合成の保存] $(-\times -)(f',g')\circ(-\times-)(f,g)=(-\times-)(\pcobj{f',g'}\circ\pcobj{f,g}$を示せばよい。
 				\begin{align*}
 					(-\times -)(f',g')\circ(-\times-)(f,g)&=(f'\times g')\circ(f\times g)&\text{(射関数の定義)}\\
 					&=(f'\circ f)\times(g'\circ g)&\text{(積と合成の交換)}\\
 					&=(-\times-)(f'\circ f,g'\circ g)&\text{(射関数の定義)}\\
-					&=(-\times-)([f'\circ f,g'\circ g])\\
-					&=(-\times-)([f',g']\circ[f,g])&\text{(積圏の射の合成の定義)}
+					&=(-\times-)(\pcobj{f'\circ f,g'\circ g})\\
+					&=(-\times-)(\pcobj{f',g'}\circ\pcobj{f,g})&\text{(積圏の射の合成の定義)}
 				\end{align*}
 				よって射の合成を保つ。
 			\end{description}
 		\end{quote}
 	\end{define}
-	対象の積と圏の積が紛らわしいが、まず圏の積の対象$[A,B]$は圏$\cat{C}$の$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$[A,B]$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。ただし、双積関手で写された対象が積の普遍性を満たすかどうかは現段階では説明できない。
+	対象の積と圏の積が紛らわしいが、まず圏の積の対象$\pcobj{A,B}$は圏$\cat{C}$の$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$[A,B]$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。ただし、双積関手で写された対象が積の普遍性を満たすかどうかは現段階では説明できない。
 
 	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
 	\begin{define}[双対圏]
@@ -2474,7 +2480,7 @@
 	\begin{prop}[射影射の自然性]
 		積を持つ圏$\cat{C}$の任意の積$A\times B$の射影射$\mor{\pi_{LA}}{A\times B}{A}$は、双積関手$\functor{(-\times -)}{C\times C}{C}$から射影関手$\functor{\Pi_{LC}}{C\times C}{C}$への自然変換の成分である。
 
-		この自然変換を\[\natf{\pi_L}{(-\times -)}{\Pi_{LC}}{C\times C}{C}\]とし、成分を\[(\pi_L)_{A\times B}=\pi_{LA}\]とする。
+		この自然変換を\[\nat{\pi_L}{(-\times -)}{\Pi_{LC}}\]とし、成分を\[(\pi_L)_{A\times B}=\mor{\pi_{LA}}{A\times B}{A}\]とする。
 		すると、射の積の定義$f\times g = \tuple{f\circ\pi_{LA},g\circ\pi_{RB}}$より、
 		\begin{align*}
 			(\pi_L)_{A'\times B'}\circ (f\times g)&=\pi_{LA}\circ (f\times g)&\text{(成分の定義)}\\
@@ -2485,9 +2491,9 @@
 		となり、確かに自然性を満たす。
 		\begin{center}
 			\begin{tikzpicture}[auto]
-				\node (ab) at (0, 1) {$[A,B]$};
-				\node (a'b') at (2, 1) {$[A',B']$};
-				\draw[->] (ab) to node{$[f,g]$}(a'b');
+				\node (ab) at (0, 1) {$\pcobj{A,B}$};
+				\node (a'b') at (2, 1) {$\pcobj{A',B'}$};
+				\draw[->] (ab) to node{$\pcobj{f,g}$}(a'b');
 
 				\node (pab) at (4, 2) {$A\times B$};
 				\node (pa'b') at (6, 2) {$A'\times B'$};
@@ -2503,7 +2509,7 @@
 
 				\draw[->,bend left = 20] (catcc) to node (funcf){$(-\times -)$}(catc);
 				\draw[->,bend right = 20] (catcc) to node (funch)[swap]{$\Pi_{LC}$}(catc);
-				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha\cdot\beta$] {} (funch);
+				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\pi_L$] {} (funch);
 			\end{tikzpicture}
 		\end{center}
 	\end{prop}
