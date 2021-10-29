@@ -1335,14 +1335,14 @@
 					\end{tikzpicture}
 				\end{center}
 				\item[恒等射の存在]　対象$[A,B]$の恒等射$id_{\pcobj{A,B}}$を\[id_{\pcobj{A,B}}=\pcobj{id_A,id_B}\]と定義する。
-				\item[結合律]$(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})$を示せばよい。
+				\item[結合律]$(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})$を示せばよい。積圏の射の合成の定義を用いて圏の結合律に還元する。
 				\begin{align*}
 					(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}&=\pcobj{(f''\circ f')\circ f,(g''\circ g')\circ g}&\text{(積圏の射の合成の定義)}\\
 					&=\pcobj{f''\circ (f'\circ f),g''\circ (g'\circ g)}&\text{(圏$\cat{A,B}$の結合則)}\\
 					&=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})&\text{(積圏の射の合成の定義)}
 				\end{align*}
 				よって成り立つ。
-				\item[単位元律]任意の対象$\pcobj{A,B}$と恒等射$id_{\pcobj{A,B}}$、任意の射$\mor{\pcobj{f,g}}{\pcobj{X,Y}}{\pcobj{A,B}}$、$\mor{\pcobj{f',g'}}{\pcobj{A,B}}{\pcobj{X',Y'}}$において\[id_{\pcobj{A,B}}\circ\pcobj{f,g}=\pcobj{f,g}],\ \pcobj{f',g'}\circ id_{\pcobj{A,B}}=\pcobj{f',g'}\]が成り立つことを示せばよい。
+				\item[単位元律]任意の対象$\pcobj{A,B}$と恒等射$id_{\pcobj{A,B}}$、任意の射$\mor{\pcobj{f,g}}{\pcobj{X,Y}}{\pcobj{A,B}}$、$\mor{\pcobj{f',g'}}{\pcobj{A,B}}{\pcobj{X',Y'}}$において\[id_{\pcobj{A,B}}\circ\pcobj{f,g}=\pcobj{f,g}],\ \pcobj{f',g'}\circ id_{\pcobj{A,B}}=\pcobj{f',g'}\]が成り立つことを示せばよい。同様に積圏の射の合成の定義を用いて圏の結合律に還元する。
 				\begin{align*}
 					id_{\pcobj{A,B}}\circ\pcobj{f,g}&=\pcobj{id_A,id_B}\circ\pcobj{f,g}&\text{(圏$\cat{A\times B}$の恒等射の定義)}\\
 					&=\pcobj{id_A\circ f,id_B\circ g}&\text{(圏$\cat{A\times B}$の射の合成の定義)}\\
@@ -1366,7 +1366,7 @@
 				\item[射関数] 対象関数と同様に射集合$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$の射影写像\[\mor{\Pi_A=\pi_{\arset{A}{A}{A'}}}{\arset{A}{A}{A'}\times\arset{B}{B}{B'}}{\arset{A}{A}{A'}}\]を射関数とする。
 				すなわち$\Pi_A(\pcobj{f,g})=f$となるような写像である。
 				\item[恒等射の保存] $\Pi_A(id_{A\times B})=\Pi_A(\pcobj{id_A,id_B})=id_A$より恒等射を保つ
-				\item[射の合成の保存]
+				\item[射の合成の保存]元の圏の結合則に還元する。
 				\begin{align*}
 					\Pi_A(\pcobj{f',g'}\circ\pcobj{f,g})&=\Pi_A(\pcobj{f'\circ f, g'\circ g})&\text{($\cat{A\times B}$の射の合成の定義)}\\
 					&=f'\circ f&\text{(射関数の定義)}\\
@@ -1453,7 +1453,7 @@
 				\draw[->] (x) to node{$\tuple{F,G}$}(ab);
 			\end{tikzpicture}
 		\end{center}
-		端的に述べるなら積圏、関手の対、射影関手の各々が持つ対象関数、射関数はそれぞれ積対象、射の対、射影射で構成されることから、積の普遍性を満たすのは自明に思えるが、一つ一つ確認していく。
+		端的に述べるなら積圏、関手の対、射影関手の各々が持つ対象関数、射関数はそれぞれ積対象、射の対、射影射で構成されることから、積の普遍性を満たすことを示すのは難しくない。
 
 		関手$F,G$の対象関数$F,G$、射影関手$\Pi_A,\Pi_B$の対象関数$\pi_{\obj{A}},\pi_{\obj{B}}$、そして関手の対の対象関数$\tuple{F,G}$は、その定義により積の図式となる。
 		すなわち対象関数$F,G$に対して対象関数$\tuple{F,G}$は一意に存在する。
@@ -1500,7 +1500,7 @@
 		\end{align*}と書ける。
 		よって二対象$A,B$に対する各射関数も一意に存在することが分かった。
 
-		関手$!_{\cat{C}}$のすべての構成要素が圏$\cat{C}$に対して一意に存在することわかる。
+		関手$!_{\cat{C}}$の二つの写像が圏$\cat{C}$に対して一意に存在することわかる。
 		よって任意の圏$\cat{C}$から一点離散圏$\cat{1}$への関手は一意に存在するから、一点離散圏$\cat{1}$は$\cat{Cat}$における終対象であることが示せた。
 	\end{proof}
 	\begin{prop}[圏における元]
@@ -1513,7 +1513,7 @@
 
 		よって関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{proof}
-	積圏$\cat{A\times B}$の対象を$\tuple{A,B}$と表したのは、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$が$\cat{A\times B}$の対象になるからである。
+	積圏$\cat{A\times B}$の対象を$\pcobj{A,B}$と表したが、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$は$\cat{A\times B}$の対象になる。
 
 	\subsection{特殊な関手}
 	対象や射を二つ取るような2変数関数のような関手について考える。
@@ -1523,7 +1523,7 @@
 		また積圏の任意の対象$[A,B]$に対し、\[F(\pcobj{A,B})=F(A,B)\]と略記する。
 		さらに積圏の射$\mor{\pcobj{f,id_B}}{\pcobj{A,B}}{\pcobj{A,B'}}$において\[F(\pcobj{f,id_B})=F(f,B)\]と表記する。
 	\end{define}
-	双関手について特に証明することはないが、圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。
+	圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。
 	\begin{center}
 		\begin{tikzpicture}[auto]
 			\node (a) at (0, 0) {$A$};
@@ -1759,7 +1759,6 @@
 				\draw[->] (fb) to node{$Ff$}(fa);
 				\draw[->] (catc) to node{$F$}(catd);
 			\end{tikzpicture}
-
 		\end{center}
 	\subsection{Hom関手}
 	関手の対、射影関手を定義する際、射集合を集合の圏の対象としてそれらの間の射を考えたが、元の圏に対して集合の圏の射集合やその間の射がどのように関係するかを見ていく。
@@ -2182,11 +2181,111 @@
 					&=\arset{C}{f\circ f'}{g'\circ g}(h)&\text{(射写像の定義)}\\
 				\end{align*}
 				よって$\arset{C}{f'}{g'}\circ\arset{C}{f}{g}=\arset{C}{f\circ f'}{g'\circ g}$となり射の合成の保存が成り立つ。
-
-				恒等射の保存と射の合成の保存は元の対応によって等式を導いたが、同じく示した共変、反変Hom関手による定義でも証明することが可能である。余力があれば示してほしい。
 			\end{description}
 		\end{quote}
 	\end{define}
+
+	実は左側の積関手と右側の積関手から双積関手、共変Hom関手と反変Hom関手から双Hom関手を定義できる。またこの定義を用いれば双関手の恒等射の保存と合成の保存を個別に証明しなくても済む。
+	\begin{define}[二つの関手による双関手の定義]
+		圏$\cat{B}$の任意の対象$B$に対して定義される関手$\functor{F_B}{A}{C}$と、圏$\cat{A}$の任意の対象$A$に対して定義される関手$\functor{G_A}{B}{C}$が存在し、任意の二対象$A,B$に対して\[{F_B}A={G_A}B\]が成り立ち、	任意の二射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して\[{G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]が成り立つとする。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (A) at (0, 0.75) {$A$};
+				\node (B) at (1.5, 0.75) {$A'$};
+				\node (FA) at (3, 1.5) {${F_B}A$};
+				\node (FB) at (4.5, 1.5) {${F_B}A'$};
+				\node (GA) at (3, 0) {${F_{B'}}A$};
+				\node (GB) at (4.5, 0) {${F_{B'}}A'$};
+
+				\node (catc) at (0.75, 3) {$\cat{A}$};
+				\node (catd) at (3.75, 3) {$\cat{C}$};
+
+				\draw[->] (A) to node{$f$}(B);
+				\draw[->] (FA) to node{${F_B}f$}(FB);
+				\draw[->] (GA) to node{${F_{B'}}f$}(GB);
+				\draw[->,bend left = 20] (catc) to node (funcf){$F_B$}(catd);
+				\draw[->,bend right = 20] (catc) to node (funcg)[swap]{$F_{B'}$}(catd);
+			\end{tikzpicture}
+			\begin{tikzpicture}[auto]
+				\node (A) at (0.75, 0) {$B$};
+				\node (B) at (0.75, 1.5) {$B'$};
+				\node (FA) at (3, 1.5) {${G_A}B$};
+				\node (FB) at (4.5, 1.5) {${G_{A'}}B$};
+				\node (GA) at (3, 0) {${G_{A}}B'$};
+				\node (GB) at (4.5, 0) {${G_{A'}}B'$};
+
+				\node (catc) at (0.75, 3) {$\cat{B}$};
+				\node (catd) at (3.75, 3) {$\cat{C}$};
+
+				\draw[->] (B) to node{$g$}(A);
+				\draw[->] (FA) to node{${G_A}g$}(GA);
+				\draw[->] (FB) to node{${G_{A'}}g$}(GB);
+
+				\draw[->,bend left = 20] (catc) to node (funcf){$G_A$}(catd);
+				\draw[->,bend right = 20] (catc) to node (funcg)[swap]{$G_{A'}$}(catd);
+			\end{tikzpicture}
+		\end{center}
+
+
+		この時、双関手$\functor{H}{A\times B}{C}$を
+		\begin{quote}
+			\begin{description}
+				\item[対象関数] 対象関数\[\mor{H}{\obj{A\times B}}{\obj{C}}\]を積圏の任意の対象$\pcobj{A,B}$に対して
+				\[H(A,B)={F_B}A={G_A}B\]と定義する。
+				\item[射関数]　射関数\[\mor{H_{\pcobj{A,A'},\pcobj{B,B'}}}{\arset{A\times B}{\pcobj{A,B}}{\pcobj{A',B'}}}{\arset{C}{H(A,B)}{H(A',B')}}\]を積圏の任意の射\[\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}\]に対して、\[H_{\pcobj{A,A'},\pcobj{B,B'}}(\pcobj{f,g})={G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]と定義する。
+				\item[恒等射の保存]$H(id_{\pcobj{A,B}})=id_{H(A,B)}$を示せばよい。
+				\begin{align*}
+					H(id_{\pcobj{A,B}})&=H(id_A,id_B)&\text{(積圏の恒等射の定義)}\\
+					&=G_A(id_B)\circ F_B(id_A)&\text{(双関手の射関数)}\\
+					&=id_{H(A,B)}\circ id_{H(A,B)}&\text{(関手の恒等射の保存)}\\
+					&=id_{H(A,B)}&\text{(積圏の単位減律)}
+				\end{align*}
+				よって恒等射を保存する。
+				\item[射の合成の保存]$H(f',g')\circ H(f,g)=H(f'\circ f,g'\circ g)$を示せばよい。
+				\begin{align*}
+					H(f',g')\circ H(f,g)&=(G_{A''}g'\circ F_{B'}f')\circ(G_{A'}\circ F_Bf)&\text{(射関数の定義)}\\
+					&=G_{A''}g'\circ (F_{B'}f'\circ G_{A'})\circ  F_Bf&\text{(積圏の結合律)}\\
+					&=G_{A''}g'\circ G_{A''}g\circ F_Bf'\circ  F_Bf&\text{(射関数の定義)}\\
+					&=(G_{A''}g'\circ G_{A''}g)\circ (F_Bf'\circ  F_Bf)&\text{(積圏の結合則)}\\
+					&=G_{A''}(g'\circ g)\circ F_B(f'\circ f)&\text{($G_{A''}$と$F_B$の合成の保存)}\\
+					&=H(f'\circ f,g'\circ g)&\text{(射関数の定義)}\\
+				\end{align*}
+			\end{description}
+		\end{quote}
+		証明が少し複雑になってしまったが、何とか証明できた。
+	\end{define}
+	次に例として二つの積関手から双積関手を定義する。
+
+	$\cat{C}$の任意の対象$A,B$に対する積関手$\functor{(A\times -)}{C}{C}$と$\functor{(-\times B)}{C}{C}$から双関手$\functor{(-\times -)}{C\times C}{C}$を構成する。
+	まず\[(A\times -)(B)=(-\times B)(A)\]と、任意の射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$において
+	\[(A'\times -)g\circ (-\times B)f=(-\times B')f\circ(A\times -)g\]が成り立つから、確かに双積関手を構成するための条件は満たしている。
+
+	ここで双積関手$\functor{(-\times -)}{C\times C}{C}$の対象関数を積圏の任意の対象$\pcobj{A,B}$に対して
+	\begin{align*}
+		\mor{&(-\times -)}{\obj{C\times C}}{\obj{C}}\\
+		&(-\times -)(\pcobj{A,B})=(A\times -)(B)=(-\times B)(A)
+	\end{align*}
+	とする。
+	同様に射関数を積圏の任意の射$\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A,B}}$に対して
+	\begin{align*}
+		\mor{&(-\times -)}{\arset{C\times C}{\pcobj{A,B}}{\pcobj{A',B'}}}{\arset{C}{A\times B}{A'\times B'}}\\
+		&(-\times -)(\pcobj{f,g})=(A'\times -)g\circ (-\times B)f=(-\times B')f=(A\times -)g
+	\end{align*}
+	とする。
+
+	すると二つの関手による双関手の定義から、このように定義した双積関手は恒等射と射の合成を保つ。よって実際に関手になる。
+
+	また対象関数と射関数は
+	\begin{align*}
+		(-\times -)(\pcobj{A,B})&=(A\times -)(B)&\text{(対象関数の定義)}\\
+		&=A\times B&\text{(積関手の対象関数の定義)}\\
+		(-\times -)(\pcobj{f,g})&=(A'\times -)g\circ (-\times B)f&\text{射関数の定義}\\
+		&=(id_{A'}\times g)\circ(f\times id_B)&\text{(積関手の射関数の定義)}\\
+		&=f\times g&\text{(積と合成の交換)}
+	\end{align*}
+	となるから、今定義した双積関手と元の対応から直接定義した双積関手は等しいことが分かる。
+
+
 	\section{自然変換}
 	次に関手の間の射である自然変換を定義する。
 	\begin{define}
