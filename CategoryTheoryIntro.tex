@@ -286,39 +286,6 @@
 		\end{align*}
 		よって$b$に対する$i(a)=b$を満たすような$a$が一意に存在することが示せたので、$i$が全単射であることが示せた。
 	\end{proof}
-	\subsection{演習問題}
-	\begin{enumerate}
-		\item 以下の図式において左側の正方形の図式と右側の正方形の図式がそれぞれ可換になるとき、二つを合わせた長方形の図式が可換になることを示せ。
-			\begin{center}
-				\begin{tikzpicture}[auto]
-					\node (a) at (0, 0) {$A$};
-					\node (b) at (2, 0) {$B$};
-					\node (c) at (4, 0) {$C$};
-					\node (d) at (0, -2) {$D$};
-					\node (e) at (2, -2) {$E$};
-					\node (f) at (4, -2) {$F$};
-					\draw[->] (a) to node {$g$}(b);
-					\draw[->] (b) to node {$h$}(c);
-					\draw[->] (a) to node {$i$}(d);
-					\draw[->] (b) to node {$j$}(e);
-					\draw[->] (c) to node {$k$}(f);
-					\draw[->] (d) to node {$l$}(e);
-					\draw[->] (e) to node {$m$}(f);
-				\end{tikzpicture}
-				\begin{tikzpicture}[auto]
-					\node (a) at (4, 0) {$A$};
-					\node (c) at (8, 0) {$C$};
-					\node (d) at (4, -2) {$D$};
-					\node (f) at (8, -2) {$F$};
-					\draw[->] (a) to node {$h\circ g$}(c);
-					\draw[->] (d) to node {$m\circ l$}(f);
-					\draw[->] (a) to node {$i$}(d);
-					\draw[->] (c) to node {$k$}(f);
-				\end{tikzpicture}
-			\end{center}
-		\item $A\cong B$かつ$B\cong C$ならば$A\cong C$であることを示せ。
-	\end{enumerate}
-
 	\section{普遍性}
 	普遍性はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に存在する。というように記述され、図式中の射と一意に定まる射の対応関係を示すことが多い。このような議論は集合の圏における同型でも扱ったが、実際に以下で紹介する普遍性は集合の全単射で表せる。詳しくは別の章で説明する。
 	\subsection{積}
@@ -785,6 +752,31 @@
 			\end{tikzpicture}
 		\end{center}
 	\end{proof}
+
+	圏を定義する際に使用した射集合だが、射集合も集合であるため集合の圏の対象として捉えることができる。この射集合が集合の圏の中でどのような性質を持っているのかを直積集合と共に確認していく。
+	また射集合は任意の圏に存在するが、今回扱う圏はすべて集合の圏とする。
+
+	\begin{define}[評価射]
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して評価射を
+		\begin{align*}
+			\mor{&ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}\\
+			&ev_{A,B}(\tuple{f,b})=f(b)\\
+		\end{align*}
+		と定義する。これは元$b$に写像$f$を適用する操作を写像にしたものである。
+		また厳密な証明は行わないが評価射は実際に写像になる。
+	\end{define}
+	\begin{define}[余評価射]
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して余評価射を
+		\begin{align*}
+			\mor{&ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}\\
+			&ce_{A,B}(a)=g_a\\
+			&g_a(b)=\tuple{a,b}
+		\end{align*}
+		と定義する。また\[ce_{A,B}(a)(b)=\tuple{a,b}\]とも表記でき、この余評価射も同様に写像になる。
+	\end{define}
+
+	この評価射、余評価射は集合の圏の射集合の持つ性質というより、集合の圏の射集合の定義のうちの一つと捉えることができる。
+	これらの射の性質を扱うにはまだ道具が足りないため現段階では述べないが、以降から射集合を集合の圏の対象とみなす機会が増えるため、確認も込めてこれらの射を定義した。
 	\subsection{終対象}
 	\begin{define}[終対象]
 		ある圏$\cat{C}$に終対象が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が一意に存在するときである。
@@ -851,10 +843,9 @@
 		任意の集合$A$とある一点集合$1$に対し$A\cong\arset{Set}{1}{A}$が成り立つ。
 	\end{prop}
 	\begin{proof}
-		任意の集合$A$は集合の圏$\cat{Set}$に含まれるが、射集合$\arset{Set}{1}{A}$もまた$\cat{Set}$に含まれる。そのため二つの間の写像を考えることができることに注意してほしい。
-
 		元$\mor{*}{1}{1}$を元$\mor{a}{1}{A}$に写す写像を$e_a$とする。つまり$e_a(*)=a$となるような写像である。
 		ここで同型射となる二射$i,i^{-1}$を\[i(a)=e_a,\ i^{-1}(e_a)=e_a(*)\]と定義する。
+		$i$と$i^{-1}$はそれぞれ余評価射、評価射の特殊な場合である。そのためこの同型性を評価射、余評価射の持つ性質のみで示すこともできるが、それらを説明するための道具がまだそろっていないため、現段階では元の対応関係で同型性を示す。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -883,12 +874,8 @@
 		よって$i\circ i^{-1}=id_{\arset{Set}{1}{A}},\ i^{-1}\circ i=id_A$が示せたので$A\cong\arset{Set}{1}{A}$が成り立つ。
 
 		圏論において一般的な射を取る操作、つまり$\arset{Set}{1}{A}$の元をとる操作が、$A$の元との一対一対応によって$A$の元を取る操作とみなせるということである。
+
 	\end{proof}
-	\subsection{演習問題}
-	\begin{enumerate}
-		\item 対象$A,B$と終対象$1$において、任意の射$\mor{f}{A}{B}$に対して$!_B\circ f=!_A$が成り立つことを示せ。
-		\item $A\times 1\cong A$を示せ。(Hint: $\pi_A$と$\tuple{id_A,!_X}$が同型射であることを示せばよい)
-	\end{enumerate}
 	\section{関手}
 	これまでの議論はすべて一つの圏の上で行われてきたが、これからはある圏とまた別の圏の関係について考えていく。
 	\begin{define}
@@ -1146,6 +1133,25 @@
 		\end{description}
 		\end{quote}
 	\end{define}
+	\begin{prop}[関手の同型の保存]
+		任意の圏$\cat{C,D}$と任意の関手$\functor{F}{C}{D}$、圏$\cat{C}$の対象$A,B$において、
+		\[A\cong B \Longrightarrow FA\cong FB\]が成り立つ。
+	\end{prop}
+	\begin{proof}
+		同型$A\cong B$のある同型射$\mor{i}{A}{B},\mor{i^{-1}}{B}{A}$に対して$\mor{Fi}{FA}{FB},\mor{Fi^{-1}}{FB}{FA}$も同様に同型射であることを示せばよい。
+
+		\begin{align*}
+			Fi^{-1}\circ Fi&=F(i^{-1}\circ i)&\text{($F$の射の合成の保存)}\\
+			&=F(id_A)&\text{(恒等射の定義)}\\
+			&=id_{FA}&\text{($F$の恒等射の保存)}\\
+			Fi\circ Fi^{-1}&=F(i\circ i^{-1})&\text{($F$の射の合成の保存)}\\
+			&=F(id_B)&\text{(恒等射の定義)}\\
+			&=id_{FB}&\text{($F$の恒等射の保存)}\\
+		\end{align*}
+		$Fi^{-1}\circ Fi=id_{FA}$、$Fi\circ Fi^{-1}=id_{FB}$より、$Fi,Fi^{-1}$が同型射なる。
+		よって$FA\cong FB$が成り立つ。
+	\end{proof}
+
 
 	\subsection{小さい圏の圏}
 	関手は圏から圏への一種の写像であるため、圏を対象とし関手を射とするような圏である圏の圏を考えることができそうである。
