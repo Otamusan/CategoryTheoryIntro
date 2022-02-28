@@ -1,4 +1,5 @@
-\documentclass[dvipdfmx]{jsarticle}
+% !TeX spellcheck = <none>
+\documentclass[uplatex,dvipdfmx]{jsarticle}
 \usepackage{tikz}
 \usepackage{bbm}
 \usepackage{amsmath,amssymb}
@@ -19,6 +20,7 @@
 \newcommand{\arset}[3]{\cat{#1}(#2,#3)}
 \newcommand{\arsetr}[3]{#1(#2,#3)}
 \newcommand{\pcobj}[1]{[#1]}
+\newcommand{\funccat}[2]{\cat{#2}^\cat{#1}}
 \newtheorem{proof}{証明}[section]
 \newtheorem{prop}{命題}[section]
 \newtheorem{define}{定義}[section]
@@ -33,8 +35,8 @@
 	圏論は抽象代数学で生まれ、現在では代数学、幾何学、数学基礎論や、計算機科学、言語学、認知科学、哲学などにも応用されている数学の一分野である。
 	本資料は数学基礎論や計算機科学で特に使われるデカルト閉圏を中心に解説していく。
 	また他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。
-	\section{圏と公理}
 
+	\section{圏と公理}
 	\begin{define}
 		ある圏$\cat{C}$は以下で定義される対象集合と、任意の二対象に対する射の集合の全体、合成の演算の三つ組\[(\obj{C},\prod\limits_{A,B}^{\obj{C}}\arset{C}{A}{B},\circ)\]によって定義する。また圏は以下に示す公理を満たさなければならない。
 		\begin{quote}
@@ -130,7 +132,11 @@
 		\end{description}
 			\end{quote}
 	\end{define}
-
+	\begin{define}[圏の同一性]
+		圏$\cat{A,B}$が同一、$\cat{A}=\cat{B}$であるとは、対象の集合、射の集合、合成の演算が集合、写像として等しいということである。
+		
+		同様に対象や射の同一性も対象の集合の元、射の集合の元の等しさで表される。
+	\end{define}
 	次に圏の例として集合の圏を挙げる。
 	\begin{define}[集合の圏]
 		圏$\cat{Set}$を以下の要素から構成する。
@@ -171,6 +177,7 @@
 			\end{description}
 		\end{quote}
 	\end{define}
+	
 	集合の圏の射である写像は、任意の元が同じ元に対応することによって射が等しいことを示せたが、一般の圏ではそうは限らない。そもそも対象の元を取ることができるとは限らないし、元の対応関係が一致していても同じ射であるとも限らない。
 
 	集合の圏を集合によって定義したが以降で使用する集合としての性質は、元の対応関係により射が等しいことを示せること以外はほとんど使用しない。
@@ -267,7 +274,7 @@
 
 
 		まずは$b$に対する等式を満たすような$a$が存在することを示す
-		任意の元$\mor{b}{1}{B}$にたいして対応する元$\mor{a}{1}{A}$を$a=i^{-1}(b)$とする。すると
+		任意の元$\mor{b}{1}{B}$に対応する元$\mor{a}{1}{A}$を$a=i^{-1}(b)$とする。すると
 		\begin{align*}
 			i(a)&=i(i^{-1}(b))&\text{(元$a$の定義)}\\
 			&=(i\circ i^{-1})(b)&\text{(写像の合成の定義)}\\
@@ -599,7 +606,7 @@
 			また$\pi_A\circ[f,g]=f$は成り立たないどころか、ドメイン、コドメインは$\mor{\pi_A}{A\times B}{A}$と$\mor{[f,g]}{X}{P}$となり合成すらできないということに注意してほしい。
 		\end{quote}
 		証明に戻ると、\[[\pi_A,\pi_B]\circ\tuple{\rho_A,\rho_B}=id_P\]と
-		\[\tuple{\rho_A,\rho_B}\circ[\pi_A,\pi_B]=id_{A\times B}\]が成り立つことを二つの積の普遍性による射の一意性から示せばよい。
+		\[\tuple{\rho_A,\rho_B}\circ[\pi_A,\pi_B]=id_{A\times B}\]が成り立つことを二つの積の普遍性による射の一意性から示せばよい。具体的にはこれらの射がある積の図式における射の対になることを示し、射の対の一意性から等式を導く。
 
 		積$(A\times B,\pi_A,\pi_B)$において、二射$\rho_A,\rho_B$に対する射の対を\[\mor{\tuple{\rho_A,\rho_B}}{P}{A\times B}\]とする。
 
@@ -1032,6 +1039,11 @@
 		\end{description}
 		\end{quote}
 	\end{define}
+
+	\begin{define}[関手の同一性]
+		関手$\functor{F,G}{C}{D}$が同一、$F=G$であるとは、それぞれの対象関数、射関数が写像として等しいということである。
+	\end{define}
+
 	\begin{prop}[図式の圏論的な定義]
 		添字圏と呼ばれる圏$\cat{J}$から図式を取りたい圏$\cat{C}$への関手は図式である。
 		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$J$を図式の骨組み、関手$\functor{F}{I}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
@@ -1680,14 +1692,73 @@
 			\end{description}
 		\end{quote}
 	\end{define}
-	次に双対圏のように射の向きを反転させて写すような関手である反変関手を定義する。
+	
+	\begin{define}[双対関手]
+		ある圏$\cat{C,D}$に対する双対圏$\cat{C}^{op},\cat{D}^{op}$と関手$\functor{F}{C}{D}$に対して、双対関手$\functor{F^{op}}{C^{op}}{D^{op}}$を以下の要素で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象関数]対象関数$\mor{F^{op}}{C^{op}}{D^{op}}$を任意の対象$A^{op}$に対して
+				\[F^{op}(A^{op})=(FA)^{op}\]と定義する。
+				
+				\item[射関数]対象関数と同様に、射関数\[\mor{{F^{op}}_{A^{op},B^{op}}}{\arset{C^{op}}{A^{op}}{B^{op}}}{\arset{D^{op}}{(FA)^{op}}{(FB)^{op}}}\]を任意の射$\mor{f}{A^{op}}{B^{op}}$に対して
+				\[F^{op}(f^{op})=(Ff)^{op}\]と定義する。
+
+				\begin{center}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A^{op}$};
+						\node (b) at (0, -1.5) {$B^{op}$};
+						\node (fa) at (1.5, 0) {$(FA)^{op}$};
+						\node (fb) at (1.5, -1.5) {$(FB)^{op}$};
+						\node (catc) at (0, 1) {$\cat{C^{op}}$};
+						\node (catd) at (1.5, 1) {$\cat{D^{op}}$};
+						\draw[-,dashed] (a) to (fa);
+						\draw[-,dashed] (b) to (fb);
+						\draw[->] (b) to node{$f^{op}$}(a);
+						\draw[->] (fb) to node[swap]{$(Ff)^{op}$}(fa);
+						\draw[->] (catc) to node{$F^{op}$}(catd);
+					\end{tikzpicture}
+					\begin{tikzpicture}[auto]
+						\node (a) at (0, 0) {$A$};
+						\node (b) at (0, -1.5) {$B$};
+						\node (fa) at (1.5, 0) {$FA$};
+						\node (fb) at (1.5, -1.5) {$FB$};
+						\node (catc) at (0, 1) {$\cat{C}$};
+						\node (catd) at (1.5, 1) {$\cat{D}$};
+						\draw[-,dashed] (a) to (fa);
+						\draw[-,dashed] (b) to (fb);
+						\draw[->] (a) to node{$f$}(b);
+						\draw[->] (fa) to node{$Ff$}(fb);
+						\draw[->] (catc) to node{$F$}(catd);
+					\end{tikzpicture}
+				\end{center}
+				\item[恒等射の保存]元の関手$F$の恒等射の保存に還元して$F^{op}(id_{A^{op}})=id_{(FA)^{op}}$を示す
+				\begin{align*}
+					F^{op}(id_{A^{op}})&=F^{op}(id_A)^{op}&\text{(双対圏の恒等射の定義)}\\
+					&=(F(id_A))^{op}&\text{双対関手の射関数の定義}\\
+					&=(id_{FA})^{op}&\text{$F$の恒等者の保存}\\
+					&=id_{(FA)^{op}}&\text{(双対圏の恒等射の定義)}
+				\end{align*}
+				
+				\item[射の合成の保存]同様に元の関手の合成の保存に還元して\[F^{op}(f^{op}\circ g^{op})=F^{op}f^{op}\circ F^{op}g^{op}\]を示す。
+				\begin{align*}
+					F^{op}(f^{op}\circ g^{op})&= F^{op}(g\circ f)^{op}&\text{(双対圏の射の合成)}\\
+					&=(F(g\circ f))^{op}&\text{(双対関手の射関数の定義)}\\
+					&=(Fg\circ Ff)^{op}&\text{($F$の射の合成の保存)}\\
+					&=(Fg)^{op}\circ (Ff)^{op}&\text{(双対圏の射の合成)}\\
+					&=F^{op}f^{op}\circ F^{op}g^{op}&\text{(双対関手の射関数の定義)}
+				\end{align*}
+			\end{description}
+		\end{quote}
+	\end{define}
+
+	双対関手では反転した射を反転したまま写した。次に定義する反変関手では通常の射を反転した射に写すような操作を考える。
 	\begin{define}[反変関手]
 		圏$\cat{C}$から圏$\cat{D}$への反変関手と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
 		\begin{quote}
 			\begin{description}
 				\item[対象関数] $\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
 				これは通常の関手と同じである。
-				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
+				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]これも同様に対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。				
 				\begin{center}
 					\begin{tikzpicture}[auto]
 						\node (a) at (0, 0) {$A$};
@@ -1706,7 +1777,6 @@
 				双対圏を取る操作と同じように、射を写すときは射の向きを逆にする。
 				\item[恒等射の保存] $F(id_A)=id_{FA}$が任意の恒等射で成り立つ。
 				\item[射の合成の保存] 合成可能な任意の二射$f,g$において\[F(g\circ f)=Ff\circ Fg\]が成り立つ。
-
 
 				\begin{center}
 					\begin{tikzpicture}[auto]
@@ -1733,7 +1803,7 @@
 			\end{description}
 		\end{quote}
 	\end{define}
-	反変関手に対して通常の関手を共変関手と呼ぶことにする。
+	この反変関手は関手とついているが、双対関手とは違い以前定義した関手の性質を満たさず、関手とはならない。そのため区別が必要な場合、一般の関手を共変関手と呼ぶことにする。
 	また反変関手$\functor{F}{C}{D}$は共変関手$\functor{F}{C^{op}}{D}$とみなせる。
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -2291,7 +2361,6 @@
 	\end{align*}
 	となるから、今定義した双積関手と元の対応から直接定義した双積関手は等しいことが分かる。
 
-
 	\section{自然変換}
 	次に関手の間の射である自然変換を定義する。
 	\begin{define}
@@ -2618,8 +2687,52 @@
 			\end{tikzpicture}
 		\end{center}
 	\end{prop}
-	\begin{define}[自然変換の水平合成]
-		自然変換$\natf{\alpha}{F}{G}{C}{D}$に対して、関手$\functor{F'}{D}{E}$と水平合成した自然変換\[\natf{F'\circ\alpha}{F'F}{F'G}{C}{E}\]を圏$\cat{C}$の任意の対象$X$に対する成分\[(F'\circ\alpha)_X=F'(\alpha_X)\]として定義する。また関手の合成と同様に紛らわしくない場合は$F'\circ\alpha=F'\alpha$と略記する。
+
+	\begin{prop}[関手の射関数の自然性]
+		ある関手$\functor{F}{C}{D}$圏$\cat{C}$の任意の二対象$A,B$に対して\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]となる射関数は\[\natf{F}{\arset{C}{-}{-}}{\arset{D}{F-}{F-}}{C^{op}\times C}{Set}\]となるような自然変換である。
+		
+		また関手$\arset{D}{F-}{F-}$は\[\arset{D}{F-}{F-}=\arset{D}{-}{-}\circ (F^{op}\times F)\]と定義される。具体的な対応は下の図式で確認してほしい。
+		
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (ab) at (0, 1) {$\pcobj{A,B}$};
+				\node (a'b') at (2, 1) {$\pcobj{A',B'}$};
+				
+				\node (cab) at (4, 2) {$\arset{C}{A}{B}$};
+				\node (ca'b') at (7, 2) {$\arset{C}{A'}{B'}$};
+				
+				\node (dab) at (4, 0) {$\arset{D}{FA}{FB}$};
+				\node (da'b') at (7, 0) {$\arset{D}{FA'}{FB'}$};				
+				\draw[->] (ab) to node{$\pcobj{f,g}$}(a'b');
+				\draw[->] (cab) to node{$\arset{C}{f}{g}$}(ca'b');
+				\draw[->] (dab) to node{$\arset{D}{Ff}{Fg}$}(da'b');
+				
+				\draw[->] (cab) to node{$F_{A,B}$}(dab);				\draw[->] (ca'b') to node{$F_{A',B'}$}(da'b');				\node (catcc) at (1, 3.5) {$\cat{C\times C^{op}}$};
+				\node (catc) at (5.5, 3.5) {$\cat{Set}$};
+				
+				\draw[->,bend left = 20] (catcc) to node (funcf){$\arset{C}{-}{-}$}(catc);
+				\draw[->,bend right = 20] (catcc) to node (funch)[swap]{$\arset{D}{F-}{F-}$}(catc);
+				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$F$] {} (funch);
+			\end{tikzpicture}
+		\end{center}
+	\end{prop}
+	\begin{proof}
+		射関数の定義より、$F_{A,B}$のような射は任意の対象に対して存在する。そのため自然変換$F$の成分とみなすことができる。
+		自然性は上の図式が可換、つまり\[F_{A',B'}\circ\arset{C}{f}{g}=\arset{D}{Ff}{Fg}\circ F_{A,B}\]を示せば良い。この図式は$\cat{Set}$上にあるため、元の対応関係から射の等式を導く。
+		
+		圏$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して
+		\begin{align*}
+			F_{A',B'}\circ\arset{C}{f}{g}(h)&=F_{A',B'}(g\circ h\circ f)&\text{(射写像の定義)}\\
+			&=Fg\circ Fh\circ Ff&\text{(関手の射の合成の保存)}\\
+			&=\arset{D}{Ff}{Fg}(Fh)&\text{(射写像の定義)}\\
+			&=\arset{D}{Ff}{Fg}\circ F_{A,B}(h)&\text{(表記揺れ)}
+		\end{align*}
+		$F_{A',B'}\circ\arset{C}{f}{g}(h)=\arset{D}{Ff}{Fg}\circ F_{A,B}(h)$より自然性が成り立つから、確かに射関数の全体は自然変換となる。
+	\end{proof}
+	この証明では関手$F$は関手$\arset{D}{F-}{F-}$の定義と自然変換と見なした射関数の二つに現れている。そのため、関手$F$が純粋に自然変換から構成できる主張することはできないが、関手$\arset{C}{-}{-}$と関手$\arset{D}{F-}{F-}$の間の射関数となるような自然変換はただ一つである。これは射関数$F_{A,A}$の恒等射の保存から示すことができるので、余力があれば証明してみてほしい。
+
+	\begin{define}[関手と自然変換の合成]
+		自然変換$\natf{\alpha}{F}{G}{C}{D}$に対して、関手$\functor{F'}{D}{E}$と水平に合成した自然変換\[\natf{F'\circ\alpha}{F'F}{F'G}{C}{E}\]を圏$\cat{C}$の任意の対象$X$に対する成分\[(F'\circ\alpha)_X=F'(\alpha_X)\]として定義する。また関手の合成と同様に紛らわしくない場合は$F'\circ\alpha=F'\alpha$と略記する。
 
 		圏$\cat{C}$の任意の射$\mor{f}{A}{B}$とそれによる圏$\cat{D}$の自然変換の図式があるが、この図式を関手$\functor{F'}{D}{E}$で圏$\cat{E}$に写す。この時、$F'$によって写された自然変換の成分が圏$\cat{E}$の自然変換の成分になることを示せばよい。
 		\begin{center}
@@ -2653,12 +2766,69 @@
 				\draw[->,bend right = 20] (catc) to node (funcg)[swap]{$G$}(catd);
 				\draw[->] (catd) to node{$F'$}(cate);
 
+				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+			\end{tikzpicture}
+		\end{center}
+		まず圏$\cat{C}$の任意の対象$A$に対し、自然変換$\nat{F'\alpha}{F'F}{F'G}$の成分となるような射$(F'\alpha)_A$が存在することを示す。
+		対象$A$に対する射$\mor{(F'\alpha)_A}{F'FA}{F'GA}$は、圏$\cat{D}$における自然変換$\alpha$の成分$\mor{\alpha_A}{FA}{GA}$を関手$F'$の射関数によって写したものである。
+		$\alpha$は自然変換であるから、任意の対象$A$に対して$\alpha_A$が存在するが、射関数は写像であるからその左全域性により必ず$\alpha_A$に対する$(F'\alpha)_A$が存在する。よって確かに任意の対象$A$に対して$(F'\alpha)_A$は存在する。
+		
+		
+		次に自然性を示す。つまり\[(F'\alpha)_B\circ F'Ff=F'Gf\circ(F'\alpha)_A\]が任意の対象$A,B$で成り立つことを示せば良い。
+		
+		\begin{align*}
+			(F'\alpha)_B\circ F'Ff &= F'(\alpha_B)\circ F'(Ff)&\text{($F'\alpha$の成分の定義)}\\
+			&=F'(\alpha_B\circ Ff)&\text{(関手の合成の保存)}\\
+			&=F'(Gf\circ\alpha_A)&\text{($\alpha$の自然性)}\\
+			&=(F'G)f\circ F'(\alpha_A)&\text{(関手の合成の保存)}\\
+			&=F'Gf\circ (F'\alpha)_A&\text{($F'\alpha$の成分の定義)}
+		\end{align*}
+		
+		よって$F'\alpha$は確かに自然変換になる。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 1) {$A$};
+				\node (b) at (2, 1) {$B$};
+				\draw[->] (a) to node{$f$}(b);
+				
+				\node (ffa) at (4, 2) {$F'FA$};
+				\node (ffb) at (6, 2) {$F'FB$};
+				\node (fga) at (4, 0) {$F'GA$};
+				\node (fgb) at (6, 0) {$F'GB$};
+				\draw[->] (ffa) to node{$F'Ff$}(ffb);
+				\draw[->] (fga) to node[swap]{$F'Gf$}(fgb);
+				\draw[->] (ffa) to node{$(F'\alpha)_A$}(fga);
+				\draw[->] (ffb) to node{$(F'\alpha)_B$}(fgb);
+				
+				\node (catc) at (1, 4) {$\cat{C}$};
+				\node (cate) at (5, 4) {$\cat{E}$};
+				\draw[->,bend left = 20] (catc) to node (funcf){$F'F$}(cate);
+				\draw[->,bend right = 20] (catc) to node (funcg)[swap]{$F'G$}(cate);
+				
 				\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$F'\alpha$] {} (funcg);
 			\end{tikzpicture}
 		\end{center}
-
 	\end{define}
+
+	\begin{define}[自然変換と関手の合成]
+			
+	\end{define}
+
 	\subsection{関手圏}
+	自然変換には恒等射によって定義される恒等自然変換と、射の合成によって定義される垂直変換を考えることができた。これまで様々な圏を考えてきたように、これらの自然変換を用いれば実際に圏を考えることができるようになる。
+	\begin{define}[関手圏]
+		二つの圏$\cat{C,D}$に対する関手圏$\funccat{C}{D}$を以下の要素で定義する。
+		\begin{quote}
+			\begin{description}
+				\item[対象]　圏$\cat{C}$から圏$\cat{D}$への関手
+				\item[射]　2つの関手$\functor{F,G}{C}{D}$の間の自然変換$\natf{\alpha}{F}{G}{C}{D}$
+				\item[射の合成]
+				\item[恒等射の存在]
+				\item[結合律]
+				\item[単位元律]
+			\end{description}
+		\end{quote}
+	\end{define}
 	\subsection{自然同型と同値}
 	\subsection{エンド}
 	\section{極限}

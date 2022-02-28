@@ -3,3 +3,4 @@
 *.aux
 *.dvi
 *.log
+*.synctex(busy)
