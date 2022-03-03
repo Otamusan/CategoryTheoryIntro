@@ -4,3 +4,4 @@
 *.dvi
 *.log
 *.synctex(busy)
+*.synctex.gz
