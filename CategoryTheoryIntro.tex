@@ -180,7 +180,7 @@
 	
 	集合の圏の射である写像は、任意の元が同じ元に対応することによって射が等しいことを示せたが、一般の圏ではそうは限らない。そもそも対象の元を取ることができるとは限らないし、元の対応関係が一致していても同じ射であるとも限らない。
 
-	集合の圏を集合によって定義したが以降で使用する集合としての性質は、元の対応関係により射が等しいことを示せること以外はほとんど使用しない。
+	集合の圏を集合によって定義したが以降で使用する集合としての性質は、元の対応関係により射が等しいことを示せること以外はほとんど使用しない。仮に使用したとしても、直ぐに圏論的な定義に置き換える。
 	\section{圏論の基本概念}
 	圏論では対象の性質をその対象をドメイン、コドメインとする射の性質によって与える。
 	直感的にはある対象を述べる場合、「どのように構成されるか」ではなく「どのように振舞うか」で述べるように思える。
@@ -235,36 +235,73 @@
 			集合の圏には終対象となる集合$1$が存在し、任意の集合$A$において元$\mor{a}{1}{A}$は集合における元に対し一意に対応する。
 		\end{prop}
 	\subsection{同型}
-	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため同型と呼ばれる同値関係を代わりに用いる。
+	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため同型と呼ばれる同値関係を代わりに用いる。なお、同型が同値関係であることの証明は省略する。
 	\begin{define}[同型]
-		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$f\circ f^{-1}=id_B$と$f^{-1}\circ f=id_A$を満たすようなある二つの射$\mor{f}{A}{B}$とその逆射$\mor{f^{-1}}{B}{A}$が存在するときである。
-		また、このような射$f,f^{-1}$を同型射と呼ぶ。
+		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。
+		また、このような射$i,i^{-1}$を同型射と呼ぶ。
 	\end{define}
 	\begin{center}
 		\begin{tikzpicture}[auto]
 			\node (a) at (-4, -1) {$A$};
 			\node (b) at (-2, -1) {$B$};
-			\draw[->,transform canvas={yshift=-3pt}] (a) to node[swap] {$f$}(b);
-			\draw[->,transform canvas={yshift=3pt}] (b) to node[swap] {$f^{-1}$}(a);
+			\draw[->,transform canvas={yshift=-3pt}] (a) to node[swap] {$i$}(b);
+			\draw[->,transform canvas={yshift=3pt}] (b) to node[swap] {$i^{-1}$}(a);
 
 			\node (a) at (0, 0) {$A$};
 			\node (b) at (2, 0) {$B$};
 			\node (b') at (0, -2) {$B$};
-			\draw[->] (a) to node[swap] {$f$}(b');
+			\draw[->] (a) to node[swap] {$i$}(b');
 			\draw[->] (b) to node {$id_B$}(b');
-			\draw[->] (b) to node[swap] {$f^{-1}$}(a);
+			\draw[->] (b) to node[swap] {$i^{-1}$}(a);
 
 			\node (a) at (4, 0) {$B$};
 			\node (b) at (6, 0) {$A$};
 			\node (b') at (4, -2) {$A$};
-			\draw[->] (a) to node[swap] {$f^{-1}$}(b');
+			\draw[->] (a) to node[swap] {$i^{-1}$}(b');
 			\draw[->] (b) to node {$id_A$}(b');
-			\draw[->] (b) to node[swap] {$f$}(a);
+			\draw[->] (b) to node[swap] {$i$}(a);
 		\end{tikzpicture}
 	\end{center}
 	同型は対象同士の相互互換のような関係性を表していると感じられる。
+
+  \begin{proof}
+    同型が同値関係であることを証明する。
+    \begin{quote}
+			\begin{description}
+				\item[反射律] 任意の対象$A$で$A\cong A$が成り立つことを証明すれば良い。$\mor{id_A}{A}{A}$を同型射とその逆射$(id_A)^{-1}$をまた$id_A$とすると、\[id_A\circ id_A = id_A,\,id_A\circ id_A = id_A\]が成り立つから、$id_A$は同型射であり$A\cong A$である。
+
+				\item[対称律] 同型$A\cong B\Longrightarrow B\cong A$を示せば良い。同型$A\cong B$が同型射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$によって成り立つとする。この時、$i^{-1}$の逆射を$i$とみなすと、$i^{-1}\circ i=id_A$と$i\circ i^{-1}=id_B$が成り立つから、$B\cong A$となる。
+				\item[推移律] $A\cong B,B\cong C\Longrightarrow A\cong C$を示せば良い。$A\cong B$の同型射を$\mor{i}{A}{B}$、$\mor{i^{-1}}{B}{A}$、$B\cong C$の同型射を$\mor{j}{B}{C}$、$\mor{j^{-1}}{C}{B}$とする。この時、$j\circ i$と$i^{-1}\circ j^{-1}$が同型射になることを示せば良い。
+        \begin{center}
+          \begin{tikzpicture}[auto]
+            \node (a) at (0, 0) {$A$};
+            \node (b) at (2, 0) {$B$};
+            \node (c) at (4, 0) {$C$};
+            \draw[->,transform canvas={yshift=-3pt}] (a) to node[swap] {$i$}(b);
+            \draw[->,transform canvas={yshift=3pt}] (b) to node[swap] {$i^{-1}$}(a);
+
+            \draw[->,transform canvas={yshift=-3pt}] (b) to node[swap] {$j$}(c);
+            \draw[->,transform canvas={yshift=3pt}] (c) to node[swap] {$j^{-1}$}(b);
+          \end{tikzpicture}
+        \end{center} 
+				\begin{align*}
+          (j\circ i)\circ (i^{-1}\circ j^{-1})&=j\circ(i\circ i^{-1})\circ j^{-1}&\text{(結合則)}\\
+          &=j\circ(id_B)\circ j^{-1}&\text{(同型射の定義)}\\
+          &=j\circ j^{-1}&\text{(恒等射の性質)}\\
+          &=id_C&\text{(同型射の定義)}\\
+          (i^{-1}\circ j^{-1})\circ(j\circ i)&=i^{-1}\circ(j^{-1}\circ j)\circ i&\text{(結合則)}\\
+          &=i^{-1}\circ(id_B)\circ i&\text{(同型射の定義)}\\
+          &=i^{-1}\circ i&\text{(恒等射の性質)}\\
+          &=id_A&\text{(同型射の定義)}\\
+        \end{align*}
+        よって$j\circ i$と$i^{-1}\circ j^{-1}$は同型射となり、$A\cong C$が成り立つ。
+      \end{description}
+    \end{quote}
+  \end{proof}
+
+
 	\begin{prop}[集合の圏の同型]
-		$A\cong B$$\Longleftrightarrow$同型射$\mor{i}{A}{B}$が全単射。
+		集合の圏$\cat{Set}$において、同型$A\cong B$$\Longleftrightarrow$同型射$\mor{i}{A}{B}$が全単射。
 
 		また全単射は、任意の元$\mor{b}{1}{B}$に対して、$i(a)=b$が成り立つようなある元$\mor{a}{1}{A}$が一意に存在することであり、この対応を一対一対応と呼ぶ。
 	\end{prop}
@@ -287,12 +324,16 @@
 		$i(a')=b$と仮定すると、
 		\begin{align*}
 			a&=i^{-1}(b)&\text{(元$a$の定義)}\\
-			　&=i^{-1}(i(a'))&\text{(仮定)}\\
-			　&=(i^{-1}\circ i)(a')&\text{(写像の合成の定義)}\\
-			　&=a'&\text{(同型射の定義)}
+			&=i^{-1}(i(a'))&\text{(仮定)}\\
+			&=(i^{-1}\circ i)(a')&\text{(写像の合成の定義)}\\
+			&=a'&\text{(同型射の定義)}
 		\end{align*}
 		よって$b$に対する$i(a)=b$を満たすような$a$が一意に存在することが示せたので、$i$が全単射であることが示せた。
 	\end{proof}
+  なぜ同型が圏論内で同一とみなせるかは現段階では説明できないが、概略を示す。まず圏論では特別視したい対象に性質を持たせる時、その性質をその対象をドメイン、コドメインとする射によって記述する。これは次に扱う普遍性の一種、積対象と終対象の定義で確認してほしい。
+
+  つまり、対象が等価であることを示すには対象の周りの射が同じ性質を持つことを示せば良い。また射は圏内の操作である射の合成という操作によって初めて区別されるから、射が等価であるかは射の合成によって区別できるかを調べれば良い。
+
 	\section{普遍性}
 	普遍性はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に存在する。というように記述され、図式中の射と一意に定まる射の対応関係を示すことが多い。このような議論は集合の圏における同型でも扱ったが、実際に以下で紹介する普遍性は集合の全単射で表せる。詳しくは別の章で説明する。
 	\subsection{積}
@@ -979,36 +1020,63 @@
 		\end{center}
 		と定義する。共変射写像と違い、射$f$に対して$\arset{C}{f}{X}$の向きが逆になっている。
 	\end{define}
+
+  これまでは一般の圏$\cat{C}$の射集合についての議論を行なってきたが、以降は射集合を取る圏を$\cat{Set}$に限定して行うことにする。理由としては$\cat{Set}$上の射集合もまた集合であり、$\cat{Set}$の対象であるためである。そのため、射集合とそのドメイン、コドメインとなる集合の間に射を伸ばすことができ、射集合のさらなる性質を記述することができるようになる。
+
+  \begin{define}[評価射]
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して評価射を
+		\begin{align*}
+			\mor{&ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}\\
+			&ev_{A,B}(\tuple{f,b})=f(b)\\
+		\end{align*}
+		と定義する。もしくは
+    これは元$b$に写像$f$を適用する操作を写像にしたものである。またこのような射は任意の対象$A,B$に対して個別に存在するが、現段階では添え字としての対象を省略し、特に区別はしない。
+		厳密な証明は行わないが評価射は実際に写像になる。
+	\end{define}
+  同型$A\cong\arset{Set}{1}{A}$、$B\cong\arset{Set}{1}{B}$が成り立つから、評価射は\[\mor{ev}{\arset{Set}{B}{A}\times \arset{Set}{1}{B}}{\arset{Set}{1}{A}} \]とも表すことができるが、これは合成を行う写像の特別な場合である。
+
+	\begin{define}[余評価射]
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して余評価射を
+		\begin{align*}
+			\mor{&ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}\\
+			&ce_{A,B}(a)=g_a\\
+			&g_a(b)=\tuple{a,b}
+		\end{align*}
+		と定義する。また\[ce_{A,B}(a)(b)=\tuple{a,b}\]とも表記できる。
+    同様にこのような射は任意の対象$A,B$に対して個別に存在するが区別しない。
+	\end{define}
+
+  \subsection{同型と周りの射の対応}
   
-  次に同型と射集合の関係性について見ていく。
+  次に同型の定義で紹介した、なぜ同型である二対象が圏論内で同一視できるのかについて説明していく。
 
   \begin{prop}[同型射となる共変射写像]
-    ある圏$\cat{C}$においてある二対象$A\cong B$が同型であるならば、任意の対象$X$に対し$\arset{C}{X}{A}\cong\arset{C}{X}{B}$が成り立つ。
+    ある圏$\cat{C}$においてある二対象$B\cong B'$が同型であるならば、任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$が成り立つ。
   \end{prop}
 
   \begin{proof}
-    同型射を$\mor{i}{A}{B}$、$\mor{i^{-1}}{B}{A}$として、共変射写像\[\mor{\arset{C}{X}{i}}{\arset{C}{X}{A}}{\arset{C}{X}{B}}\]と\[\mor{\arset{C}{X}{i^{-1}}}{\arset{C}{X}{B}}{\arset{C}{X}{A}}\]もまた同型射になることを示す。すなわち、\[\arset{C}{X}{i}\circ\arset{C}{X}{i^{-1}}=id_{\arset{C}{X}{B}}\]\[\arset{C}{X}{i^{-1}}\circ\arset{C}{X}{i}=id_{\arset{C}{X}{A}}\]を示せばよい。
+    同型射を$\mor{i}{B}{B'}$、$\mor{i^{-1}}{B'}{B}$として、共変射写像\[\mor{\arset{C}{X}{i}}{\arset{C}{X}{B}}{\arset{C}{X}{B'}}\]と\[\mor{\arset{C}{X}{i^{-1}}}{\arset{C}{X}{B'}}{\arset{C}{X}{B}}\]もまた同型射になることを示す。すなわち、\[\arset{C}{X}{i}\circ\arset{C}{X}{i^{-1}}=id_{\arset{C}{X}{B'}}\]\[\arset{C}{X}{i^{-1}}\circ\arset{C}{X}{i}=id_{\arset{C}{X}{B}}\]を示せばよい。
 
-    射集合$\arset{C}{X}{B}$の任意の元$\mor{f}{X}{B}$に対して、
+    射集合$\arset{C}{X}{B'}$の任意の元$\mor{f}{X}{B'}$に対して、
     \begin{align*}
       \arset{C}{X}{i}\circ\arset{C}{X}{i^{-1}}(f)&=\arset{C}{X}{i}(\arset{C}{X}{i^{-1}}(f))&\text{(写像の合成の定義)}\\
       &=\arset{C}{X}{i}(i^{-1}\circ f)&\text{(共変射写像の定義)}\\
       &=i\circ i^{-1}\circ f&\text{(共変射写像の定義)}\\
-      &=id_B\cong f&\text{(同型射の定義)}\\
+      &=id_{B'}\circ f&\text{(同型射の定義)}\\
       &=f&\text{(恒等射の定義)}\\
-      &=id_{\arset{C}{X}{B}}(f)&\text{(恒等射の定義)}
+      &=id_{\arset{C}{X}{B'}}(f)&\text{(恒等射の定義)}
     \end{align*}
-    よって$\arset{C}{X}{i}\circ\arset{C}{X}{i^{-1}}=id_{\arset{C}{X}{B}}$が示せた。同様に$\arset{C}{X}{i^{-1}}\circ\arset{C}{X}{i}=id_{\arset{C}{X}{A}}$も示せる。
+    よって$\arset{C}{X}{i}\circ\arset{C}{X}{i^{-1}}=id_{\arset{C}{X}{B'}}$が示せた。同様に$\arset{C}{X}{i^{-1}}\circ\arset{C}{X}{i}=id_{\arset{C}{X}{B}}$も示せる。
     
-    よって$\mor{\arset{C}{X}{i}}{\arset{C}{X}{A}}{\arset{C}{X}{B}}$と$\mor{\arset{C}{X}{i^{-1}}}{\arset{C}{X}{B}}{\arset{C}{X}{A}}$もまた同型射となるため、$\arset{C}{X}{A}\cong\arset{C}{X}{B}$が成り立つ。
+    よって$\mor{\arset{C}{X}{i}}{\arset{C}{X}{B}}{\arset{C}{X}{B'}}$と$\mor{\arset{C}{X}{i^{-1}}}{\arset{C}{X}{B'}}{\arset{C}{X}{B}}$もまた同型射となるため、$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$が成り立つ。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (x) at (-1.5, 0) {$X$};
 				\node (x2) at (-1.5, -1.5) {$X$};
-				\node (a) at (0, -1.5) {$A$};
-				\node (b) at (0, 0) {$B$};
-				\node (ca) at (3, -1.5) {$\arset{C}{X}{A}$};
-				\node (cb) at (3, 0) {$\arset{C}{X}{B}$};
+				\node (a) at (0, -1.5) {$B$};
+				\node (b) at (0, 0) {$B'$};
+				\node (ca) at (3, -1.5) {$\arset{C}{X}{B}$};
+				\node (cb) at (3, 0) {$\arset{C}{X}{B'}$};
 				\node (catc) at (-0.75, 1) {$\cat{C}$};
 				\node (catc) at (3, 1) {$\cat{Set}$};
 				\draw[->,transform canvas={xshift=-2pt}] (ca) to node{$\arset{C}{X}{i}$}(cb);
@@ -1025,56 +1093,118 @@
 
   
   また同様の性質が反変射写像でも成り立つ
-  \begin{prop}[同型射となる共変射写像]
-    ある圏$\cat{C}$においてある二対象$A\cong B$が同型であるならば、任意の対象$X$に対し$\arset{C}{X}{A}\cong\arset{C}{X}{B}$が成り立つ。
+  \begin{prop}[同型射となる反変射写像]
+    ある圏$\cat{C}$においてある二対象$A\cong A'$が同型であるならば、任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$が成り立つ。
   \end{prop}
   
-  これはつまり、対象$A$からの射、$A$への射は対象$B$への射、$B$からの射と一対一対応をするということである。今はまだ触れないが、この対応は単に全単射であるだけでなく、圏論の基本的な操作である射の合成を保つ。
+  これはつまり、対象$B$からの射、$B$への射は対象$B'$への射、$B'$からの射と一対一対応をするということである。
   
+  さらに共変射写像と反変射写像による射集合の同型を統合する。
 
-  ここから先では同型による射集合の元の一対一対応は、対象の同型と同じく同一視することにする。例を上げると、
-  同型射$\mor{i}{A}{B}$、$\mor{i^{-1}}{B}{A}$による同型$A\cong B$に対し、射$\mor{f}{X}{A}$のコドメイン$A$を同型によって$B$に置き換えるが、その時$f$に対応する射は$i\circ f$であるが、$\mor{f}{X}{B}$と表記する。
+  \begin{prop}[同型射となる射写像]
+    \[A\cong A',B\cong B'\Longrightarrow\arset{C}{A}{B}\cong\arset{C}{A'}{B'}\]
+  \end{prop}
+  \begin{proof}
+    $A\cong A'$ならば$\arset{C}{A}{B}\cong\arset{C}{A'}{B}$であり、$B\cong B'$ならば$\arset{C}{A'}{B}\cong\arset{C}{A'}{B'}$である。よって同型の推移律より、$\arset{C}{A}{B}\cong\arset{C}{A'}{B'}$が成り立つ。
 
-  これまでは一般の圏$\cat{C}$の射集合についての議論を行なってきたが、以降は射集合を取る圏を$\cat{Set}$に限定して行うことにする。理由としては$\cat{Set}$上の射集合もまた集合であり、$\cat{Set}$の対象であるためである。そのため、射集合とそのドメイン、コドメインとなる集合の間に射を伸ばすことができ、射集合のさらなる性質を記述することができるようになる。
+    もう少し丁寧に見ていくと、それぞれの同型射を$\mor{i}{A}{A'}$、$\mor{i^{-1}}{A'}{A}$、$\mor{j}{B}{B'}$、$\mor{j^{-1}}{B'}{B}$とした時、
+    \[\mor{\arset{C}{i}{B'}\circ\arset{C}{A}{j}}{\arset{C}{A}{B}}{\arset{C}{A'}{B'}}\]と\[\mor{\arset{C}{A}{j^{-1}}\circ\arset{C}{i^{-1}}{B'}}{\arset{C}{A'}{B'}}{\arset{C}{A}{B}}\]が同型射の一つになる。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (cab) at (0, 0) {$\arset{C}{A}{B}$};
+				\node (ca'b) at (0, -1.5) {$\arset{C}{A'}{B}$};
+				\node (catc) at (2, 1) {$\cat{Set}$};
+				\draw[->,transform canvas={xshift=-2pt}] (cab) to node[swap]{$\arset{C}{i}{B}$}(ca'b);
+        \draw[->,transform canvas={xshift=2pt}] (ca'b) to node[swap]{$\arset{C}{i^{-1}}{B}$}(cab);
+        \node (cab') at (4, 0) {$\arset{C}{A}{B'}$};
+				\node (ca'b') at (4, -1.5) {$\arset{C}{A'}{B'}$};
+				\draw[->,transform canvas={xshift=-2pt}] (cab') to node[swap]{$\arset{C}{i}{B'}$}(ca'b');
+        \draw[->,transform canvas={xshift=2pt}] (ca'b') to node[swap]{$\arset{C}{i^{-1}}{B'}$}(cab');
 
-  \begin{define}[評価射]
-		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して評価射を
-		\begin{align*}
-			\mor{&ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}\\
-			&ev_{A,B}(\tuple{f,b})=f(b)\\
-		\end{align*}
-		と定義する。もしくは
-    これは元$b$に写像$f$を適用する操作を写像にしたものである。またこのような射は任意の対象$A,B$に対して個別に存在する。
-		厳密な証明は行わないが評価射は実際に写像になる。
-	\end{define}
-  同型$A\cong\arset{Set}{1}{A}$、$B\cong\arset{Set}{1}{B}$が成り立つから、評価射は\[\mor{ev_{A,B}}{\arset{Set}{B}{A}\times \arset{Set}{1}{B}}{\arset{Set}{1}{A}} \]とも表すことができるが、これは合成を行う写像の特別な場合である。
+        \draw[->,transform canvas={yshift=-2pt}] (cab) to node[swap]{$\arset{C}{A}{j}$}(cab');
+        \draw[->,transform canvas={yshift=2pt}] (cab') to node[swap]{$\arset{C}{A}{j^{-1}}$}(cab);
+        \draw[->,transform canvas={yshift=-2pt}] (ca'b) to node[swap]{$\arset{C}{A'}{j}$}(ca'b');
+        \draw[->,transform canvas={yshift=2pt}] (ca'b') to node[swap]{$\arset{C}{A'}{j^{-1}}$}(ca'b);
+			\end{tikzpicture}
+		\end{center}
+    またこの同型射は任意の射$\mor{f}{A}{B}$に対して
+    \[\arset{C}{i}{B'}\circ\arset{C}{A}{j}(f)=j\circ f\circ i^{-1}\]
+    \[\arset{C}{A}{j^{-1}}\circ\arset{C}{i^{-1}}{B'}(f)=j^{-1}\circ f\circ i\]となるような写像である。
+  \end{proof}
 
-	\begin{define}[余評価射]
-		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して余評価射を
-		\begin{align*}
-			\mor{&ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}\\
-			&ce_{A,B}(a)=g_a\\
-			&g_a(b)=\tuple{a,b}
-		\end{align*}
-		と定義する。また\[ce_{A,B}(a)(b)=\tuple{a,b}\]とも表記できる。
-    同様にこのような射は任意の対象$A,B$に対して個別に存在し実際に写像になる。
-	\end{define}
+  \begin{define}[射の同値]
+    同型射$\mor{i}{A}{A'}$、$\mor{i^{-1}}{A'}{A}$、$\mor{j}{B}{B'}$、$\mor{j^{-1}}{B'}{B}$に対して、ある射$\mor{f}{A}{B}$に対応する射$f'$を\[f'=j\circ f\circ i^{-1}\]とし、これを$f\sim f'$と表記し、同型射$i,j$による射の同値と呼ぶことにする。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (-1.5, 0) {$A$};
+				\node (a') at (-1.5, -1.5) {$A'$};
+				\node (b) at (0, 0) {$B$};
+				\node (b') at (0, -1.5) {$B'$};
+				\node (catc) at (-0.75, 1) {$\cat{C}$};
+        \draw[->] (a) to node{$f$}(b);
+        \draw[->] (a') to node[swap]{$f'$}(b');
 
+				\draw[->,transform canvas={xshift=-2pt}] (a) to node[swap]{$i$}(a');
+        \draw[->,transform canvas={xshift=2pt}] (a') to node[swap]{$i^{-1}$}(a);
+        \draw[->,transform canvas={xshift=-2pt}] (b) to node[swap]{$j$}(b');
+        \draw[->,transform canvas={xshift=2pt}] (b') to node[swap]{$j^{-1}$}(b);
+			\end{tikzpicture}
+		\end{center}
+    また同型$\arset{C}{A}{B}\cong\arset{C}{A'}{B'}$によって、任意の射$f$は$f\sim f'$となるような射$f'$と一対一対応をする。
+  \end{define}
+  この関係$\sim$が同値関係であることは同型が同値関係であることから直ぐにわかる。
+  \begin{prop}[射の合成による射の同値の保存]
+    射$\mor{f}{A}{B}$、$\mor{f'}{A'}{B'}$、$\mor{g}{B}{C}$、$\mor{g'}{B'}{C'}$が$f\sim f'$、$g\sim g'$である時、$g\circ f\sim g'\circ f'$が成り立つ。
+  \end{prop}
+  \begin{proof}
+    同型射をそれぞれ、$\mor{i}{A}{A'}$、$\mor{i^{-1}}{A'}{A}$、$\mor{j}{B}{B'}$、$\mor{j^{-1}}{B'}{B}$、
+  \end{proof}
+  %\begin{proof}
+  %  $\sim$は同値関係であることを証明する。
+  %  \begin{quote}
+	%		\begin{description}
+	%			\item[反射律] 任意の射$\mor{f}{A}{B}$に対して恒等射$id_A,id_B$を同型射と見なした同型$A\cong A,B\cong B$を考えると、
+	%			\[id_B\circ f\circ id_A=f,\,id_B\circ f\circ id_A=f\]となるから$f\sim f$が成り立つ。 
+
+  %      \begin{center}
+  %        \begin{tikzpicture}[auto]
+  %          \node (a) at (-1.5, 0) {$A$};
+  %          \node (a') at (-1.5, -1.5) {$A$};
+  %          \node (b) at (0, 0) {$B$};
+  %          \node (b') at (0, -1.5) {$B$};
+  %          \node (catc) at (-0.75, 1) {$\cat{C}$};
+  %          \draw[->] (a) to node{$f$}(b);
+  %          \draw[->] (a') to node[swap]{$f$}(b');
+  %  
+  %          \draw[->,transform canvas={xshift=-2pt}] (a) to node[swap]{$id_A$}(a');
+  %          \draw[->,transform canvas={xshift=2pt}] (a') to node[swap]{$id_A$}(a);
+  %          \draw[->,transform canvas={xshift=-2pt}] (b) to node[swap]{$id_B$}(b');
+  %          \draw[->,transform canvas={xshift=2pt}] (b') to node[swap]{$id_B$}(b);
+  %        \end{tikzpicture}
+  %      \end{center}
+
+	%			\item[対称律] $\mor{i}{A}{A'}$と、逆射$\mor{i^{-1}}{A'}{A}$、に対して$f\sim f'$が成り立つとき、$\mor{i}{A}{A'}$を逆射とみなすことで$f'\sim f$となる。
+	%			\item[推移律] $\mor{i}{A}{A'}$と、逆射$\mor{i^{-1}}{A'}{A}$による関係$f\sim f'$、$\mor{j}{A'}{A''}$と、逆射$\mor{j^{-1}}{A''}{A'}$による関係$f'\sim f''$、が成り立つとき、新しい同型射$\mor{j\circ i}{A}{A''}$、$\mor{j^{-1}\circ i^{-1}}{A''}{A}$が構成できる。これにより$f\sim f''$が成り立つ。
+  %    \end{description}
+  %  \end{quote} 
+  %\end{proof}
+
+  \subsection{評価射、余評価射の応用}
   次に集合の圏での同型$A\cong \arset{Set}{1}{A}$の証明に使用した同型射を評価射、余評価射として表そうと思う。ただし、この話題は現段階ではかなり複雑な話になってしまう。もし射集合の持つ根本的な性質に今の段階で興味がないのであれば飛ばしてもらっても構わない。
 
   元$\mor{*}{1}{1}$を元$\mor{a}{1}{A}$に写す写像を$e_a$、$e_a(*)=a$となるような写像とし、同型射となる二射$\mor{i}{A}{\arset{Set}{1}{A}},\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を\[i(a)=e_a,\ i^{-1}(e_a)=e_a(*)\]と定義するのだった。
 
-  余評価射$\mor{ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}$は任意の対象$A$,$B$に対して存在するのであったが、この対象$B$に終対象$1$を当てはめる。すると
+  余評価射$\mor{ce}{A}{\arset{Set}{B}{A\times B}}$は任意の対象$A$,$B$に対して存在するのであったが、この対象$B$に終対象$1$を当てはめる。すると
   \begin{align*}
-    \mor{&ce_{A,1}}{A}{\arset{Set}{1}{A\times 1}}\\
-    &ce_{A,1}(a)=g_a\\
+    \mor{&ce}{A}{\arset{Set}{1}{A\times 1}}\\
+    &ce(a)=g_a\\
     &g_a(*)=\tuple{a,*}
   \end{align*}
-  のような射になる。ここで、$A\times 1\cong A$が成り立つから、\[\mor{ce_{A,1}}{A}{\arset{Set}{1}{A}}\]と置き換えることができる。少し複雑ではあるが、この置き換えは$A\times 1\cong A$の同型射\[\mor{\pi_A}{A\times 1}{A}\]を合成しているのではなく、この同型により導出される$\arset{Set}{1}{A\times 1}\cong\arset{Set}{1}{A}$の同型射である\[\mor{\arset{Set}{1}{\pi_A}}{\arset{Set}{1}{A\times 1}}{\arset{Set}{1}{A}}\]を合成している。
+  のような射になる。ここで、$A\times 1\cong A$が成り立つから、\[\mor{ce}{A}{\arset{Set}{1}{A}}\]と置き換えることができる。少し複雑ではあるが、この置き換えは$A\times 1\cong A$の同型射\[\mor{\pi_A}{A\times 1}{A}\]を合成しているのではなく、この同型により導出される$\arset{Set}{1}{A\times 1}\cong\arset{Set}{1}{A}$の同型射である\[\mor{\arset{Set}{1}{\pi_A}}{\arset{Set}{1}{A\times 1}}{\arset{Set}{1}{A}}\]を合成している。
 
-  つまり、実際の置き換えられた射は$\arset{Set}{1}{\pi_A}\circ ce_{A,1}$である。まずはこの射が$\mor{i}{A}{\arset{Set}{1}{A}}$と等しいことを確かめる。$A$の任意の元$a$において、
+  つまり、実際の置き換えられた射は$\arset{Set}{1}{\pi_A}\circ ce$である。まずはこの射が$\mor{i}{A}{\arset{Set}{1}{A}}$と等しいことを確かめる。$A$の任意の元$a$において、
   \begin{align*}
-    \arset{Set}{1}{\pi_A}(ce_{A,1}(a))&=\arset{Set}{1}{\pi_A}(g_a)&\text{(余評価射の定義)}\\
+    \arset{Set}{1}{\pi_A}(ce(a))&=\arset{Set}{1}{\pi_A}(g_a)&\text{(余評価射の定義)}\\
     &=\pi_A\circ g_a&\text{(共変射写像の定義)}
   \end{align*}
   である。この時、ただ一つではあるが任意の$1$の元$*$において、
@@ -1083,56 +1213,83 @@
     &=a&\text{(射の対の普遍性)}\\
     &=e_a(*)&\text{($A\cong \arset{Set}{1}{A}$の同型射の定義)}
   \end{align*}
-  となる。よって$\pi_A\circ g_a=e_a$が成り立ち、\[\arset{Set}{1}{\pi_A}\circ ce_{A,1}(a)=e_a=i(a)\]となる。これが任意の$A$の元$a$で成り立つから\[\arset{Set}{1}{\pi_A}\circ ce_{A,1}=i\]となる。これで$\mor{i}{A}{\arset{Set}{1}{A}}$を余評価射で表すことができた。
+  となる。よって$\pi_A\circ g_a=e_a$が成り立ち、\[\arset{Set}{1}{\pi_A}\circ ce(a)=e_a=i(a)\]となる。これが任意の$A$の元$a$で成り立つから\[\arset{Set}{1}{\pi_A}\circ ce=i\]となる。これで$\mor{i}{A}{\arset{Set}{1}{A}}$を余評価射で表すことができた。
 
   次に$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を評価射で表す。
 
-  同様に評価射$\mor{ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}$の対象$B$に終対象$1$を当てはめると、
-  \[\mor{ev_{A,1}}{\arset{Set}{1}{A}\times 1}{A}\]となる。ここで同型$A\times 1\cong A$は任意の対象$A$で成り立つから、$A$を$\arset{Set}{1}{A}$に当てはめた$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$も成り立つ。この同型によって$\arset{Set}{1}{A}\times 1$を置き換える。すなわち$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$の同型射\[\mor{\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{\arset{Set}{1}{A}\times 1}\]を合成した、\[\mor{ev_{A,1}\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{A}\]が$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$と等しいことを確認する。
+  同様に評価射$\mor{ev}{\arset{Set}{B}{A}\times B}{A}$の対象$B$に終対象$1$を当てはめると、
+  \[\mor{ev}{\arset{Set}{1}{A}\times 1}{A}\]となる。ここで同型$A\times 1\cong A$は任意の対象$A$で成り立つから、$A$を$\arset{Set}{1}{A}$に当てはめた$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$も成り立つ。この同型によって$\arset{Set}{1}{A}\times 1$を置き換える。すなわち$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$の同型射\[\mor{\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{\arset{Set}{1}{A}\times 1}\]を合成した、\[\mor{ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{A}\]が$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$と等しいことを確認する。
 
   $\arset{Set}{1}{A}$の任意の元$e_a$において、
   \begin{align*}
-    ev_{A,1}\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}(e_a)&=ev_{A,1}(\tuple{e_a,*})&\text{(射の対の分配則)}\\
+    ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}(e_a)&=ev(\tuple{e_a,*})&\text{(射の対の分配則)}\\
     &=e_a(*)&\text{(評価射の定義)}\\
     &=i^{-1}(e_a)&\text{($A\cong \arset{Set}{1}{A}$の同型射の定義)}
   \end{align*}
-  よって\[ev_{A,1}\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}=i^{-1}\]が成り立つ。よって$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を余評価射で表すことができた。
+  よって\[ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}=i^{-1}\]が成り立つ。よって$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を余評価射で表すことができた。
 
-  次に評価射、余評価射の持つ基本的な性質を確かめていく。
+  次に評価射、余評価射の持つ基本的な二つの性質を確かめていく。
 
   \begin{prop}[冪の三角恒等式1]
-    任意の対象$A,B$において、\[\arset{Set}{B}{ev_{A,B}}\circ ce_{\arset{Set}{B}{A},B}=id_{\arset{Set}{B}{A}}\]が成り立つ。
+    任意の対象$A,B$において、\[\arset{Set}{B}{ev}\circ ce=id_{\arset{Set}{B}{A}}\]が成り立つ。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (setba1) at (0, 0) {$\arset{Set}{B}{A}$};
+        \node (setbbab) at (4, 0) {$\arset{Set}{B}{\arset{Set}{B}{A}\times B}$};
+				\node (setba2) at (4, -2) {$\arset{Set}{B}{A}$};
+
+				\draw[->] (setba1) to node[swap]{$id_{\arset{Set}{B}{A}}$}
+        (setba2);
+        \draw[->] (setba1) to node{$\arset{Set}{B}{ev}$}(setbbab);
+        \draw[->] (setbbab) to node{$ce$}(setba2);
+			\end{tikzpicture}
+		\end{center}
   \end{prop}
 
   \begin{proof}
     任意の射$\mor{f}{B}{A}$に対して、
     \begin{align*}
-      \arset{Set}{B}{ev_{A,B}}(ce_{\arset{Set}{B}{A},B}(f))&=\arset{Set}{B}{ev_{A,B}}(g_f)&\text{(余評価射の定義)}\\
-      &=ev_{A,B}\circ g_f&\text{(共変射写像の定義)}\\
+      \arset{Set}{B}{ev}(ce(f))&=\arset{Set}{B}{ev}(g_f)&\text{(余評価射の定義)}\\
+      &=ev\circ g_f&\text{(共変射写像の定義)}\\
     \end{align*}
     が成り立つ。さらに対象$B$の任意の元$b$に対して、
     \begin{align*}
-      ev_{A,B}\circ g_f(b)&=ev_{A,B}(\tuple{f,b})&\text{(余評価射の定義)}\\
+      ev\circ g_f(b)&=ev(\tuple{f,b})&\text{(余評価射の定義)}\\
       &=f(b)&\text{(評価射の定義)}\\
     \end{align*}
-    となる。よって\[\arset{Set}{B}{ev_{A,B}}\circ ce_{\arset{Set}{B}{A},B}=ev_{A,B}\circ g_f=f\]が任意の$f$で成り立つから、\[\arset{Set}{B}{ev_{A,B}}\circ ce_{\arset{Set}{B}{A},B}=id_{\arset{Set}{B}{A}}\]となる。
+    となる。よって\[\arset{Set}{B}{ev}\circ ce=ev\circ g_f=f\]が任意の$f$で成り立つから、\[\arset{Set}{B}{ev}\circ ce=id_{\arset{Set}{B}{A}}\]となる。
   \end{proof}
 
   \begin{prop}[冪の三角恒等式2]
-    任意の対象$A,B$において、\[ev_{(A\times B),B}\circ(ce_{A,B}\times id_B)\]が成り立つ。
+    任意の対象$A,B$において、\[ev\circ(ce\times id_B)=id_{A\times B}\]が成り立つ。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (setba1) at (0, 0) {$A\times B$};
+        \node (setbbab) at (4, 0) {$\arset{Set}{B}{A\times B}\times B$};
+				\node (setba2) at (4, -2) {$A\times B$};
+
+				\draw[->] (setba1) to node[swap]{$id_{A\times B}$}
+        (setba2);
+        \draw[->] (setba1) to node{$ce\times id_B$}(setbbab);
+        \draw[->] (setbbab) to node{$ev$}(setba2);
+			\end{tikzpicture}
+		\end{center}
   \end{prop}
 
   \begin{proof}
     対象$A\times B$の任意の元$\tuple{a,b}$に対して、
     \begin{align*}
-      ev_{(A\times B),B}((ce_{A,B}\times id_B)\tuple{a,b})=
-      &=ev_{(A\times B),B}(\tuple{ce_{A,B}(a),b})&\text{(射の積の定義)}\\
-      &=ev_{(A\times B),B}(\tuple{g_a,b})&\text{(余評価射の定義)}\\
+      ev((ce\times id_B)\tuple{a,b})=
+      &=ev(\tuple{ce(a),b})&\text{(射の積の定義)}\\
+      &=ev(\tuple{g_a,b})&\text{(余評価射の定義)}\\
       &=g_a(b)&\text{(評価射の定義)}\\
       &=\tuple{a,b}&\text{(余評価射の定義)}
     \end{align*}
-    となる。よって\[ev_{(A\times B),B}\circ(ce_{A,B}\times id_B)\]が成り立つ。
+    となる。よって\[ev\circ(ce\times id_B)=id_{A\times B}\]が成り立つ。
   \end{proof}
+
+  最後にこれらの性質を用いて同型$A\cong \arset{Set}{1}{A}$を証明する。
+
   \section{関手}
 	これまでの議論は殆どが一つの圏の上で行われてきたが、これからはある圏とまた別の圏の関係性を中心に考えていく。
 	\begin{define}
