@@ -1693,7 +1693,7 @@
 						\node (catb) at (3.5, 1) {$\cat{A\times B}$};
 					\end{tikzpicture}
 				\end{center}
-				\item[恒等射の存在]　対象$[A,B]$の恒等射$id_{\pcobj{A,B}}$を\[id_{\pcobj{A,B}}=\pcobj{id_A,id_B}\]と定義する。
+				\item[恒等射の存在] 対象$[A,B]$の恒等射$id_{\pcobj{A,B}}$を\[id_{\pcobj{A,B}}=\pcobj{id_A,id_B}\]と定義する。
 				\item[結合律]$(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}=\pcobj{f'',g''}\circ(\pcobj{f',g'}\circ\pcobj{f,g})$を示せばよい。積圏の射の合成の定義を用いて圏の結合律に還元する。
 				\begin{align*}
 					(\pcobj{f'',g''}\circ\pcobj{f',g'})\circ\pcobj{f,g}&=\pcobj{(f''\circ f')\circ f,(g''\circ g')\circ g}&\text{(積圏の射の合成の定義)}\\
@@ -2425,6 +2425,12 @@
 
 	さてこの同型の意味を考えると、任意の二射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$と射の対$\mor{\tuple{f,g}}{X}{A\times B}$が一対一対応をする、ということになる。ただし現段階では逆は成り立たない。
 
+  また、証明中では特に区別しなかったが、集合の圏の積による射の対を$\mor{[f,g]}{1}{\arset{C}{X}{A}\times\arset{C}{X}{B}}$、圏$\cat{C}$の積による射の対を$\mor{\tuple{f,g}}{X}{A\times B}$として、同型射をそれぞれ、\[\mor{i}{\arset{C}{X}{A\times B}}{\arset{C}{X}{A}\times\arset{C}{X}{B}}\]\[\mor{i^{-1}}{\arset{C}{X}{A}\times\arset{C}{X}{B}}{\arset{C}{X}{A\times B}}\]とすると、\[i(\tuple{f,g})=[f,g],\ i^{-1}([f,g])=\tuple{f,g}\]となる射であることが、積の一意性の証明から分かる。
+  つまり、これらの同型射は、圏$\cat{C}$の射の対と集合の圏の射の対を相互に変換する写像であることが分かる。
+
+
+  これらの射が既存の射を用いてどのように構成されるかを示したいところではあるが、射の対の種類が更に増えてややこしくなってしまうため、ここでは結果だけを示した。
+
 	次に自明ではあるが、共変Hom関手が終対象を保つことを同様に証明する。
 	\begin{prop}[Hom関手の終対象の保存]
 		圏$\cat{C}$の終対象$1$と圏$\cat{Set}$の任意の対象$X$と終対象$I$に対して\[\arset{C}{X}{1}\cong I\]が成り立つ。
@@ -2448,8 +2454,7 @@
 		\end{center}
 		次に$\mor{!_Y}{Y}{\arset{C}{X}{1}}$の一意性を示す。つまり射$\mor{h}{Y}{\arset{C}{X}{1}}$が存在したとき、$!_Y=h$が成り立てばよい。
 
-		対象$Y$の任意の元$y$において射$\mor{h(y)}{X}{1}$圏$\cat{C}$の終対象の普遍性より、$\mor{!_Y(y)}{X}{1}$なる射は一意に存在する。よって$!_Y(y)=h(y)$となり、任意の元$y$で成り立つから$!_Y=h$となる。
-
+		対象$Y$の任意の元$y$において射$\mor{h(y)}{X}{1}$に対して圏$\cat{C}$の終対象の普遍性より、$\mor{!_Y(y)}{X}{1}$なる射は一意に存在する。よって$!_Y(y)=h(y)$となり、任意の元$y$で成り立つから$!_Y=h$となる。
 
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -2601,7 +2606,7 @@
 			\begin{description}
 				\item[対象関数] 対象関数\[\mor{H}{\obj{A\times B}}{\obj{C}}\]を積圏の任意の対象$\pcobj{A,B}$に対して
 				\[H(A,B)={F_B}A={G_A}B\]と定義する。
-				\item[射関数]　射関数\[\mor{H_{\pcobj{A,A'},\pcobj{B,B'}}}{\arset{A\times B}{\pcobj{A,B}}{\pcobj{A',B'}}}{\arset{C}{H(A,B)}{H(A',B')}}\]を積圏の任意の射\[\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}\]に対して、\[H_{\pcobj{A,A'},\pcobj{B,B'}}(\pcobj{f,g})={G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]と定義する。
+				\item[射関数]射関数\[\mor{H_{\pcobj{A,A'},\pcobj{B,B'}}}{\arset{A\times B}{\pcobj{A,B}}{\pcobj{A',B'}}}{\arset{C}{H(A,B)}{H(A',B')}}\]を積圏の任意の射\[\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}\]に対して、\[H_{\pcobj{A,A'},\pcobj{B,B'}}(\pcobj{f,g})={G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]と定義する。
 				\item[恒等射の保存]$H(id_{\pcobj{A,B}})=id_{H(A,B)}$を示せばよい。
 				\begin{align*}
 					H(id_{\pcobj{A,B}})&=H(id_A,id_B)&\text{(積圏の恒等射の定義)}\\
@@ -2860,20 +2865,31 @@
   次にある関手$\functor{F}{C}{D}$から$\functor{\varDelta D}{C}{D}$への自然変換$\nat{\alpha}{F}{\varDelta D}$を考えると、対象$A$に対する成分は$\mor{\alpha_A}{FA}{\varDelta D(A)}$であるから$\mor{\alpha_A}{FA}{D}$となり、射のドメインのみを対象で量化することができることが分かる。
   \begin{center}
     \begin{tikzpicture}[auto]
-      \node (A) at (0, 0.75) {$A$};
-      \node (B) at (1.5, 0.75) {$B$};
-      \node (FA) at (3, 1.5) {$FA$};
-      \node (FB) at (4.5, 1.5) {$FB$};
-      \node (GA) at (3.75, 0) {$D$};
+      \node (A) at (0, 1) {$A$};
+      \node (B) at (2, 1) {$B$};
+      \node (FA') at (4, 2) {$FA$};
+      \node (FB') at (6, 2) {$FB$};
+      \node (GA') at (4, 0) {$\varDelta D(A)$};
+      \node (GB') at (6, 0) {$\varDelta D(B)$};
 
-      \node (catc) at (0.75, 3) {$\cat{C}$};
-      \node (catd) at (3.75, 3) {$\cat{D}$};
+      \node (FA) at (8, 2) {$FA$};
+      \node (FB) at (10, 2) {$FB$};
+      \node (GA) at (9, 0) {$D$};
+
+			\node (e) at (7, 1) {$=$};
+      \node (catc) at (1, 3) {$\cat{C}$};
+      \node (catd) at (5, 3) {$\cat{D}$};
 
       \draw[->] (A) to node{$f$}(B);
       \draw[->] (FA) to node{$Ff$}(FB);
       \draw[->] (FA) to node[swap]{$\alpha_A$}(GA);
       \draw[->] (FB) to node{$\alpha_B$}(GA);
+      \draw[->,loop below ,looseness=10] (GA) to node{$id_D$}(GA);
 
+      \draw[->] (FA') to node{$Ff$}(FB');
+      \draw[->] (GA') to node{$\varDelta D(f)$}(GB');
+      \draw[->] (FA') to node[swap]{$\alpha_A$}(GA');
+      \draw[->] (FB') to node{$\alpha_B$}(GB');
       \draw[->,bend left = 30] (catc) to node (funcf){$F$}(catd);
       \draw[->,bend right = 30] (catc) to node (funcg)[swap]{$\varDelta D$}(catd);
       \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
@@ -3092,13 +3108,19 @@
 	\end{proof}
 	この証明では関手$F$は関手$\arset{D}{F-}{F-}$の定義と自然変換と見なした射関数の二つに現れている。そのため、関手$F$が純粋に自然変換から構成できる主張することはできないが、関手$\arset{C}{-}{-}$と関手$\arset{D}{F-}{F-}$の間の射関数となるような自然変換はただ一つである。これは射関数$F_{A,A}$の恒等射の保存から示すことができるので、余力があれば証明してみてほしい。
 
+  \begin{prop}[評価射の自然性]
+    
+  \end{prop}
+  \begin{prop}[余評価射の自然性]
+    
+  \end{prop}
 	\subsection{関手圏}
 	自然変換には恒等射によって定義される恒等自然変換と、射の合成によって定義される垂直変換を考えることができた。これまで様々な圏を考えてきたように、これらの自然変換を用いれば実際に圏を考えることができるようになる。
 	\begin{define}[関手圏]
 		二つの圏$\cat{C,D}$に対する関手圏$\funccat{C}{D}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{description}
-				\item[対象] $\obj{\funccat{C}{D}}$を、圏$\cat{C}$から圏$\cat{D}$への関手全体の集合とする。
+				\item[対象] $\obj{\funccat{C}{D}}=\arset{Set}{\obj{C}}{\obj{D}}$と定義する。圏$\cat{C}$の対象の全体から圏$\cat{D}$への対象の全体への写像は正しく対象関数であり、対象関数の全体として射集合を取ることで関手圏の対象の集合が得られる。
 				\item[射]任意の関手$\functor{F,G}{C}{D}$に対して、射集合$\arset{\funccat{C}{D}}{F}{G}$を関手$F,G$の間の自然変換全体の集合とする。
 				\item[射の合成] 任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$を合成した自然変換を、自然変換の垂直合成によって$\beta\cdot\alpha$と定義する。
 				\item[恒等射の存在]任意の関手$\functor{F}{C}{D}$に対して、恒等射となる自然変換を恒等自然変換によって$ID_F$と定義する。
@@ -3124,7 +3146,97 @@
 		\end{quote}
 	\end{define}
   まだ圏論的な操作からは関手圏を定義することはできないが、関手圏の対象の集合や射集合が定義できることは関手、自然変換が写像、射集合を用いて定義されていることから簡単に分かる。
-	\subsection{自然同型と同値}
+
+  関手圏が圏であるということは、関手圏は$\cat{Cat}$の対象である。つまりアある圏からある関手圏への関手を考えることができるようになる。その一例として、定数関手を得る操作を関手と見なした対角関手を見ていこう。
+  \begin{define}[対角関手]
+    圏$\cat{C}$から$\cat{D}$への定関手を与える対角関手$\functor{\varDelta}{D}{\funccat{C}{D}}$を以下のように定義する。
+    \begin{quote}
+			\begin{description}
+				\item[対象関数] 対象関数\[\mor{\varDelta}{\obj{D}}{\obj{\funccat{C}{D}}}\]
+				を圏$\cat{D}$の任意の対象$D$に対して定関数$\varDelta(D)=\varDelta D$と定義する 
+				\item[射関数] 
+        射関数は\[\mor{\varDelta}{\arset{C}{A}{B}}{\arset{\funccat{C}{D}}{\varDelta A}{\varDelta B}}\]となるように、$A$から$B$への射を、$A$の定関手から$B$の定関手への自然変換に写す写像になる。
+
+        まずは任意の射$\mor{f}{A}{B}$に対する$\nat{\varDelta f}{\varDelta A}{\varDelta B}$を先に定義する。
+        圏$\cat{C}$の任意の対象$C$に対する$\varDelta f$の成分は\[\mor{(\varDelta f)_C}{\varDelta A(C)}{\varDelta B(C)}\]となるが、定関手の定義より、\[\mor{(\varDelta f)_C}{A}{B}\]と表せる。つまり、二つの定関手によって自然変換のドメインとコドメインがそれぞれ$A,B$に集約されているため成分を$(\varDelta f)_C=f$と定義できる。
+
+        自然性については、\[(\varDelta f)_C'\circ\varDelta A(g)=f\circ id_A=id_B\circ f=\varDelta B(g)\circ(\varDelta f)_C\]と成り立ち、$\varDelta f$が自然変換であることが分かった。
+
+        \begin{center}
+          \begin{tikzpicture}[auto]
+            \node (A) at (0, 1) {$C$};
+            \node (B) at (2, 1) {$C'$};
+            \node (FA') at (4, 2) {$\varDelta A(C)$};
+            \node (FB') at (6, 2) {$\varDelta A(C')$};
+            \node (GA') at (4, 0) {$\varDelta B(C)$};
+            \node (GB') at (6, 0) {$\varDelta B(C')$};
+      
+            \node (FA) at (8, 2) {$A$};
+            \node (FB) at (10, 2) {$A$};
+            \node (GA) at (8, 0) {$B$};
+            \node (GB) at (10, 0) {$B$};
+
+            \node (e) at (7, 1) {$=$};
+            \node (catc) at (1, 3.5) {$\cat{C}$};
+            \node (catd) at (5, 3.5) {$\cat{D}$};
+      
+            \draw[->] (A) to node{$g$}(B);
+
+            \draw[->] (FA) to node{$id_A$}(FB);
+            \draw[->] (FA) to node[swap]{$f$}(GA);
+            \draw[->] (FB) to node{$f$}(GB);
+            \draw[->] (GA) to node{$id_B$}(GB);
+
+            \draw[->] (FA') to node{$\varDelta A(g)$}(FB');
+            \draw[->] (GA') to node{$\varDelta B(g)$}(GB');
+            \draw[->] (FA') to node[swap]{$(\varDelta f)_C$}(GA');
+            \draw[->] (FB') to node[swap]{$(\varDelta f)_C'$}(GB');
+            \draw[->,bend left = 20] (catc) to node (funcf){$\varDelta A$}(catd);
+            \draw[->,bend right = 20] (catc) to node (funcg)[swap]{$\varDelta B$}(catd);
+            \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\varDelta f$] {} (funcg);
+          \end{tikzpicture}
+        \end{center}
+
+        これによって、対角関手の射関数$\mor{\varDelta}{\arset{C}{A}{B}}{\arset{\funccat{C}{D}}{\varDelta A}{\varDelta B}}$を$\varDelta(f)=\varDelta f$と定義する。
+
+				\item[恒等射の保存] 圏$\cat{D}$の任意の対象$D$に対して$\varDelta(id_D)=ID_{\varDelta D}$を示せば良い。また対角関手のコドメインは関手圏であるため、関手圏の恒等射である恒等自然変換に対応する。
+        圏$\cat{C}$の任意の対象$C$の成分を見ると、
+        \begin{align*}
+          (\varDelta (id_D))_C &= id_D &\text{(射関数の定義)}\\
+          (ID_{\varDelta D})_C &= id_{\varDelta D(C)}&\text{(恒等自然変換の定義)}\\
+          &= id_D&\text{(定関手の定義)}
+        \end{align*}
+        よって任意の成分について\[(\varDelta (id_D))_C=id_D=(ID_{\varDelta D})_C\]が成り立つから$\varDelta(id_D)=ID_{\varDelta D}$となり、恒等射を保存する。
+
+				\item[射の合成の保存] 圏$\cat{D}$の合成可能な二射$f,g$に対して、$\varDelta(g\circ f)=\varDelta g\circ \varDelta f$が成り立てばよい。同様に圏$\cat{C}$の任意の対象$C$に対する成分を見ると、
+        \begin{align*}
+          (\varDelta(g\circ f))_C&=g\circ f&\text{(射関数の定義)}\\
+          (\varDelta g\cdot\varDelta f)_C &= (\varDelta g)_C\circ (\varDelta f)_C&\text{(自然変換の垂直合成の定義)}\\
+          &=g\circ f&\text{(射関数の定義)}
+        \end{align*}
+        よって任意の成分について\[(\varDelta(g\circ f))_C=g\circ f=(\varDelta g)_C\circ (\varDelta f)_C\]が成り立つから$\varDelta(g\circ f)=\varDelta g\circ \varDelta f$となり、射の合成を保存する。
+			\end{description}
+		\end{quote}
+  \end{define}
+
+  圏から関手圏への関手が違和感なく定義される事が分かったと思う。次は更に踏み込んで圏と関手圏の間の同型を示す。
+  \begin{prop}[圏の元]
+    一点離散圏$\cat{1}$、任意の圏$\cat{A}$に対して$\cat{A}\cong\funccat{1}{A}$
+  \end{prop}
+
+  次は関手圏における積、終対象の普遍性が写された対象や射にどのような影響を与えるのかを確認する。
+  \begin{prop}[関手圏の積]
+    \begin{center}
+      $(F\times G,\pi_F,\pi_G)$が$\funccat{C}{D}$における$F,G$の積対象$\iff$圏$\cat{C}$の任意の対象$A$に対して$(F\times G)A\cong FA\times GA$
+    \end{center}
+    すなわち関手の積を取ることと、
+  \end{prop}
+  \begin{prop}[関手圏の終対象]
+    
+  \end{prop}
+  
+
+	\subsection{自然同型と圏同値}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
   \begin{define}[自然同型(関手の同型)]
     関手圏$\funccat{C}{D}$の対象$F,G$の同型$F\cong G$を自然同型と呼ぶ。
@@ -3155,16 +3267,60 @@
 
   複数の対象において成り立つような同型を一組の自然変換の同型で表現することができるため、これは同型という性質の量化と言える。
   心当たりがあるかもしれないが、今まで扱ってきた複数の対象において成り立つような同型のほとんどが自然同型である。次はこれらを例として確かめていく。
-  \begin{prop}[$A\times 1\cong A$は$A$に対して自然である]
-    
+  \begin{prop}[$A\times 1\cong A$の自然性]
+    $A\times 1\cong A$は$A$において自然である。
   \end{prop}
-  \begin{prop}[$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$は$X$に対して自然である]
+  \begin{proof}
+    $A\times 1\cong A$の同型射はそれぞれ$\mor{\pi_{L,A\times 1}}{A\times 1}{A}$、$\mor{\tuple{id_A,!_A}}{A}{A\times 1}$であった。自然変換のドメインとコドメインはそれぞれ恒等関手と積関手で表せそうである。
 
+    実際に関手$\functor{Id_\cat{C}}{C}{C}$と$\functor{(-)\times 1}{C}{C}$の間の自然変換$\nat{\pi_L}{(-)\times 1}{Id_\cat{C}}$は任意の対象$A$に対して$(\pi_L)_A=\pi_{L,A\times 1}=\pi_A$と定義できる。自然同型の定義より、自然性を示すのは片方の自然変換だけで良いから、この$\pi_L$が自然性を満たすことを確かめる。
+    \begin{align*}
+      (\pi_L)_{B}\circ ((-)\times 1)(f)&=\pi_B\circ(f\times id_1)&\text{(自然変換と関手の定義)}\\
+      &=\pi_B\circ\tuple{f\circ\pi_A,id_1\circ\pi_1}&\text{(射の積の定義)}\\
+      &=f\circ\pi_A&\text{(積の普遍性)}\\
+      &=Id(f)\circ(\pi_L)_A&\text{(自然変換と関手の定義)}
+    \end{align*}
+    よって$\pi_L$は自然変換であり、$A\times 1\cong A$は自然同型である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (0, 0.75) {$A$};
+        \node (B) at (1.5, 0.75) {$B$};
+        \node (FA) at (3, 1.5) {$A\times 1$};
+        \node (FB) at (4.5, 1.5) {$B\times 1$};
+        \node (GA) at (3, 0) {$A$};
+        \node (GB) at (4.5, 0) {$B$};
+
+        \node (catc) at (0.75, 3) {$\cat{C}$};
+        \node (catd) at (3.75, 3) {$\cat{C}$};
+
+        \draw[->] (A) to node{$f$}(B);
+        \draw[->] (FA) to node{$f\times id_1$}(FB);
+        \draw[->] (GA) to node{$f$}(GB);
+        \draw[->] (FA) to node{$\pi_A$}(GA);
+        \draw[->] (FB) to node{$\pi_B$}(GB);
+
+        \draw[->,bend left = 30] (catc) to node (funcf){$(-)\times 1$}(catd);
+        \draw[->,bend right = 30] (catc) to node (funcg)[swap]{$Id_\cat{C}$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\pi_L$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+
+  \end{proof}
+  \begin{prop}[$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$の自然性]
+    $B\cong B'\Longrightarrow \arset{C}{X}{B}\cong\arset{C}{X}{B'}$かつ$X$に対して自然。
   \end{prop}
+  \begin{proof}
+    まずは二つの共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$と$\functor{\arset{C}{Y}{-}}{C}{Set}$の間の自然変換$\nat{\arset{C}{f}{-}}{\arset{C}{X}{-}}{\arset{C}{X}{-}}$を考える。
+    
+    任意の対象$A$に対する成分を反変射写像\[\mor{\arset{C}{f}{-}_A=\arset{C}{f}{A}}{\arset{C}{X}{A}}{\arset{C}{Y}{A}}\]によって定義すると、
+    
+
+
+  \end{proof}
   \begin{prop}[同型と射集合の同型]
 
   \end{prop}
-  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$は$X$に対して自然である]
+  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$の自然性]
   \end{prop}
   \begin{prop}[$\arset{C}{X}{1}\cong I$は$X$に対して自然である]
   \end{prop}
