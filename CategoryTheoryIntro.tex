@@ -911,43 +911,33 @@
 		よって$A$から$1$への写像は一意に存在し、一点集合$1$は終対象となる。
 	\end{proof}
 	次に集合の圏に限定するが、終対象からの射を元とみなせることを証明する。
+
+  \begin{define}[定写像]
+    集合の圏$\cat{Set}$において、任意の対象$A,B$と$B$の任意の元$b$に対する定写像を$\mor{\varDelta b}{A}{B}$とし、$A$の任意の元$a$に対して$\varDelta b(a)=b$となる写像とする。
+  \end{define}
+  定写像は常に一定の値を返す定数関数のような写像である。次に元をその元を返す定写像に写す写像である、対角写像を定義する。
+  \begin{define}[対角写像]
+    集合の圏$\cat{Set}$において任意の対象$A,B$に対し、対角写像$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$を$\varDelta(a)=\varDelta a$と定義する。すなわち、任意の元$a,b$に対して$\varDelta(a)(b)=a$である。
+  \end{define}
 	\begin{prop}[集合の元と終対象]
 		任意の集合$A$とある一点集合$1$に対し$A\cong\arset{Set}{1}{A}$が成り立つ。
 	\end{prop}
 	\begin{proof}
-		元$\mor{*}{1}{1}$を元$\mor{a}{1}{A}$に写す写像を$e_a$とする。つまり$e_a(*)=a$となるような写像である。
-		ここで同型射となる二射$i,i^{-1}$を\[i(a)=e_a,\ i^{-1}(e_a)=e_a(*)\]と定義する。
-
-    写像$i,i^{-1}$の定義を見てもなかなか腑に落ちないかもしれないが、これらの写像は後に余評価射、評価射として一般化する。
-
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$A$};
-				\node (set1a) at (2, 0) {$\arset{Set}{1}{A}$};
-				\draw[->,transform canvas={yshift=3pt}] (a) to node{$i$}(set1a);
-				\draw[->,transform canvas={yshift=-3pt}] (set1a) to node{$i^{-1}$}(a);
-			\end{tikzpicture}
-		\end{center}
-		すると$\arset{Set}{1}{A}$の任意の元$x$に対し
-			\begin{align*}
-				(i\circ i^{-1})(x)&=i(i^{-1}(x))&\text{(写像の合成の定義)}\\
-				&=i(x(*))&\text{($i^{-1}$の定義)}\\
-				&=e_{x(*)}&\text{($i$の定義)}\\
-			\end{align*}
-		となる。この$\mor{e_{x(*)}}{1}{A}$は$1$の任意の元$*$に対し$e_{x(*)}(*)=x(*)$が成り立つから$i\circ i^{-1}=e_{x(*)}=x$となる。よって$i\circ i^{-1}=id_{\arset{Set}{1}{A}}$が成り立つ。
-
-		また任意の元$\mor{a}{1}{A}$に対し
-		\begin{align*}
-			(i^{-1}\circ i)(a)&=i^{-1}(i(x))&\text{(写像の合成の定義)}\\
-			&=i^{-1}(e_a)&\text{(iの定義)}\\
-			&=e_a(*)&\text{($i^{-1}$の定義)}\\
-			&=a&\text{($e_a$の定義)}
-		\end{align*}
-		となる。よって$i^{-1}\circ i=id_A$が成り立つ。
-
-		よって$i\circ i^{-1}=id_{\arset{Set}{1}{A}},\ i^{-1}\circ i=id_A$が示せたので$A\cong\arset{Set}{1}{A}$が成り立つ。
-
-		圏論において一般的な射を取る操作、つまり$\arset{Set}{1}{A}$の元をとる操作が、$A$の元との一対一対応によって$A$の元を取る操作とみなせるということである。
+    まず一点集合$1$から任意の集合$A$への射が定写像であることを示そう。\\
+    これは簡単で一点集合はただ一つの元しか持たないから、それを写した先の元はただ一つに定まる。よって定写像である。\\
+    対角写像$\mor{\varDelta}{A}{\arset{Set}{1}{A}}$に逆射$\mor{\varDelta^{-1}}{\arset{Set}{1}{A}}{A}$が存在することを示す。\\
+    任意の射$\mor{f}{1}{A}$に対して$\varDelta^{-1}(f)=f(*)$と定義する。すると任意の射$\mor{f}{1}{A}$と任意の元$a$に対して
+    \begin{align*}
+      (\varDelta^{-1}\circ\varDelta)a&=\varDelta^{-1}(\varDelta a)&\text{(写像の合成の定義)}\\
+      &=\varDelta a(*)&\text{($\varDelta^{-1}$の定義)}\\
+      &=a&\text{(対角写像の定義)}\\
+      (\varDelta\circ\varDelta^{-1})f&=(\varDelta\circ\varDelta^{-1})(\varDelta a)&\text{(fは定写像)}\\
+      &=(\varDelta\circ(\varDelta^{-1}\circ\varDelta))(a)&\text{(写像の合成の定義)}\\
+      &=\varDelta((\varDelta^{-1}\circ\varDelta)a)&\text{(写像の合成の定義)}\\
+      &=\varDelta a&\text{(前式)}\\
+      &=f
+    \end{align*}
+    よって\[\varDelta^{-1}\circ\varDelta=id_A,\ \varDelta\circ\varDelta^{-1}=id_\arset{Set}{1}{A}\]が成り立つから同型射であり、$A\cong\arset{Set}{1}{A}$である。
 	\end{proof}
 
   \subsection{集合の圏と射集合}
@@ -1113,7 +1103,7 @@
     \lambda x.g(\tuple{a,x})(b)&=g(\tuple{a,b})
   \end{align*}
   となる。
-  余評価射の定義に値の適用を用いたが、これは評価射で表すことができる。次はこのような評価射と余評価射の関係性、性質を見ていく。
+  余評価射の定義に値の適用を用いたが、これは評価射で表すことができる。次はこのような評価射と余評価射の関係性、性質を見ていく。以下証明する二つの命題は当分使用しないため、興味がなければ飛ばしてもらっても構わない。
 
   \begin{prop}[冪の三角恒等式1]
     任意の対象$A,B$において、\[ce\circ \arset{Set}{B}{ev}=id_{\arset{Set}{B}{A}}\]が成り立つ。
@@ -1173,45 +1163,65 @@
   \end{proof}
 
   \subsection{評価射、余評価射の応用}
-  次に集合の圏での同型$A\cong \arset{Set}{1}{A}$の証明に使用した同型射を評価射、余評価射として表そうと思う。
+  評価射、余評価射を用いれば、集合の圏における圏の定義に現れる操作と等しくなるような写像を構成することができる。ここでは恒等射を得る操作と対角写像の構成を示すが、射の合成を行う操作$\mor{\circ}{\arset{Set}{B}{C}\times \arset{Set}{A}{B}}{\arset{Set}{A}{C}}$を構成することもできる。
+  \begin{prop}[余評価射による恒等射の定義]
+    $\mor{\arset{Set}{A}{\pi_A}\circ ce}{1}{\arset{Set}{A}{A}}$は射集合$\arset{Set}{A}{A}$における恒等射を表す元である。
 
-  元$\mor{*}{1}{1}$を元$\mor{a}{1}{A}$に写す写像を$e_a$、$e_a(*)=a$となるような写像とし、同型射となる二射$\mor{i}{A}{\arset{Set}{1}{A}},\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を\[i(a)=e_a,\ i^{-1}(e_a)=e_a(*)\]と定義するのだった。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (1a) at (0, 2) {$1\times A$};
+        \node (a) at (0, 0) {$A$};
+				\node (s1a) at (2, 2) {$\arset{Set}{A}{1\times A}$};
+        \node (sa) at (2, 0) {$\arset{Set}{A}{A}$};
+				\node (1) at (5, 2) {$1$};
 
-  余評価射$\mor{ce}{A}{\arset{Set}{B}{A\times B}}$は任意の対象$A$,$B$に対して存在するのであったが、この対象$B$に終対象$1$を当てはめる。すると
-  \begin{align*}
-    \mor{&ce}{A}{\arset{Set}{1}{A\times 1}}\\
-    &ce(a)=\lambda x.\tuple{a,x}\\
-    &\lambda x.\tuple{a,x}(*)=\tuple{a,*}
-  \end{align*}
-  のような射になる。ここで$A\times 1\cong A$の同型射$\mor{\pi_A}{A\times 1}{A}$を、余評価射によって得られた射と合成する。つまり、$ce$に共変射写像\[\mor{\arset{Set}{1}{\pi_A}}{\arset{Set}{1}{A\times 1}}{\arset{Set}{1}{A}}\]を合成した射、\[\mor{\arset{Set}{1}{\pi_A}\circ ce}{A}{\arset{Set}{1}{A}}\]が$\mor{i}{A}{\arset{Set}{1}{A}}$と等しいことを確かめる。
-  $A$の任意の元$a$において、
-  \begin{align*}
-    \arset{Set}{1}{\pi_A}(ce(a))&=\arset{Set}{1}{\pi_A}(g_a)&\text{(余評価射の定義)}\\
-    &=\pi_A\circ g_a&\text{(共変射写像の定義)}
-  \end{align*}
-  である。この時、ただ一つではあるが任意の$1$の元$*$において、
-  \begin{align*}
-    \pi_A\circ g_a(*)&=\pi_A(\tuple{a,*})&\text{(余評価射の定義)}\\
-    &=a&\text{(射の対の普遍性)}\\
-    &=e_a(*)&\text{($A\cong \arset{Set}{1}{A}$の同型射の定義)}
-  \end{align*}
-  となる。よって$\pi_A\circ g_a=e_a$が成り立ち、\[\arset{Set}{1}{\pi_A}\circ ce(a)=e_a=i(a)\]となる。これが任意の$A$の元$a$で成り立つから\[\arset{Set}{1}{\pi_A}\circ ce=i\]となる。これで$\mor{i}{A}{\arset{Set}{1}{A}}$を余評価射で表すことができた。
+				\draw[->] (1a) to node{$\pi_A$}(a);
+        \draw[->] (s1a) to node{$\arset{Set}{A}{\pi_A}$}(sa);
+        \draw[->] (1) to node{$ce$}(s1a);
+        \draw[->] (1) to node{$\arset{Set}{A}{\pi_A}\circ ce$}(sa);
 
-  次に$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を評価射で表す。
+			\end{tikzpicture}
+		\end{center}
 
-  同様に評価射$\mor{ev}{\arset{Set}{B}{A}\times B}{A}$の対象$B$に終対象$1$を当てはめると、
-  \[\mor{ev}{\arset{Set}{1}{A}\times 1}{A}\]となる。ここで同型$A\times 1\cong A$は任意の対象$A$で成り立つから、$A$を$\arset{Set}{1}{A}$に当てはめた$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$も成り立つ。この同型によって$\arset{Set}{1}{A}\times 1$を置き換える。すなわち$\arset{Set}{1}{A}\times 1\cong \arset{Set}{1}{A}$の同型射\[\mor{\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{\arset{Set}{1}{A}\times 1}\]を合成した、\[\mor{ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}}{\arset{Set}{1}{A}}{A}\]が$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$と等しいことを確認する。
+  \end{prop}
+  \begin{proof}
+    $\arset{Set}{A}{\pi_A}\circ ce(*)$を計算すれば良い。\\
+    \begin{align*}
+      \arset{Set}{A}{\pi_A}\circ ce(*)&=\arset{Set}{A}{\pi_A}(\lambda x.\tuple{*,x})&\text{(写像の合成の定義)}\\
+      &=\pi_A\circ\lambda x.\tuple{*,x}&\text{(射写像の定義)}\\
+      &=\lambda x.\pi_A(\tuple{*,x})\\
+      &=\lambda x.x\\
+    \end{align*}
+    余評価射の定義より任意の$A$の元$a$に対して$(\lambda x.x)(a)=a$であるから、$\arset{Set}{A}{\pi_A}\circ ce(*)=id_A$である。
+  \end{proof}
+  \begin{prop}[余評価射による対角写像の定義]
+    対角写像$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$に対して、\[\varDelta=\arset{Set}{B}{\pi_A}\circ ce\]である。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (1a) at (0, 2) {$A\times B$};
+        \node (a) at (0, 0) {$A$};
+				\node (s1a) at (2, 2) {$\arset{Set}{B}{A\times B}$};
+        \node (sa) at (2, 0) {$\arset{Set}{B}{A}$};
+				\node (1) at (5, 2) {$B$};
 
-  $\arset{Set}{1}{A}$の任意の元$e_a$において、
-  \begin{align*}
-    ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}(e_a)&=ev(\tuple{e_a,*})&\text{(射の対の分配則)}\\
-    &=e_a(*)&\text{(評価射の定義)}\\
-    &=i^{-1}(e_a)&\text{($A\cong \arset{Set}{1}{A}$の同型射の定義)}
-  \end{align*}
-  よって\[ev\circ\tuple{id_{\arset{Set}{1}{A}},!_{\arset{Set}{1}{A}}}=i^{-1}\]が成り立つ。よって$\mor{i^{-1}}{\arset{Set}{1}{A}}{A}$を余評価射で表すことができた。
-
-  この同型射$i,i^{-1}$が実際に同型射になることは評価射、余評価射の持つ性質である三角恒等式などを使えば元を取らずに等式変形のみで証明できるが、残念ながら現段階では道具が足りないのでここでは証明はしない。
-
+				\draw[->] (1a) to node{$\pi_A$}(a);
+        \draw[->] (s1a) to node{$\arset{Set}{B}{\pi_A}$}(sa);
+        \draw[->] (1) to node{$ce$}(s1a);
+        \draw[->] (1) to node{$\arset{Set}{B}{\pi_A}\circ ce$}(sa);
+			\end{tikzpicture}
+		\end{center}
+  \end{prop}
+  \begin{proof}
+    $A$の任意の元$a$に対して、
+    \begin{align*}
+      \arset{Set}{B}{\pi_A}\circ ce(a)&=\arset{Set}{B}{\pi_A}(\lambda x.\tuple{a,x})&\text{(写像の合成の定義)}\\
+      &=\pi_A\circ\lambda x.\tuple{a,x}&\text{(射写像の定義)}\\
+      &=\lambda x.\pi_A(\tuple{a,x})\\
+      &=\lambda x.a
+    \end{align*}
+    恒等射と同様に、$B$の任意の元$b$に対して$\mor{\lambda x.a}{B}{A}$は$(\lambda x.a)b=a$を満たす。よって$\lambda x.a$は定写像であり、$\lambda x.a=\varDelta (a)$である。\\
+    $\arset{Set}{B}{\pi_A}\circ ce(a)=\varDelta (a)$が成り立つから、$\varDelta=\arset{Set}{B}{\pi_A}\circ ce$である。
+  \end{proof}
   \section{関手}
   これまで、似たような性質を持つ対象や射を同時に扱う時、それらの対象に添字をつけて量化してきた。対象の量化の例として積対象$A\times B$は圏$\cat{C}$の任意の対象$A$と任意の対象$B$によって添字づけられている。また射の量化の例として、射の積$\mor{f\times g}{\tuple{A,B}}{\tuple{A',B'}}$は圏$\cat{C}$の任意の射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$によって添字づけられている。
 
@@ -2834,9 +2844,10 @@
     \begin{quote}
 			\begin{description}
 				\item[対象関数] 対象関数\[\mor{\varDelta D}{\obj{C}}{\obj{D}}\]
-				を圏$\cat{C}$の任意の対象$A$に対して定関数$\varDelta D(A)=D$と定義する 
+				を定写像$\mor{\varDelta D}{\obj{C}}{\obj{D}}$とする。すなわち圏$\cat{C}$の任意の対象$C$に対して$\varDelta D(C)=D$である。
 				\item[射関数] 
-        射関数は\[\mor{\varDelta D}{\arset{C}{A}{B}}{\arset{D}{\varDelta D(A)}{\varDelta D(A)}}\]であるが、対象関数の定義より、\[\mor{\varDelta D}{\arset{C}{A}{B}}{\arset{D}{D}{D}}\]と表せる。これを任意の射$\mor{C}{A}{B}$に対して$\varDelta D (f)=id_D$と定義する。
+        射関数は\[\mor{\varDelta D}{\arset{C}{A}{B}}{\arset{D}{\varDelta D(A)}{\varDelta D(B)}}\]であるが、対象関数の定義より、\[\mor{\varDelta D}{\arset{C}{A}{B}}{\arset{D}{D}{D}}\]と表せる。これを定写像$\mor{\varDelta id_A}{\arset{C}{A}{B}}{\arset{D}{D}{D}}$で定義する。\\
+        すなわち、任意の射$\mor{f}{A}{B}$に対して$\varDelta D (f)=id_D$となる。
 				\item[恒等射の保存] 射関数の定義より、任意の恒等射$id_C$に対して$\varDelta D (id_C)=id_D=id_{\varDelta D(C)}$であり成り立つ。
 				\item[射の合成の保存] 同様に任意の合成可能な射$f,g$に対して、\[\varDelta D (g\circ f)=id_D=id_D\circ id_D=\varDelta D (g)\circ \varDelta D (f)\]であり成り立つ。
 			\end{description}
@@ -2857,8 +2868,7 @@
       \end{tikzpicture}
     \end{center}
   \end{define}
-
-  次にある関手$\functor{F}{C}{D}$から$\functor{\varDelta D}{C}{D}$への自然変換$\nat{\alpha}{F}{\varDelta D}$を考えると、対象$A$に対する成分は$\mor{\alpha_A}{FA}{\varDelta D(A)}$であるから$\mor{\alpha_A}{FA}{D}$となり、射のドメインのみを対象で量化することができることが分かる。
+  次にある関手$\functor{F}{C}{D}$から$\functor{\varDelta D}{C}{D}$への自然変換$\nat{\alpha}{F}{\varDelta D}$を考えると、対象$A$に対する成分は$\mor{\alpha_A}{FA}{\varDelta D(A)}$であるから$\mor{\alpha_A}{FA}{D}$となり、射のドメインのみを対象で量化することができることが分かる。また名前やその構成から分かるように、定関手は定写像の関手版である。
   \begin{center}
     \begin{tikzpicture}[auto]
       \node (A) at (0, 1) {$A$};
@@ -3224,9 +3234,7 @@
 	\end{define}
   まだ圏論的な操作からは関手圏を定義することはできないが、関手圏の対象の集合や射集合が定義できることは関手、自然変換が写像、射集合を用いて定義されていることから簡単に分かる。
 
-  関手圏が圏であるということは、関手圏は$\cat{Cat}$の対象である。つまりある圏からある関手圏への関手を考えることができるようになる。その一例として、定数関手を得る操作を関手と見なした対角関手を見ていこう。\\
-  その準備として定関手の射版である定自然変換を定義する。
-  おまけとして、定関手の射バージョンである定自然変換を定義する。
+  関手圏が圏であるということは、関手圏は$\cat{Cat}$の対象である。つまりある圏からある関手圏への関手を考えることができるようになる。その一例として定写像から対角写像を得たように、定関手を得る操作を関手と見なした対角関手を見ていこう。\\
   \begin{define}[対角関手]
     圏$\cat{C}$から$\cat{D}$への定関手を与える対角関手$\functor{\varDelta}{D}{\funccat{C}{D}}$を以下のように定義する。
     \begin{quote}
@@ -3236,10 +3244,10 @@
 				\item[射関数] 
         射関数は\[\mor{\varDelta}{\arset{C}{A}{B}}{\arset{\funccat{C}{D}}{\varDelta A}{\varDelta B}}\]となるように、$A$から$B$への射を、$A$の定関手から$B$の定関手への自然変換に写す写像になる。またこの自然変換を射$f$に対する定自然変換と呼ぶことにする。
 
-        まずは任意の射$\mor{f}{A}{B}$に対する$\nat{\varDelta f}{\varDelta A}{\varDelta B}$を先に定義する。
+        まずは任意の射$\mor{f}{A}{B}$に対する定自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$を先に定義する。
         圏$\cat{C}$の任意の対象$C$に対する$\varDelta f$の成分は\[\mor{(\varDelta f)_C}{\varDelta A(C)}{\varDelta B(C)}\]となるが、定関手の定義より、\[\mor{(\varDelta f)_C}{A}{B}\]と表せる。つまり、二つの定関手によって定自然変換のドメインとコドメインがそれぞれ$A,B$に集約されているため成分を$(\varDelta f)_C=f$と定義できる。
 
-        自然性については、\[(\varDelta f)_C'\circ\varDelta A(g)=f\circ id_A=id_B\circ f=\varDelta B(g)\circ(\varDelta f)_C\]と成り立ち、$\varDelta f$が自然変換であることが分かった。
+        自然性については、\[(\varDelta f)_{C'}\circ\varDelta A(g)=f\circ id_A=id_B\circ f=\varDelta B(g)\circ(\varDelta f)_C\]と成り立ち、$\varDelta f$が自然変換であることが分かった。
 
         \begin{center}
           \begin{tikzpicture}[auto]
@@ -3303,8 +3311,9 @@
     一点離散圏$\cat{1}$、任意の圏$\cat{C}$に対して$\cat{C}\cong\funccat{1}{C}$
   \end{prop}
   \begin{proof}
-    対角関手$\functor{\varDelta}{C}{C^1}$が同型射となる関手であることを示す。\\
-    また、$\cat{C^1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
+    集合の圏における同型$A\cong\arset{Set}{1}{A}$と同様の手法で証明する。
+    すなわち、対角関手$\functor{\varDelta}{C}{C^1}$が同型射となる関手であることを示す。\\
+    また定写像と同様に$\cat{C^1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
     関手$\functor{\varDelta^{-1}}{C^1}{C}$を
     \begin{quote}
 			\begin{description}
@@ -3343,65 +3352,6 @@
     同様の議論が射関数でも成り立つから、射関数、対象関数の等式により$\varDelta^{-1}\circ\varDelta=Id_\cat{C},\ \varDelta\circ\varDelta^{-1}=Id_\cat{C^1}$となり、$\cat{C}\cong\funccat{1}{C}$が成り立つ。
   \end{proof}
   圏$\cat{C}$の対象は関手$\functor{\varDelta A}{1}{C}$で表現でき、射は自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$で表現できることになるが、これによって圏の対象や射といった内部の構造に言及せずとも圏に関する議論を行うことができるようになった。\\
-  次は関手圏における積、終対象の普遍性が写された対象や射にどのような影響を与えるのかを確認する。
-  \begin{prop}[関手圏の積]
-    \begin{center}
-      $(F\times G,\pi_F,\pi_G)$が$\funccat{C}{D}$における$F,G$の積対象$\Longrightarrow$圏$\cat{C}$の任意の対象$A$に対して$(F\times G)A\cong FA\times GA$\\
-      ※完備性を仮定しない場合本当に成り立つ…？
-    \end{center}
-    ここで積の普遍性について確認しておく。
-    任意の自然変換$\nat{\alpha}{H}{F}$、$\nat{\beta}{H}{G}$に対してある自然変換$\nat{\tuple{\alpha,\beta}}{H}{F\times G}$が存在し、\\
-    \[\pi_F\cdot\tuple{\alpha,\beta}=\alpha,\ \pi_G\cdot\tuple{\alpha,\beta}=\beta\]を満たす。同様に、
-    \[\pi_F\cdot\gamma=\alpha,\ \pi_G\cdot\gamma=\beta\]を満たす$\nat{\gamma}{X}{F\times G}$が存在する時、$\tuple{\alpha,\beta}=\gamma$である。\\
-    証明の方針としては、各$A$に対して$(F\times G)A$が$FA,\ GA$に対する積であることを示し、証明することにする。\\
-    \begin{center}
-      \begin{tikzpicture}[auto]
-        \node (x) at (2, 3) {$\cat{D^C}$};
-        \node (a) at (0, 0) {$F$};
-        \node (b) at (4, 0) {$G$};
-        \node (ab) at (2, 0) {$F\times G$};
-        \node (x) at (2, 2) {$H$};
-        \draw[double,double equal sign distance,-implies] (ab) to node {$\pi_F$}(a);
-        \draw[double,double equal sign distance,-implies] (ab) to node[swap] {$\pi_G$}(b);
-        \draw[double,double equal sign distance,-implies] (x) to node[swap] {$\alpha$}(a);
-        \draw[double,double equal sign distance,-implies] (x) to node {$\beta$}(b);
-        \draw[double,double equal sign distance,-implies] (x) to node {$\tuple{\alpha,\beta}$}(ab);
-      \end{tikzpicture}
-    \end{center}
-    ここでわかりやすさを優先して任意の関手$H$に任意の定関手$\varDelta X$を取り、成分の図式を考えると、
-    \begin{center}
-      \begin{tikzpicture}[auto]
-        \node (x) at (2, 3) {$\cat{D}$};
-        \node (a) at (0, 0) {$FA$};
-        \node (b) at (4, 0) {$GA$};
-        \node (ab) at (2, 0) {$(F\times G)A$};
-        \node (x) at (2, 2) {$X$};
-        \draw[->] (ab) to node {$(\pi_F)_A$}(a);
-        \draw[->] (ab) to node[swap] {$(\pi_G)_A$}(b);
-        \draw[->] (x) to node[swap] {$\alpha_A$}(a);
-        \draw[->] (x) to node {$\beta_A$}(b);
-        \draw[->] (x) to node {$\tuple{\alpha,\beta}_A$}(ab);
-      \end{tikzpicture}
-    \end{center}
-    となる。ここで定関手$\varDelta X$を取ることで任意の対象$X$が$A$に依存しない。自然変換の垂直合成の定義より、\[(\pi_F)_A\circ\tuple{\alpha,\beta}_A=(\pi_F\cdot\tuple{\alpha,\beta})_A=\alpha_A\]が成り立つ。$\beta$の方でも同様の手法で$\alpha_A,\ \beta_A$の射の対の存在は示せる。\\
-    射の対の一意性について、ある射$\mor{f}{X}{(F\times G)A}$が存在して\[(\pi_F)_A\circ f=\alpha_A,\ (\pi_G)_A\circ f=\beta_A\]を満たすとする。この時$f=\tuple{\alpha,\beta}_A$を満たせば良い。\\
-    この等号を射の対の存在と同様に自然変換の一意性によって示したい。しかし、$f$は自然変換の成分とは限らない。そこで、$f$を対象$A$に対する成分とする新しい自然変換$\nat{\gamma}{\varDelta X}{F\times G}$を考えよう。\\
-    自然変換$\nat{\tuple{\alpha,\beta}}{\varDelta X}{F\times G}$の$A$成分を$f$に置換するのが手っ取り早いが、自然性の制約があり素直に行うことができない。そこで自然性の制約を受ける、すなわち$\mor{g}{A}{B}$、$\mor{g}{B}{A}$なる射が存在する対象$B$の成分もまた置換すれば良い。
-    $\gamma_A=f$とする。ある射$\mor{g}{A}{B}$が存在する時$\gamma_B$を\[\gamma_B = \mor{((F\times G)g)\circ f}{X}{(F\times G)B}\]と定義する。これが$\alpha_B,\beta_B$の射の対になることを示そう。\\
-    \begin{align*}
-      (\pi_F)_B\circ\gamma_B&=(\pi_F)_\circ((F\times G)g)\circ f&\text{($\gamma_B$の定義)}\\
-      &=Fg\circ(\pi_F)_A\circ f&\text{($(\pi_F)_A$の自然性)}\\
-      &=Fg\circ\alpha_A&\text{($\alpha_A$の定義)}\\
-      &=\alpha_B\circ\varDelta(g)&\text{($\alpha$の自然性)}\\
-      &=\alpha_B&\text{(定関手の射関数の定義)}\\
-    \end{align*}
-    同様に$\beta$の方でも示せば、$\gamma_B$が射の対であることが示せる。
-  \end{prop}
-  \begin{prop}[関手圏の終対象]
-    
-  \end{prop}
-  
-
 	\subsection{自然同型と圏同値}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
   \begin{define}[自然同型(関手の同型)]
