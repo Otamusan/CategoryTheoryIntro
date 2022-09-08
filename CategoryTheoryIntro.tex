@@ -3352,7 +3352,7 @@
     同様の議論が射関数でも成り立つから、射関数、対象関数の等式により$\varDelta^{-1}\circ\varDelta=Id_\cat{C},\ \varDelta\circ\varDelta^{-1}=Id_\cat{C^1}$となり、$\cat{C}\cong\funccat{1}{C}$が成り立つ。
   \end{proof}
   圏$\cat{C}$の対象は関手$\functor{\varDelta A}{1}{C}$で表現でき、射は自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$で表現できることになるが、これによって圏の対象や射といった内部の構造に言及せずとも圏に関する議論を行うことができるようになった。\\
-	\subsection{自然同型と圏同値}
+	\subsection{自然同型}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
   \begin{define}[自然同型(関手の同型)]
     関手圏$\funccat{C}{D}$の対象$F,G$の同型$F\cong G$を自然同型と呼ぶ。
@@ -3425,22 +3425,200 @@
   \begin{prop}[$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$の自然性]
     $B\cong B'\Longrightarrow \arset{C}{X}{B}\cong\arset{C}{X}{B'}$かつ$X$に対して自然。
   \end{prop}
-  \begin{proof}
-    まずは二つの共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$と$\functor{\arset{C}{Y}{-}}{C}{Set}$の間の自然変換$\nat{\arset{C}{f}{-}}{\arset{C}{X}{-}}{\arset{C}{X}{-}}$を考える。
-    
-    任意の対象$A$に対する成分を反変射写像\[\mor{\arset{C}{f}{-}_A=\arset{C}{f}{A}}{\arset{C}{X}{A}}{\arset{C}{Y}{A}}\]によって定義すると、
-    
+  \begin{proof}[$\Longrightarrow$]
+    $B\cong B'\Longrightarrow \arset{C}{X}{B}\cong\arset{C}{X}{B'}$はすでに示してあるので、同型射$\mor{\arset{C}{X}{i}}{\arset{C}{X}{B}}{\arset{Set}{X}{B'}}$が$X$に対して自然であることを示せば良い。\\
+    任意の射$\mor{g}{Y}{X}$に対して、$\arset{C}{g}{B'}\circ\arset{C}{X}{i}=\arset{C}{Y}{i}\circ\arset{C}{g}{B}$が成り立つことを示せばよいが、双Hom関手の定義より\[\arset{C}{g}{i}=\arset{C}{g}{B'}\circ\arset{C}{X}{i}=\arset{C}{Y}{i}\circ\arset{C}{g}{B}\]が成り立つから明らかに自然である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-4, 5) {$X$};
+        \node (B) at (-2, 5) {$Y$};
+        \node (FA') at (0, 6) {$\arset{C}{X}{B}$};
+        \node (FB') at (0, 4) {$\arset{C}{X}{B'}$};
+        \node (GA') at (2, 6) {$\arset{C}{Y}{B}$};
+        \node (GB') at (2, 4) {$\arset{C}{Y}{B'}$};
 
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (catd) at (1, 8) {$\cat{D}$};
+  
+        \draw[->] (A) to node{$i$}(B);
 
+        \draw[->] (FA') to node{$\arset{C}{X}{i}$}(FB');
+        \draw[->] (GA') to node{$\arset{C}{Y}{i}$}(GB');
+        \draw[->] (FA') to node[swap]{$\arset{C}{g}{B}$}(GA');
+        \draw[->] (FB') to node{$\arset{C}{g}{B'}$}(GB');
+        \draw[->,bend left = 20] (catc) to node (funcf){$\arset{C}{-}{B}$}(catd);
+        \draw[->,bend right = 20] (catc) to node (funcg)[swap]{$\arset{C}{-}{B'}$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\arset{C}{-}{i}$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+    この自然性が述べていることは、$\mor{f}{X}{B}$と対応する射$\mor{f'}{X}{B'}$、すなわち$f'=i\circ f,\ f=i^{-1}\circ f'$となる二射に対して、ある射$\mor{g}{Y}{X}$を両方に合成しても$f\circ g$と$f'\circ g$がまた対応することを示している。実際に計算すれば自明なことではあるが、射の前からの合成は射$f,f'$の対応関係を保つということが言える。
   \end{proof}
-  \begin{prop}[同型と射集合の同型]
-
+  \begin{proof}[$\Longleftarrow$]
+    現在自然変換$\nat{\alpha}{\arset{C}{-}{B}}{\arset{C}{-}{B'}}$とその逆射$\nat{\alpha^{-1}}{\arset{C}{-}{B'}}{\arset{C}{-}{B}}$が与えられている。\\
+    この二つの自然変換から$B$と$B'$の間の同型射を構成しなければ行けないが、$\alpha,\alpha^{-1}$の成分は射写像とは限らない。そのため少し工夫が必要になる。\\
+    証明の方向性を示す。上の証明によると、$\mor{\arset{C}{X}{i}}{\arset{C}{X}{B}}{\arset{C}{X}{B'}}$が自然変換の$X$成分だった。この射から元の同型射である$i$を導出したい。ここでこの自然変換の$B$成分$\mor{\arset{C}{B}{i}}{\arset{C}{B}{B}}{\arset{C}{B}{B'}}$に恒等射$\mor{id_B}{B}{B}$を適用すると、射写像の定義より、$\arset{C}{B}{i}(id_B)=i$が成り立つ。\\
+    これによって自然変換$\alpha,\alpha^{-1}$から元の同型射を取り出せば良い。\\
+    $i=\alpha_B(id_B),\ i^{-1}=\alpha_{B'}^{-1}(id_B)$とし、$i,i^{-1}$が同型射になることを示す。$\alpha,\alpha^{-1}$の自然性より、\[\arset{C}{i^{-1}}{B'}\circ\alpha_B=\alpha_{B'}\circ\arset{C}{i^{-1}}{B}\]が成り立つ。両辺に恒等射$id_B$を適用して、
+    \begin{align*}
+      (\arset{C}{i^{-1}}{B'}\circ\alpha_B)id_B&=\arset{C}{i^{-1}}{B'}(i)&\text{($i$の定義)}\\
+      &=i\circ i^{-1}&\text{(射写像の定義)}\\
+      (\alpha_{B'}\circ\arset{C}{i^{-1}}{B})id_B&=\alpha_{B'}(i^{-1})&\text{(射写像の定義)}\\
+      &=\alpha_{B'}(\alpha_{B'}^{-1}(id_B))&\text{($i^{-1}$の定義)}\\
+      &=(\alpha_{B'}\circ\alpha_{B})(id_B)&\text{(写像の合成の定義)}\\
+      &=id_{B'}
+    \end{align*}
+    よって$i\circ i^{-1}=id_{B'}$が示せた。同様に$i^{-1}\circ i=id_B$も成り立つため、$B\cong B'$が示せた。
+  \end{proof}
+  この証明のように、射集合が関わる自然変換の議論において恒等射が取れるように成分を指定する、というテクニックはよく使われている。この証明の核である$\arset{C}{B}{i}(id_B)=i$のより形式的な証明は、以前示した余評価射による恒等射の定義が用いられるので、興味があれば豊穣圏における弱米田の補題の証明あたりを読んでほしい。
+  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$の自然性]　\\
+    $A\times B$が$A,B$における積対象$\iff\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$が$X$に対して自然
   \end{prop}
-  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$の自然性]
+  \begin{prop}[$\arset{C}{X}{1}\cong I$の自然性]　\\
+    $1$が終対象$\iff\arset{C}{X}{1}\cong I$が$X$に対して自然
   \end{prop}
-  \begin{prop}[$\arset{C}{X}{1}\cong I$は$X$に対して自然である]
+  \subsection{圏同値}
+  圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
+  $FG(D)\cong D,\ GF(C)\cong C$
+  \begin{define}
+    圏$C,D$に対してある二関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が存在して$F\circ G\cong Id_D,\ G\circ F\cong Id_C$となるとき、$\cat{C,D}$は圏同値であるといい、$\cat{C}\simeq \cat{D}$と表記する。
+  \end{define}
+  \begin{prop}[圏同値の同値性]
+    圏同値$\cat{C}\simeq \cat{D}$は同値関係である。
+  \end{prop}
+  \begin{prop}[射関数の自然同型]
+    $\cat{C}\simeq\cat{D}$を構成する関手$F$
   \end{prop}
 	\subsection{エンド}
+  定自然変換$\natf{\varDelta f}{\varDelta A}{\varDelta B}{C}{D}$は、圏$\cat{C}$の任意の対象$C$に対して$(\varDelta f)_C=f$となる自然変換であった。一方で定関手$\varDelta A$でも$\varDelta A(C)=A$が成り立つが、この性質は定写像$\mor{\varDelta A}{\obj{C}}{\obj{D}}$によって定義されている。定自然変換と違い、関手に対象を適用する操作は対象関数で与えられているが、自然変換には与えられておらず、自然変換の成分を取る操作は写像によって定義したわけではない。\\
+  自然変換を対象によって添え字付けられた射の束、と定義するのでは無く、射集合の何らかの操作によって定義できると考えたかもしれない。これは実際にエンドと呼ばれる一種の普遍性を用いることで、自然変換を再定義することができる。\\
+  \begin{prop}[自然変換の普遍性]
+    圏$\cat{C}$の任意の対象$C$に対して$\cat{Set}$の射$\mor{\lambda_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して、\[\arset{D}{FA}{Gf}\circ\lambda_A=\arset{D}{Ff}{GB}\circ\lambda_B\]を満たす。
+    
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+        \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+        \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+        \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+
+        \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+        \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+        \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+        \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+
+      \end{tikzpicture}
+    \end{center}
+    
+    またある対象$X$に対しても任意の対象$C$に対する$\mor{\mu_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、\[\arset{D}{FA}{Gf}\circ\mu_A=\arset{D}{Ff}{GB}\circ\mu_B\]を満たすのであれば、
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (FG) at (0, 0) {$X$};
+        \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+        \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+        \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+
+        \draw[->] (FG) to node{$\mu_A$}(FAGA);
+        \draw[->] (FG) to node{$\mu_B$}(FBGB);
+        \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+        \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+
+      \end{tikzpicture}
+    \end{center}
+    任意の対象$C$に対して$\mu_C=\lambda_C\circ h$を満たすような射$\mor{h}{X}{\arset{D^C}{F}{G}}$が一意に存在する。すなわち、$\mu_C=\lambda_C\circ h'$を満たすような$h'$が存在すれば、$h'=h$が成り立つ。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+        \node (X) at (-1.5, 1) {$X$};
+        \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+        \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+        \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+
+        \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+        \draw[->] (X) to node{$h$}(FG);
+
+        \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+        \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
+        \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
+        \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+        \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+
+      \end{tikzpicture}
+    \end{center}
+  \end{prop}
+  \begin{proof}
+    まず任意の対象$C$に対する$\cat{Set}$の射$\mor{\lambda_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$を定義する。\\
+    任意の自然変換$\nat{\alpha}{F}{G}$に対して$\lambda_C(\alpha)=\alpha_C$とする。任意の自然変換はある対象に対する成分をただ一つ持つから、この操作は写像であり、$\cat{Set}$の射である。すると、
+    \begin{align*}
+      \arset{D}{FA}{Gf}\circ\lambda_A(\alpha)&=\arset{D}{FA}{Gf}(\alpha_A)&\text{($\lambda$の定義)}\\
+      &=Gf\circ\alpha_A&\text{(射写像の定義)}\\
+      \arset{D}{Ff}{GB}\circ\lambda_B(\alpha)&=\arset{D}{Ff}{GB}(\alpha_B)&\text{($\lambda$の定義)}\\
+      &=\alpha_B\circ Ff&\text{(射写像の定義)}
+    \end{align*}
+  \end{proof}
+  であり、$\alpha$の自然性から$Gf\circ\alpha_A=\alpha_B\circ Ff$が成り立つ。よって$\arset{D}{FA}{Gf}\circ\lambda_A=\arset{D}{Ff}{GB}\circ\lambda_B$を満たす。\\
+  この等式では自然変換の成分が写像で与えられた場合の自然性を射写像を用いて課していることが分かる。\\
+  次に射$h$の存在と一意性を示そうと思う。そこでまずは任意の対象$X$に終対象$1$を当てはめて考える。射$\mor{\mu_C}{1}{\arset{D}{FC}{GC}}$は射$\mor{\mu_A}{FA}{GA}$であり、任意の対象$C$に対して存在する。更に仮定より$\arset{D}{FA}{Gf}\circ\mu_A=\arset{D}{Ff}{GB}\circ\mu_B$が成り立つ。
+  \begin{align*}
+    \arset{D}{FA}{Gf}\circ\mu_A&=\arset{D}{Ff}{GB}\circ\mu_B\\
+    \arset{D}{FA}{Gf}(\mu_A)&=\arset{D}{Ff}{GB}(\mu_B)&\text{(元と終対象からの射の同一視)}\\
+    Gf\circ\mu_A&=\mu_B\circ Ff&\text{(射写像の定義)}
+  \end{align*}
+  よって自然変換の定義より、$\mu_C$は対象$C$成分であることが分かる。この自然変換を$\nat{\mu}{F}{G}$とすると、$\mu$は$\arset{D^C}{F}{G}$の元である。すなわち$\mor{\mu}{1}{\arset{D^C}{F}{G}}$と表せる。ここで$h=\mu$とすると$\lambda$は成分を取る写像であったから、$\mu_C=\lambda_C(\mu)=\lambda_C\circ\mu=\lambda_C\circ h$が成り立つ。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (X) at (-1.5, 1) {$1$};
+      \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+      \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+      \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+
+      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+      \draw[->] (X) to node{$h$}(FG);
+
+      \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+      \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
+      \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
+      \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+      \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+    \end{tikzpicture}
+  \end{center}
+  一意性に関しても、$\mu_C=\lambda_C\circ h'$であるような$h'$が存在したとしても、$\mu_C={h'}_C$であり、自然変換の定義から$h'=\mu=h$が成り立つ。\\
+  次に対象$1$を任意の対象$X$に拡張しよう。$X$の任意の元$x$に対し$\mu_C(x)$はある自然変換の$C$成分である。上記の議論から自然変換$h(x)_C=\mu_C(x)$であるため、自然変換$h(x)$は任意の$x$に対して一意に存在することになる。
+
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (X) at (-1.5, 1) {$X$};
+      \node (1) at (-3, 2) {$1$};
+      \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+      \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+      \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+      \draw[->] (X) to node{$h$}(FG);
+      \draw[->] (1) to node{$x$}(X);
+      \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+      \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
+      \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
+      \draw[->,bend left = 40] (1) to node{$\mu_A(x)$}(FAGA);
+      \draw[->,bend right = 40] (1) to node[swap]{$\mu_B(x)$}(FBGB);
+      \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+      \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+    \end{tikzpicture}
+    \begin{tikzpicture}[auto]
+      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (X) at (-1.5, 1) {$1$};
+      \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
+      \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
+      \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
+      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+      \draw[->] (X) to node{$h(x)$}(FG);
+      \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+      \draw[->,bend left = 20] (X) to node{$\mu_A(x)$}(FAGA);
+      \draw[->,bend right = 20] (X) to node{$\mu_B(x)$}(FBGB);
+      \draw[->] (FAGA) to node{$\arset{D}{FA}{Gf}$}(FAGB);
+      \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
+    \end{tikzpicture}
+  \end{center}
 	\section{極限}
 	\section{随伴関手}
 	\section{カルテジアン閉圏}
