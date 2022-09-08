@@ -298,38 +298,47 @@
     \end{quote}
   \end{proof}
 
-
-	\begin{prop}[集合の圏の同型]
-		集合の圏$\cat{Set}$において、同型$A\cong B$$\Longleftrightarrow$同型射$\mor{i}{A}{B}$が全単射。
-
-		また全単射は、任意の元$\mor{b}{1}{B}$に対して、$i(a)=b$が成り立つようなある元$\mor{a}{1}{A}$が一意に存在することであり、この対応を一対一対応と呼ぶ。
-	\end{prop}
-
-	\begin{proof}
-		$(\Longleftarrow)$だけ証明する。
-
-
-		まずは$b$に対する等式を満たすような$a$が存在することを示す
-		任意の元$\mor{b}{1}{B}$に対応する元$\mor{a}{1}{A}$を$a=i^{-1}(b)$とする。すると
-		\begin{align*}
-			i(a)&=i(i^{-1}(b))&\text{(元$a$の定義)}\\
-			&=(i\circ i^{-1})(b)&\text{(写像の合成の定義)}\\
-			&=b&\text{(同型射の定義)}\\
-		\end{align*}
-		\[i(a)=i(i^{-1}(b))=i\circ i^{-1}(b)=b\]となり、確かにこのような$a$は存在する。
-
-		$b$に対する元$a$の一意性を示すには、任意の元$\mor{a'}{1}{A}$において$i(a)=b,\ i(a')=b$ならば$a=a'$を示せばよい。
-
-		$i(a')=b$と仮定すると、
-		\begin{align*}
-			a&=i^{-1}(b)&\text{(元$a$の定義)}\\
-			&=i^{-1}(i(a'))&\text{(仮定)}\\
-			&=(i^{-1}\circ i)(a')&\text{(写像の合成の定義)}\\
-			&=a'&\text{(同型射の定義)}
-		\end{align*}
-		よって$b$に対する$i(a)=b$を満たすような$a$が一意に存在することが示せたので、$i$が全単射であることが示せた。
-	\end{proof}
-
+  \begin{prop}[同型と元]
+    同型$A\cong B$で、$\mor{i}{A}{B}$が同型射である時、
+    \[i(a)=b\iff i^{-1}(b)=a\]であり、この時$a\sim b$とする。そしてこのような$a,b$の対応は一対一対応である。\\
+    すなわち、$a$に対して$a\sim b$となるような$b$は一意に存在する。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (1) at (-2, 1) {$1$};
+        \node (a) at (0, 2) {$A$};
+        \node (b) at (0, 0) {$B$};
+        \draw[->] (1) to node{$a$}(a);
+        \draw[->] (1) to node[swap]{$b=i(a)$}(b);
+        \draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$i$}(b);
+        \draw[->,transform canvas={xshift=3pt}] (b) to node[swap] {$i^{-1}$}(a);
+      \end{tikzpicture}
+    \end{center} 
+  \end{prop}
+  \begin{proof}
+    $(\Longrightarrow)$を示す。
+    \begin{align*}
+      i(a)&=b\\
+      i^{-1}(i(a))&=i^{-1}(b)\\
+      (i^{-1}\circ i)(a)&=i^{-1}(b)&\text{(写像の合成の定義)}\\
+      id_A(a)&=i^{-1}(b)&\text{(同型射の定義)}\\
+      a &=i^{-1}(b)&\text{(恒等射の定義)}
+    \end{align*}
+    同様に$(\Longleftarrow)$も示せるから$i(a)=b\iff i^{-1}(b)=a$である。\\
+    $a$に対して$a\sim b$なる$b$が存在することは、写像$\mor{i}{A}{B}$の全域性から分かる。すなわち$a\sim i(a)$である。次に$b$の一意性を示す。
+    $a\sim b,\ a\sim b'$とする。この時$b=b'$を示せばよい。
+    \begin{align*}
+      i^{-1}(b')&=a&\text{($a\sim b'$の定義)}\\
+      i(i^{-1}(b'))&=i(a)\\
+      id_B(b')&=i(a)&\text{(写像の合成の定義と同型射の定義)}\\
+      b'&=i(a)&\text{(恒等射の定義)}\\
+      b'&=b&\text{($a\sim b$の定義)}
+    \end{align*}
+    よって$b$が一意に定まることが分かり、$a,b$が一対一対応をすることを示せた。
+  \end{proof}
+  この性質は終対象$1$が存在すれば成り立つが、更に終対象$1$の存在する集合の圏では逆もなりたつ。
+  \begin{prop}[集合の圏と同型]
+    集合の圏$\cat{Set}$において$A\cong B\iff a\sim b$なる$a,b$が一対一対応。
+  \end{prop}  
 	\section{普遍性}
 	普遍性はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に存在する。というように記述され、図式中の射と一意に定まる射の対応関係を示すことが多い。このような議論は集合の圏における同型でも扱ったが、実際に以下で紹介する普遍性は集合の全単射で表せる。詳しくは別の章で説明する。
 	\subsection{積}
@@ -973,7 +982,7 @@
   圏の定義で確認した射の合成を行う写像\[\mor{\circ}{\arset{C}{A}{B}\times\arset{C}{X}{A}}{\arset{C}{X}{B}}\]
   は、任意の射集合の元の対$\tuple{f,g}$を$f\circ g$に写す写像であったが、共変射写像$\arset{C}{X}{f}$は対の左側の射$f$を固定した写像であることがわかる。
 
-  本題から少し外れるが、射集合の元の対$\tuple{f,g}$は積の普遍性で扱った射の対ではないことに注意してほしい。ただし、条件によっては一対一対応をすることがある。これは後で証明を行う。
+  また射集合の元の対$\tuple{f,g}$は積の普遍性で扱った射の対ではないことに注意してほしい。ただし、条件によっては一対一対応をすることがある。これは後で証明を行う。
 
   共変射写像では射を左から合成する写像を考えたが、次は射を右から合成する写像である反変射写像を考える。
 
@@ -1052,8 +1061,9 @@
   \begin{prop}[同型射となる反変射写像]
     ある圏$\cat{C}$においてある二対象$A\cong A'$が同型であるならば、任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$が成り立つ。
   \end{prop}
-  
-  これはつまり、対象$B$からの射、$B$への射は対象$B'$への射、$B'$からの射と一対一対応をするということである。
+
+  一つ前の命題の任意の対象$X$に終対象$1$を当てはめると、\[B\cong B'\Longrightarrow \arset{C}{1}{B}\cong\arset{C}{1}{B'}\]となる。$\arset{C}{1}{B}$は$B$の元の集合である。それらが同型であるということは、$B$の元と$B'$の元が一対一対応をするということであり、前に示した元と同型の関係性そのものであることが分かる。\\
+  さらに任意の対象$X$に拡張することで、元$\mor{b}{1}{B}$が一対一対応をするだけでなく、射$\mor{f}{X}{B}$までもが一対一対応をすることが分かった。射の対応も元と同様に$f\sim f'$と表すことにする。
   \begin{define}[評価射]
 		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して評価射を
 		\begin{align*}
@@ -1868,7 +1878,7 @@
 		関手$!_{\cat{C}}$の二つの写像が圏$\cat{C}$に対して一意に存在することわかる。
 		よって任意の圏$\cat{C}$から一点離散圏$\cat{1}$への関手は一意に存在するから、一点離散圏$\cat{1}$は$\cat{Cat}$における終対象であることが示せた。
 	\end{proof}
-	\begin{prop}[圏における元]
+	\begin{prop}[対象と関手]
 		任意の圏$\cat{C}$の元、つまり関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{prop}
 	\begin{proof}
@@ -1878,7 +1888,9 @@
 
 		よって関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{proof}
-	積圏$\cat{A\times B}$の対象を$\pcobj{A,B}$と表したが、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$は$\cat{A\times B}$の対象になる。
+  集合の圏では$A\cong\arset{Set}{1}{A}$が成り立ったから、$\cat{Cat}$でも$\cat{A}\cong\arset{Cat}{\cat{1}}{\cat{A}}$のような主張が成り立つと考えるかもしれないが、$\arset{Cat}{\cat{1}}{\cat{A}}$はただの射集合、関手の集合であり、$\cat{Cat}$の対象にはならないから同型射となる関手を取ることができない。その上、この関手の集合は対象の集合であり圏の射の情報は全く含まれない。そのためこのような同型を考えるには$\cat{Cat}$における射集合的な圏を考える必要がある。この問題は後に関手圏と呼ばれる圏を定義することで解決する。
+
+	関手としての対象の話に戻ると、積圏$\cat{A\times B}$の対象を$\pcobj{A,B}$と表したが、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$は$\cat{A\times B}$の対象になる。
 
 	\subsection{特殊な関手}
 	対象や射を二つ取るような2変数関数のような関手について考える。
@@ -3306,8 +3318,40 @@
 		\end{quote}
   \end{define}
 
-  圏から関手圏への関手が違和感なく定義される事が分かったと思う。次は更に踏み込んで圏と関手圏の間の同型を示す。
-  \begin{prop}[圏の元]
+  圏から関手圏への関手が違和感なく定義される事が分かったと思う。次は更に踏み込んで圏と関手圏の間の同型を示す。\\
+  また圏の同型についても軽く触れておこう。
+  \begin{define}[圏同型]
+    $\cat{Cat}$において、圏$\cat{C,D}$が関手$\functor{I}{C}{D},\ \functor{I^{-1}}{D}{C}$によって同型、つまり$I\circ I^{-1}=Id_D,\ I^{-1}\circ I=Id_C$である時、圏同型と呼ぶことにする。
+  \end{define}
+  一般の圏と同様に元の対応を見てみよう。同型の元の関係より、$\functor{C}{1}{C}$は$\cat{C}$の対象と同一視できるのだった。すなわちある対象$D$が存在して$C\sim D$となる。\\
+
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (1) at (-2, 1) {$\cat{1}$};
+      \node (a) at (0, 2) {$\cat{C}$};
+      \node (b) at (0, 0) {$\cat{D}$};
+      \draw[->] (1) to node{$C$}(a);
+      \draw[->] (1) to node[swap]{$D$}(b);
+      \draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$I$}(b);
+      \draw[->,transform canvas={xshift=3pt}] (b) to node[swap] {$I^{-1}$}(a);
+    \end{tikzpicture}
+  \end{center}
+  関手の定義に乗っ取ると、関手$I\circ I^{-1}$の対象関数は合成関手の定義より、それぞれの対象関数\[\mor{I}{\obj{C}}{\obj{D}},\ \mor{I^{-1}}{\obj{D}}{\obj{C}}\]の合成\[\mor{I\circ I^{-1}}{\obj{D}}{\obj{D}}\]が対象関数になる。$I\circ I^{-1}=Id_\cat{D}$であるから、対象関数においても$I\circ I^{-1}=id_{\obj{D}}$が成り立つ。同様に$I^{-1}\circ I=id_{\obj{C}}$も成り立つから、$I,I^{-1}$の対象関数も$\cat{Set}$上の同型射となる。
+
+  次に圏の射の対応関係を見ていこう。
+  関手の定義に従って考えると、関手$I\circ I^{-1}$の射関数は、合成関手の定義よりそれぞれの射関数$\mor{I}{\arset{C}{A}{B}}{\arset{D}{IA}{IB}}$、$\mor{I^{-1}}{\arset{D}{A}{B}}{\arset{C}{I^{-1}A}{I^{-1}B}}$の合成射
+  \[\mor{I\circ I^{-1}}{\arset{D}{A}{B}}{\arset{D}{A}{B}}\]が射関数となる。対象関数と同様にこれも同型射になるから、射$\mor{f}{C}{C'}$に対して$Ff=g,\ C\sim D, C'\sim D'$とすると同型$\arset{C}{C}{C'}\cong\arset{D}{D}{D'}$によって$f\sim g$と表記できる。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (1) at (-2, 1) {$1$};
+      \node (a) at (0, 2) {$\arset{C}{C}{C'}$};
+      \node (b) at (0, 0) {$\arset{D}{D}{D'}$};
+      \draw[->] (1) to node{$f$}(a);
+      \draw[->] (1) to node[swap]{$g$}(b);
+      \draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$I$}(b);
+      \draw[->,transform canvas={xshift=3pt}] (b) to node[swap] {$I^{-1}$}(a);
+    \end{tikzpicture}
+  \end{center}  \begin{prop}[圏の元]
     一点離散圏$\cat{1}$、任意の圏$\cat{C}$に対して$\cat{C}\cong\funccat{1}{C}$
   \end{prop}
   \begin{proof}
