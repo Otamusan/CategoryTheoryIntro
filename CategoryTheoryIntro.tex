@@ -3357,13 +3357,13 @@
   \begin{proof}
     集合の圏における同型$A\cong\arset{Set}{1}{A}$と同様の手法で証明する。
     すなわち、対角関手$\functor{\varDelta}{C}{C^1}$が同型射となる関手であることを示す。\\
-    また定写像と同様に$\cat{C^1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
+    また定写像と同様に$\funccat{C}{1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
     関手$\functor{\varDelta^{-1}}{C^1}{C}$を
     \begin{quote}
 			\begin{description}
-				\item[対象関数]対象関数\[\mor{\varDelta^{-1}}{\obj{C^1}}{\obj{C}}\]を圏$\cat{C^1}$の任意の対象$\varDelta A$に対して$\varDelta^{-1}(\varDelta A)=\varDelta A(*)=A$と定義する。\\
-        この対象関数の全域性は先ほど示した$\cat{C^1}$の性質によるものである。
-				\item[射関数]射関数\[\mor{\varDelta^{-1}}{\arset{C^1}{\varDelta A}{\varDelta B}}{\arset{C}{A}{B}}\]を任意の定自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$に対して$\varDelta^{-1}(\varDelta f) = (\varDelta f)_*=f$と定義する。
+				\item[対象関数]対象関数\[\mor{\varDelta^{-1}}{\obj{C^1}}{\obj{C}}\]を圏$\funccat{C}{1}$の任意の対象$\varDelta A$に対して$\varDelta^{-1}(\varDelta A)=\varDelta A(*)=A$と定義する。\\
+        この対象関数の全域性は先ほど示した$\funccat{C}{1}$の性質によるものである。
+				\item[射関数]射関数\[\mor{\varDelta^{-1}}{\arset{\funccat{1}{C}}{\varDelta A}{\varDelta B}}{\arset{C}{A}{B}}\]を任意の定自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$に対して$\varDelta^{-1}(\varDelta f) = (\varDelta f)_*=f$と定義する。
 				\item[恒等射の保存]任意の対象$A$に対して$\varDelta^{-1}(ID_{\varDelta_A})=id_{\varDelta^{-1}(\varDelta A)}$を示せばよい。これは対角関手の恒等射の保存から簡単に示せる。
 				\begin{align*}
           \varDelta^{-1}(ID_{\varDelta A})&=\varDelta^{-1}(\varDelta id_A)&\text{(対角関手の恒等射の保存)}\\
@@ -3385,7 +3385,7 @@
       &=(\varDelta^{-1}\circ\varDelta)(A)
     \end{align*}
     であるから、$\varDelta^{-1}\circ\varDelta=id_\obj{C}$が成り立つ。\\
-    圏$\cat{C^1}$の任意の対象$F$を考えるが、$\cat{C^1}$の任意の対象は定関手であるため、任意の定関手$\varDelta A$を考えればよい。よって
+    圏$\funccat{C}{1}$の任意の対象$F$を考えるが、$\funccat{C}{1}$の任意の対象は定関手であるため、任意の定関手$\varDelta A$を考えればよい。よって
     \begin{align*}
       F&=\varDelta A\\
       &=\varDelta((\varDelta^{-1}\circ\varDelta)(A))\\
@@ -3393,7 +3393,7 @@
       &=(\varDelta\circ \varDelta^{-1})(F)
     \end{align*}
     よって、$\varDelta\circ\varDelta^{-1}=id_\obj{C^1}$が成り立つ。\\
-    同様の議論が射関数でも成り立つから、射関数、対象関数の等式により$\varDelta^{-1}\circ\varDelta=Id_\cat{C},\ \varDelta\circ\varDelta^{-1}=Id_\cat{C^1}$となり、$\cat{C}\cong\funccat{1}{C}$が成り立つ。
+    同様の議論が射関数でも成り立つから、射関数、対象関数の等式により$\varDelta^{-1}\circ\varDelta=Id_\cat{C},\ \varDelta\circ\varDelta^{-1}=Id_\funccat{C}{1}$となり、$\cat{C}\cong\funccat{1}{C}$が成り立つ。
   \end{proof}
   圏$\cat{C}$の対象は関手$\functor{\varDelta A}{1}{C}$で表現でき、射は自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$で表現できることになるが、これによって圏の対象や射といった内部の構造に言及せずとも圏に関する議論を行うことができるようになった。\\
 	\subsection{自然同型}
@@ -3424,8 +3424,61 @@
   \end{proof}
   自然同型を後者で捉える場合、$FA\cong GA$が$A$に対して自然であると述べることがある。
 
-
   複数の対象において成り立つような同型を一組の自然変換の同型で表現することができるため、これは同型という性質の量化と言える。
+  対象の同型を考えるだけならば自然性を仮定する必要は無いが、自然性を満たすのであれば射集合も同型となり、$Ff\sim Gf$が成り立つ。そして実はこの対応もまた自然同型になる。
+  \begin{prop}[自然同型と射集合の対応]
+    関手$\functor{F,G}{C}{D}$に対して、
+    $F\cong G\Longrightarrow\arset{C}{F-}{F-}\cong\arset{C}{G-}{G-}$\\
+    言い換えると、圏$\cat{D}$において$FA\cong GA$が任意の$A$に対して自然である時、$\cat{Set}$において$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$
+  \end{prop}
+  \begin{proof}
+    $F,G$の同型射となる自然変換をそれぞれ$\nat{i}{F}{G},\ \nat{i^{-1}}{G}{F}$とする。
+    射集合の同型射をそれぞれ\[\mor{\arset{D}{i^{-1}_A}{i_B}}{\arset{D}{FA}{FB}}{\arset{D}{GA}{GB}},\ \mor{\arset{D}{i_A}{i^{-1}_B}}{\arset{D}{GA}{GB}}{\arset{D}{FA}{FB}}\]とすると、双射写像の合成より\[\arset{D}{i^{-1}_A}{i_B}\circ\arset{D}{i_A}{i^{-1}_B}=\arset{D}{i_A\circ i^{-1}_A}{i_B\circ i^{-1}_B}=\arset{D}{id_{GA}}{id_{GB}}=id_{\arset{D}{GA}{GB}}\]となる。同様に$\arset{D}{i_A}{i^{-1}_B}\circ\arset{D}{i^{-1}_A}{i_B}=id_{\arset{D}{FA}{FB}}$も示せるから、任意の対象$A,B$において$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (catc) at (0, 1) {$\cat{C}$};
+        \node (A) at (-1, -1) {$A$};
+        \node (B) at (1, -1) {$B$};
+        \node (catd) at (3, 1) {$\cat{D}$};
+        \node (FA) at (2, 0) {$FA$};
+        \node (FB) at (4, 0) {$FB$};
+        \node (GA) at (2, -2) {$GA$};
+        \node (GB) at (4, -2) {$GB$};
+        \node (catset) at (7.5, 1) {$\cat{Set}$};
+
+        \node (FAFB) at (7.5, 0) {$\arset{D}{FA}{FB}$};
+        \node (GAGB) at (7.5, -2) {$\arset{D}{GA}{GB}$};
+
+        \draw[->] (A) to node{$f$}(B);
+        \draw[->] (FA) to node{$Ff$}(FB);
+        \draw[->] (GA) to node{$Gf$}(GB);
+        \draw[->,transform canvas={xshift=2pt}] (FA) to node{$i_A$}(GA);
+        \draw[->,transform canvas={xshift=2pt}] (FB) to node{$i_B$}(GB);
+        \draw[->,transform canvas={xshift=-2pt}] (GA) to node{$i^{-1}_A$}(FA);
+        \draw[->,transform canvas={xshift=-2pt}] (GB) to node{$i^{-1}_B$}(FB);
+        \draw[->,transform canvas={xshift=2pt}] (FAFB) to node{$\arset{D}{i^{-1}_A}{i_B}$}(GAGB);
+        \draw[->,transform canvas={xshift=-2pt}] (GAGB) to node{$\arset{D}{i_A}{i^{-1}_B}$}(FAFB);
+      \end{tikzpicture}
+    \end{center}
+    次に$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$の$A,B$に対する自然性を証明する。\\
+    すなわち、以下の図式が任意の射$\mor{g}{A'}{A},\ \mor{h}{B}{B'}$において可換になれば良い。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (fab) at (0, 0) {$\arset{D}{FA}{FB}$};
+        \node (gab) at (3, 0) {$\arset{D}{GA}{GB}$};
+        \node (fab') at (0, -2) {$\arset{D}{FA'}{FB'}$};
+        \node (gab') at (3, -2) {$\arset{D}{GA'}{GB'}$};
+
+        \draw[->] (fab) to node{$\arset{D}{i^{-1}_A}{i_B}$}(gab);
+        \draw[->] (fab') to node[swap]{$\arset{D}{i^{-1}_{A'}}{i_{B'}}$}(gab');
+        \draw[->] (fab) to node[swap]{$\arset{D}{Fg}{Fh}$}(fab');
+        \draw[->] (gab) to node{$\arset{D}{Gg}{Gh}$}(gab');
+      \end{tikzpicture}
+    \end{center}
+    自然性の等式としては\[\arset{D}{Gg}{Gh}\circ\arset{D}{i^{-1}_A}{i_B} = \arset{D}{i^{-1}_{A'}}{i_{B'}}\circ \arset{D}{Fg}{Fh}\]のように書くことができ、射写像を合成して
+    \[\arset{D}{i^{-1}_A\circ Gg}{Gh\circ i_B}=\arset{D}{Fg\circ i_{A'}^{-1}}{i_{B'}\circ Fh}\]が得られる。つまり二等式
+    \[i^{-1}_A\circ Gg=Fg\circ i_{A'}^{-1},\ Gh\circ i_B=i_{B'}\circ Fh\]を示せばよい。しかしこれは自然変換$\nat{i}{F}{G},\ \nat{i^{-1}}{G}{F}$の自然性そのものであり成り立つ。よってが$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$の$A,B$に対して自然であることを示せた。
+  \end{proof}
   心当たりがあるかもしれないが、今まで扱ってきた複数の対象において成り立つような同型のほとんどが自然同型である。次はこれらを例として確かめていく。
   \begin{prop}[$A\times 1\cong A$の自然性]
     $A\times 1\cong A$は$A$において自然である。
@@ -3520,15 +3573,24 @@
   \begin{prop}[$\arset{C}{X}{1}\cong I$の自然性]　\\
     $1$が終対象$\iff\arset{C}{X}{1}\cong I$が$X$に対して自然
   \end{prop}
+  \subsection{関手の合成の関手化}
   \subsection{圏同値}
   圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
-  $FG(D)\cong D,\ GF(C)\cong C$
   \begin{define}
     圏$C,D$に対してある二関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が存在して$F\circ G\cong Id_D,\ G\circ F\cong Id_C$となるとき、$\cat{C,D}$は圏同値であるといい、$\cat{C}\simeq \cat{D}$と表記する。
   \end{define}
   \begin{prop}[圏同値の同値性]
     圏同値$\cat{C}\simeq \cat{D}$は同値関係である。
   \end{prop}
+  \begin{proof}
+    \begin{quote}
+			\begin{description}
+				\item[反射律] $C\simeq C$を示せば良い。二つの関手を$Id_\cat{C},Id_\cat{C}$とすると、$Id_\cat{C}\circ Id_\cat{C}=Id_\cat{C}$である。$Id_\cat{C}\circ Id_\cat{C}$と$Id_\cat{C}$が等しいから、同型の反射律より$Id_\cat{C}\circ Id_\cat{C}\cong Id_\cat{C}$が成り立つ。
+				\item[対称律]定義の対称性より自明
+				\item[推移律]
+      \end{description}
+    \end{quote}
+  \end{proof}
   \begin{prop}[射関数の自然同型]
     $\cat{C}\simeq\cat{D}$を構成する関手$F$
   \end{prop}
@@ -3536,11 +3598,11 @@
   定自然変換$\natf{\varDelta f}{\varDelta A}{\varDelta B}{C}{D}$は、圏$\cat{C}$の任意の対象$C$に対して$(\varDelta f)_C=f$となる自然変換であった。一方で定関手$\varDelta A$でも$\varDelta A(C)=A$が成り立つが、この性質は定写像$\mor{\varDelta A}{\obj{C}}{\obj{D}}$によって定義されている。定自然変換と違い、関手に対象を適用する操作は対象関数で与えられているが、自然変換には与えられておらず、自然変換の成分を取る操作は写像によって定義したわけではない。\\
   自然変換を対象によって添え字付けられた射の束、と定義するのでは無く、射集合の何らかの操作によって定義できると考えたかもしれない。これは実際にエンドと呼ばれる一種の普遍性を用いることで、自然変換を再定義することができる。\\
   \begin{prop}[自然変換の普遍性]
-    圏$\cat{C}$の任意の対象$C$に対して$\cat{Set}$の射$\mor{\lambda_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して、\[\arset{D}{FA}{Gf}\circ\lambda_A=\arset{D}{Ff}{GB}\circ\lambda_B\]を満たす。
+    圏$\cat{C}$の任意の対象$C$に対して$\cat{Set}$の射$\mor{\lambda_C}{\arset{\funccat{C}{D}}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して、\[\arset{D}{FA}{Gf}\circ\lambda_A=\arset{D}{Ff}{GB}\circ\lambda_B\]を満たす。
     
     \begin{center}
       \begin{tikzpicture}[auto]
-        \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+        \node (FG) at (0, 0) {$\arset{\funccat{C}{D}}{F}{G}$};
         \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
         \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
         \node (FAGB) at (3, -2) {$\arset{D}{FA}{GB}$};
@@ -3553,7 +3615,7 @@
       \end{tikzpicture}
     \end{center}
     
-    またある対象$X$に対しても任意の対象$C$に対する$\mor{\mu_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、\[\arset{D}{FA}{Gf}\circ\mu_A=\arset{D}{Ff}{GB}\circ\mu_B\]を満たすのであれば、
+    またある対象$X$に対しても任意の対象$C$に対する$\mor{\mu_C}{\arset{\funccat{C}{D}}{F}{G}}{\arset{D}{FC}{GC}}$が存在し、\[\arset{D}{FA}{Gf}\circ\mu_A=\arset{D}{Ff}{GB}\circ\mu_B\]を満たすのであれば、
     \begin{center}
       \begin{tikzpicture}[auto]
         \node (FG) at (0, 0) {$X$};
@@ -3568,10 +3630,10 @@
 
       \end{tikzpicture}
     \end{center}
-    任意の対象$C$に対して$\mu_C=\lambda_C\circ h$を満たすような射$\mor{h}{X}{\arset{D^C}{F}{G}}$が一意に存在する。すなわち、$\mu_C=\lambda_C\circ h'$を満たすような$h'$が存在すれば、$h'=h$が成り立つ。
+    任意の対象$C$に対して$\mu_C=\lambda_C\circ h$を満たすような射$\mor{h}{X}{\arset{\funccat{C}{D}}{F}{G}}$が一意に存在する。すなわち、$\mu_C=\lambda_C\circ h'$を満たすような$h'$が存在すれば、$h'=h$が成り立つ。
     \begin{center}
       \begin{tikzpicture}[auto]
-        \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+        \node (FG) at (0, 0) {$\arset{\funccat{C}{D}}{F}{G}$};
         \node (X) at (-1.5, 1) {$X$};
         \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
         \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
@@ -3590,7 +3652,7 @@
     \end{center}
   \end{prop}
   \begin{proof}
-    まず任意の対象$C$に対する$\cat{Set}$の射$\mor{\lambda_C}{\arset{D^C}{F}{G}}{\arset{D}{FC}{GC}}$を定義する。\\
+    まず任意の対象$C$に対する$\cat{Set}$の射$\mor{\lambda_C}{\arset{\funccat{C}{D}}{F}{G}}{\arset{D}{FC}{GC}}$を定義する。\\
     任意の自然変換$\nat{\alpha}{F}{G}$に対して$\lambda_C(\alpha)=\alpha_C$とする。任意の自然変換はある対象に対する成分をただ一つ持つから、この操作は写像であり、$\cat{Set}$の射である。すると、
     \begin{align*}
       \arset{D}{FA}{Gf}\circ\lambda_A(\alpha)&=\arset{D}{FA}{Gf}(\alpha_A)&\text{($\lambda$の定義)}\\
@@ -3607,10 +3669,10 @@
     \arset{D}{FA}{Gf}(\mu_A)&=\arset{D}{Ff}{GB}(\mu_B)&\text{(元と終対象からの射の同一視)}\\
     Gf\circ\mu_A&=\mu_B\circ Ff&\text{(射写像の定義)}
   \end{align*}
-  よって自然変換の定義より、$\mu_C$は対象$C$成分であることが分かる。この自然変換を$\nat{\mu}{F}{G}$とすると、$\mu$は$\arset{D^C}{F}{G}$の元である。すなわち$\mor{\mu}{1}{\arset{D^C}{F}{G}}$と表せる。ここで$h=\mu$とすると$\lambda$は成分を取る写像であったから、$\mu_C=\lambda_C(\mu)=\lambda_C\circ\mu=\lambda_C\circ h$が成り立つ。
+  よって自然変換の定義より、$\mu_C$は対象$C$成分であることが分かる。この自然変換を$\nat{\mu}{F}{G}$とすると、$\mu$は$\arset{\funccat{C}{D}}{F}{G}$の元である。すなわち$\mor{\mu}{1}{\arset{\funccat{C}{D}}{F}{G}}$と表せる。ここで$h=\mu$とすると$\lambda$は成分を取る写像であったから、$\mu_C=\lambda_C(\mu)=\lambda_C\circ\mu=\lambda_C\circ h$が成り立つ。
   \begin{center}
     \begin{tikzpicture}[auto]
-      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (FG) at (0, 0) {$\arset{\funccat{C}{D}}{F}{G}$};
       \node (X) at (-1.5, 1) {$1$};
       \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
       \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
@@ -3631,7 +3693,7 @@
 
   \begin{center}
     \begin{tikzpicture}[auto]
-      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (FG) at (0, 0) {$\arset{\funccat{C}{D}}{F}{G}$};
       \node (X) at (-1.5, 1) {$X$};
       \node (1) at (-3, 2) {$1$};
       \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
@@ -3649,7 +3711,7 @@
       \draw[->] (FBGB) to node{$\arset{D}{Ff}{GB}$}(FAGB);
     \end{tikzpicture}
     \begin{tikzpicture}[auto]
-      \node (FG) at (0, 0) {$\arset{D^C}{F}{G}$};
+      \node (FG) at (0, 0) {$\arset{\funccat{C}{D}}{F}{G}$};
       \node (X) at (-1.5, 1) {$1$};
       \node (FAGA) at (3, 0) {$\arset{D}{FA}{GA}$};
       \node (FBGB) at (0, -2) {$\arset{D}{FB}{GB}$};
@@ -3675,6 +3737,4 @@
 	\bibitem{4} nLab \url{https://ncatlab.org/nlab/show/HomePage}
 	\bibitem{5} Category Theory for Programmers: The Preface \url{https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/}
 	\end{thebibliography}
-
-
 \end{document}
