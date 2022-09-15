@@ -32,19 +32,23 @@
 	\maketitle
 	\tableofcontents
 	\section{はじめに}
-	本資料は数学基礎論や計算機科学で特に使われるカルテジアン閉圏を目標に解説していく。
+  圏論は代数学でいう代数と準同型写像を扱う代数で、プログラミングで言えば型と関数の理論と呼ぶことができる。
+  どちらも既存の理論のモデル化であるが、圏論では「対象」が内部でどのように構成されるかではなく、「対象」が外部に対してどのように振る舞うかを重視する傾向にある。それによって圏論は抽象化能力に優れており、数学にとどまらず様々な分野に応用されている。
+  当然抽象的なだけではなく圏論は体系的で単純な理論である。圏論に登場する様々な概念は圏論によって一般化されるし、更に単純な概念によって構成できることが多い。
+	本資料では数学基礎論や計算機科学で特に使われ、とりわけ体系的で比較的単純であるカルテジアン閉圏を目標に解説していく。
 	また他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。
 
 	\section{圏と公理}
 	\begin{define}
-		ある圏$\cat{C}$は以下で定義される対象集合と、任意の二対象に対する射の集合の全体、合成の演算の三つ組\[(\obj{C},\prod\limits_{A,B}^{\obj{C}}\arset{C}{A}{B},\circ)\]によって定義する。また圏は以下に示す公理を満たさなければならない。
+    ある圏$\cat{C}$は以下で定義される対象集合$\obj{C}$と、任意の二対象$A,B$に対するそれぞれの射集合$\arset{C}{A}{B}$、合成の演算$\circ$によって定義する。また圏は以下に示す公理を満たさなければならない。
 		\begin{quote}
 			\begin{description}
-			\item[対象] 対象の集合$\obj{C}\ni A,B,C...$
-			\item[射] 任意の対象$A,B$における射の集合$\arset{C}{A}{B}\ni f,g,h...$
-
-			このような射の集合は任意の対象の組み合わせごとに存在する。
-			また$f\in\arset{C}{A}{B}$を$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$をドメイン、$B$をコドメインと呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表す。
+			\item[対象] 対象集合$\obj{C}$\\
+      また対象集合の要素を対象と呼ぶことにする。
+			\item[射] 任意の対象$A,B$における射集合$\arset{C}{A}{B}$\\
+      射集合の要素を射と呼ぶことにする。\\
+			このような射集合は任意の二対象$A,B$に対して存在することに注意してほしい。二対象$A,B$の間に射が存在しない場合の射集合は空集合となる。
+			\\また$f\in\arset{C}{A}{B}$である時$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$をドメイン、$B$をコドメインと呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表す。
 
 			ある対象$A,B,C$、ある射$\mor{f}{A}{B}$、$\mor{g}{A}{C}$、$\mor{h}{C}{B}$について考えるとき、以下のような図式を用いて説明を行う。
 			\begin{center}
@@ -144,7 +148,7 @@
 				\item[対象] $\obj{Set}$を小さな集合の集合とする。
 
 				「小さい」は自己言及を避けるための条件であり、実際に$\obj{Set}$は大きい集合となるため$\obj{Set}$には含まれない。
-				\item[射] 二対象$A,B$に対する射集合$\arset{Set}{A}{B}$を小さな集合$A$から小さな集合$B$への写像の集合$\arset{Set}{A}{B}$とする。
+				\item[射] 二対象$A,B$に対する射集合$\arset{Set}{A}{B}$を小さな集合$A$から小さな集合$B$への写像の集合とする。
 
 				また紛らわしい場合を除いて小さい集合を集合と呼ぶことにする。
 
@@ -3219,7 +3223,7 @@
 		二つの圏$\cat{C,D}$に対する関手圏$\funccat{C}{D}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{description}
-				\item[対象] $\obj{\funccat{C}{D}}$を$\cat{C}$から$\cat{D}$への関手の全体とする。
+				\item[対象] $\obj{\funccat{C}{D}}$を$\cat{C}$から$\cat{D}$への関手の全体とする。すなわち、$\cat{Cat}$における射集合によって$\obj{\funccat{C}{D}}=\arset{Cat}{C}{D}$と表せる。
 				\item[射]任意の関手$\functor{F,G}{C}{D}$に対して、射集合$\arset{\funccat{C}{D}}{F}{G}$を関手$F,G$の間の自然変換全体の集合とする。
 				\item[射の合成] 任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$を合成した自然変換を、自然変換の垂直合成によって$\beta\cdot\alpha$と定義する。
 				\item[恒等射の存在]任意の関手$\functor{F}{C}{D}$に対して、恒等射となる自然変換を恒等自然変換によって$ID_F$と定義する。
@@ -3574,6 +3578,235 @@
     $1$が終対象$\iff\arset{C}{X}{1}\cong I$が$X$に対して自然
   \end{prop}
   \subsection{関手の合成の関手化}
+  射の合成は$\cat{Set}$の射\[\mor{\circ}{\arset{C}{B}{C}\times\arset{C}{A}{B}}{\arset{C}{A}{C}}\]で表される。これは小さい圏の圏$\cat{Cat}$でも当てはまり、\[\mor{\circ}{\arset{Cat}{\cat{B}}{\cat{C}}\times\arset{Cat}{\cat{A}}{\cat{B}}}{\arset{Cat}{\cat{A}}{\cat{C}}}\]となる。しかし現在では関手の集合である射集合よりも関手を対象に持つ関手圏が定義できている。そこで関手の合成に現れる射集合を関手圏に置き換えることはできないだろうか。
+  すなわち、\[\functor{\circ}{\funccat{B}{C}\times\funccat{A}{B}}{\funccat{A}{C}}\]となるような関手を考えたい。対象関数については単に関手の合成で表せるが、射関数をどのように構成するかがこれからの議論の核となる。
+  \begin{define}[自然変換と関手の合成]
+    関手$\functor{F,G}{C}{D}$と自然変換$\nat{\alpha}{F}{G}$、関手$\functor{F'}{D}{E}$に対して、自然変換$\nat{F'\circ\alpha}{F'F}{F'G}$を$\cat{C}$の任意の対象$C$に対して$(F'\circ\alpha)_C=F'(\alpha_C)$と定義する。\\
+    すなわち、圏$\cat{D}$の$\alpha$の成分を関手$F$の射関数で圏$\cat{E}$に写す。そして得られた$F(\alpha_C)$を自然変換の成分とみなす、という流れである。さてこれが実際に自然変換となることを示そう。\\
+    まず$F(\alpha_A)$が圏$\cat{C}$の任意の対象$C$に対して存在することは、$\alpha_A$がそうであることと、関手$F'$が任意の射を何かしらの射へ写すことから分かる。よって後は自然性を示せば良い。だがこれは関手$F'$の合成の保存と$\alpha$の自然性によって簡単に示せる。
+    \[F'\alpha_B\circ F'Ff=F'(\alpha_B\circ Ff)=F'(Gf\circ\alpha_A)=F'Gf\circ F'\alpha_A\]よって確かに自然変換である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-4, 5) {$A$};
+        \node (B) at (-2, 5) {$B$};
+        \node (FA) at (-1, 6) {$FA$};
+        \node (FB) at (1, 6) {$FB$};
+        \node (GA) at (-1, 4) {$GA$};
+        \node (GB) at (1, 4) {$GB$};
+        \node (F'FA) at (2, 6) {$F'FA$};
+        \node (F'FB) at (4, 6) {$F'FB$};
+        \node (F'GA) at (2, 4) {$F'GA$};
+        \node (F'GB) at (4, 4) {$F'GB$};
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (catd) at (0, 8) {$\cat{D}$};
+        \node (cate) at (3, 8) {$\cat{E}$};
+
+        \draw[->] (A) to node{$f$}(B);
+
+        \draw[->] (FA) to node{$Ff$}(FB);
+        \draw[->] (GA) to node{$Gf$}(GB);
+        \draw[->] (FA) to node{$\alpha_A$}(GA);
+        \draw[->] (FB) to node{$\alpha_B$}(GB);
+
+        \draw[->] (F'FA) to node{$F'Ff$}(F'FB);
+        \draw[->] (F'GA) to node{$F'Gf$}(F'GB);
+        \draw[->] (F'FA) to node{$F'(\alpha_A)$}(F'GA);
+        \draw[->] (F'FB) to node{$F'(\alpha_B)$}(F'GB);
+        \draw[->] (catd) to node{$F'$}(cate);
+
+        \draw[->,bend left = 20] (catc) to node (funcf){$F$}(catd);
+        \draw[->,bend right = 20] (catc) to node (funcg)[swap]{$G$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-4, 5) {$A$};
+        \node (B) at (-2, 5) {$B$};
+        \node (F'FA) at (-1, 6) {$F'FA$};
+        \node (F'FB) at (1, 6) {$F'FB$};
+        \node (F'GA) at (-1, 4) {$F'GA$};
+        \node (F'GB) at (1, 4) {$F'GB$};
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (cate) at (0, 8) {$\cat{E}$};
+
+        \draw[->] (A) to node{$f$}(B);
+
+        \draw[->] (F'FA) to node{$F'Ff$}(F'FB);
+        \draw[->] (F'GA) to node{$F'Gf$}(F'GB);
+        \draw[->] (F'FA) to node{$(F'\circ\alpha)_A$}(F'GA);
+        \draw[->] (F'FB) to node{$(F'\circ\alpha)_B$}(F'GB);
+        \draw[->,bend left = 20] (catc) to node (funcf){$F'F$}(catd);
+        \draw[->,bend right = 20] (catc) to node (funcg)[swap]{$F'G$}(cate);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$F'\circ\alpha$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+  \end{define}
+  次に自然変換の後ろに関手を合成する操作を考えよう。
+  \begin{define}[関手と自然変換の合成]
+    関手$\functor{F',G'}{D}{E}$と自然変換$\nat{\beta}{F'}{G'}$、関手$\functor{F}{C}{D}$に対して自然変換$\nat{\beta\circ F}{F'F}{G'F}$を$\cat{C}$の任意の対象$C$に対して$(\beta\circ F)_C=\beta_{FC}$と定義する。これは自然変換$\beta$の量化の範囲を$F$で写された範囲に限定するという流れである。\\
+    ここでの$\mor{\beta_{FC}}{F'FC}{G'FC}$は単に$\beta$の$FC$成分であるから自然性はすでに満たす。圏$\cat{C}$の任意の対象$C$に対して成分$\beta_{FC}$が存在するかどうかであるが、関手$F$は$C$を何らかの対象に写すため、$\beta_{FC}$は存在する。よって$\beta F$は自然変換である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-4, 5) {$A$};
+        \node (B) at (-2, 5) {$B$};
+        \node (FA) at (-1, 5) {$FA$};
+        \node (FB) at (1, 5) {$FB$};
+        \node (F'FA) at (2, 6) {$F'FA$};
+        \node (F'FB) at (4, 6) {$F'FB$};
+        \node (F'GA) at (2, 4) {$G'FA$};
+        \node (F'GB) at (4, 4) {$G'FB$};
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (catd) at (0, 8) {$\cat{D}$};
+        \node (cate) at (3, 8) {$\cat{E}$};
+
+        \draw[->] (A) to node{$f$}(B);
+
+        \draw[->] (FA) to node{$Ff$}(FB);
+
+        \draw[->] (F'FA) to node{$F'Ff$}(F'FB);
+        \draw[->] (F'GA) to node{$G'Ff$}(F'GB);
+        \draw[->] (F'FA) to node{$\beta_{FA}$}(F'GA);
+        \draw[->] (F'FB) to node{$\beta_{FB}$}(F'GB);
+        \draw[->] (catc) to node{$F$}(catd);
+
+        \draw[->,bend left = 20] (catd) to node (funcf){$F'$}(cate);
+        \draw[->,bend right = 20] (catd) to node (funcg)[swap]{$G'$}(cate);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\beta$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-4, 5) {$A$};
+        \node (B) at (-2, 5) {$B$};
+        \node (F'FA) at (-1, 6) {$F'FA$};
+        \node (F'FB) at (1, 6) {$F'FB$};
+        \node (F'GA) at (-1, 4) {$G'FA$};
+        \node (F'GB) at (1, 4) {$G'FB$};
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (cate) at (0, 8) {$\cat{E}$};
+  
+        \draw[->] (A) to node{$f$}(B);
+  
+        \draw[->] (F'FA) to node{$F'Ff$}(F'FB);
+        \draw[->] (F'GA) to node{$G'Ff$}(F'GB);
+        \draw[->] (F'FA) to node{$(\beta\circ F)_A$}(F'GA);
+        \draw[->] (F'FB) to node{$(\beta\circ F)_B$}(F'GB);
+  
+        \draw[->,bend left = 20] (catc) to node (funcf){$F'F$}(cate);
+        \draw[->,bend right = 20] (catc) to node (funcg)[swap]{$G'F$}(cate);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\beta\circ F$] {} (funcg);
+      \end{tikzpicture}
+    \end{center}
+  \end{define}
+  次にいよいよ合成を行う関手の射関数となるような操作を定義する。またこの合成は関手圏における射の合成である垂直合成と区別するため水平合成と呼ぶことにする。
+  \begin{define}[自然変換の水平合成]
+    関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$と自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して垂直合成された自然変換$\nat{\beta\alpha}{F'F}{G'G}$を\[\beta\circ\alpha = \alpha G'\cdot F\beta = G\beta\cdot\alpha F'\]とする。\\
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (cat) at (1, 1) {$\funccat{C}{E}$};
+        \node (FF) at (0, 0) {$F'F$};
+        \node (FG) at (2, 0) {$F'G$};
+        \node (GF) at (0, -2) {$G'F$};
+        \node (GG) at (2, -2) {$G'G$};
+        \draw[double,double equal sign distance,-implies] (FF) to node{$\beta\circ F$}(GF);
+        \draw[double,double equal sign distance,-implies] (FG) to node{$\beta\circ G$}(GG);
+        \draw[double,double equal sign distance,-implies] (FF) to node{$F'\circ\alpha$}(FG);
+        \draw[double,double equal sign distance,-implies] (GF) to node{$G'\circ\beta$}(GG);
+      \end{tikzpicture}
+    \end{center}
+    成分を見ると、$\cat{C}$の任意の対象$C$に対して成分\[(\beta\circ\alpha)_C=G'\alpha_C\circ \beta_{FC}=\beta_{GC}\circ F'\alpha_C\]となる。
+    自然変換と関手の合成と関手の自然変換の合成をそれぞれ用いて定義されているが、これらが自然変換であることはすでに示した。よってその二つを合成した$\beta\circ\alpha$も自然変換である。\\
+    さて自然変換の水平合成の直感を得るためにも$\alpha G'\cdot F\beta = G\beta\cdot\alpha F'$を示そう。これは上に書いたように$A$に対して成分の等式\[G'\alpha_A\circ \beta_{FA}=\beta_{GA}\circ F'\alpha_A\]が成り立てば良い。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (A) at (-2, 5) {$A$};
+        \node (FA) at (0, 6) {$FA$};
+        \node (GA) at (0, 4) {$GA$};
+        \node (F'FA) at (2, 6) {$F'FA$};
+        \node (F'FB) at (4, 6) {$G'FA$};
+        \node (F'GA) at (2, 4) {$F'GA$};
+        \node (F'GB) at (4, 4) {$G'GA$};
+        \node (catc) at (-2, 8) {$\cat{C}$};
+        \node (catd) at (0, 8) {$\cat{D}$};
+        \node (cate) at (3, 8) {$\cat{E}$};
+
+
+        \draw[->] (FA) to node{$\alpha_A$}(GA);
+
+        \draw[->] (F'FA) to node{$\beta_{FA}$}(F'FB);
+        \draw[->] (F'GA) to node{$\beta_{GA}$}(F'GB);
+        \draw[->] (F'FA) to node{$F'\alpha_A$}(F'GA);
+        \draw[->] (F'FB) to node{$G'\alpha_A$}(F'GB);
+
+
+        \draw[->,bend left = 20] (catd) to node (funcf'){$F'$}(cate);
+        \draw[->,bend right = 20] (catd) to node (funcg')[swap]{$G'$}(cate);
+        \draw[->,bend left = 30] (catc) to node (funcf){$F$}(catd);
+        \draw[->,bend right =30] (catc) to node (funcg)[swap]{$G$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf') -- node[label=right:$\beta$] {} (funcg');
+      \end{tikzpicture}
+    \end{center}
+    ここで$FA=B,\ GA=C, \alpha_A=f$と置くと、これは明らかに$\beta$の自然性であり成り立つ。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (FA) at (0, 6) {$B$};
+        \node (GA) at (0, 4) {$C$};
+        \node (F'FA) at (2, 6) {$F'B$};
+        \node (F'FB) at (4, 6) {$G'B$};
+        \node (F'GA) at (2, 4) {$F'C$};
+        \node (F'GB) at (4, 4) {$G'C$};
+        \node (catd) at (0, 7) {$\cat{D}$};
+        \node (cate) at (3, 7) {$\cat{E}$};
+        \draw[->] (FA) to node{$f$}(GA);
+
+        \draw[->] (F'FA) to node{$\beta_{B}$}(F'FB);
+        \draw[->] (F'GA) to node{$\beta_{C}$}(F'GB);
+        \draw[->] (F'FA) to node{$F'f$}(F'GA);
+        \draw[->] (F'FB) to node{$G'f$}(F'GB);
+      \end{tikzpicture}
+    \end{center}
+  \end{define}
+  また、$\alpha$を恒等自然変換とすると関手と自然変換の合成になり、$\beta$を恒等自然変換とすると自然変換と関手の合成になる。よってどちらも自然変換の水平合成と呼ぶことにする。
+  \begin{define}[関手を合成する関手]
+    関手を合成する関手$\functor{\circ}{\funccat{D}{E}\times \funccat{C}{D}}{\funccat{C}{E}}$を以下のように定義する。
+    \begin{quote}
+			\begin{description}
+		\item[対象関数]対象関数
+    \[\functor{\circ}{\obj{\funccat{D}{E}\times\funccat{C}{D}}}{\obj{\funccat{C}{E}}}\]は、積圏の対象の集合の定義より、\[\functor{\circ}{\obj{\funccat{D}{E}}\times\obj{\funccat{C}{D}}}{\obj{\funccat{C}{E}}}\]と表せる。また関手圏の対象集合の定義より、\[\mor{\circ}{\arset{Cat}{\cat{D}}{\cat{E}}\times\arset{Cat}{\cat{C}}{\cat{D}}}{\arset{Cat}{\cat{C}}{\cat{E}}}\]とも表せるから、$\cat{Cat}$の定義に用いられる関手の合成を対象関数とする。
+		\item[射関数]任意の関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$に対する射関数\[\mor{\circ}{\arset{\funccat{D}{E}\times\funccat{C}{D}}{\tuple{F',F}}{\tuple{G',G}}}{\arset{\funccat{C}{E}}{F'\circ F}{G'\circ G}}\]を任意の自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して
+    \[\circ(\beta,\alpha)=\beta\circ\alpha\]と定義する。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (cata) at (0, 1) {$\funccat{D}{E}\times\funccat{C}{D}$};
+        \node (cata) at (2, 1) {$\funccat{C}{E}$};
+        \node (F'F) at (0, 0) {$\tuple{F',F}$};
+        \node (G'G) at (0, -2) {$\tuple{G',G}$};
+        \draw[->] (F'F) to node{$\tuple{\beta,\alpha}$}(G'G);
+        \node (F'cF) at (2, 0) {$F'\circ F$};
+        \node (G'cG) at (2, -2) {$G'\circ G$};
+        \draw[double,double equal sign distance,-implies] (F'cF) to node{$\beta\circ\alpha$}(G'cG);
+        \draw[-,dashed] (F'F) to (F'cF);
+        \draw[-,dashed] (G'G) to (G'cG);
+
+      \end{tikzpicture}
+    \end{center}
+		\item[恒等射の保存]積圏の恒等射の定義より、$\tuple{F',F}$の恒等射は$\nat{\tuple{ID_{F'},ID_{F}}}{\tuple{F',F}}{\tuple{F',F}}$であるから、$ID_{F'}\circ ID_{F}=ID_{F'F}$を示せば良い。これは$\cat{C}$の任意の対象$C$おいて
+    \begin{align*}
+      (ID_{F'}\circ ID_F)_C &= F'(ID_{F})_C\circ (ID_{F'})_{FC}&\text{(自然変換の水平合成)}\\
+      &=F'(id_{FC})\circ id_{F'FC}&\text{(恒等自然変換の定義)}\\
+      &=id_{F'FC}\circ id_{F'FC}&\text{(関手の恒等射の保存)}\\
+      &=id_{F'FC}
+    \end{align*}
+    となるから$ID_{F'}\circ ID_{F}=ID_{F'F}$である。
+		\item[射の合成の保存]
+		
+		\end{description}
+		\end{quote}
+  \end{define}
+  
   \subsection{圏同値}
   圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
   \begin{define}
