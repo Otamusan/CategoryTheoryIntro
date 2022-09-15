@@ -137,8 +137,6 @@
 	\end{define}
 	\begin{define}[圏の同一性]
 		圏$\cat{A,B}$が同一、$\cat{A}=\cat{B}$であるとは、対象の集合、射の集合、合成の演算が集合、写像として等しいということである。
-		
-		同様に対象や射の同一性も対象の集合の元、射の集合の元の等しさで表される。
 	\end{define}
 	次に圏の例として集合の圏を挙げる。
 	\begin{define}[集合の圏]
@@ -240,8 +238,7 @@
 	\subsection{同型}
 	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため同型と呼ばれる同値関係を代わりに用いる。
 	\begin{define}[同型]
-		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。
-		また、このような射$i,i^{-1}$を同型射と呼ぶ。
+		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。この時、$A$から$B$への射はすべてが同型射である必要はない。また、このような射$i,i^{-1}$を同型射と呼ぶ。
 	\end{define}
 	\begin{center}
 		\begin{tikzpicture}[auto]
@@ -3400,6 +3397,7 @@
     同様の議論が射関数でも成り立つから、射関数、対象関数の等式により$\varDelta^{-1}\circ\varDelta=Id_\cat{C},\ \varDelta\circ\varDelta^{-1}=Id_\funccat{C}{1}$となり、$\cat{C}\cong\funccat{1}{C}$が成り立つ。
   \end{proof}
   圏$\cat{C}$の対象は関手$\functor{\varDelta A}{1}{C}$で表現でき、射は自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$で表現できることになるが、これによって圏の対象や射といった内部の構造に言及せずとも圏に関する議論を行うことができるようになった。\\
+  また以降の議論で紛らわしくない場合、$\funccat{1}{C}$の対象$\varDelta A$を$A$、射$\varDelta f$を$f$と表記することにする。
 	\subsection{自然同型}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
   \begin{define}[自然同型(関手の同型)]
@@ -3801,12 +3799,156 @@
       &=id_{F'FC}
     \end{align*}
     となるから$ID_{F'}\circ ID_{F}=ID_{F'F}$である。
-		\item[射の合成の保存]
-		
+		\item[射の合成の保存]任意の$\functor{F,G,H}{C}{D},\ \functor{F',G',H'}{D}{E}$と自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'},\ \nat{\alpha'}{G}{H},\ \nat{\beta'}{G'}{H'}$に対して
+    \[(\beta'\cdot\beta)\circ(\alpha'\cdot\alpha)=(\beta'\circ\alpha')\cdot(\beta\circ\alpha)\]が成り立つことを示せば良い。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (catc) at (-3, 8) {$\cat{C}$};
+        \node (catd) at (0, 8) {$\cat{D}$};
+        \node (cate) at (3, 8) {$\cat{E}$};
+        \draw[->,bend left = 40] (catd) to node (funcf'){$F'$}(cate);
+        \draw[->] (catd) to node[yshift =-7,fill=white] (funcg'){$G'$}(cate);
+        \draw[->,bend right = 40] (catd) to node (funch')[swap]{$H'$}(cate);
+
+        \draw[->,bend left = 40] (catc) to node (funcf){$F$}(catd);
+        \draw[->] (catc) to node[yshift =-7,fill=white] (funcg){$G$}(catd);
+        \draw[->,bend right =40] (catc) to node (funch)[swap]{$H$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=0pt,shorten <=2pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+        \draw[double,double equal sign distance,-implies,shorten >=0pt,shorten <=2pt] (funcf') -- node[label=right:$\beta$] {} (funcg');
+        \draw[double,double equal sign distance,-implies,shorten >=2pt,shorten <=0pt] (funcg) -- node[label=right:$\alpha'$] {} (funch);
+        \draw[double,double equal sign distance,-implies,shorten >=2pt,shorten <=0pt] (funcg') -- node[label=right:$\beta'$] {} (funch');
+      \end{tikzpicture}
+    \end{center}
+		圏$\cat{C}$の任意の対象$A$に対して、
+    \begin{align*}
+      ((\beta'\cdot\beta)\circ(\alpha'\cdot\alpha))_A&=H'(\alpha'\cdot\alpha)_A\circ(\beta'\cdot\beta)_{FA}&\text{(水平合成の定義)}\\
+      &=H'\alpha'_A\circ H'\alpha_A\circ\beta'_{FA}\circ\beta_{FA}&\text{(垂直合成の定義)}\\
+      &=H'\alpha'_A\circ\beta'_{GA}\circ G'\alpha_A\circ\beta_{FA}&\text{($\beta$の自然性)}\\
+      &=(\beta'\circ\alpha')_A\circ(\beta\circ\alpha)_A&\text{(水平合成の定義)}\\
+      &=((\beta'\circ\alpha')\cdot(\beta\circ\alpha))_A&\text{(垂直合成の定義)}
+    \end{align*}
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (cata) at (0, 1) {$\funccat{D}{E}\times\funccat{C}{D}$};
+        \node (cata) at (2, 1) {$\funccat{C}{E}$};
+        \node (F'F) at (0, 0) {$\tuple{F',F}$};
+        \node (G'G) at (0, -2) {$\tuple{G',G}$};
+        \node (H'H) at (0, -4) {$\tuple{H',H}$};
+
+        \draw[->] (F'F) to node[swap]{$\tuple{\beta,\alpha}$}(G'G);
+        \draw[->] (G'G) to node[swap]{$\tuple{\beta',\alpha'}$}(H'H);
+
+        \node (F'cF) at (2, 0) {$F'\circ F$};
+        \node (G'cG) at (2, -2) {$G'\circ G$};
+        \node (H'cH) at (2, -4) {$H'\circ H$};
+
+        \draw[double,double equal sign distance,-implies] (F'cF) to node[swap]{$\beta\circ\alpha$}(G'cG);
+        \draw[double,double equal sign distance,-implies] (G'cG) to node[swap]{$\beta'\circ\alpha'$}(H'cH);
+        \draw[double,double equal sign distance,-implies,bend left = 30] (F'cF) to node{$(\beta'\cdot\beta)\circ(\alpha'\cdot\alpha)$}(H'cH);
+        \draw[-,dashed] (F'F) to (F'cF);
+        \draw[-,dashed] (G'G) to (G'cG);
+        \draw[-,dashed] (H'H) to (H'cH);
+
+      \end{tikzpicture}
+    \end{center}
+    よって$(\beta'\cdot\beta)\circ(\alpha'\cdot\alpha)=(\beta'\circ\alpha')\cdot(\beta\circ\alpha)$である。またこの性質を相互交換法則と呼ぶことにする。
 		\end{description}
 		\end{quote}
   \end{define}
-  
+  関手の合成を関手として定義できたわけだが、これを$\cat{Cat}$における射の合成の代わりに使用できるかと考えるが、それを行うには圏の定義から考え直さなくてはいけなくなる。現時点で触れる予定は無いが、興味がある場合は2-Categoryに関する文献を読むと良い。\\
+  さて、自然変換の水平合成や相互交換法則に触れた理由として、関手圏やその合成を行う関手の性質によって、関手や自然変換の満たすべき性質を復元できるからである。特に関手の合成の保存や、自然性などは仮定する動機が不十分であったから、これらを$\cat{Cat}$の持つ性質と見なして改めて導出しよう。\\
+
+
+    自然性と水平合成の関係を見る。一点離散圏$\cat{1}$と任意の圏$\cat{C,D}$、関手$\functor{A,B}{1}{C},\ \functor{F,G}{C}{D}$、自然変換$\nat{f}{A}{B},\ \nat{\alpha}{F}{G}$を考える。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (*) at (-2, 5) {$*$};
+        \node (A) at (0, 6) {$A*$};
+        \node (B) at (0, 4) {$B*$};
+        \node (FA) at (2, 6) {$FA*$};
+        \node (GA) at (4, 6) {$GA*$};
+        \node (FB) at (2, 4) {$FB*$};
+        \node (GB) at (4, 4) {$GB*$};
+        \node (cat1) at (-2, 8) {$\cat{1}$};
+        \node (catc) at (0, 8) {$\cat{C}$};
+        \node (catd) at (3, 8) {$\cat{D}$};
+
+
+        \draw[->] (A) to node{$f_*$}(B);
+
+        \draw[->] (F'FA) to node{$\alpha_{A*}$}(F'FB);
+        \draw[->] (F'GA) to node{$\alpha_{B*}$}(F'GB);
+        \draw[->] (F'FA) to node{$Ff_*$}(F'GA);
+        \draw[->] (F'FB) to node{$Gf_*$}(F'GB);
+
+        \draw[->,bend left = 30] (cat1) to node (funcf'){$A$}(catc);
+        \draw[->,bend right = 30] (cat1) to node (funcg')[swap]{$B$}(catc);
+        \draw[->,bend left = 20] (catc) to node (funcf){$F$}(catd);
+        \draw[->,bend right =20] (catc) to node (funcg)[swap]{$G$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf') -- node[label=right:$f$] {} (funcg');
+      \end{tikzpicture}
+    \end{center}
+    $A=A(*),\ B=B(*),\ f=f_*$とすると、以下のような図式が書ける。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (*) at (-2, 5) {$*$};
+        \node (A) at (0, 6) {$A$};
+        \node (B) at (0, 4) {$B$};
+        \node (FA) at (2, 6) {$FA$};
+        \node (GA) at (4, 6) {$GA$};
+        \node (FB) at (2, 4) {$FB$};
+        \node (GB) at (4, 4) {$GB$};
+        \node (cat1) at (-2, 8) {$\cat{1}$};
+        \node (catc) at (0, 8) {$\cat{C}$};
+        \node (catd) at (3, 8) {$\cat{D}$};
+
+
+        \draw[->] (A) to node{$f$}(B);
+
+        \draw[->] (F'FA) to node{$\alpha_A$}(F'FB);
+        \draw[->] (F'GA) to node{$\alpha_B$}(F'GB);
+        \draw[->] (F'FA) to node{$Ff$}(F'GA);
+        \draw[->] (F'FB) to node{$Gf$}(F'GB);
+
+
+        \draw[->,bend left = 30] (cat1) to node (funcf'){$A$}(catc);
+        \draw[->,bend right = 30] (cat1) to node (funcg')[swap]{$B$}(catc);
+        \draw[->,bend left = 20] (catc) to node (funcf){$F$}(catd);
+        \draw[->,bend right =20] (catc) to node (funcg)[swap]{$G$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
+        \draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf') -- node[label=right:$f$] {} (funcg');
+      \end{tikzpicture}
+    \end{center}
+    これは任意の射、任意の対象で成り立つから、明らかに自然変換の図式である。\\
+
+    関手の合成の保存と相互交換法則の関係性を見る。一点離散圏$\cat{1}$と任意の圏$\cat{C,D}$、関手$\functor{A,B,C}{1}{C},\ \functor{F}{C}{D}$、自然変換$\nat{f}{A}{B},\ \nat{g}{B}{C}$を考えると、相互交換法則より\[(ID_F\cdot ID_F)\circ(g\cdot f)=(ID_F\circ g)\cdot(ID_F\circ f)\]が成り立つ。この自然変換の$*$成分を取ると、
+    \begin{align*}
+      ((ID_F\cdot ID_F)\circ(g\cdot f))_*&=F(g\cdot f)_*\circ(ID_F\cdot ID_F)_{C*}&\text{(水平合成の定義)}\\
+      &=F(g\cdot f)_*&\text{(恒等自然変換の定義)}\\
+      ((ID_F\circ g)\cdot(ID_F\circ f))_*&=(ID_F\circ g)_*\circ(ID_F\circ f)_*&\text{(垂直合成の定義)}\\
+      &=Fg_*\circ Ff_*&\text{(水平合成の定義)}\\
+    \end{align*}
+    となり、$f_*=f,\ g_*=g$とすると、$(g\cdot f)_*=g\circ f$であるから、
+    この等式は$F(g\circ f)=Fg\circ Ff$と変形できる。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (catc) at (-3, 8) {$\cat{1}$};
+        \node (catd) at (0, 8) {$\cat{C}$};
+        \node (cate) at (3, 8) {$\cat{D}$};
+        \draw[->,bend left = 40] (catd) to node (funcf'){$F$}(cate);
+        \draw[->] (catd) to node[yshift =-7,fill=white] (funcg'){$F$}(cate);
+        \draw[->,bend right = 40] (catd) to node (funch')[swap]{$F$}(cate);
+
+        \draw[->,bend left = 40] (catc) to node (funcf){$A$}(catd);
+        \draw[->] (catc) to node[yshift =-7,fill=white] (funcg){$B$}(catd);
+        \draw[->,bend right =40] (catc) to node (funch)[swap]{$C$}(catd);
+        \draw[double,double equal sign distance,-implies,shorten >=0pt,shorten <=2pt] (funcf) -- node[label=right:$f$] {} (funcg);
+        \draw[double,double equal sign distance,-implies,shorten >=0pt,shorten <=2pt] (funcf') -- node[label=right:$ID_F$] {} (funcg');
+        \draw[double,double equal sign distance,-implies,shorten >=2pt,shorten <=0pt] (funcg) -- node[label=right:$g$] {} (funch);
+        \draw[double,double equal sign distance,-implies,shorten >=2pt,shorten <=0pt] (funcg') -- node[label=right:$ID_F$] {} (funch');
+    \end{tikzpicture}
+  \end{center}
   \subsection{圏同値}
   圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
   \begin{define}

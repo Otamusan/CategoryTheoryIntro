@@ -5,3 +5,4 @@
 *.log
 *.synctex(busy)
 *.synctex.gz
+*.partial
