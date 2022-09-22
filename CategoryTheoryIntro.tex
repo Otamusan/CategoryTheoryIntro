@@ -21,11 +21,16 @@
 \newcommand{\pcobj}[1]{[#1]}
 \newcommand{\funccat}[2]{\cat{#2}^\cat{#1}}
 \newtheorem{proof}{証明}[section]
-\newtheorem{prop}{命題}[section]
-\newtheorem{define}{定義}[section]
+\newtheorem{prop}[proof]{命題}
+\newtheorem{define}[proof]{定義}
 \numberwithin{proof}{subsection}
-\numberwithin{prop}{subsection}
-\numberwithin{define}{subsection}
+\newenvironment{mydescription}
+{\begin{description}
+  \setlength{\parskip}{0.5cm}
+}
+{\end{description}}
+
+
 \begin{document}
 	\title{圏論入門}
   \author{@otamu32}
@@ -36,19 +41,22 @@
   どちらも既存の理論のモデル化であるが、圏論では「対象」が内部でどのように構成されるかではなく、「対象」が外部に対してどのように振る舞うかを重視する傾向にある。それによって圏論は抽象化能力に優れており、数学にとどまらず様々な分野に応用されている。
   当然抽象的なだけではなく圏論は体系的で単純な理論である。圏論に登場する様々な概念は圏論によって一般化されるし、更に単純な概念によって構成できることが多い。
 	本資料では数学基礎論や計算機科学で特に使われ、とりわけ体系的で比較的単純であるカルテジアン閉圏を目標に解説していく。
-	また他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。それ故に具体例を後回しで紹介することが多いため、どうしても気になるのであれば適宜飛ばして読んでほしい。
 
-	\section{圏と公理}
+  \subsection{このpdfについて}
+	他の入門書の差別化として、できるだけ議論や具体例を圏論の中で完結するようにしている。圏論の概念は圏論で一般化、構成できることを述べたが、この入門書ではそれらを目的として議論を進めていく。
+  それ故に具体例を後回しで紹介することが多いため、どうしても気になるのであれば適宜飛ばして読んでほしい。\\
+  また証明もほとんど省略せず、行間ができないように記述してある。そのため全体的に煩雑に見えるかもしれないが、個々の操作は単純であるため自明であると感じた場合はいちいち証明を追わなくてもよい。\\
+  \section{圏と公理}
 	\begin{define}
     ある圏$\cat{C}$は以下で定義される対象集合$\obj{C}$と、任意の二対象$A,B$に対するそれぞれの射集合$\arset{C}{A}{B}$、合成の演算$\circ$によって定義する。また圏は以下に示す公理を満たさなければならない。
 		\begin{quote}
-			\begin{description}
-			\item[対象] 対象集合$\obj{C}$\\
-      また対象集合の要素を対象と呼ぶことにする。またこの時点で「対象」に性質や定義は与えられない。
-			\item[射] 任意の対象$A,B$における射集合$\arset{C}{A}{B}$\\
-      射集合の要素を射と呼ぶことにする。\\
+			\begin{mydescription}
+			\item[対象] 圏はある集合$\obj{C}$を持つ必要がある。\\
+			この集合を\textbf{対象集合}と呼ぶことにし、対象集合の要素を\textbf{対象}と呼ぶことにする。
+			\item[射] 任意の対象$A,B$に対してある集合$\arset{C}{A}{B}$を持つ必要がある。
+      またこのような集合を\textbf{射集合}と呼ぶことにし、射集合の要素を\textbf{射}と呼ぶことにする。\\
 			このような射集合は任意の二対象$A,B$に対して存在することに注意してほしい。二対象$A,B$の間に射が存在しない場合の射集合は空集合となる。
-			\\また$f\in\arset{C}{A}{B}$である時$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$を始域、$B$を終域と呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表す。
+			\\また$f\in\arset{C}{A}{B}$である時$\mor{f}{A}{B}$と書く。このとき$f$に対する$A$を\textbf{始域}、$B$を\textbf{終域}と呼び、射から対象への二つの演算$\dom,\cod$を用い$\dom(f)=A$、$\cod(f)=B$と表す。\\
 
 			ある対象$A,B,C$、ある射$\mor{f}{A}{B}$、$\mor{g}{A}{C}$、$\mor{h}{C}{B}$について考えるとき、以下のような図式を用いて説明を行う。
 			\begin{center}
@@ -61,8 +69,7 @@
 					\draw[->] (c) to node[swap] {$h$}(b);
 				\end{tikzpicture}
 			\end{center}
-      対象と同様に「射」もこの時点では始域、終域を持つ以外の定義、性質は一切与えられない。
-			\item[射の合成]~\\ ある射$f,g$が$\cod(f)=\dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、合成射$\mor{g\circ f}{X}{Y}$が定まる。
+			\item[射の合成]~\\ ある射$f,g$が$\cod(f)=\dom(g)$を満たす、つまり$\mor{f}{X}{A}$、$\mor{g}{A}{Y}$であるようなとき、ある射$\mor{g\circ f}{X}{Y}$が存在し、このような射を\textbf{合成射}と呼ぶ。
 			射をつなげる、という直感に反して合成射の射の順序が射の向きと逆であることに注意してほしい。
 
 			射$h,g$の合成$h\circ g$は次のように表せる。
@@ -78,9 +85,9 @@
 					\draw[->] (c) to node[swap] {$h$}(b);
 				\end{tikzpicture}
 			\end{center}
-			このような操作は任意の対象$A,B,C$における二項演算\[\mor{\circ}{\arset{\cat{C}}{B}{C}\times\arset{\cat{C}}{A}{B}}{\arset{\cat{C}}{A}{C}}\]
-			で表せる。また厳密には二項演算$\circ$は任意の対象$A,B,C$の組み合わせごとに個別に存在する。
-			\item[恒等射の存在] 恒等射と呼ばれる特別な射$\mor{id_A}{A}{A}$が任意の対象に存在する。
+			このような操作は任意の対象$A,B,C$における二変数の写像\[\mor{\circ}{\arset{\cat{C}}{B}{C}\times\arset{\cat{C}}{A}{B}}{\arset{\cat{C}}{A}{C}}\]
+			で表せる。また厳密には写像$\circ$は任意の対象$A,B,C$の組み合わせごとに個別に存在する。
+			\item[恒等射の存在] \textbf{恒等射}と呼ばれる特別な射$\mor{id_A}{A}{A}$が任意の対象に存在する。
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 0) {$A$};
@@ -132,17 +139,17 @@
 					\draw[->] (b) to node {$g\circ id_A$}(c);
 				\end{tikzpicture}
 			\end{center}
-		\end{description}
+		\end{mydescription}
 			\end{quote}
 	\end{define}
 	\begin{define}[圏の同一性]
-		圏$\cat{A,B}$が同一、$\cat{A}=\cat{B}$であるとは、対象の集合、射の集合、合成の演算が集合、写像として等しいということである。
+		圏$\cat{A,B}$が\textbf{同一}、$\cat{A}=\cat{B}$であるとは、対象の集合、射の集合、合成の演算が集合、写像として等しいということである。
 	\end{define}
 	次に圏の例として集合の圏を挙げる。
 	\begin{define}[集合の圏]
 		圏$\cat{Set}$を以下の要素から構成する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象] $\obj{Set}$を小さな集合の集合とする。
 
 				「小さい」は自己言及を避けるための条件であり、実際に$\obj{Set}$は大きい集合となるため$\obj{Set}$には含まれない。
@@ -154,7 +161,7 @@
 				そして同対象間に射が二つあったとき、二つの写像が等しいかどうかを元の対応関係で確かめることができる。
 				つまり、二つの写像$\mor{f,g}{A}{B}$と集合$A$の任意の元$a$に対して、\[f(a)=g(a)\]ならば$f=g$が成り立つ、ということである。以降は元の対応関係を用いて集合の圏の射である写像を定義していく。
 
-				\item[射の合成] 　二つの写像$\mor{f}{A}{B}$、$\mor{g}{B}{C}$の合成写像$\mor{g\circ f}{A}{C}$を$A$の任意の元$a$に対して\[(g\circ f)(a)=g(f(a))\]となるように定義する。
+				\item[射の合成] 　二つの写像$\mor{f}{A}{B}$、$\mor{g}{B}{C}$の\textbf{合成写像}$\mor{g\circ f}{A}{C}$を$A$の任意の元$a$に対して\[(g\circ f)(a)=g(f(a))\]となるように定義する。
 
 				集合の圏は一般的な圏とは違い、元の対応関係を調べるだけで射が等しくなることを示せる。
 				\item[恒等射の存在]　任意の集合$A$に対する恒等射$id_A$を$A$の任意の元$a$に対して\[id_A(a)=a\]となるように定義する。
@@ -175,7 +182,7 @@
 					&=g(a)&\text{{(恒等写像の定義)}}
 				\end{align*}
 				よって単位元律が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	
@@ -183,16 +190,14 @@
 
 	集合の圏を集合によって定義したが以降で使用する集合としての性質は、元の対応関係により射が等しいことを示せること以外はほとんど使用しない。仮に使用したとしても、直ちに圏論的な定義に置き換える。
 	\section{圏論の基本概念}
-	圏論では対象の性質をその対象を始域、終域とする射の性質によって与える。
-	直感的にはある対象を述べる場合、「どのように構成されるか」ではなく「どのように振舞うか」で述べるように思える。
-
+  この章では圏論で用いる基本的な概念を示していく。そこまで難しい概念は扱わないためこの段階で圏上の操作に慣れてほしい。\\
 	まずはこれまで図示してきた図式について数学的な定義を与える。
 	\begin{define}[図式(部分圏)]
-		ある圏$\cat{C}$のある図式(部分圏)とは、圏$\cat{C}$に含まれるいくつかの対象と、いくつかの射で構成される圏であり、任意の対象に対応する恒等射を含み、図式中の任意の合成可能な二射$\mor{f}{X}{Y},\mor{g}{Y}{Z}$が含まれるとき、その合成射$g\circ f$も含むような圏である。
+		ある圏$\cat{C}$のある\textbf{図式(部分圏)}とは、圏$\cat{C}$に含まれるいくつかの対象と、いくつかの射で構成される圏であり、任意の対象に対応する恒等射を含み、図式中の任意の合成可能な二射$\mor{f}{X}{Y},\mor{g}{Y}{Z}$が含まれるとき、その合成射$g\circ f$も含むような圏である。
 	\end{define}
 	また図式は単に図示するために使用する以外にも、圏論のいくつかの概念を定義するのにも用いられる。
 	\begin{define}[可換]
-		圏におけるいくつかの射と対象の集まりである図式が可換である。すなわち可換図式であるとは、図式中の対象を頂点、図式中の射を辺とする有向グラフを考えたとき、任意の頂点$C,C'$において$C$から$C'$への任意の経路によって表される射が等しいときである。
+		圏におけるいくつかの射と対象の集まりである図式が\textbf{可換}である。すなわち\textbf{可換図式}であるとは、図式中の対象を頂点、図式中の射を辺とする有向グラフを考えたとき、任意の頂点$C,C'$において$C$から$C'$への任意の経路によって表される射が等しいときである。
 	\end{define}
 	例えば以下の図式において$j\circ g=l\circ i,k\circ h=m\circ j,k\circ h\circ g=m\circ j\circ g = m\circ l\circ i$が成り立つとすると、これは可換図式になる。
 
@@ -216,7 +221,7 @@
 
 	\subsection{元}
 		集合の圏では集合から集合への関数の性質を述べるのに集合の元を用いることができるが、圏の対象では一般的に元を取ることができない。
-		しかしある圏$\cat{C}$に終対象$1$と呼ばれる特別な対象が存在するとき、$\cat{C}$の任意の対象$A$のある元(global elements)はある射$\mor{a}{1}{A}$で表せる。
+		しかしある圏$\cat{C}$に\textbf{終対象}$1$と呼ばれる特別な対象が存在するとき、$\cat{C}$の任意の対象$A$のある\textbf{元(global elements)}はある射$\mor{a}{1}{A}$で表せる。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (2, 0) {$A$};
@@ -236,9 +241,9 @@
 			集合の圏には終対象となる集合$1$が存在し、任意の集合$A$において元$\mor{a}{1}{A}$は集合における元に対し一意に対応する。
 		\end{prop}
 	\subsection{同型}
-	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため同型と呼ばれる同値関係を代わりに用いる。
+	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため\textbf{同型}と呼ばれる同値関係を代わりに用いる。
 	\begin{define}[同型]
-		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。この時、$A$から$B$への射はすべてが同型射である必要はない。また、このような射$i,i^{-1}$を同型射と呼ぶ。
+		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。このような射$i,i^{-1}$を\textbf{同型射}と呼ぶ。またこの時、$A$から$B$への射はすべてが同型射である必要はない。また、
 	\end{define}
 	\begin{center}
 		\begin{tikzpicture}[auto]
@@ -263,11 +268,12 @@
 		\end{tikzpicture}
 	\end{center}
 	同型は対象同士の相互互換のような関係性を表しているように思える。
-
-  \begin{proof}
-    同型が同値関係であることを証明する。
+  \begin{prop}
+    同型は同値関係である。すなわち反射律、対称律、推移律を満たす。
+  \end{prop}
+  \begin{proof}~
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[反射律] 任意の対象$A$で$A\cong A$が成り立つことを証明すれば良い。$\mor{id_A}{A}{A}$を同型射とその逆射$(id_A)^{-1}$をまた$id_A$とすると、\[id_A\circ id_A = id_A,\,id_A\circ id_A = id_A\]が成り立つから、$id_A$は同型射であり$A\cong A$である。
 
 				\item[対称律] 同型$A\cong B\Longrightarrow B\cong A$を示せば良い。同型$A\cong B$が同型射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$によって成り立つとする。この時、$i^{-1}$の逆射を$i$とみなすと、$i^{-1}\circ i=id_A$と$i\circ i^{-1}=id_B$が成り立つから、$B\cong A$となる。
@@ -295,14 +301,14 @@
           &=id_A&\text{(同型射の定義)}\\
         \end{align*}
         よって$j\circ i$と$i^{-1}\circ j^{-1}$は同型射となり、$A\cong C$が成り立つ。
-      \end{description}
+      \end{mydescription}
     \end{quote}
   \end{proof}
 
   \begin{prop}[同型と元]
     同型$A\cong B$で、$\mor{i}{A}{B}$が同型射である時、
-    \[i(a)=b\iff i^{-1}(b)=a\]であり、この時$a\sim b$とする。そしてこのような$a,b$の対応は一対一対応である。\\
-    すなわち、$a$に対して$a\sim b$となるような$b$は一意に存在する。
+    \[i(a)=b\iff i^{-1}(b)=a\]であり、この時$a\sim b$とする。そしてこのような$a,b$の対応は\textbf{一対一対応}である。\\
+    すなわち、$a$に対して$a\sim b$となるような$b$は\textbf{一意}に\textbf{存在}する。
     \begin{center}
       \begin{tikzpicture}[auto]
         \node (1) at (-2, 1) {$1$};
@@ -341,15 +347,16 @@
     集合の圏$\cat{Set}$において$A\cong B\iff a\sim b$なる$a,b$が一対一対応。
   \end{prop}  
 	\section{普遍性}
-	普遍性はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に存在する。というように記述され、図式中の射と一意に定まる射の対応関係を示すことが多い。このような議論は集合の圏における同型でも扱ったが、実際に以下で紹介する普遍性は集合の全単射で表せる。詳しくは別の章で説明する。
+	\textbf{普遍性}はある対象と射を特徴づけるために使用され、ある図式を可換にするような射が一意に存在する。というように記述される概念である。普遍性は圏論の中で様々な姿に形を変えて現れるとても重要な概念である。それもあって、少なくとも現時点では普遍性の厳密な定義は示すことができないが、そこまで意識しなくともよい。\\
+  普遍性では図式中の射と一意に定まる射の対応関係を示すことが多い。このような議論は集合の圏における同型でも扱ったが、実際に以下で紹介する普遍性は集合の全単射で表せる。詳しくは別の章で説明する。\\
 	\subsection{積}
+  集合における直積集合を圏に一般化した\textbf{積}を扱う。集合の圏が積の普遍性を持つことは別の章で証明するため、気になった場合は先にそちらを読んでほしい。
 	\begin{define}[積]
 		対象$A$と$B$が積を持つとは、以下の条件を満たす組$(A\times B,\pi_{L,A\times B},\pi_{R,A\times B})$が存在するときである。
 		\begin{quote}
-			\begin{description}
-			\item[積対象と射影射]ある積対象$A\times B$とある二つの射$\mor{\pi_{L,A\times B}}{A\times B}{A}$、$\mor{\pi_{R,A\times B}}{A\times B}{B}$が存在する。
-			この時、積対象と射影射の組$(A\times B,\pi_{L,A\times B},\pi_{R,A\times B})$を$A,B$の積と呼ぶ。
-
+			\begin{mydescription}
+			\item[積対象と射影射]ある対象$A\times B$とある二つの射$\mor{\pi_{L,A\times B}}{A\times B}{A}$、$\mor{\pi_{R,A\times B}}{A\times B}{B}$が存在する。\\
+      この時$A\times B$を\textbf{積対象}と呼び、$\pi_{L,A\times B},\ \pi_{R,A\times B}$を\textbf{射影射}と呼ぶことにする。また正確に記述したい場合、積対象と射影射の組$(A\times B,\pi_{L,A\times B},\pi_{R,A\times B})$を$A,B$の\textbf{積}と呼ぶことにする。
 
 			\begin{center}
 				\begin{tikzpicture}[auto]
@@ -374,12 +381,10 @@
 					\draw[->] (x) to node {$g$}(b);
 				\end{tikzpicture}
 			\end{center}
-			\item[普遍性]任意の二射$f,g$に対して図式を可換にする、つまり$\pi_A\circ\tuple{f,g}=f$、$\pi_B\circ\tuple{f,g}=g$が成り立つような射$\tuple{f,g}$を射の対とする。
-
-			またこのような射の対$\tuple{f,g}$は任意の二射$f,g$に対して一意に存在する。
-
-			射の対は一意に存在するが、ある射$h$が二射$f,g$に対する射の対である条件に一意性と存在性は含まれない。射の対であることを示すには単に二つの等式$\pi_A\circ h=f$、$\pi_B\circ h=g$が成り立つことを確認するだけでよい。
-
+			\item[普遍性]任意の二射$f,g$に対して図式を可換にする、つまり\[\pi_A\circ t=f,\ \pi_B\circ t=g\]が成り立つような射$t$が少なくとも一つは存在し、このような$t$を$\tuple{f,g}$と表記する。\\
+      この時、$\tuple{f,g}$を$f,g$に対する\textbf{射の対}と呼ぶことにする。
+			また射の対$\tuple{f,g}$は任意の二射$f,g$に対して\textbf{一意}に\textbf{存在}する。\\
+      ここでの射の対が一意であるとは、ある射$\mor{t}{X}{A\times B}$が\[\pi_A\circ t=f,\ \pi_B\circ t=g\]を満たす。すなわち射の対であるとき、同様にある射$\mor{h}{X}{A\times B}$も同様に\[\pi_A\circ h=f,\ \pi_B\circ h=g\]を満たし射の対であるとき、$h=t=\tuple{f,g}$が成り立つということである。\\
 			\begin{center}
 				\begin{tikzpicture}[auto]
 					\node (a) at (0, 0) {$A$};
@@ -393,18 +398,14 @@
 					\draw[->] (x) to node {$\tuple{f,g}$}(ab);
 				\end{tikzpicture}
 			\end{center}
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 
 	\end{define}
-
-	射の対が一意であるとは、射の対$\tuple{f,g}$に対し、ある射$\mor{h}{X}{A\times B}$が存在して$\pi_A\circ h=f$、$\pi_B\circ h=g$を満たすとき、$h=\tuple{f,g}$となることである。
-
-
 	また、図式を可換にする射の対$\tuple{f,g}$の存在性は任意の射の組み合わせに対して射の対が存在することを示し、一意性は射の対が含んでいる二つの射以外の判別可能な要素を含みようがないことを示している。
 
 	\begin{define}[積を持つ圏]
-		すべての圏、すべての二対象に対して積が存在するとは限らないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は積を持つという。
+		すべての圏、すべての二対象に対して積が存在するとは限らないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は\textbf{積を持つ}という。
 	\end{define}
 	ここで$X$に終対象$1$を当てはめると、元$\mor{a}{1}{A}$、元$\mor{b}{1}{B}$に対して$\pi_A\circ\tuple{a,b}=a$、$\pi_B\circ\tuple{a,b}=b$が成り立つような$\tuple{a,b}$が一意に存在することがわかる。
 	\begin{center}
@@ -421,7 +422,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	次に積の性質をいくつか見ていく。
+	次に積の普遍性を用いた証明の練習として、射の対が合成に対して分配的であることを示そう。
 	\begin{prop}[射の対の分配則]
 		$\mor{f}{X}{A}$、$\mor{g}{X}{B}$、$\mor{h}{Y}{X}$に対して\[\tuple{f,g}\circ h=\tuple{f\circ h,g\circ h}\]が成り立つ
 	\end{prop}
@@ -497,7 +498,7 @@
 		\end{tikzpicture}
 	\end{center}
 
-	次に、任意の積から任意の積への射である、射の積を定義していく。
+	次に任意の積から任意の積への射である、射の積を定義していく。
 	\begin{define}[射の積]
 		射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して射の積$\mor{f\times g}{A\times B}{A'\times B'}$を\[f\times g = \tuple{f\circ\pi_A,g\circ\pi_B}\]と定義する。
 		\begin{center}
@@ -602,12 +603,12 @@
 		\end{center}
 	\end{proof}
 	\begin{prop}[積の一意性]
-		$A$と$B$の積$A\times B$に対して、同様に$A$と$B$の積である対象$P$と射影射$\mor{\rho_A}{P}{A}$、$\mor{\rho_B}{P}{B}$が存在するとき、$A\times B\cong P$が成り立つ。またこの時、積は同型を除いて一意と呼ぶことがある。
+		$A$と$B$の積$A\times B$に対して、同様に$A$と$B$の積である対象$P$と射影射$\mor{\rho_A}{P}{A}$、$\mor{\rho_B}{P}{B}$が存在するとき、$A\times B\cong P$が成り立つ。またこの時、積は\textbf{同型を除いて一意}と呼ぶことがある。
 	\end{prop}
 	\begin{proof}
 		対象$A$、$B$の積$(A\times B,\pi_A,\pi_B)$、$(P,\rho_A,\rho_B)$の二つの積を考える必要があるが、ややこしいので少し性質を整理する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[積$(A\times B,\pi_A,\pi_B)$の性質]
 				積$A\times B$と射影射$\mor{\pi_A}{A\times B}{A}$、$\mor{\pi_B}{A\times B}{B}$において二つの射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$に対する射の対を$\mor{\tuple{f,g}}{X}{A\times B}$とする。また射$\tuple{f,g}$が積$A\times B$における射の対であるとき、
 				\begin{align*}
@@ -650,7 +651,7 @@
 						\draw[->] (x) to node {$[f,g]$}(ab);
 					\end{tikzpicture}
 				\end{center}
-			\end{description}
+			\end{mydescription}
 
 			積$A\times B$における射の対$\mor{\tuple{f,g}}{X}{A\times B}$に対し、積$P$における射の対$\mor{[f,g]}{X}{P}$は全く別の射である。そのため対の表記で区別することにする。
 
@@ -727,12 +728,14 @@
 	\end{proof}
 
 	\subsection{終対象}
+  対象の元で述べた終対象は実は普遍性で定義される。積の普遍性と似ているようで似ていない雰囲気であるが、
 	\begin{define}[終対象]
-		ある圏$\cat{C}$に終対象が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が一意に存在するときである。
+		ある圏$\cat{C}$に\textbf{終対象}が存在するとは、ある対象$1$が存在して圏$\cat{C}$の任意の対象$X$に対し射$\mor{!_X}{X}{1}$が\textbf{一意}に\textbf{存在}するときである。
 
 		元を取る操作とは射の向きが逆であることに注意してほしい。
 	\end{define}
-	射の対$\mor{\tuple{f,g}}{X}{A\times B}$は対象$X$と射$f,g$に対して一意に存在するのであったが、終対象への射$\mor{!_X}{X}{1}$は対応する射が存在しない。そのため、終対象への射は対象$X$に対して無条件で一意に存在することになる。
+  積対象$A\times B$はある対象$A,B$や二つの射影射に対して定義されるのであったが、終対象は既存の対象や射に対して定義されるものではない。後に証明するが、一つの圏に対して一つの終対象を考えると捉えて良い。\\
+	また同様に射の対$\mor{\tuple{f,g}}{X}{A\times B}$は対象$X$と射$f,g$に対して一意に存在するのであったが、終対象への射$\mor{!_X}{X}{1}$は対応する射が存在しない。そのため、終対象への射は対象$X$に対して無条件で一意に存在することになる。
 	\begin{prop}[終対象から終対象への射]
 		終対象から終対象への射は恒等射ただ一つである。
 	\end{prop}
@@ -750,7 +753,7 @@
 	\end{proof}
 
 	\begin{prop}[終対象の一意性]
-		終対象$1$に対して別の終対象$I$が存在するとき、$1\cong I$が成り立つ。
+		終対象$1$に対して別の終対象$I$が存在するとき、$1\cong I$が成り立つ。すなわち終対象は\textbf{同型を除いて一意}に定まる。
 	\end{prop}
 	\begin{proof}
 		終対象$1$における$I$からの一意に定まる射$\mor{!_I}{I}{1}$と終対象$I$における$1$からの一意に定まる射$\mor{i_1}{1}{I}$の合成$\mor{!_I\circ i_1}{1}{1}$と$\mor{i_1\circ!_I}{I}{I}$はそれぞれ終対象から終対象への射である。
@@ -817,12 +820,12 @@
   \subsection{集合の圏と積}
 	まずは集合の圏$\cat{Set}$と積の関係性を示す。元を指定して直接直積集合を定義する方法と、普遍性を用いて直積集合の周りの写像の性質を述べて定義する方法の二つが同値であることを確認してほしい。
 	\begin{define}[直積集合]
-		集合$A$と$B$の直積集合$A\times B$を\[A\times B =\{\tuple{a,b}\ |\ a\in A,\ b\in B\}\]と定義する。
+		集合$A$と$B$の\textbf{直積集合}$A\times B$を\[A\times B =\{\tuple{a,b}\ |\ a\in A,\ b\in B\}\]と定義する。
 	\end{define}
-	\begin{prop}
-		集合の圏$\cat{Set}$の対象$A$と$B$の積$A\times B$は集合$A$と$B$の直積集合である。
+	\begin{prop}[直積と積の同値性]
+    $A\times B$が集合の圏$\cat{Set}$上の積$\iff A\times B$が直積集合
 	\end{prop}
-	\begin{proof}
+	\begin{proof}[$\Longrightarrow$]
 		任意の元$\mor{a}{1}{A}$、$\mor{b}{1}{B}$に対して射の対の存在性により元の対$\mor{\tuple{a,b}}{1}{A\times B}$が存在する。
 		また、$A\times B$の任意の元$\mor{f}{1}{A\times B}$は射影射との合成\[\pi_A\circ f=a',\ \pi_B\circ f=b'\]により、何かしらの元$a',b'$に分解できる。この時、射の対の一意性から$f=\tuple{a',b'}$が成り立つから、$f$は元の対であり順序対になる。そのため順序対とならないような元は含まれないことがわかる。
 
@@ -841,11 +844,7 @@
 			\end{tikzpicture}
 		\end{center}
 	\end{proof}
-
-	\begin{prop}
-	集合$A$と$B$の直積集合$A\times B$は集合の圏$\cat{Set}$における積である。
-	\end{prop}
-	\begin{proof}
+	\begin{proof}[$\Longleftarrow$]
 		限定的ではあるが、まずは任意の対象$X$に終対象$1$を当てはめた場合を見ていき、その後任意の対象$X$に拡張する。
 		射影射となる射影写像$\pi_A,\pi_B$を任意の順序対$\tuple{a,b}$において\[\pi_A(\tuple{a,b})=a,\ \pi_B(\tuple{a,b})=b\]と定義する。
 
@@ -902,18 +901,16 @@
 	
   \subsection{集合の圏と終対象}
 	\begin{define}[一点集合]
-		何かしらの要素をただ一つ持つような集合$\{*\}$を一点集合とする。
+		何かしらの要素をただ一つ持つような集合$\{*\}$を\textbf{一点集合}とする。
 	\end{define}
-	\begin{prop}
-		集合の圏$\cat{Set}$の終対象は一点集合である。
+	\begin{prop}[一点集合と終対象の同値性]
+		$1$は集合の圏$\cat{Set}$の終対象$\iff 1$は一点集合$\{*\}$
 	\end{prop}
-	\begin{proof}
+  $\cat{Set}$における終対象の一意性は、一点集合のただ一つの元を区別しないということである。
+	\begin{proof}[$\Longrightarrow$]
 		終対象$1$の元、すなわち射$\mor{*}{1}{1}$は終対象から終対象への射であり、恒等射ただ一つであるから終対象の元はただ一つである。
 	\end{proof}
-	\begin{prop}
-		一点集合は集合の圏$\cat{Set}$における終対象である。
-	\end{prop}
-	\begin{proof}
+	\begin{proof}[$\Longleftarrow$]
 		任意の集合$A$と一点集合$1$においてある写像$\mor{!_A}{A}{1}$が一意に存在することを示せばよい。
 		任意の元$\mor{a}{1}{A}$において$!_A(a)=*$と定義すると、このような写像は任意の集合で定義できることがわかる。
 		また一点集合の元がただ一つしかないので、どのような写像であっても任意の元$a$は必ず$*$に対応することになる。つまり$!_A(a)=*$以外の対応付けが行えないので写像$!_A$は一意に存在することがわかる。
@@ -923,11 +920,11 @@
 	次に集合の圏に限定するが、終対象からの射を元とみなせることを証明する。
 
   \begin{define}[定写像]
-    集合の圏$\cat{Set}$において、任意の対象$A,B$と$B$の任意の元$b$に対する定写像を$\mor{\varDelta b}{A}{B}$とし、$A$の任意の元$a$に対して$\varDelta b(a)=b$となる写像とする。
+    集合の圏$\cat{Set}$において、任意の対象$A,B$と$B$の任意の元$b$に対する\textbf{定写像}を$\mor{\varDelta b}{A}{B}$とし、$A$の任意の元$a$に対して$\varDelta b(a)=b$となる写像とする。
   \end{define}
   定写像は常に一定の値を返す定数関数のような写像である。次に元をその元を返す定写像に写す写像である、対角写像を定義する。
   \begin{define}[対角写像]
-    集合の圏$\cat{Set}$において任意の対象$A,B$に対し、対角写像$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$を$\varDelta(a)=\varDelta a$と定義する。すなわち、任意の元$a,b$に対して$\varDelta(a)(b)=a$である。
+    集合の圏$\cat{Set}$において任意の対象$A,B$に対し、\textbf{対角写像}$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$を$\varDelta(a)=\varDelta a$と定義する。すなわち、任意の元$a,b$に対して$\varDelta(a)(b)=a$である。
   \end{define}
 	\begin{prop}[集合の元と終対象]
 		任意の集合$A$とある一点集合$1$に対し$A\cong\arset{Set}{1}{A}$が成り立つ。
@@ -977,7 +974,7 @@
 				\draw[->] (x2) to node[swap]{$f\circ g$}(b);
 			\end{tikzpicture}
 		\end{center}
-		と定義する。
+		と定義する。またこのような写像を\textbf{共変射写像}と呼ぶことにする。
 	\end{define}
   
   圏の定義で確認した射の合成を行う写像\[\mor{\circ}{\arset{C}{A}{B}\times\arset{C}{X}{A}}{\arset{C}{X}{B}}\]
@@ -988,7 +985,7 @@
   共変射写像では射を左から合成する写像を考えたが、次は射を右から合成する写像である反変射写像を考える。
 
 	\begin{define}[反変射写像]
-		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{B}$に射$f$を右から合成する写像を
+		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{B}$に射$f$を右から合成する\textbf{反変射写像}を
 		\begin{align*}
 			&\mor{\arset{C}{f}{X}}{\arset{C}{B}{X}}{\arset{C}{A}{X}}\\
 			&\arset{C}{f}{X}(g)=g\circ f
@@ -1017,8 +1014,7 @@
 
   次に射写像の応用として、対象の同型との関係性を見る。
 
-  \begin{prop}[同型射となる共変射写像]
-    ある圏$\cat{C}$においてある二対象$B\cong B'$が同型であるならば、任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$が成り立つ。
+  \begin{prop}[同型射となる共変射写像]ある圏$\cat{C}$において$B\cong B'\Longrightarrow$任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$
   \end{prop}
 
   \begin{proof}
@@ -1060,13 +1056,13 @@
   
   また同様の性質が反変射写像でも成り立つ
   \begin{prop}[同型射となる反変射写像]
-    ある圏$\cat{C}$においてある二対象$A\cong A'$が同型であるならば、任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$が成り立つ。
+    ある圏$\cat{C}$において$A\cong A'\iff$任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$
   \end{prop}
 
   一つ前の命題の任意の対象$X$に終対象$1$を当てはめると、\[B\cong B'\Longrightarrow \arset{C}{1}{B}\cong\arset{C}{1}{B'}\]となる。$\arset{C}{1}{B}$は$B$の元の集合である。それらが同型であるということは、$B$の元と$B'$の元が一対一対応をするということであり、前に示した元と同型の関係性そのものであることが分かる。\\
   さらに任意の対象$X$に拡張することで、元$\mor{b}{1}{B}$が一対一対応をするだけでなく、射$\mor{f}{X}{B}$までもが一対一対応をすることが分かった。射の対応も元と同様に$f\sim f'$と表すことにする。
   \begin{define}[評価射]
-		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して評価射を
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して\textbf{評価射}を
 		\begin{align*}
 			\mor{&ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}\\
 			&ev_{A,B}(\tuple{f,b})=f(b)\\
@@ -1077,7 +1073,7 @@
 	\end{define}
 
 	\begin{define}[余評価射]
-		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して余評価射を
+		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して\textbf{余評価射}を
 		\begin{align*}
 			\mor{&ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}\\
 			&ce_{A,B}(a)=\lambda x.\tuple{a,x}\mor{}{B}{A\times B}\\
@@ -1241,7 +1237,7 @@
 	\begin{define}
 		ある圏$\cat{C}$からある圏$\cat{D}$への関手$\functor{F}{C}{D}$は以下の関数と公理から構成される。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
 		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
 
@@ -1249,7 +1245,7 @@
 		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もある。
 		\item[恒等射の保存] 射関数は圏$\cat{C}$の恒等射を$\cat{D}$の恒等射に対応させる。つまり$F(id_A)=id_{FA}$が成り立つ。
 		\item[射の合成の保存]$\cod(f)=\dom(g)$であるとき、$F(g\circ f)=Fg\circ Ff$が成り立つ。
-		\end{description}
+		\end{mydescription}
 		\end{quote}
 	\end{define}
 
@@ -1438,7 +1434,7 @@
 	\begin{define}[積関手]
 		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を積関手と呼ぶ。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 			\item[対象関数] 対象関数を$(-\times B)(A)=A\times B$と定義する。
 			\item[射関数] 圏$C$の任意の対象$A,A'$に対する関数$(-\times B)_{A,A'}$を任意の射$\mor{f}{A}{A'}$に対して
 			\begin{align*}
@@ -1500,7 +1496,7 @@
 				\end{tikzpicture}
 			\end{center}
 			よって積関手は射の合成を保つことが示せた。
-		\end{description}
+		\end{mydescription}
 		\end{quote}
 	\end{define}
 	\begin{prop}[関手の同型の保存]
@@ -1528,7 +1524,7 @@
 	\begin{define}[合成関手]
 		関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を以下の要素によって定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 			\item[対象関数]関手$F,G$のそれぞれの対象関数$F,G$に対して$G\circ F$の対象関数を$G\circ F$と定義する。つまり圏$\cat{C}$の任意の対象$A$に対して\[(G\circ F)(A)=G(FA)\]となるような写像である。
 			\item[射関数]関手$F,G$のそれぞれの射関数$F,G$に対して$G\circ F$の射関数を$G\circ F$と定義する。
 			つまり圏$\cat{C}$の任意の対象$A,A'$と任意の射$\mor{f}{A}{A'}$に対して\[\mor{(G\circ F)_{}(f)=G(Ff)}{GFA}{GF{A'}}\]となるような写像である。
@@ -1608,18 +1604,18 @@
 					\draw[->,bend left =30] (gfa) to node{$GF(g\circ f)$}(gfa'');
 				\end{tikzpicture}
 			\end{center}
-		\end{description}
+		\end{mydescription}
 		\end{quote}
 	\end{define}
 	\begin{define}[恒等関手]
 		任意の圏$\cat{C}$の恒等関手$\functor{Id_{\cat{C}}}{C}{C}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 対象関数を恒等写像$Id_{\cat{C}}(A)=A$と定義する。
 				\item[射関数] 射関数を恒等写像$Id_{\cat{C}}(f)=f$と定義する。
 				\item[恒等射の保存] $Id_{\cat{C}}(id_C)=id_C=id_{Id_{\cat{C}}(C)}$より恒等射を保つ
 				\item[射の合成の保存] $Id_{\cat{C}}(g\circ f)=g\circ f=Id_{\cat{C}}(g)\circ Id_{\cat{C}}(f)$より射の合成を保つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	\begin{define}[小さい圏の圏]
@@ -1627,7 +1623,7 @@
 
 		集合の圏の時と同様に、小さい圏の「小さい」とは簡単に説明をするのであれば自己言及を防ぐための条件付けであり、実際に$\cat{Cat}$は小さい圏ではないため$\cat{Cat}$の対象にはならない。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象]　任意の小さい圏
 				\item[射]　任意の小さい圏$\cat{A,B}$の間の任意の関手$\functor{F}{A}{B}$
 				\item[射の合成]　関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$に対して合成した関手$\functor{G\circ F}{C}{C'}$をとる操作を射の合成とする。
@@ -1652,7 +1648,7 @@
 				\[\mor{Id_\cat{C}=id_{\obj{A}}}{\obj{A}}{\obj{A}}\]
 				\[\mor{Id_{\cat{C}A,A'}=id_{\arset{C}{A}{A'}}}{\arset{C}{A}{A'}}{\arset{C}{A}{A'}}\]
 				となるため、写像の単位元律より$Id_{\cat{C}}\circ F=F$、$G\circ Id_{\cat{C}}=G$が成り立ち単位元律が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	\subsection{積圏と一点離散圏}
@@ -1660,7 +1656,7 @@
 	\begin{define}[積圏]
 		ある圏$\cat{A,B}$に対する積圏$\cat{A\times B}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象] \[\obj{A\times B}=\obj{A}\times\obj{B}\]
 
 				すなわち、圏$\cat{A}$と圏$\cat{B}$の任意の対象$A,B$の対$\tuple{A,B}$が$\cat{A\times B}$の対象であり、紛らわしくないように\[\tuple{A,B}=\pcobj{A,B}\]と表記する。
@@ -1728,7 +1724,7 @@
 					&=\pcobj{f',g'}&\text{(圏$\cat{A,B}$の単位元律)}
 				\end{align*}
 				よって単位元律が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 
@@ -1736,7 +1732,7 @@
 	\begin{define}[射影関手]
 		関手$\functor{\Pi_{L,\cat{A\times B}}}{A\times B}{A}$を以下の写像で定義する。また射影射と同様に紛らわしくない場合に$\Pi_{L,\cat{A\times B}}=\Pi_\cat{A}$と表記する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 積圏の対象の定義より、圏$\cat{A\times B}$の対象の集合は$\obj{A}\times\obj{B}$である。これを集合の圏における積とみなし、射影写像\[\mor{\Pi_\cat{A}=\pi_{\obj{A}}}{\obj{A}\times\obj{B}}{\obj{A}}\]を対象関数とする。
 				すなわち$\Pi_\cat{A}(\pcobj{A,B})=A$となるような写像である。
 				\item[射関数] 対象関数と同様に射集合$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$の射影写像\[\mor{\Pi_\cat{A}=\pi_{\arset{A}{A}{A'}}}{\arset{A}{A}{A'}\times\arset{B}{B}{B'}}{\arset{A}{A}{A'}}\]を射関数とする。
@@ -1749,14 +1745,14 @@
 					&=\Pi_\cat{A}(\pcobj{f',g'})\circ\Pi_A(\pcobj{f,g})&\text{(射関数の定義)}
 				\end{align*}
 				よって射の合成を保つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	また同様に$\functor{\Pi_{R,\cat{A\times B}}}{A\times B}{B}$も定義できる。
 	\begin{define}[関手の対]
 		関手$\functor{F}{X}{A}$と$\functor{G}{X}{B}$の対$\functor{\tuple{F,G}}{X}{A\times B}$を以下の写像で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 関手$F,G$の対象関数$\mor{F}{\obj{X}}{\obj{A}}$、$\mor{G}{\obj{X}}{\obj{B}}$の対
 				\begin{align*}
 					&\mor{\tuple{F,G}}{\obj{X}}{\obj{A\times B}}\\
@@ -1808,7 +1804,7 @@
 					&=\tuple{F,G}(f')\circ\tuple{F,G}(f)&\text{(射関数の定義)}
 				\end{align*}
 			よって射の合成を保つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	\begin{prop}
@@ -1943,7 +1939,7 @@
 	\begin{define}[双積関手]
 		積を持つ圏$\cat{C}$上の双積関手$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 対象関数を積圏$\cat{C\times C}$の任意の対象$\pcobj{A,B}$に対して\[(-\times -)(A,B)=A\times B\]と定義する。
 				\item[射関数] 二対象$\pcobj{A,B},\pcobj{A',B'}$に対する射関数を任意の射$\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}$に対して\[(-\times -)_{\pcobj{A,B},\pcobj{A',B'}}(f,g)=f\times g\]と定義する。
 				\begin{center}
@@ -1979,7 +1975,7 @@
 					&=(-\times-)(\pcobj{f',g'}\circ\pcobj{f,g})&\text{(積圏の射の合成の定義)}
 				\end{align*}
 				よって射の合成を保つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	対象の積と圏の積が紛らわしいが、まず圏の積の対象$\pcobj{A,B}$は圏$\cat{C}$の$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$[A,B]$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。ただし、双積関手で写された対象が積の普遍性を満たすかどうかは現段階では説明できない。
@@ -1988,7 +1984,7 @@
 	\begin{define}[双対圏]
 		ある圏$\cat{C}$に対する双対圏$\cat{C}^{op}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象]　$\obj{C^{op}}=\obj{C}$とする。
 
 				また圏$\cat{C}$の対象$A$に対応する双対圏$\cat{C^{op}}$の対象も$A$であるが、$\cat{C^{op}}$の対象は$A^{op}$として表記上区別する。
@@ -2049,14 +2045,14 @@
 					&=g^{op}&\text{(単位元律)}\\
 				\end{align*}
 				よって単位元律を見たす。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	
 	\begin{define}[双対関手]
 		ある圏$\cat{C,D}$に対する双対圏$\cat{C}^{op},\cat{D}^{op}$と関手$\functor{F}{C}{D}$に対して、双対関手$\functor{F^{op}}{C^{op}}{D^{op}}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数]対象関数$\mor{F^{op}}{C^{op}}{D^{op}}$を任意の対象$A^{op}$に対して
 				\[F^{op}(A^{op})=(FA)^{op}\]と定義する。
 				
@@ -2107,7 +2103,7 @@
 					&=(Fg)^{op}\circ (Ff)^{op}&\text{(双対圏の射の合成)}\\
 					&=F^{op}f^{op}\circ F^{op}g^{op}&\text{(双対関手の射関数の定義)}
 				\end{align*}
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 
@@ -2115,7 +2111,7 @@
 	\begin{define}[反変関手]
 		圏$\cat{C}$から圏$\cat{D}$への反変関手と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] $\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
 				これは通常の関手と同じである。
 				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]これも同様に対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。				
@@ -2160,7 +2156,7 @@
 					\end{tikzpicture}
 				\end{center}
 				双対圏の射の合成と同じように、合成射を写すときは合成の順序を逆にして写す。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	この反変関手は関手とついているが、双対関手とは違い以前定義した関手の性質を満たさず、関手とはならない。そのため区別が必要な場合、一般の関手を共変関手と呼ぶことにする。
@@ -2273,7 +2269,7 @@
 	\begin{define}[共変Hom関手]
 		任意の圏$\cat{C}$とそのある対象$X$における共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 圏$\cat{C}$の任意の対象$A$に対して対象関数を
 				\begin{align*}
 					&\mor{\arset{C}{X}{-}}{\obj{C}}{\obj{Set}}\\
@@ -2303,7 +2299,7 @@
 				\end{center}
 				\item[恒等射の保存] 共変射写像の合成の保存より、$\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}$が成り立つ。
 				\item[射の合成の保存] 共変射写像の恒等射の保存より、$\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}$が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	
@@ -2311,7 +2307,7 @@
 		\begin{define}[反変Hom関手]
 		任意の圏$\cat{C}$とそのある対象$X$における反変Hom関手$\functor{\arset{C}{X}{-}}{C^{op}}{Set}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 圏$\cat{C}$の任意の対象$A$に対して対象関数を
 				\begin{align*}
 					&\mor{\arset{C}{-}{X}}{\obj{C}}{\obj{Set}}\\
@@ -2341,7 +2337,7 @@
 				\end{center}
 				\item[恒等射の保存] 共変射写像の合成の保存と同様に$\arset{C}{id_A}{X}=id_{\arset{C}{A}{X}}$が成り立つ。
 				\item[射の合成の保存] 共変射写像の恒等射の保存と同様に$\arset{C}{g\circ f}{X}=\arset{C}{f}{X}\circ\arset{C}{g}{X}$が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 	\begin{prop}[Hom関手の積の保存]
@@ -2495,7 +2491,7 @@
 	\begin{define}[双Hom関手]
 		任意の圏$\cat{C}$における双Hom関手$\functor{C(-,-)}{C^{op}\times C}{Set}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 積圏$\cat{C^{op}\times C}$の任意の対象$[A,B]$に対して対象関数を
 				\begin{align*}
 					&\mor{\arset{C}{-}{-}}{\obj{C^{op}\times C}}{\obj{Set}}\\
@@ -2574,7 +2570,7 @@
 					&=\arset{C}{f\circ f'}{g'\circ g}(h)&\text{(射写像の定義)}\\
 				\end{align*}
 				よって$\arset{C}{f'}{g'}\circ\arset{C}{f}{g}=\arset{C}{f\circ f'}{g'\circ g}$となり射の合成の保存が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
 
@@ -2622,7 +2618,7 @@
 
 		この時、双関手$\functor{H}{A\times B}{C}$を
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 対象関数\[\mor{H}{\obj{A\times B}}{\obj{C}}\]を積圏の任意の対象$\pcobj{A,B}$に対して
 				\[H(A,B)={F_B}A={G_A}B\]と定義する。
 				\item[射関数]射関数\[\mor{H_{\pcobj{A,A'},\pcobj{B,B'}}}{\arset{A\times B}{\pcobj{A,B}}{\pcobj{A',B'}}}{\arset{C}{H(A,B)}{H(A',B')}}\]を積圏の任意の射\[\mor{\pcobj{f,g}}{\pcobj{A,B}}{\pcobj{A',B'}}\]に対して、\[H_{\pcobj{A,A'},\pcobj{B,B'}}(\pcobj{f,g})={G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]と定義する。
@@ -2643,7 +2639,7 @@
 					&=G_{A''}(g'\circ g)\circ F_B(f'\circ f)&\text{($G_{A''}$と$F_B$の合成の保存)}\\
 					&=H(f'\circ f,g'\circ g)&\text{(射関数の定義)}\\
 				\end{align*}
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 		証明が少し複雑になってしまったが、何とか証明できた。
 	\end{define}
@@ -2684,7 +2680,7 @@
   \begin{define}
 		二つの関手$\functor{F,G}{C}{D}$の間の自然変換$\natf{\alpha}{F}{G}{C}{D}$は以下で定義される成分と呼ばれる射で構成される。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[成分] 圏$\cat{C}$の任意の対象$X$に対する自然変換$\alpha$の成分$\alpha_X$とは\[\mor{\alpha_X}{FX}{GX}\]となるような射である。つまりこの成分をすべての対象の分だけ集めたものが自然変換である。
 				\item[自然性]
 				自然変換とその成分は以下の自然性を満たさなければならない。
@@ -2718,7 +2714,7 @@
         これによって関手$F$と対象$A$によって添字付けられた対象$FA$と、関手$G$と対象$A$によって添字付けられた対象$GA$の間の射$\mor{\alpha_A}{FA}{GA}$を、自然変換$\nat{\alpha}{F}{G}$と対象$A$によって添字付けられた射であると考えることができる。
 
         関手による射の添字付けは$f=F(i)$のようにまた別の射$i$によって行われるが、自然変換による添字付けは$f=\alpha_A$のように、対象$A$が添字になる。応用を考える上ではこの二つを区別してほしい。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 		次に具体的な自然変換の例を紹介する。
 	\end{define}
@@ -2855,7 +2851,7 @@
   \begin{define}[定関手]
     圏$\cat{D}$の任意の対象$D$に対する定関手$\functor{\varDelta D}{C}{D}$を次のように定義する。
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 対象関数\[\mor{\varDelta D}{\obj{C}}{\obj{D}}\]
 				を定写像$\mor{\varDelta D}{\obj{C}}{\obj{D}}$とする。すなわち圏$\cat{C}$の任意の対象$C$に対して$\varDelta D(C)=D$である。
 				\item[射関数] 
@@ -2863,7 +2859,7 @@
         すなわち、任意の射$\mor{f}{A}{B}$に対して$\varDelta D (f)=id_D$となる。
 				\item[恒等射の保存] 射関数の定義より、任意の恒等射$id_C$に対して$\varDelta D (id_C)=id_D=id_{\varDelta D(C)}$であり成り立つ。
 				\item[射の合成の保存] 同様に任意の合成可能な射$f,g$に対して、\[\varDelta D (g\circ f)=id_D=id_D\circ id_D=\varDelta D (g)\circ \varDelta D (f)\]であり成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
     \begin{center}
       \begin{tikzpicture}[auto]
@@ -3219,7 +3215,7 @@
 	\begin{define}[関手圏]
 		二つの圏$\cat{C,D}$に対する関手圏$\funccat{C}{D}$を以下の要素で定義する。
 		\begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象] $\obj{\funccat{C}{D}}$を$\cat{C}$から$\cat{D}$への関手の全体とする。すなわち、$\cat{Cat}$における射集合によって$\obj{\funccat{C}{D}}=\arset{Cat}{C}{D}$と表せる。
 				\item[射]任意の関手$\functor{F,G}{C}{D}$に対して、射集合$\arset{\funccat{C}{D}}{F}{G}$を関手$F,G$の間の自然変換全体の集合とする。
 				\item[射の合成] 任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$を合成した自然変換を、自然変換の垂直合成によって$\beta\cdot\alpha$と定義する。
@@ -3242,7 +3238,7 @@
           &=\alpha_X&\text{圏$\cat{D}$の単位元律}
         \end{align*}
         $\beta$に対しても同様に示せる。よって$ID_G\cdot\alpha=\alpha,\, \beta\cdot ID_G=\beta$であり、単位元律が成り立つ。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
 	\end{define}
   まだ圏論的な操作からは関手圏を定義することはできないが、関手圏の対象の集合や射集合が定義できることは関手、自然変換が写像、射集合を用いて定義されていることから簡単に分かる。
@@ -3251,7 +3247,7 @@
   \begin{define}[対角関手]
     圏$\cat{C}$から$\cat{D}$への定関手を与える対角関手$\functor{\varDelta}{D}{\funccat{C}{D}}$を以下のように定義する。
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数] 対象関数\[\mor{\varDelta}{\obj{D}}{\obj{\funccat{C}{D}}}\]
 				を圏$\cat{D}$の任意の対象$D$に対して定関数$\varDelta(D)=\varDelta D$と定義する 
 				\item[射関数] 
@@ -3315,7 +3311,7 @@
           &=g\circ f&\text{(射関数の定義)}
         \end{align*}
         よって任意の成分について\[(\varDelta(g\circ f))_C=g\circ f=(\varDelta g)_C\circ (\varDelta f)_C\]が成り立つから$\varDelta(g\circ f)=\varDelta g\circ \varDelta f$となり、射の合成を保存する。
-			\end{description}
+			\end{mydescription}
 		\end{quote}
   \end{define}
 
@@ -3361,7 +3357,7 @@
     また定写像と同様に$\funccat{C}{1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
     関手$\functor{\varDelta^{-1}}{C^1}{C}$を
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[対象関数]対象関数\[\mor{\varDelta^{-1}}{\obj{C^1}}{\obj{C}}\]を圏$\funccat{C}{1}$の任意の対象$\varDelta A$に対して$\varDelta^{-1}(\varDelta A)=\varDelta A(*)=A$と定義する。\\
         この対象関数の全域性は先ほど示した$\funccat{C}{1}$の性質によるものである。
 				\item[射関数]射関数\[\mor{\varDelta^{-1}}{\arset{\funccat{1}{C}}{\varDelta A}{\varDelta B}}{\arset{C}{A}{B}}\]を任意の定自然変換$\nat{\varDelta f}{\varDelta A}{\varDelta B}$に対して$\varDelta^{-1}(\varDelta f) = (\varDelta f)_*=f$と定義する。
@@ -3378,7 +3374,7 @@
           &=g\circ f&\text{(射関数の定義)}\\
           &=\varDelta^{-1}(\varDelta g)\circ\varDelta^{-1}(\varDelta f)&\text{(射関数の定義)}
         \end{align*}
-			\end{description}
+			\end{mydescription}
 		\end{quote}
     対象関数$\varDelta,\ \varDelta^{-1}$において、圏$\cat{C}$の任意の対象$A$に対して
     \begin{align*}
@@ -3771,7 +3767,7 @@
   \begin{define}[関手を合成する関手]
     関手を合成する関手$\functor{\circ}{\funccat{D}{E}\times \funccat{C}{D}}{\funccat{C}{E}}$を以下のように定義する。
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 		\item[対象関数]対象関数
     \[\functor{\circ}{\obj{\funccat{D}{E}\times\funccat{C}{D}}}{\obj{\funccat{C}{E}}}\]は、積圏の対象の集合の定義より、\[\functor{\circ}{\obj{\funccat{D}{E}}\times\obj{\funccat{C}{D}}}{\obj{\funccat{C}{E}}}\]と表せる。また関手圏の対象集合の定義より、\[\mor{\circ}{\arset{Cat}{\cat{D}}{\cat{E}}\times\arset{Cat}{\cat{C}}{\cat{D}}}{\arset{Cat}{\cat{C}}{\cat{E}}}\]とも表せるから、$\cat{Cat}$の定義に用いられる関手の合成を対象関数とする。
 		\item[射関数]任意の関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$に対する射関数\[\mor{\circ}{\arset{\funccat{D}{E}\times\funccat{C}{D}}{\tuple{F',F}}{\tuple{G',G}}}{\arset{\funccat{C}{E}}{F'\circ F}{G'\circ G}}\]を任意の自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して
@@ -3852,7 +3848,7 @@
       \end{tikzpicture}
     \end{center}
     よって$(\beta'\cdot\beta)\circ(\alpha'\cdot\alpha)=(\beta'\circ\alpha')\cdot(\beta\circ\alpha)$である。またこの性質を相互交換法則と呼ぶことにする。
-		\end{description}
+		\end{mydescription}
 		\end{quote}
   \end{define}
   関手の合成を関手として定義できたわけだが、これを$\cat{Cat}$における射の合成の代わりに使用できるかと考えるが、それを行うには圏の定義から考え直さなくてはいけなくなる。現時点で触れる予定は無いが、興味がある場合は2-Categoryに関する文献を読むと良い。\\
@@ -3959,11 +3955,11 @@
   \end{prop}
   \begin{proof}
     \begin{quote}
-			\begin{description}
+			\begin{mydescription}
 				\item[反射律] $C\simeq C$を示せば良い。二つの関手を$Id_\cat{C},Id_\cat{C}$とすると、$Id_\cat{C}\circ Id_\cat{C}=Id_\cat{C}$である。$Id_\cat{C}\circ Id_\cat{C}$と$Id_\cat{C}$が等しいから、同型の反射律より$Id_\cat{C}\circ Id_\cat{C}\cong Id_\cat{C}$が成り立つ。
 				\item[対称律]定義の対称性より自明
 				\item[推移律]
-      \end{description}
+      \end{mydescription}
     \end{quote}
   \end{proof}
   \begin{prop}[射関数の自然同型]
