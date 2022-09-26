@@ -1235,11 +1235,11 @@
   この章では主に、この添字づけを行うような操作を圏から圏への特殊な写像である関手で一般化する。
 
 	\begin{define}
-		ある圏$\cat{C}$からある圏$\cat{D}$への関手$\functor{F}{C}{D}$は以下の関数と公理から構成される。
+		ある圏$\cat{C}$からある圏$\cat{D}$への\textbf{関手}$\functor{F}{C}{D}$は以下の関数と公理から構成される。
 		\begin{quote}
 			\begin{mydescription}
-		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
-		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
+		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる写像を持つ必要がある。これを\textbf{対象関数}とよび、\[\mor{F}{\obj{C}}{\obj{D}}\]と表すことにする。
+		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる写像をそれぞれ持つ必要がある。これを\textbf{射関数}とよび、\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]と表す。また対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
 
 		つまり、圏$\cat{C}$に含まれる任意の射$\mor{f}{A}{B}$、$\mor{k}{X}{Y}$に対して\[F(f)=F_{A,B}(f)\]\[F(k)=F_{X,Y}(k)\]と置き換えてほしい。
 		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もある。
@@ -1390,7 +1390,7 @@
   関手$T$の例で言えば、圏$\cat{D}$の対象$X$は$TA$として圏$\cat{C}$の対象$A$によって添字付けられた対象であると考えられる。また、$X$は別の関手$S$によって$SA,SB$として添字付けられていると考えることもできる。
 
 	\begin{define}[関手の同一性]
-		関手$\functor{F,G}{C}{D}$が同一、$F=G$であるとは、それぞれの対象関数、射関数が写像として等しいということである。
+		関手$\functor{F,G}{C}{D}$が\textbf{同一}、$F=G$であるとは、それぞれの対象関数、射関数が写像として等しいということである。
 	\end{define}
 
 
@@ -1432,7 +1432,7 @@
   次に最初に述べた積対象$A\times B$の添字づけについて実際に関手で定式化する。
   ただし、積対象$A\times B$は二つの対象$A,B$によって添字付けられているが、今回は対象$A$にだけを量化し、対象$B$を固定して考える。
 	\begin{define}[積関手]
-		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を積関手と呼ぶ。
+		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を\textbf{積関手}と呼ぶ。
 		\begin{quote}
 			\begin{mydescription}
 			\item[対象関数] 対象関数を$(-\times B)(A)=A\times B$と定義する。
@@ -1517,7 +1517,7 @@
 		$Fi^{-1}\circ Fi=id_{FA}$、$Fi\circ Fi^{-1}=id_{FB}$より、$Fi,Fi^{-1}$が同型射なる。
 		よって$FA\cong FB$が成り立つ。
 	\end{proof}
-
+  一般に逆は成り立たないことに注意してほしい。
 	\subsection{小さい圏の圏}
 	関手は圏から圏への一種の写像であるため、集合の圏のように、圏を対象とし関手を射とするような圏である圏の圏を考えることができそうである。
 	そのためにもまずは合成射、恒等射にあたる関手を定義していく。
@@ -1608,7 +1608,7 @@
 		\end{quote}
 	\end{define}
 	\begin{define}[恒等関手]
-		任意の圏$\cat{C}$の恒等関手$\functor{Id_{\cat{C}}}{C}{C}$を以下の要素で定義する。
+		任意の圏$\cat{C}$の\textbf{恒等関手}$\functor{Id_{\cat{C}}}{C}{C}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 対象関数を恒等写像$Id_{\cat{C}}(A)=A$と定義する。
@@ -1619,7 +1619,7 @@
 		\end{quote}
 	\end{define}
 	\begin{define}[小さい圏の圏]
-		小さい圏の圏$\cat{Cat}$は以下の要素で構成される。
+		\textbf{小さい圏の圏}$\cat{Cat}$は以下の要素で構成される。
 
 		集合の圏の時と同様に、小さい圏の「小さい」とは簡単に説明をするのであれば自己言及を防ぐための条件付けであり、実際に$\cat{Cat}$は小さい圏ではないため$\cat{Cat}$の対象にはならない。
 		\begin{quote}
@@ -1654,17 +1654,16 @@
 	\subsection{積圏と一点離散圏}
   一般的に圏は対象の集合や射集合を具体的な元を指定することで定義して、それが公理を満たすか確認していたが、すでに集合や写像は圏論的な操作で扱うことができる。そのため、これから$\cat{Cat}$における積対象となる積圏と、終対象となる一点離散圏、その周辺の関手を集合の圏を用いて定義していく。
 	\begin{define}[積圏]
-		ある圏$\cat{A,B}$に対する積圏$\cat{A\times B}$を以下の要素で定義する。
+		ある圏$\cat{A,B}$に対する\textbf{積圏}$\cat{A\times B}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象] \[\obj{A\times B}=\obj{A}\times\obj{B}\]
-
 				すなわち、圏$\cat{A}$と圏$\cat{B}$の任意の対象$A,B$の対$\tuple{A,B}$が$\cat{A\times B}$の対象であり、紛らわしくないように\[\tuple{A,B}=\pcobj{A,B}\]と表記する。
 
-				また$\obj{A}\times\obj{B}$は直積集合であり、集合の圏の積対象であるが、対象$\pcobj{A,B}$そのものは積の普遍性を持たないことに注意してほしい。今回積とみなすのは対象ではなく圏の方である。
+				また$\obj{A}\times\obj{B}$は直積集合であり、集合の圏の積対象であるが、圏$\cat{A\times B}$の対象$\pcobj{A,B}$そのものは積の普遍性を持たないことに注意してほしい。今回積とみなすのは対象ではなく圏の方である。
 				\item[射]任意の対象$\pcobj{A,B},\pcobj{A',B'}$に対してその射集合をそれぞれ\[\arset{(A\times B)}{\pcobj{A,B}}{\pcobj{A',B'}}=\arset{A}{A}{A'}\times\arset{B}{B}{B'}\]と定義する。
 
-				すなわち、圏$\cat{A}$の射$\mor{f}{A}{A'}$と圏$\cat{B}$の射$\mor{g}{B}{B'}$の元の対\[\mor{\tuple{f,g}}{[A,B]}{[A',B']}\]が$\cat{A\times B}$の射であり、対象と同様に\[\tuple{f,g}=\pcobj{f,g}\]と表記する。
+				すなわち、圏$\cat{A}$の射$\mor{f}{A}{A'}$と圏$\cat{B}$の射$\mor{g}{B}{B'}$の元の対\[\mor{\tuple{f,g}}{[A,B]}{[A',B']}\]が$\cat{A\times B}$の射であり、対象と同様に\[\tuple{f,g}=\pcobj{f,g}\]と表記する。射の対と同じ表記であるが、対象の表記と同様に積の普遍性は持たないため射の対ではない。
 				同様に$\arset{A}{A}{A'}\times\arset{B}{B}{B'}$も直積集合であり、集合の圏の積対象である。
 				\begin{center}
 					\begin{tikzpicture}[auto]
@@ -1730,7 +1729,7 @@
 
 
 	\begin{define}[射影関手]
-		関手$\functor{\Pi_{L,\cat{A\times B}}}{A\times B}{A}$を以下の写像で定義する。また射影射と同様に紛らわしくない場合に$\Pi_{L,\cat{A\times B}}=\Pi_\cat{A}$と表記する。
+		\textbf{射影関手}$\functor{\Pi_{L,\cat{A\times B}}}{A\times B}{A}$を以下の写像で定義する。また射影射と同様に紛らわしくない場合に$\Pi_{L,\cat{A\times B}}=\Pi_\cat{A}$と表記する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 積圏の対象の定義より、圏$\cat{A\times B}$の対象の集合は$\obj{A}\times\obj{B}$である。これを集合の圏における積とみなし、射影写像\[\mor{\Pi_\cat{A}=\pi_{\obj{A}}}{\obj{A}\times\obj{B}}{\obj{A}}\]を対象関数とする。
@@ -1750,7 +1749,7 @@
 	\end{define}
 	また同様に$\functor{\Pi_{R,\cat{A\times B}}}{A\times B}{B}$も定義できる。
 	\begin{define}[関手の対]
-		関手$\functor{F}{X}{A}$と$\functor{G}{X}{B}$の対$\functor{\tuple{F,G}}{X}{A\times B}$を以下の写像で定義する。
+		関手$\functor{F}{X}{A}$と$\functor{G}{X}{B}$の対である\textbf{関手の対}$\functor{\tuple{F,G}}{X}{A\times B}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 関手$F,G$の対象関数$\mor{F}{\obj{X}}{\obj{A}}$、$\mor{G}{\obj{X}}{\obj{B}}$の対
@@ -1847,7 +1846,7 @@
 		各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_\cat{A},\Pi_\cat{B})$は積の普遍性を満たす。
 	\end{proof}
 	\begin{define}[一点離散圏]
-	一つの対象と一つの恒等射で構成される圏$\cat{1}$を一点離散圏とよぶ。
+	一つの対象と一つの恒等射で構成される圏$\cat{1}$を\textbf{一点離散圏}とよぶ。
 	\end{define}
 	\begin{prop}[$\cat{Cat}$の終対象]
 		$\cat{1}$は$\cat{Cat}$における終対象である。
@@ -1890,14 +1889,15 @@
 	関手としての対象の話に戻ると、積圏$\cat{A\times B}$の対象を$\pcobj{A,B}$と表したが、実際に対象$\functor{A}{1}{A}$と対象$\functor{B}{1}{B}$の関手の対$\functor{\tuple{A,B}}{1}{A\times B}$は$\cat{A\times B}$の対象になる。
 
 	\subsection{特殊な関手}
-	対象や射を二つ取るような2変数関数のような関手について考える。
+  ある圏$\cat{C}$の二対象$A,B$の射集合$\arset{C}{A}{B}$は$A,B$で添字付けられていて、射写像$\arset{C}{A}{f}$も射で添字付けられているように見える。実際にこの操作は関手であるが、この段階ではこの操作を関手で表すことが難しい。そのため前提知識として双関手、反変関手を定義し見ていく。\\
+	最初に対象や射を二つ取るような2変数関数のような関手、双関手について考える。
 	\begin{define}[双関手]
-		積圏からの関手、つまり$\functor{F}{A\times B}{C}$となるような関手を双関手とする。
+		積圏からの関手、つまり$\functor{F}{A\times B}{C}$となるような関手を\textbf{双関手}とする。
 
 		また積圏の任意の対象$[A,B]$に対し、\[F(\pcobj{A,B})=F(A,B)\]と略記する。
 		さらに積圏の射$\mor{\pcobj{f,id_B}}{\pcobj{A,B}}{\pcobj{A,B'}}$において\[F(\pcobj{f,id_B})=F(f,B)\]と表記する。
 	\end{define}
-	圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。
+	圏$\cat{A}$の射$f$と圏$\cat{B}$の射$g$がどのように圏$\cat{C}$に写されるのかを以下の可換図式で確認してほしい。等式としては示さないが、右の図式は関手の合成の保存によって可換になることに注意してほしい。
 	\begin{center}
 		\begin{tikzpicture}[auto]
 			\node (a) at (0, 0) {$A$};
@@ -1935,9 +1935,10 @@
 			\draw[->] (catab) to node{$F$}(catc);
 		\end{tikzpicture}
 	\end{center}
+  双関手は関手を量化とみなすのであれば、複数の圏のそれぞれの対象、射で同時に量化していると考えられる。\\
 	次に双関手の例として積関手$\functor{-\times B}{C}{C}$を双関手に拡張しようと思う。
 	\begin{define}[双積関手]
-		積を持つ圏$\cat{C}$上の双積関手$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
+		積を持つ圏$\cat{C}$上の\textbf{双積関手}$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 対象関数を積圏$\cat{C\times C}$の任意の対象$\pcobj{A,B}$に対して\[(-\times -)(A,B)=A\times B\]と定義する。
@@ -1978,11 +1979,13 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
-	対象の積と圏の積が紛らわしいが、まず圏の積の対象$\pcobj{A,B}$は圏$\cat{C}$の$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$[A,B]$を圏$\cat{C}$に挿入する操作が関手$(-\times-)$と考えられる。ただし、双積関手で写された対象が積の普遍性を満たすかどうかは現段階では説明できない。
+	対象の積と圏の積が紛らわしいが、まず圏の積の対象$\pcobj{A,B}$は圏$\cat{C}$の$A$と$B$の積が存在しなくとも定義することができ、その点で対象の積$A\times B$より一般的な概念だと考えられる。よってイメージとしては圏$\cat{C}$の外側$\cat{C\times C}$で定義した対象の積もどき$[A,B]$を圏$\cat{C}$に積対象$A\times B$として挿入する操作が関手$(-\times-)$と考えられる。ただし、双積関手で写された対象が積の普遍性を満たすかどうかは現段階では説明できない。
 
 	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
+
+  次に反変関手を定義するのであるが、これは厳密には関手ではない。しかし関手として扱う方法があり、そのために圏の双対について説明する。
 	\begin{define}[双対圏]
-		ある圏$\cat{C}$に対する双対圏$\cat{C}^{op}$を以下の要素で定義する。
+		ある圏$\cat{C}$に対する\textbf{双対圏}$\cat{C}^{op}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象]　$\obj{C^{op}}=\obj{C}$とする。
@@ -2048,7 +2051,7 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
-	
+	圏の射をすべて反転した圏が双対圏であったが、圏から圏への関手から、双対圏から双対圏への関手を構成することができる。記述がややこしくなってしまったが、定義としては反転した射を反転した射に写すだけである。
 	\begin{define}[双対関手]
 		ある圏$\cat{C,D}$に対する双対圏$\cat{C}^{op},\cat{D}^{op}$と関手$\functor{F}{C}{D}$に対して、双対関手$\functor{F^{op}}{C^{op}}{D^{op}}$を以下の要素で定義する。
 		\begin{quote}
@@ -2090,8 +2093,8 @@
 				\item[恒等射の保存]元の関手$F$の恒等射の保存に還元して$F^{op}(id_{A^{op}})=id_{(FA)^{op}}$を示す
 				\begin{align*}
 					F^{op}(id_{A^{op}})&=F^{op}(id_A)^{op}&\text{(双対圏の恒等射の定義)}\\
-					&=(F(id_A))^{op}&\text{双対関手の射関数の定義}\\
-					&=(id_{FA})^{op}&\text{$F$の恒等者の保存}\\
+					&=(F(id_A))^{op}&\text{(双対関手の射関数の定義)}\\
+					&=(id_{FA})^{op}&\text{($F$の恒等者の保存)}\\
 					&=id_{(FA)^{op}}&\text{(双対圏の恒等射の定義)}
 				\end{align*}
 				
@@ -2107,14 +2110,14 @@
 		\end{quote}
 	\end{define}
 
-	双対関手では反転した射を反転したまま写した。次に定義する反変関手では通常の射を反転した射に写すような操作を考える。
+	双対関手では反転した射を反転したまま写した。次に定義する反変関手では通常の射を反転した射に写すような捻れた操作を考える。この捻れによって関手の定義とは異なるものになることを注意してほしい。
 	\begin{define}[反変関手]
-		圏$\cat{C}$から圏$\cat{D}$への反変関手と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
+		圏$\cat{C}$から圏$\cat{D}$への\textbf{反変関手}と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
 		\begin{quote}
 			\begin{mydescription}
-				\item[対象関数] $\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]
+				\item[対象関数] $\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる対象関数\[\mor{F}{\obj{C}}{\obj{D}}\]を持つ必要がある。\\
 				これは通常の関手と同じである。
-				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]これも同様に対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。				
+				\item[射関数] $\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FB}{FA}$を割り当てる射関数\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FB}{FA}}\]を持つ必要がある。射の向きが変わってしまうが、関手と同様にこれも同様に対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
 				\begin{center}
 					\begin{tikzpicture}[auto]
 						\node (a) at (0, 0) {$A$};
@@ -2159,8 +2162,8 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
-	この反変関手は関手とついているが、双対関手とは違い以前定義した関手の性質を満たさず、関手とはならない。そのため区別が必要な場合、一般の関手を共変関手と呼ぶことにする。
-	また反変関手$\functor{F}{C}{D}$は共変関手$\functor{F}{C^{op}}{D}$とみなせる。
+	反変関手は関手とついているが、双対関手とは違い以前定義した関手の性質を満たさず、関手とはならない。そのため区別が必要な場合、一般の関手を\textbf{共変関手}と呼ぶことにする。\\
+	また反変関手$\functor{F}{C}{D}$は双対圏によって共変関手$\functor{F}{C^{op}}{D}$とみなせることが図式から分かる。
 		\begin{center}
 			\begin{tikzpicture}[auto]
 				\node (a) at (0, 0) {$A$};
@@ -2193,9 +2196,7 @@
 			\end{tikzpicture}
 		\end{center}
 	\subsection{Hom関手}
-  圏$\cat{C}$の対象$A,B$に対して射集合$\arset{C}{A}{B}$や射写像$\arset{C}{A}{f}$を考えることができたが、これらも圏$\cat{C}$の対象、射によって添字付けられた集合、射と考えることで、関手として定式化することができる。
-  そのためにもまずは改めてこれらの写像の性質を確認していこうと思う。
-
+  いよいよ射集合を取る操作が関手であることを示そう。その前に射写像を取る操作が関手の性質を満たすことを先に示しておく。
 	\begin{prop}[共変射写像の恒等射の保存]
 		圏$\cat{C}$の任意の対象$X,A$において
 		\[\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}\]が成り立つ。
@@ -2265,7 +2266,6 @@
 		\end{align*}
 		よって$\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}$が成り立つ。
 	\end{proof}
-	ここまでの共変射写像の性質から、射から共変射写像を取る操作は関手とみなせることに気が付けたかもしれない。実際にHom関手と呼ばれる関手が定義できる・。
 	\begin{define}[共変Hom関手]
 		任意の圏$\cat{C}$とそのある対象$X$における共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$を以下の要素で定義する。
 		\begin{quote}
@@ -2340,6 +2340,7 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
+  さて射集合、射写像を取る操作が関手であることを示せたから、これらが関手としてどのような性質をもつのか少し確認する。
 	\begin{prop}[Hom関手の積の保存]
 		圏$\cat{C}$の積$A\times B$に対して、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
 	\end{prop}
@@ -2355,8 +2356,8 @@
 			&\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i\\
 			&\arset{C}{X}{\pi_B}\circ\tuple{i,j}=j
 		\end{align*}
-		が成り立つような射$\mor{\tuple{i,j}}{Y}{\arset{C}{X}{A\times B}}$が一意に存在することを示せばよい。
-
+		が成り立つような射$\mor{\tuple{i,j}}{Y}{\arset{C}{X}{A\times B}}$が一意に存在することを示せばよい。\\
+    証明の方向性としては集合の圏$\cat{Set}$の射\[\mor{i}{Y}{\arset{C}{X}{A}},\ \mor{j}{Y}{\arset{C}{X}{A}}\]に$Y$の元$y$を適用すると、圏$\cat{C}$の射\[\mor{i(y)}{X}{A},\ \mor{j(y)}{X}{B}\]が得られるが、集合の圏$\cat{Set}$の射の対$\tuple{i,j}$の存在と一意性を、圏$\cat{C}$の積の普遍性で示すことで証明する。\\
 		まずは図式を可換にする$\tuple{i,j}$を定義し、常に存在することを示す。
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -2487,9 +2488,10 @@
 		\end{center}
 		$\mor{!_Y}{Y}{\arset{C}{X}{1}}$なる射が一意に存在することが示せたから、$\arset{C}{X}{1}$は$\cat{Set}$における終対象となる。よって終対象の一意性より、\[\arset{C}{X}{1}\cong I\]が成り立つ。
 	\end{proof}
-	共変Hom関手、反変Hom関手を双関手として定義する。
+
+	次に積関手を双積関手に一般化したように、共変Hom関手、反変Hom関手を双関手として定義する。
 	\begin{define}[双Hom関手]
-		任意の圏$\cat{C}$における双Hom関手$\functor{C(-,-)}{C^{op}\times C}{Set}$を以下の要素で定義する。
+		任意の圏$\cat{C}$における\textbf{双Hom関手}$\functor{C(-,-)}{C^{op}\times C}{Set}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 積圏$\cat{C^{op}\times C}$の任意の対象$[A,B]$に対して対象関数を
@@ -2574,7 +2576,7 @@
 		\end{quote}
 	\end{define}
 
-	実は左側の積関手と右側の積関手から双積関手、共変Hom関手と反変Hom関手から双Hom関手を定義できる。またこの定義を用いれば双関手の恒等射の保存と合成の保存を個別に証明しなくても済む。
+	双積関手、双Hom関手を定義したときは完全に新しい関手として対象関数、射関数から定義した。しかし、これらの例のように、右側と左側の関手がそれぞれ定まっていて、ある条件を満たしていれば二つの関手から双関手を定義できる。\\メリットとしてこの定義を用いれば双関手の恒等射の保存と合成の保存を個別に証明しなくても済む。
 	\begin{define}[二つの関手による双関手の定義]
 		圏$\cat{B}$の任意の対象$B$に対して定義される関手$\functor{F_B}{A}{C}$と、圏$\cat{A}$の任意の対象$A$に対して定義される関手$\functor{G_A}{B}{C}$が存在し、任意の二対象$A,B$に対して\[{F_B}A={G_A}B\]が成り立ち、	任意の二射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して\[{G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]が成り立つとする。
 		\begin{center}
@@ -2678,12 +2680,12 @@
   関手をいくつかの対象や射の添字付けと見なし、これによって対象や射を量化し同時に扱うことができるようになった。次は関手によって量化された対象や射の性質を同時に述べることができるようになる自然変換を扱う。
 
   \begin{define}
-		二つの関手$\functor{F,G}{C}{D}$の間の自然変換$\natf{\alpha}{F}{G}{C}{D}$は以下で定義される成分と呼ばれる射で構成される。
+		二つの関手$\functor{F,G}{C}{D}$の間の\textbf{自然変換}$\natf{\alpha}{F}{G}{C}{D}$は以下で定義される\textbf{成分}と呼ばれる射で構成される。
 		\begin{quote}
 			\begin{mydescription}
 				\item[成分] 圏$\cat{C}$の任意の対象$X$に対する自然変換$\alpha$の成分$\alpha_X$とは\[\mor{\alpha_X}{FX}{GX}\]となるような射である。つまりこの成分をすべての対象の分だけ集めたものが自然変換である。
 				\item[自然性]
-				自然変換とその成分は以下の自然性を満たさなければならない。
+				自然変換とその成分は以下の\textbf{自然性}を満たさなければならない。
 
 				圏$\cat{C}$の任意の射$\mor{f}{A}{B}$を関手$F,G$で写した射$\mor{Ff}{FA}{FB}$、$\mor{Gf}{GA}{GB}$に対して、\[Gf\circ\alpha_A=\alpha_B\circ Ff\]が成り立つことを自然性と呼ぶ。
 				\begin{center}
@@ -2709,7 +2711,7 @@
 						\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$\alpha$] {} (funcg);
 					\end{tikzpicture}
 				\end{center}
-				つまり自然変換は関手$F,G$で写された対象同士に成分で橋を架け、自然性を用いて橋と橋の間に肉付けを行うイメージである。
+				つまり自然変換は関手$F,G$で写された対象同士に成分で橋を架け、自然性を用いて橋と橋の間に肉付けを行うイメージである。自然性の存在意義については現段階で説明できないため気にしなくても良い。
         
         これによって関手$F$と対象$A$によって添字付けられた対象$FA$と、関手$G$と対象$A$によって添字付けられた対象$GA$の間の射$\mor{\alpha_A}{FA}{GA}$を、自然変換$\nat{\alpha}{F}{G}$と対象$A$によって添字付けられた射であると考えることができる。
 
@@ -2849,7 +2851,7 @@
 
   自然変換を対象による射の量化と捉えるならば、次に紹介する定関手の有用性がすぐに分かる。
   \begin{define}[定関手]
-    圏$\cat{D}$の任意の対象$D$に対する定関手$\functor{\varDelta D}{C}{D}$を次のように定義する。
+    圏$\cat{D}$の任意の対象$D$に対する\textbf{定関手}$\functor{\varDelta D}{C}{D}$を次のように定義する。
     \begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 対象関数\[\mor{\varDelta D}{\obj{C}}{\obj{D}}\]
@@ -2947,11 +2949,9 @@
 			\draw[double,double equal sign distance,-implies,shorten >=5pt,shorten <=5pt] (funcf) -- node[label=right:$id$] {} (funcg);
 		\end{tikzpicture}
 	\end{center}
-	となり、確かに恒等射を成分とする自然変換$id$は自然性を満たす。
-
 	次に自然変換$\natf{id}{Id_C}{Id_C}{C}{C}$を恒等関手$\functor{Id_C}{C}{C}$だけでなく、任意の関手$\functor{F}{C}{D}$で考えられるように一般化する。
 	\begin{define}[恒等自然変換]
-		関手$\functor{F}{C}{D}$に対して恒等自然変換$\natf{ID_F}{F}{F}{C}{D}$を、圏$C$の任意の対象$X$において\[(ID_F)_{X}=id_{FX}\]と定義する。
+		関手$\functor{F}{C}{D}$に対して\textbf{恒等自然変換}$\natf{ID_F}{F}{F}{C}{D}$を、圏$C$の任意の対象$X$において\[(ID_F)_{X}=id_{FX}\]と定義する。
 
 		これは\[(ID_F)_B\circ Ff=Ff\circ(ID_F)_A\]より自然性を満たす。
 		\begin{center}
@@ -2979,7 +2979,7 @@
 		\end{center}
 	\end{define}
 
-  自然変換は対象によって添字付けられた射の集合であったから、自然変換もまた一種の射のように振る舞う。次は自然変換の合成を、個々の成分の合成によって定義しようと思う。
+  自然変換は対象によって添字付けられた射の集合であったから、自然変換もまた一種の射のように振る舞う。次は自然変換の合成を、個々の成分の合成によって定義しようと思う。また後にこれがある圏における射の合成であることが分かるが、自然変換にはまた別の合成を考えることができるため、区別のため$\circ$ではなく$\cdot$と表記する。
 
 	\begin{define}[自然変換の垂直合成]
 		任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$の合成自然変換$\nat{\beta\cdot\alpha}{F}{H}$を、圏$\cat{C}$の任意の対象$X$における成分\[(\beta\cdot\alpha)_X=\mor{\beta_X\circ\alpha_X}{FX}{HX}\]によって定義する。
@@ -3112,7 +3112,6 @@
 	\begin{proof}
 		射関数の定義より、$F_{A,B}$のような射は任意の対象に対して存在する。そのため自然変換$F$の成分とみなすことができる。
 		自然性は上の図式が可換、つまり\[F_{A',B'}\circ\arset{C}{f}{g}=\arset{D}{Ff}{Fg}\circ F_{A,B}\]を示せば良い。この図式は$\cat{Set}$上にあるため、元の対応関係から射の等式を導く。
-		uh
 		圏$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して
 		\begin{align*}
 			F_{A',B'}\circ\arset{C}{f}{g}(h)&=F_{A',B'}(g\circ h\circ f)&\text{(射写像の定義)}\\
@@ -3213,10 +3212,10 @@
 	\subsection{関手圏}
 	自然変換には恒等射によって定義される恒等自然変換と、射の合成によって定義される垂直変換を考えることができた。これまで様々な圏を考えてきたように、これらの自然変換を用いれば実際に圏を考えることができるようになる。
 	\begin{define}[関手圏]
-		二つの圏$\cat{C,D}$に対する関手圏$\funccat{C}{D}$を以下の要素で定義する。
+		二つの圏$\cat{C,D}$に対する\textbf{関手圏}$\funccat{C}{D}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
-				\item[対象] $\obj{\funccat{C}{D}}$を$\cat{C}$から$\cat{D}$への関手の全体とする。すなわち、$\cat{Cat}$における射集合によって$\obj{\funccat{C}{D}}=\arset{Cat}{C}{D}$と表せる。
+				\item[対象] $\obj{\funccat{C}{D}}$を$\cat{C}$から$\cat{D}$への関手の全体とする。すなわち、$\cat{Cat}$における射集合によって$\obj{\funccat{C}{D}}=\arset{Cat}{\cat{C}}{\cat{D}}$と表せる。
 				\item[射]任意の関手$\functor{F,G}{C}{D}$に対して、射集合$\arset{\funccat{C}{D}}{F}{G}$を関手$F,G$の間の自然変換全体の集合とする。
 				\item[射の合成] 任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$を合成した自然変換を、自然変換の垂直合成によって$\beta\cdot\alpha$と定義する。
 				\item[恒等射の存在]任意の関手$\functor{F}{C}{D}$に対して、恒等射となる自然変換を恒等自然変換によって$ID_F$と定義する。
@@ -3249,7 +3248,7 @@
     \begin{quote}
 			\begin{mydescription}
 				\item[対象関数] 対象関数\[\mor{\varDelta}{\obj{D}}{\obj{\funccat{C}{D}}}\]
-				を圏$\cat{D}$の任意の対象$D$に対して定関数$\varDelta(D)=\varDelta D$と定義する 
+				を圏$\cat{D}$の任意の対象$D$と定関手$\functor{\varDelta D}{C}{D}$に対して定関数$\varDelta(D)=\varDelta D$と定義する。またここでの$\varDelta D$は射関数ではなく
 				\item[射関数] 
         射関数は\[\mor{\varDelta}{\arset{C}{A}{B}}{\arset{\funccat{C}{D}}{\varDelta A}{\varDelta B}}\]となるように、$A$から$B$への射を、$A$の定関手から$B$の定関手への自然変換に写す写像になる。またこの自然変換を射$f$に対する定自然変換と呼ぶことにする。
 
@@ -3348,13 +3347,14 @@
       \draw[->,transform canvas={xshift=-3pt}] (a) to node[swap] {$I$}(b);
       \draw[->,transform canvas={xshift=3pt}] (b) to node[swap] {$I^{-1}$}(a);
     \end{tikzpicture}
-  \end{center}  \begin{prop}[圏の元]
+  \end{center}  
+  \begin{prop}[圏の元]
     一点離散圏$\cat{1}$、任意の圏$\cat{C}$に対して$\cat{C}\cong\funccat{1}{C}$
   \end{prop}
   \begin{proof}
     集合の圏における同型$A\cong\arset{Set}{1}{A}$と同様の手法で証明する。
-    すなわち、対角関手$\functor{\varDelta}{C}{C^1}$が同型射となる関手であることを示す。\\
-    また定写像と同様に$\funccat{C}{1}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
+    すなわち、対角関手$\functor{\varDelta}{C}{\funccat{1}{C}}$が同型射となる関手であることを示す。\\
+    また定写像と同様に$\funccat{1}{C}$の対象である任意の関手は明らかに定関手である。なぜなら一点離散圏$\cat{1}$はただ一つの対象と射のみを持ち、それらは必ず圏$\cat{C}$のただ一つの対象とその恒等射に写されるため、定関手の定義を満たす。\\
     関手$\functor{\varDelta^{-1}}{C^1}{C}$を
     \begin{quote}
 			\begin{mydescription}
@@ -3397,7 +3397,7 @@
 	\subsection{自然同型}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
   \begin{define}[自然同型(関手の同型)]
-    関手圏$\funccat{C}{D}$の対象$F,G$の同型$F\cong G$を自然同型と呼ぶ。
+    関手圏$\funccat{C}{D}$の対象$F,G$の同型$F\cong G$を\textbf{自然同型}と呼ぶ。
   \end{define}
   \begin{prop}[自然同型と対象の同型]
     関手$\functor{F,G}{C}{D}$が自然同型$\iff$圏$\cat{C}$の任意の対象$A$において、ある同型射$\mor{i_A}{FA}{GA}$が存在し、$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して\[i_B\circ Ff=Gf\circ i_A\]が成り立つ。
@@ -3696,7 +3696,7 @@
   \end{define}
   次にいよいよ合成を行う関手の射関数となるような操作を定義する。またこの合成は関手圏における射の合成である垂直合成と区別するため水平合成と呼ぶことにする。
   \begin{define}[自然変換の水平合成]
-    関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$と自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して垂直合成された自然変換$\nat{\beta\alpha}{F'F}{G'G}$を\[\beta\circ\alpha = \alpha G'\cdot F\beta = G\beta\cdot\alpha F'\]とする。\\
+    関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$と自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して\textbf{垂直合成}された自然変換$\nat{\beta\alpha}{F'F}{G'G}$を\[\beta\circ\alpha = \alpha G'\cdot F\beta = G\beta\cdot\alpha F'\]とする。\\
     \begin{center}
       \begin{tikzpicture}[auto]
         \node (cat) at (1, 1) {$\funccat{C}{E}$};
@@ -3948,13 +3948,16 @@
   \subsection{圏同値}
   圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
   \begin{define}
-    圏$C,D$に対してある二関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が存在して$F\circ G\cong Id_D,\ G\circ F\cong Id_C$となるとき、$\cat{C,D}$は圏同値であるといい、$\cat{C}\simeq \cat{D}$と表記する。
+    圏$C,D$に対してある二関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が存在して$F\circ G\cong Id_D,\ G\circ F\cong Id_C$となるとき、$\cat{C,D}$は\textbf{圏同値}であるといい、$\cat{C}\simeq \cat{D}$と表記する。
   \end{define}
+  \begin{prop}[関手合成の県道地の保存]
+    
+  \end{prop}
   \begin{prop}[圏同値の同値性]
     圏同値$\cat{C}\simeq \cat{D}$は同値関係である。
   \end{prop}
   \begin{proof}
-    \begin{quote}
+    \begin{quote}~\\
 			\begin{mydescription}
 				\item[反射律] $C\simeq C$を示せば良い。二つの関手を$Id_\cat{C},Id_\cat{C}$とすると、$Id_\cat{C}\circ Id_\cat{C}=Id_\cat{C}$である。$Id_\cat{C}\circ Id_\cat{C}$と$Id_\cat{C}$が等しいから、同型の反射律より$Id_\cat{C}\circ Id_\cat{C}\cong Id_\cat{C}$が成り立つ。
 				\item[対称律]定義の対称性より自明
