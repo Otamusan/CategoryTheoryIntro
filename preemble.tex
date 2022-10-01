@@ -1,0 +1,30 @@
+\usepackage{tikz}
+\usepackage{bbm}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usetikzlibrary{matrix,arrows}
+
+\newcommand{\cat}[1]{\mathbbm{#1}}
+\newcommand{\arrow}{\rightarrow}
+\newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
+\newcommand{\nat}[3]{#1:#2\Rightarrow #3}
+\newcommand{\natf}[5]{#1:#2\Rightarrow #3:\cat{#4}\arrow \cat{#5}}
+\newcommand{\tuple}[1]{\langle #1\rangle}
+\newcommand{\objr}[1]{\mathrm{Obj}(#1)}
+\newcommand{\obj}[1]{\mathrm{Obj}(\cat{#1})}
+\newcommand{\mor}[3]{#1:#2\arrow #3}
+\newcommand{\dom}{\mathrm{dom}}
+\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\arset}[3]{\cat{#1}(#2,#3)}
+\newcommand{\arsetr}[3]{#1(#2,#3)}
+\newcommand{\pcobj}[1]{[#1]}
+\newcommand{\funccat}[2]{\cat{#2}^\cat{#1}}
+\newtheorem{proof}{証明}[section]
+\newtheorem{prop}[proof]{命題}
+\newtheorem{define}[proof]{定義}
+\numberwithin{proof}{subsection}
+\newenvironment{mydescription}
+{\begin{description}
+  \setlength{\parskip}{0.5cm}
+}
+{\end{description}}
