@@ -1,0 +1,293 @@
+\section{関手}
+  これまで、似たような性質を持つ対象や射を同時に扱う時、それらの対象に添字をつけて量化してきた。対象の量化の例として積対象$A\times B$は圏$\cat{C}$の任意の対象$A$と任意の対象$B$によって添字づけられている。また射の量化の例として、射の積$\mor{f\times g}{\tuple{A,B}}{\tuple{A',B'}}$は圏$\cat{C}$の任意の射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$によって添字づけられている。
+
+  この章では主に、この添字づけを行うような操作を圏から圏への特殊な写像である関手で一般化する。
+
+	\begin{define}
+		ある圏$\cat{C}$からある圏$\cat{D}$への\textbf{関手}$\functor{F}{C}{D}$は以下の関数と公理から構成される。
+		\begin{quote}
+			\begin{mydescription}
+		\item[対象関数]$\cat{C}$の対象$A$に$\cat{D}$の対象$FA$を割り当てる写像を持つ必要がある。これを\textbf{対象関数}とよび、\[\mor{F}{\obj{C}}{\obj{D}}\]と表すことにする。
+		\item[射関数]$\cat{C}$の任意の各対象$A,B$において射$\mor{f}{A}{B}$に圏$\cat{D}$の射$\mor{Ff}{FA}{FB}$を割り当てる写像をそれぞれ持つ必要がある。これを\textbf{射関数}とよび、\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]と表す。また対象$A,B$に対してそれぞれ存在する射関数$F_{A,B}$を総称して$F$と呼ぶことにする。
+
+		つまり、圏$\cat{C}$に含まれる任意の射$\mor{f}{A}{B}$、$\mor{k}{X}{Y}$に対して\[F(f)=F_{A,B}(f)\]\[F(k)=F_{X,Y}(k)\]と置き換えてほしい。
+		また対象関数と射関数は記法で区別しないことと、$Tf,TA$ののように括弧を省略する場合もある。
+		\item[恒等射の保存] 射関数は圏$\cat{C}$の恒等射を$\cat{D}$の恒等射に対応させる。つまり$F(id_A)=id_{FA}$が成り立つ。
+		\item[射の合成の保存]$\cod(f)=\dom(g)$であるとき、$F(g\circ f)=Fg\circ Ff$が成り立つ。
+		\end{mydescription}
+		\end{quote}
+	\end{define}
+
+  次に関手の具体例を示す。
+  以下の射と対象で構成される圏$\cat{C},\cat{D}$と二つの関手$\functor{T}{C}{D}$、$\functor{S}{C}{D}$を考える。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (a) at (0, 2) {$A$};
+      \node (b) at (0, 0) {$B$};
+      \node (c) at (2, 1) {$C$};
+      \draw[->] (a) to node{$f$}(b);
+      \draw[->] (b) to node{$g$}(c);
+      \draw[->] (a) to node{$g\circ f$}(c);
+
+      \node (x) at (4, 2) {$X$};
+      \node (y) at (4, 0) {$Y$};
+      \node (w) at (6, 2) {$W$};
+      \node (z) at (6, 0) {$Z$};
+      \draw[->] (x) to node{$i$}(y);
+      \draw[->] (y) to node{$j$}(z);
+      \draw[->] (x) to node{$j\circ i$}(z);
+      \draw[->] (w) to node{$l$}(z);
+      \draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$k$}(w);
+      \draw[->,transform canvas={yshift=2pt}] (x) to node{$k\circ h$}(w);
+      \draw[->,loop left ,looseness=10] (x) to node{$h$}(x);
+
+      \node (catc) at (1, 3) {$\cat{C}$};
+      \node (catd) at (5, 3) {$\cat{D}$};
+      %\draw[->,bend right = 15] (catc) to node{$T$}(catd);
+      %\draw[->,bend left = 15] (catc) to node{$S$}(catd);
+    \end{tikzpicture}
+  \end{center}
+  そして関手$T$の対象関数$T$を\[T(A)=X,\ T(B)=Y,\ T(C)=Z\]、関手$S$の対象関数$S$を\[S(A)=X,\ S(B)=X,\ S(C)=W\]と定義する。
+
+  次に、関手$T$の射関数$T$を\[T(f)=i,\ T(g)=j,\ T(g\circ f)=j\circ i\]と定義する。また各対象の恒等射の対応は
+  \begin{align*}
+    T(id_A)&=id_{TA}\\
+    &=id_{X}\text{($TA=X$)}\\
+    T(id_B)&=id_{TB}\\
+    &=id_{Y}\text{($TB=Y$)}\\
+    T(id_C)&=id_{TC}\\
+    &=id_{Z}\text{($TC=Z$)}
+  \end{align*}とする。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (a) at (0, 2) {$A$};
+      \node (b) at (0, 0) {$B$};
+      \node (c) at (2, 1) {$C$};
+      \node (ta) at (4, 2) {$TA$};
+      \node (tb) at (4, 0) {$TB$};
+      \node (tc) at (6, 1) {$TC$};
+      \node (x) at (8, 2) {$X$};
+      \node (y) at (8, 0) {$Y$};
+      \node (z) at (10, 1) {$Z$};
+
+      \node (e) at (7, 1) {$=$};
+
+      \draw[-,dashed] (a) to (ta);
+      \draw[-,dashed] (b) to (tb);
+      \draw[-,dashed] (c) to (tc);
+
+      \draw[->] (a) to node{$f$}(b);
+      \draw[->] (b) to node{$g$}(c);
+      \draw[->] (a) to node{$g\circ f$}(c);
+
+      \draw[-, line width=4pt,draw=white] (x) to (y);
+      \draw[->] (x) to node[yshift =10]{$i$}(y);
+      \draw[->] (y) to node[swap]{$j$}(z);
+      \draw[->] (x) to node{$j\circ i$}(z);
+
+      \draw[-, line width=4pt,draw=white] (ta) to (tb);
+      \draw[->] (ta) to node[yshift =10]{$Tf$}(tb);
+      \draw[->] (tb) to node[swap]{$Tg$}(tc);
+      \draw[->] (ta) to node{$T(g\circ f)$}(tc);
+
+      \node (catc) at (1, 3) {$\cat{C}$};
+      \node (catd) at (5, 3) {$\cat{D}$};
+      \draw[->] (catc) to node{$T$}(catd);
+
+    \end{tikzpicture}
+  \end{center}
+  この図での点線は対象の写像的な対応を表しているのであって、実際に射が存在するわけではないことに注意してほしい。
+
+  同様に関手$S$の射関数$S$を\[S(f)=h,\ S(g)=k,\ S(g\circ f)=k\circ h\]と定義する。
+  恒等射の対応は
+  \begin{align*}
+    S(id_A)&=id_{SA}\\
+    &=id_{X}\text{($SA=X$)}\\
+    S(id_B)&=id_{SB}\\
+    &=id_{X}\text{($SB=X$)}\\
+    S(id_C)&=id_{SC}\\
+    &=id_{W}\text{($SC=W$)}
+  \end{align*}
+  とする。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (a) at (0, 2) {$A$};
+      \node (b) at (0, 0) {$B$};
+      \node (c) at (2, 1) {$C$};
+      \node (ta) at (4, 2) {$SA$};
+      \node (tb) at (4, 0) {$SB$};
+      \node (tc) at (6, 1) {$SC$};
+      \node (x) at (8, 2) {$X$};
+      \node (y) at (8, 0) {$X$};
+      \node (z) at (10, 1) {$W$};
+
+      \node (e) at (7, 1) {$=$};
+
+      \draw[-,dashed] (a) to (ta);
+      \draw[-,dashed] (b) to (tb);
+      \draw[-,dashed] (c) to (tc);
+
+      \draw[->] (a) to node{$f$}(b);
+      \draw[->] (b) to node{$g$}(c);
+      \draw[->] (a) to node{$g\circ f$}(c);
+
+      \draw[-, line width=4pt,draw=white] (x) to (y);
+      \draw[->] (x) to node[yshift =10]{$h$}(y);
+      \draw[->] (y) to node[swap]{$k$}(z);
+      \draw[->] (x) to node{$k\circ h$}(z);
+
+      \draw[-, line width=4pt,draw=white] (ta) to (tb);
+      \draw[->] (ta) to node[yshift =10]{$Sf$}(tb);
+      \draw[->] (tb) to node[swap]{$Sg$}(tc);
+      \draw[->] (ta) to node{$S(g\circ f)$}(tc);
+
+      \node (catc) at (1, 3) {$\cat{C}$};
+      \node (catd) at (5, 3) {$\cat{D}$};
+      \draw[->] (catc) to node{$S$}(catd);
+    \end{tikzpicture}
+  \end{center}
+
+  関手$S$、$T$が恒等射を保つことは恒等射の定義から用意に分かる。また、恒等射の合成は省略するが、射の合成の保存は
+  \begin{align*}
+    T(g\circ f)&=j\circ i&\text{($T(g\circ f)$の定義)}\\
+    &=Tg\circ Tf&\text{($Tg,Tf$の定義)}\\
+    S(g\circ f)&=k\circ h&\text{($S(g\circ f)$の定義)}\\
+    &=Sg\circ Sf&\text{($Sg,Sf$の定義)}
+  \end{align*}
+  が成り立つことから分かる。
+
+  関手$T$の例で言えば、圏$\cat{D}$の対象$X$は$TA$として圏$\cat{C}$の対象$A$によって添字付けられた対象であると考えられる。また、$X$は別の関手$S$によって$SA,SB$として添字付けられていると考えることもできる。
+
+	\begin{define}[関手の同一性]
+		関手$\functor{F,G}{C}{D}$が\textbf{同一}、$F=G$であるとは、それぞれの対象関数、射関数が写像として等しいということである。
+	\end{define}
+
+
+	\begin{prop}[図式の圏論的な定義]
+		添字圏と呼ばれる圏$\cat{J}$から図式を取りたい圏$\cat{C}$への関手は図式である。
+		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$J$を図式の骨組み、関手$\functor{F}{I}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
+
+		すると関手の合成の保存より、図式中の射$f,g$の合成射$g\circ f$は図式に必ず存在する。
+    また恒等射の保存より、図式中の対象に必ず恒等射となる射が存在し、関手の合成の保存により実際に恒等射のように振る舞う。
+
+    このように関手の性質によって、図式はそれ単体で圏のように振る舞う。
+		\begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (0, 2) {$I$};
+				\node (b) at (0, 0) {$J$};
+				\node (c) at (2, 1) {$K$};
+				\node (x) at (4, 2) {$A$};
+				\node (y) at (4, 0) {$B$};
+				\node (z) at (6, 1) {$C$};
+				\draw[-,dashed] (a) to (x);
+				\draw[-,dashed] (b) to (y);
+				\draw[-,dashed] (c) to (z);
+
+				\draw[->] (a) to node{$i$}(b);
+				\draw[->] (b) to node{$j$}(c);
+				\draw[->] (a) to node{$j\circ i$}(c);
+
+				\draw[-, line width=4pt,draw=white] (x) to (y);
+				\draw[->] (x) to node[yshift =10]{$f$}(y);
+				\draw[->] (y) to node[swap]{$g$}(z);
+				\draw[->] (x) to node{$g\circ f$}(z);
+				\node (catc) at (1, 3) {$\cat{I}$};
+				\node (catd) at (5, 3) {$\cat{C}$};
+				\draw[->] (catc) to node{$F$}(catd);
+
+			\end{tikzpicture}
+		\end{center}
+	\end{prop}
+  次に最初に述べた積対象$A\times B$の添字づけについて実際に関手で定式化する。
+  ただし、積対象$A\times B$は二つの対象$A,B$によって添字付けられているが、今回は対象$A$にだけを量化し、対象$B$を固定して考える。
+	\begin{define}[積関手]
+		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を\textbf{積関手}と呼ぶ。
+		\begin{quote}
+			\begin{mydescription}
+			\item[対象関数] 対象関数を$(-\times B)(A)=A\times B$と定義する。
+			\item[射関数] 圏$C$の任意の対象$A,A'$に対する関数$(-\times B)_{A,A'}$を任意の射$\mor{f}{A}{A'}$に対して
+			\begin{align*}
+				(-\times B)_{A,A'}(f)&=\mor{f\times id_B}{(-\times B)(A)}{(-\times B)(A)}\\
+				&=\mor{f\times id_B}{A\times B}{A'\times B}
+			\end{align*}
+			と定義する。同様に任意の対象$A,A'$に対して存在する射関数$(-\times B)_{A,A'}$を総称して$(-\times B)$と呼ぶ。
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (ab) at (2, 2) {$A\times B$};
+					\node (a'b) at (2, 0) {$A'\times B$};
+					\node (catc1) at (0, 3) {$\cat{C}$};
+					\node (catc2) at (2, 3) {$\cat{C}$};
+					\draw[-,dashed] (a) to (ab);
+					\draw[-,dashed] (a') to (a'b);
+
+					\draw[->] (catc1) to node{$-\times B$}(catc2);
+					\draw[->] (a) to node[swap]{$f$}(a');
+					\draw[->] (ab) to node[swap]{$f\times id_B$}(a'b);
+				\end{tikzpicture}
+			\end{center}
+			\item[恒等射の保存] 射影射の対が恒等射になることを用いて$(-\times B)(id_A)=id_{(-\times B)(A)}$を示せばよい。
+			\begin{align*}
+				(-\times B)(id_A)&=id_A\times id_B&\text{(射関数の定義)}\\
+				&=\tuple{id_A\circ\pi_A,id_B\circ\pi_B}&\text{(射の積の定義)}\\
+				&=\tuple{\pi_A,\pi_B}&\text{(恒等射の性質)}\\
+				&=id_{A\times B}&\text{(射影射の対)}\\
+				&=id_{(-\times B)(A)}&\text{(対象関数の定義)}
+			\end{align*}
+			よって積関手は恒等射を保つことが示せた。
+			\item[射の合成の保存]任意の対象$A,A',A''$と任意の射$\mor{f}{A}{A'},\mor{f'}{A'}{A''}$に対して\[(-\times B)(f'\circ f)=(-\times B)(f')\circ(-\times B)(f)\]が成り立つことを、積と合成の交換から示す。
+			\begin{align*}
+				(-\times B)(f'\circ f)&=(f'\circ f)\times id_B&\text{(射関数の定義)}\\
+				&=(f'\circ f)\times (id_B\circ id_B)&\text{(恒等射の性質)}\\
+				&=(f'\times id_B)\circ(f\times id_B)&\text{(積と合成の交換)}\\
+				&=(-\times B)(f')\circ(-\times B)(f)&\text{(射関数の定義)}
+			\end{align*}
+			\begin{center}
+				\begin{tikzpicture}[auto]
+					\node (a) at (0, 2) {$A$};
+					\node (a') at (0, 0) {$A'$};
+					\node (a'') at (0, -2) {$A''$};
+					\node (ab) at (2, 2) {$A\times B$};
+					\node (a'b) at (2, 0) {$A'\times B$};
+					\node (a''b) at (2, -2) {$A''\times B$};
+					\node (catc1) at (0, 3) {$\cat{C}$};
+					\node (catc2) at (2, 3) {$\cat{C}$};
+					\draw[-,dashed] (a) to (ab);
+					\draw[-,dashed] (a') to (a'b);
+					\draw[-,dashed] (a'') to (a''b);
+					\draw[->] (catc1) to node{$-\times B$}(catc2);
+					\draw[->] (a) to node[swap]{$f$}(a');
+					\draw[->] (a') to node[swap]{$f'$}(a'');
+					\draw[->] (ab) to node[swap]{$f\times id_B$}(a'b);
+					\draw[->] (a'b) to node[swap]{$f'\times id_B$}(a''b);
+					\draw[->,bend left =30] (ab) to node{$(f'\circ f)\times id_B$}(a''b);
+				\end{tikzpicture}
+			\end{center}
+			よって積関手は射の合成を保つことが示せた。
+		\end{mydescription}
+		\end{quote}
+	\end{define}
+	\begin{prop}[関手の同型の保存]
+		任意の圏$\cat{C,D}$と任意の関手$\functor{F}{C}{D}$、圏$\cat{C}$の対象$A,B$において、
+		\[A\cong B \Longrightarrow FA\cong FB\]が成り立つ。
+	\end{prop}
+	\begin{proof}
+		同型$A\cong B$のある同型射$\mor{i}{A}{B},\mor{i^{-1}}{B}{A}$に対して$\mor{Fi}{FA}{FB},\mor{Fi^{-1}}{FB}{FA}$も同様に同型射であることを示せばよい。
+
+		\begin{align*}
+			Fi^{-1}\circ Fi&=F(i^{-1}\circ i)&\text{($F$の射の合成の保存)}\\
+			&=F(id_A)&\text{(恒等射の定義)}\\
+			&=id_{FA}&\text{($F$の恒等射の保存)}\\
+			Fi\circ Fi^{-1}&=F(i\circ i^{-1})&\text{($F$の射の合成の保存)}\\
+			&=F(id_B)&\text{(恒等射の定義)}\\
+			&=id_{FB}&\text{($F$の恒等射の保存)}\\
+		\end{align*}
+		$Fi^{-1}\circ Fi=id_{FA}$、$Fi\circ Fi^{-1}=id_{FB}$より、$Fi,Fi^{-1}$が同型射なる。
+		よって$FA\cong FB$が成り立つ。
+	\end{proof}
+  一般に逆は成り立たないことに注意してほしい。
+	\input{chapter6_functor/chapter6.1_category_of_small_category.tex}
+	\input{chapter6_functor/chapter6.2_product_category_and_terminal_category.tex}
+	\input{chapter6_functor/chapter6.3_unique_functor.tex}
+  \input{chapter6_functor/chapter6.4_hom_functor.tex}

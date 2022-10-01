@@ -1,0 +1,54 @@
+\subsection{圏同値}
+  圏$\cat{C,D}$の同型であるためには、２つの関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が$F\circ G=Id_D,\ G\circ F=Id_C$とならなければならない。ここで圏$\cat{C,D}$のある対象$C,D$を適用すると、$FG(D)=D,\ GF(C)=C$となる。これまでの議論で気がついたかもしれないが、圏論には二つの対象が等しいことを示す手段がない。そのため圏が同型であることを示すのは難しい。対象の等価性についてはこれまで同型を使用してきたから、これらの等号を同型に一般化することを考えよう。\\
+  \begin{define}
+    圏$C,D$に対してある二関手$\functor{F}{C}{D},\ \functor{G}{D}{C}$が存在して$F\circ G\cong Id_D,\ G\circ F\cong Id_C$となるとき、$\cat{C,D}$は\textbf{圏同値}であるといい、$\cat{C}\simeq \cat{D}$と表記する。また$F,G$を\textbf{同値関手}と呼ぶことにする。
+  \end{define}
+  \begin{prop}[圏同値の同値性]
+    圏同値$\cat{C}\simeq \cat{D}$は同値関係である。
+  \end{prop}
+  \begin{proof}
+    \begin{quote}~\\
+			\begin{mydescription}
+				\item[反射律] $\cat{C}\simeq \cat{C}$を示せば良い。同値関手を$Id_\cat{C},Id_\cat{C}$とすると、$Id_\cat{C}\circ Id_\cat{C}=Id_\cat{C}$である。$Id_\cat{C}\circ Id_\cat{C}$と$Id_\cat{C}$が等しいから、同型の反射律より$Id_\cat{C}\circ Id_\cat{C}\cong Id_\cat{C}$が成り立つ。
+				\item[対称律]定義の対称性より自明
+				\item[推移律]$\cat{C}\simeq \cat{D},\ \cat{D}\simeq\cat{E}\Longrightarrow \cat{C}\simeq\cat{E}$を示せばよい。それぞれの同値関手を$\functor{F}{C}{D},\ \functor{G}{D}{C},\ \functor{F'}{D}{E},\ \functor{G'}{E}{D}$とする。この時、
+				\[GF\cong Id_\cat{C},\ FG\cong Id_\cat{D}\]
+        \[G'F'\cong Id_\cat{D},\ F'G'\cong Id_\cat{E}\]が成り立つから、ここから\[GG'F'F\cong Id_\cat{C},\ F'FGG'\cong Id_\cat{E}\]を示せばよい。\\
+        \begin{align*}
+          G'F'&\cong Id_D\\
+          G'F'F&\cong F&\text{(関手合成の同型の保存)}\\
+          GG'F'F&\cong GF&\text{(関手合成の同型の保存)}\\
+          GG'F'F&\cong Id_E&\text{(同型の推移律)}
+        \end{align*}
+        同様に$F'FGG'\cong Id_\cat{E}$も成り立つから、確かに$\cat{C}\simeq\cat{E}$である。
+      \end{mydescription}
+    \end{quote}
+  \end{proof}
+  ここまでで様々な概念の等価性について議論してきたが、それらが一段落ついたため一度整理しようと思う。
+  \begin{table}[htb]
+    \centering
+      \begin{tabular}{|c||c|c|c|}  \hline
+      &圏$\cat{C,D}$&関手$F,G$&自然変換$\alpha,\beta$\\ \hline \hline
+      同一&$\cat{C}=\cat{D}$&$F=G$&$\alpha=\beta$\\ \hline
+      同型&$\cat{C}\cong\cat{D}$&$F\cong G$&\\ \hline
+      同値&$\cat{C}\simeq\cat{D}$&&\\ \hline
+    \end{tabular}
+  \end{table}
+  上の表は行が各概念の等価性を表していて、列が比較する対象を示している。意識すべきことはある二概念の等価性、例えば$\cat{C}\cong \cat{D}$はその右上の等価性$F=G$によって表される。これはすべての欄に当てはまっていて、例えば圏同値\[\cat{C}\simeq\cat{D}\]は関手の同型である自然同型\[FG\cong Id_\cat{D},\ GF\cong Id_\cat{C}\]によって定義されていて、この関手の同型は自然変換の等号\[i\circ i^{-1}=ID_{FG},\ i^{-1}\circ i=ID_{Id_\cat{D}}\]で定義される。\\
+  この表に関手の同値性が存在しないのは、右上の自然変換の同型が存在しないからである。もし自然変換の同型を考えるのであれば、自然変換と自然変換の間の射が存在し、それの同一性を示すことが可能である必要がある。しかし自然変換は圏の射によって構成されいて、自然変換と自然変換の間の射が存在するとしたらそれは圏の射と射の間の射が必要になってしまう。\\
+  また、$\cat{Cat}$においてはある圏$\cat{C}$の対象は関手$\functor{A}{1}{C}$で、射は$\natf{f}{A}{B}{1}{C}$で表せるのだった。そのため一般の圏$\cat{C}$での等価性を考えるのであれば、表の右上を切り取れば良い。
+  \begin{table}[htb]
+    \centering
+      \begin{tabular}{|c||c|c|}  \hline
+      &対象$A,B$&射$f,g$\\ \hline \hline
+      同一&$A=B$&$f=g$\\ \hline
+      同型&$A\cong B$&\\ \hline
+    \end{tabular}
+  \end{table}
+
+  さて圏同値の話に戻るが、この圏同値の例として一点離散圏の普遍性を自然同型によって弱めてみよう。
+  \begin{define}
+    ある圏$\cat{I}$は任意の圏$\cat{X}$に対してある関手$\functor{I_\cat{X}}{X}{I}$が存在して、任意の関手$\functor{F}{X}{I}$に対し$I_X\cong F$が成り立つとする。
+  \end{define}
+  一点離散圏の普遍性では二つの関手の同型$I_X\cong F$ではなく、関手の同一性$I_X=F$が成り立つような性質であったことを思い出してほしい。そういった意味で一点離散圏の普遍性の一般化と言える。\\
+  次にこの圏がどのような対象や射を持つかを調べよう。圏同型$\cat{C}\cong\funccat{1}{C}$により圏$\cat{I}$の任意の対象は関手$\functor{A}{1}{I}$で表せる。ところが圏$\cat{I}$の性質により、ある関手$\functor{I_\cat{1}}{1}{I}$と同型$A\cong I_\cat{1}$になる。すなわち圏

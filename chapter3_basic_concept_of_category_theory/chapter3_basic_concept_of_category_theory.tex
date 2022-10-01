@@ -1,0 +1,32 @@
+\section{圏論の基本概念}
+  この章では圏論で用いる基本的な概念を示していく。そこまで難しい概念は扱わないためこの段階で圏上の操作に慣れてほしい。\\
+	まずはこれまで図示してきた図式について数学的な定義を与える。
+	\begin{define}[図式(部分圏)]
+		ある圏$\cat{C}$のある\textbf{図式(部分圏)}とは、圏$\cat{C}$に含まれるいくつかの対象と、いくつかの射で構成される圏であり、任意の対象に対応する恒等射を含み、図式中の任意の合成可能な二射$\mor{f}{X}{Y},\mor{g}{Y}{Z}$が含まれるとき、その合成射$g\circ f$も含むような圏である。
+	\end{define}
+	また図式は単に図示するために使用する以外にも、圏論のいくつかの概念を定義するのにも用いられる。
+	\begin{define}[可換]
+		圏におけるいくつかの射と対象の集まりである図式が\textbf{可換}である。すなわち\textbf{可換図式}であるとは、図式中の対象を頂点、図式中の射を辺とする有向グラフを考えたとき、任意の頂点$C,C'$において$C$から$C'$への任意の経路によって表される射が等しいときである。
+	\end{define}
+	例えば以下の図式において$j\circ g=l\circ i,k\circ h=m\circ j,k\circ h\circ g=m\circ j\circ g = m\circ l\circ i$が成り立つとすると、これは可換図式になる。
+
+	\begin{center}
+		\begin{tikzpicture}[auto]
+			\node (a) at (0, 0) {$A$};
+			\node (b) at (2, 0) {$B$};
+			\node (c) at (4, 0) {$C$};
+			\node (d) at (0, -2) {$D$};
+			\node (e) at (2, -2) {$E$};
+			\node (f) at (4, -2) {$F$};
+			\draw[->] (a) to node {$g$}(b);
+			\draw[->] (b) to node {$h$}(c);
+			\draw[->] (a) to node {$i$}(d);
+			\draw[->] (b) to node {$j$}(e);
+			\draw[->] (c) to node {$k$}(f);
+			\draw[->] (d) to node {$l$}(e);
+			\draw[->] (e) to node {$m$}(f);
+		\end{tikzpicture}
+	\end{center}
+
+	\input{chapter3_basic_concept_of_category_theory/chapter3.1_element.tex}
+	\input{chapter3_basic_concept_of_category_theory/chapter3.2_isomorphic.tex}
