@@ -1,7 +1,7 @@
-\section{自然変換}
+\section{自然変換}\label{chap-7-natural-transfomation}
   関手をいくつかの対象や射の添字付けと見なし、これによって対象や射を量化し同時に扱うことができるようになった。次は関手によって量化された対象や射の性質を同時に述べることができるようになる自然変換を扱う。
 
-  \begin{define}
+  \begin{define}\label{def-natural-transfomation}
 		二つの関手$\functor{F,G}{C}{D}$の間の\textbf{自然変換}$\natf{\alpha}{F}{G}{C}{D}$は以下で定義される\textbf{成分}と呼ばれる射で構成される。
 		\begin{quote}
 			\begin{mydescription}
@@ -166,13 +166,13 @@
 	となり、このような成分の定義は自然性を満たす。
 	よって確かに$\alpha$は自然変換となる。
 
-  \begin{define}[自然変換の同一性]
+  \begin{define}[自然変換の同一性]\label{def-equality-of-natural-transfomations}
     二つの自然変換$\natf{\alpha,\beta}{F}{G}{C}{D}$が等しいとは、圏$\cat{C}$の任意の対象$X$に対して
     $\alpha_X=\beta_X$となるときである。
   \end{define}
 
   自然変換を対象による射の量化と捉えるならば、次に紹介する定関手の有用性がすぐに分かる。
-  \begin{define}[定関手]
+  \begin{define}[定関手]\label{def-constant-functor}
     圏$\cat{D}$の任意の対象$D$に対する\textbf{定関手}$\functor{\varDelta D}{C}{D}$を次のように定義する。
     \begin{quote}
 			\begin{mydescription}
@@ -272,7 +272,7 @@
 		\end{tikzpicture}
 	\end{center}
 	次に自然変換$\natf{id}{Id_C}{Id_C}{C}{C}$を恒等関手$\functor{Id_C}{C}{C}$だけでなく、任意の関手$\functor{F}{C}{D}$で考えられるように一般化する。
-	\begin{define}[恒等自然変換]
+	\begin{define}[恒等自然変換]\label{def-identity-natural-transfomation}
 		関手$\functor{F}{C}{D}$に対して\textbf{恒等自然変換}$\natf{ID_F}{F}{F}{C}{D}$を、圏$C$の任意の対象$X$において\[(ID_F)_{X}=id_{FX}\]と定義する。
 
 		これは\[(ID_F)_B\circ Ff=Ff\circ(ID_F)_A\]より自然性を満たす。
@@ -303,7 +303,7 @@
 
   自然変換は対象によって添字付けられた射の集合であったから、自然変換もまた一種の射のように振る舞う。次は自然変換の合成を、個々の成分の合成によって定義しようと思う。また後にこれがある圏における射の合成であることが分かるが、自然変換にはまた別の合成を考えることができるため、区別のため$\circ$ではなく$\cdot$と表記する。
 
-	\begin{define}[自然変換の垂直合成]
+	\begin{define}[自然変換の垂直合成]\label{def-vertical-composition-of-natural-transfomations}
 		任意の関手$\functor{F,G,H}{C}{D}$の間の任意の自然変換$\nat{\alpha}{F}{G}$、$\nat{\beta}{G}{H}$の合成自然変換$\nat{\beta\cdot\alpha}{F}{H}$を、圏$\cat{C}$の任意の対象$X$における成分\[(\beta\cdot\alpha)_X=\mor{\beta_X\circ\alpha_X}{FX}{HX}\]によって定義する。
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -364,7 +364,7 @@
 
   自然変換によって量化された対象や射の性質を同時に述べることができると書いたが、実際に積関手と射影関手の間の自然変換を考えることによって、個々の積対象の持つ射影射の性質の一部を述べようと思う。
 
-	\begin{prop}[射影射の自然性]
+	\begin{prop}[射影射の自然性]\label{prop-naturality-of-projection}
 		積を持つ圏$\cat{C}$の任意の積$A\times B$の射影射$\mor{\pi_{L,\tuple{A,B}}}{A\times B}{A}$は、双積関手$\functor{(-\times -)}{C\times C}{C}$から射影関手$\functor{\Pi_{L,\tuple{\cat{C,C}}}}{C\times C}{C}$への自然変換の成分である。
 
 		この自然変換を\[\nat{\pi_L}{(-\times -)}{\Pi_{L\tuple{\cat{C,C}}}}\]とし、成分を\[(\pi_L)_{A\times B}=\mor{\pi_{LA}}{A\times B}{A}\]とする。
@@ -403,7 +403,7 @@
 
   関手の射集合を厳密に表記すると$\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}$のように添字がつくが、これも少し複雑ではあるが実際に自然変換になる。
 
-	\begin{prop}[関手の射関数の自然性]
+	\begin{prop}[関手の射関数の自然性]\label{prop-naturality-of-arrow-function-of-functor}
 		ある関手$\functor{F}{C}{D}$圏$\cat{C}$の任意の二対象$A,B$に対して\[\mor{F_{A,B}}{\arset{C}{A}{B}}{\arset{D}{FA}{FB}}\]となる射関数は\[\natf{F}{\arset{C}{-}{-}}{\arset{D}{F-}{F-}}{C^{op}\times C}{Set}\]となるような自然変換である。
 		
 		また関手$\arset{D}{F-}{F-}$は\[\arset{D}{F-}{F-}=\arset{D}{-}{-}\circ (F^{op}\times F)\]と定義される。具体的な対応は下の図式で確認してほしい。
@@ -445,7 +445,7 @@
 	\end{proof}
 	この証明では関手$F$は関手$\arset{D}{F-}{F-}$の定義と自然変換と見なした射関数の二つに現れている。そのため、関手$F$が純粋に自然変換から構成できる主張することはできないが、関手$\arset{C}{-}{-}$と関手$\arset{D}{F-}{F-}$の間の射関数となるような自然変換はただ一つである。これは射関数$F_{A,A}$の恒等射の保存から示すことができるので、余力があれば証明してみてほしい。
 
-  \begin{prop}[評価射の自然性]
+  \begin{prop}[評価射の自然性]\label{naturality-of-eval}
     評価射$\mor{ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}$は$A$に対して自然である。
   \end{prop}
   \begin{proof}
@@ -490,7 +490,7 @@
 		\end{center}
 
   \end{proof}
-  \begin{prop}[余評価射の自然性]
+  \begin{prop}[余評価射の自然性]\label{prop-naturality-of-coeval}
     余評価射$\mor{ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}$は$A$に対して自然である。
   \end{prop}
   \begin{proof}

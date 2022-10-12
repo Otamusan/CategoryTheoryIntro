@@ -1,6 +1,6 @@
-\subsection{積}
+\subsection{積}\label{chap-4.1-product}
   集合における直積集合を圏に一般化した\textbf{積}を扱う。集合の圏が積の普遍性を持つことは別の章で証明するため、気になった場合は先にそちらを読んでほしい。
-	\begin{define}[積]
+	\begin{define}[積]\label{def-product}
 		対象$A$と$B$が積を持つとは、以下の条件を満たす組$(A\times B,\pi_{L,A\times B},\pi_{R,A\times B})$が存在するときである。
 		\begin{quote}
 			\begin{mydescription}
@@ -53,7 +53,7 @@
 	\end{define}
 	また、図式を可換にする射の対$\tuple{f,g}$の存在性は任意の射の組み合わせに対して射の対が存在することを示し、一意性は射の対が含んでいる二つの射以外の判別可能な要素を含みようがないことを示している。
 
-	\begin{define}[積を持つ圏]
+	\begin{define}[積を持つ圏]\label{def-category-with-product}
 		すべての圏、すべての二対象に対して積が存在するとは限らないが、ある圏$\cat{C}$の任意の二対象に対して積が存在するとき、圏$\cat{C}$は\textbf{積を持つ}という。
 	\end{define}
 	ここで$X$に終対象$1$を当てはめると、元$\mor{a}{1}{A}$、元$\mor{b}{1}{B}$に対して$\pi_A\circ\tuple{a,b}=a$、$\pi_B\circ\tuple{a,b}=b$が成り立つような$\tuple{a,b}$が一意に存在することがわかる。
@@ -72,7 +72,7 @@
 	\end{center}
 
 	次に積の普遍性を用いた証明の練習として、射の対が合成に対して分配的であることを示そう。
-	\begin{prop}[射の対の分配則]
+	\begin{prop}[射の対の分配則]\label{prop-distributive-law-at-pair-of-arrows}
 		$\mor{f}{X}{A}$、$\mor{g}{X}{B}$、$\mor{h}{Y}{X}$に対して\[\tuple{f,g}\circ h=\tuple{f\circ h,g\circ h}\]が成り立つ
 	\end{prop}
 	\begin{proof}
@@ -148,7 +148,7 @@
 	\end{center}
 
 	次に任意の積から任意の積への射である、射の積を定義していく。
-	\begin{define}[射の積]
+	\begin{define}[射の積]\label{def-product-of-arrows}
 		射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して射の積$\mor{f\times g}{A\times B}{A'\times B'}$を\[f\times g = \tuple{f\circ\pi_A,g\circ\pi_B}\]と定義する。
 		\begin{center}
 			\begin{tikzpicture}[auto]
@@ -171,7 +171,7 @@
 	射の対は任意の対象から任意の積への射であるのに対し、射の積は任意の積から任意の積への射である。
 	二つの対象から二つの対象へ射を一つの射に纏めることから、直感的に射の積は並列処理のように思える。
 
-	\begin{prop}[積と合成の交換]
+	\begin{prop}[積と合成の交換]\label{prop-commutativity-of-product-and-composition}
 		射の積$\mor{f\times g}{A\times B}{A'\times B'}$、$\mor{f'\times g'}{A'\times B'}{A''\times B''}$に対して、\[(f'\times g')\circ(f\times g)=(f'\circ f)\times(g'\circ g)\]が成り立つ。
 	\end{prop}
 	\begin{proof}
@@ -228,7 +228,7 @@
 		よって$(f'\times g')\circ(f\times g)=(f'\circ f)\times(g'\circ g)$が成り立つ。
 	\end{proof}
 	射の積を並列での合成とみなすならば、射の合成は直列での合成を表し、積と合成の交換はどちらの合成を先に計算しても結果が変わらないことを表す。
-	\begin{prop}[射影射の対]
+	\begin{prop}[射影射の対]\label{prop-pair-of-projection}
 		ある積$(A\times B,\pi_A,\pi_B)$に対して$\tuple{\pi_A,\pi_B}=id_{A\times B}$が成り立つ。
 	\end{prop}
 	\begin{proof}
@@ -251,7 +251,7 @@
 			\end{tikzpicture}
 		\end{center}
 	\end{proof}
-	\begin{prop}[積の一意性]
+	\begin{prop}[積の一意性]\label{prop-uniqueness-of-products}
 		$A$と$B$の積$A\times B$に対して、同様に$A$と$B$の積である対象$P$と射影射$\mor{\rho_A}{P}{A}$、$\mor{\rho_B}{P}{B}$が存在するとき、$A\times B\cong P$が成り立つ。またこの時、積は\textbf{同型を除いて一意}と呼ぶことがある。
 	\end{prop}
 	\begin{proof}

@@ -1,7 +1,7 @@
-\subsection{特殊な関手}
+\subsection{特殊な関手}\label{chap-6.3-unique-functor}
   ある圏$\cat{C}$の二対象$A,B$の射集合$\arset{C}{A}{B}$は$A,B$で添字付けられていて、射写像$\arset{C}{A}{f}$も射で添字付けられているように見える。実際にこの操作は関手であるが、この段階ではこの操作を関手で表すことが難しい。そのため前提知識として双関手、反変関手を定義し見ていく。\\
 	最初に対象や射を二つ取るような2変数関数のような関手、双関手について考える。
-	\begin{define}[双関手]
+	\begin{define}[双関手]\label{def-bifunctor}
 		積圏からの関手、つまり$\functor{F}{A\times B}{C}$となるような関手を\textbf{双関手}とする。
 
 		また積圏の任意の対象$[A,B]$に対し、\[F(\pcobj{A,B})=F(A,B)\]と略記する。
@@ -47,7 +47,7 @@
 	\end{center}
   双関手は関手を量化とみなすのであれば、複数の圏のそれぞれの対象、射で同時に量化していると考えられる。\\
 	次に双関手の例として積関手$\functor{-\times B}{C}{C}$を双関手に拡張しようと思う。
-	\begin{define}[双積関手]
+	\begin{define}[双積関手]\label{def-biproduct-functor}
 		積を持つ圏$\cat{C}$上の\textbf{双積関手}$\functor{-\times -}{C\times C}{C}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -77,7 +77,7 @@
 					&=id_{(-\times-)(A,B)}&\text{(対象関数の定義)}
 				\end{align*}
 				よって恒等射を保つ。
-				\item[射の合成の保存] $(-\times -)(f',g')\circ(-\times-)(f,g)=(-\times-)(\pcobj{f',g'}\circ\pcobj{f,g}$を示せばよい。
+				\item[射の合成の保存] $(-\times -)(f',g')\circ(-\times-)(f,g)=(-\times-)(\pcobj{f',g'}\circ\pcobj{f,g})$を示せばよい。
 				\begin{align*}
 					(-\times -)(f',g')\circ(-\times-)(f,g)&=(f'\times g')\circ(f\times g)&\text{(射関数の定義)}\\
 					&=(f'\circ f)\times(g'\circ g)&\text{(積と合成の交換)}\\
@@ -94,7 +94,7 @@
 	また以前に圏$\cat{C}$の射の積と積圏$\cat{C\times C}$の射の振る舞いが似ていることについて述べたが、実際に関手として二つの射の関係性を示すことができた。
 
   次に反変関手を定義するのであるが、これは厳密には関手ではない。しかし関手として扱う方法があり、そのために圏の双対について説明する。
-	\begin{define}[双対圏]
+	\begin{define}[双対圏]\label{def-opposite-category}
 		ある圏$\cat{C}$に対する\textbf{双対圏}$\cat{C}^{op}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -162,7 +162,7 @@
 		\end{quote}
 	\end{define}
 	圏の射をすべて反転した圏が双対圏であったが、圏から圏への関手から、双対圏から双対圏への関手を構成することができる。記述がややこしくなってしまったが、定義としては反転した射を反転した射に写すだけである。
-	\begin{define}[双対関手]
+	\begin{define}[双対関手]\label{def-opposite-functor}
 		ある圏$\cat{C,D}$に対する双対圏$\cat{C}^{op},\cat{D}^{op}$と関手$\functor{F}{C}{D}$に対して、双対関手$\functor{F^{op}}{C^{op}}{D^{op}}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -221,7 +221,7 @@
 	\end{define}
 
 	双対関手では反転した射を反転したまま写した。次に定義する反変関手では通常の射を反転した射に写すような捻れた操作を考える。この捻れによって関手の定義とは異なるものになることを注意してほしい。
-	\begin{define}[反変関手]
+	\begin{define}[反変関手]\label{def-contravariant-functor}
 		圏$\cat{C}$から圏$\cat{D}$への\textbf{反変関手}と呼ばれる圏の間の写像$\functor{F}{C}{D}$を以下の写像と公理で定義する。
 		\begin{quote}
 			\begin{mydescription}

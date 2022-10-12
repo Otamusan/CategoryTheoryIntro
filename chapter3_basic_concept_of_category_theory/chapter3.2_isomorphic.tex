@@ -1,6 +1,6 @@
-\subsection{同型}
+\subsection{同型}\label{chap-3.2-isomorphic}
 	圏論では射の等しさを表すときには等号を使うが、対象に対しての等号は制約が多い。そのため\textbf{同型}と呼ばれる同値関係を代わりに用いる。
-	\begin{define}[同型]
+	\begin{define}[同型]\label{def-isomorphic}
 		ある対象$A$と$B$が同型、つまり$A\cong B$であるとは、$i\circ i^{-1}=id_B$と$i^{-1}\circ i=id_A$を満たすようなある二つの射$\mor{i}{A}{B}$とその逆射$\mor{i^{-1}}{B}{A}$が存在するときである。このような射$i,i^{-1}$を\textbf{同型射}と呼ぶ。またこの時、$A$から$B$への射はすべてが同型射である必要はない。また、
 	\end{define}
 	\begin{center}
@@ -26,7 +26,7 @@
 		\end{tikzpicture}
 	\end{center}
 	同型は対象同士の相互互換のような関係性を表しているように思える。
-  \begin{prop}
+  \begin{prop}\label{prop-equivalence-of-isomorphic}
     同型は同値関係である。すなわち反射律、対称律、推移律を満たす。
   \end{prop}
   \begin{proof}~
@@ -63,7 +63,7 @@
     \end{quote}
   \end{proof}
 
-  \begin{prop}[同型と元]
+  \begin{prop}[同型と元]\label{prop-isomorphic-and-elements}
     同型$A\cong B$で、$\mor{i}{A}{B}$が同型射である時、
     \[i(a)=b\iff i^{-1}(b)=a\]であり、この時$a\sim b$とする。そしてこのような$a,b$の対応は\textbf{一対一対応}である。\\
     すなわち、$a$に対して$a\sim b$となるような$b$は\textbf{一意}に\textbf{存在}する。
@@ -101,6 +101,6 @@
     よって$b$が一意に定まることが分かり、$a,b$が一対一対応をすることを示せた。
   \end{proof}
   この性質は終対象$1$が存在すれば成り立つが、更に終対象$1$の存在する集合の圏では逆もなりたつ。
-  \begin{prop}[集合の圏と同型]
+  \begin{prop}[集合の圏と同型]\label{prop-isomorphic-on-sets}
     集合の圏$\cat{Set}$において$A\cong B\iff a\sim b$なる$a,b$が一対一対応。
   \end{prop}  

@@ -1,8 +1,8 @@
-\subsection{集合の圏と終対象}
-	\begin{define}[一点集合]
+\subsection{集合の圏と終対象}\label{chap-5.2-sets-and-terminal-object}
+	\begin{define}[一点集合]\label{def-unit-set}
 		何かしらの要素をただ一つ持つような集合$\{*\}$を\textbf{一点集合}とする。
 	\end{define}
-	\begin{prop}[一点集合と終対象の同値性]
+	\begin{prop}[一点集合と終対象の同値性]\label{prop-equivalence-unit-set-and-terminal-object}
 		$1$は集合の圏$\cat{Set}$の終対象$\iff 1$は一点集合$\{*\}$
 	\end{prop}
   $\cat{Set}$における終対象の一意性は、一点集合のただ一つの元を区別しないということである。
@@ -18,14 +18,14 @@
 	\end{proof}
 	次に集合の圏に限定するが、終対象からの射を元とみなせることを証明する。
 
-  \begin{define}[定写像]
+  \begin{define}[定写像]\label{def-constant-map}
     集合の圏$\cat{Set}$において、任意の対象$A,B$と$B$の任意の元$b$に対する\textbf{定写像}を$\mor{\varDelta b}{A}{B}$とし、$A$の任意の元$a$に対して$\varDelta b(a)=b$となる写像とする。
   \end{define}
   定写像は常に一定の値を返す定数関数のような写像である。次に元をその元を返す定写像に写す写像である、対角写像を定義する。
-  \begin{define}[対角写像]
+  \begin{define}[対角写像]\label{def-diagonal-map}
     集合の圏$\cat{Set}$において任意の対象$A,B$に対し、\textbf{対角写像}$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$を$\varDelta(a)=\varDelta a$と定義する。すなわち、任意の元$a,b$に対して$\varDelta(a)(b)=a$である。
   \end{define}
-	\begin{prop}[集合の元と終対象]
+	\begin{prop}[集合の元と終対象]\label{prop-elements-ob-sets-and-terminal-object}
 		任意の集合$A$とある一点集合$1$に対し$A\cong\arset{Set}{1}{A}$が成り立つ。
 	\end{prop}
 	\begin{proof}

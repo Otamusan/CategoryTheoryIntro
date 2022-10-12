@@ -1,6 +1,6 @@
-\subsection{評価射、余評価射の応用}
+\subsection{評価射、余評価射の応用}\label{chap-5.4-application-of-eval-coeval}
   評価射、余評価射を用いれば、集合の圏における圏の定義に現れる操作と等しくなるような写像を構成することができる。ここでは恒等射を得る操作と対角写像の構成を示すが、射の合成を行う操作$\mor{\circ}{\arset{Set}{B}{C}\times \arset{Set}{A}{B}}{\arset{Set}{A}{C}}$を構成することもできる。
-  \begin{prop}[余評価射による恒等射の定義]
+  \begin{prop}[余評価射による恒等射の定義]\label{prop-def-identity-arrow-by-coeval}
     $\mor{\arset{Set}{A}{\pi_A}\circ ce}{1}{\arset{Set}{A}{A}}$は射集合$\arset{Set}{A}{A}$における恒等射を表す元である。
 
     \begin{center}
@@ -30,7 +30,7 @@
     \end{align*}
     余評価射の定義より任意の$A$の元$a$に対して$(\lambda x.x)(a)=a$であるから、$\arset{Set}{A}{\pi_A}\circ ce(*)=id_A$である。
   \end{proof}
-  \begin{prop}[余評価射による対角写像の定義]
+  \begin{prop}[余評価射による対角写像の定義]\label{prop-def-diagonal-map-by-coeval}
     対角写像$\mor{\varDelta}{A}{\arset{Set}{B}{A}}$に対して、\[\varDelta=\arset{Set}{B}{\pi_A}\circ ce\]である。
     \begin{center}
 			\begin{tikzpicture}[auto]

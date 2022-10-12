@@ -1,9 +1,9 @@
-\subsection{自然同型}
+\subsection{自然同型}\label{chap-7.2-natural-isomorphism}
   次に自然変換や関手を用いた量化された同型である自然同型を見ていく。
-  \begin{define}[自然同型(関手の同型)]
+  \begin{define}[自然同型(関手の同型)]\label{def-natural-isomorphism}
     関手圏$\funccat{C}{D}$の対象$F,G$の同型$F\cong G$を\textbf{自然同型}と呼ぶ。また同型射となる自然変換を\textbf{同型自然変換}と呼ぶことにする。
   \end{define}
-  \begin{prop}[自然同型と対象の同型]
+  \begin{prop}[自然同型と対象の同型]\label{prop-isomorphic-between-objects-and-functor}
     関手$\functor{F,G}{C}{D}$が自然同型$\iff$圏$\cat{C}$の任意の対象$A$において、ある同型射$\mor{i_A}{FA}{GA}$が存在し、$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して\[i_B\circ Ff=Gf\circ i_A\]が成り立つ。
   \end{prop}
   自明に思えるが念の為証明しておく。
@@ -28,7 +28,7 @@
 
   複数の対象において成り立つような同型を一組の自然変換の同型で表現することができるため、これは同型という性質の量化と言える。
   対象の同型を考えるだけならば自然性を仮定する必要は無いが、自然性を満たすのであれば射集合も同型となり、$Ff\sim Gf$が成り立つ。そして実はこの対応もまた自然同型になる。
-  \begin{prop}[自然同型と射集合の対応]
+  \begin{prop}[自然同型と射集合の対応]\label{prop-corresponds-natural-isomorphic-and-arrow-set}
     関手$\functor{F,G}{C}{D}$に対して、
     $F\cong G\Longrightarrow\arset{C}{F-}{F-}\cong\arset{C}{G-}{G-}$\\
     言い換えると、圏$\cat{D}$において$FA\cong GA$が任意の$A$に対して自然である時、$\cat{Set}$において$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$
@@ -82,7 +82,7 @@
     \[i^{-1}_A\circ Gg=Fg\circ i_{A'}^{-1},\ Gh\circ i_B=i_{B'}\circ Fh\]を示せばよい。しかしこれは自然変換$\nat{i}{F}{G},\ \nat{i^{-1}}{G}{F}$の自然性そのものであり成り立つ。よってが$\arset{D}{FA}{FB}\cong\arset{D}{GA}{GB}$の$A,B$に対して自然であることを示せた。
   \end{proof}
   心当たりがあるかもしれないが、今まで扱ってきた複数の対象において成り立つような同型のほとんどが自然同型である。次はこれらを例として確かめていく。
-  \begin{prop}[$A\times 1\cong A$の自然性]
+  \begin{prop}[$A\times 1\cong A$の自然性]\label{prop-naturality-of-a-and-a1}
     $A\times 1\cong A$は$A$において自然である。
   \end{prop}
   \begin{proof}
@@ -121,7 +121,7 @@
     \end{center}
 
   \end{proof}
-  \begin{prop}[$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$の自然性]
+  \begin{prop}[$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$の自然性]\label{prop-naturality-of-isomorphic-preserved-by-hom-functor}
     $B\cong B'\Longrightarrow \arset{C}{X}{B}\cong\arset{C}{X}{B'}$かつ$X$に対して自然。
   \end{prop}
   \begin{proof}[$\Longrightarrow$]
@@ -169,9 +169,9 @@
     よって$i\circ i^{-1}=id_{B'}$が示せた。同様に$i^{-1}\circ i=id_B$も成り立つため、$B\cong B'$が示せた。
   \end{proof}
   この証明のように、射集合が関わる自然変換の議論において恒等射が取れるように成分を指定する、というテクニックはよく使われている。この証明の核である$\arset{C}{B}{i}(id_B)=i$のより形式的な証明は、以前示した余評価射による恒等射の定義が用いられるので、興味があれば豊穣圏における弱米田の補題の証明あたりを読んでほしい。
-  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$の自然性]　\\
+  \begin{prop}[$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$の自然性]\label{prop-naturality-of-isomorphic-by-product-and-hom-functor}~\\
     $A\times B$が$A,B$における積対象$\iff\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$が$X$に対して自然
   \end{prop}
-  \begin{prop}[$\arset{C}{X}{1}\cong I$の自然性]　\\
+  \begin{prop}[$\arset{C}{X}{1}\cong I$の自然性]\label{prop-naturality-of-isomorphic-by-terminal-object-and-hom-functor}~\\
     $1$が終対象$\iff\arset{C}{X}{1}\cong I$が$X$に対して自然
   \end{prop}

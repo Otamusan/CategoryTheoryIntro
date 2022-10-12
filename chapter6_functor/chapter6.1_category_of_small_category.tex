@@ -1,7 +1,7 @@
-\subsection{小さい圏の圏}
+\subsection{小さい圏の圏}\label{chap-6.1-category-of-small-category}
 	関手は圏から圏への一種の写像であるため、集合の圏のように、圏を対象とし関手を射とするような圏である圏の圏を考えることができそうである。
 	そのためにもまずは合成射、恒等射にあたる関手を定義していく。
-	\begin{define}[合成関手]
+	\begin{define}[合成関手]\label{def-composed-functor}
 		関手$\functor{F}{C}{C'}$、$\functor{G}{C'}{C''}$を合成した関手$\functor{G\circ F}{C}{C'}$を以下の要素によって定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -87,7 +87,7 @@
 		\end{mydescription}
 		\end{quote}
 	\end{define}
-	\begin{define}[恒等関手]
+	\begin{define}[恒等関手]\label{def-identity-functor}
 		任意の圏$\cat{C}$の\textbf{恒等関手}$\functor{Id_{\cat{C}}}{C}{C}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -98,7 +98,7 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
-	\begin{define}[小さい圏の圏]
+	\begin{define}[小さい圏の圏]\label{def-category-of-small-category}
 		\textbf{小さい圏の圏}$\cat{Cat}$は以下の要素で構成される。
 
 		集合の圏の時と同様に、小さい圏の「小さい」とは簡単に説明をするのであれば自己言及を防ぐための条件付けであり、実際に$\cat{Cat}$は小さい圏ではないため$\cat{Cat}$の対象にはならない。

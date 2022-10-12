@@ -1,8 +1,8 @@
-\subsection{集合の圏と射集合}
+\subsection{集合の圏と射集合}\label{chap-5.3-sets-and-arrow-sets}
 	圏を定義する際に使用した射集合だが、射集合も集合であるため集合の圏の対象として捉えることができる。射集合というと、未知の集合論的な操作をいくつも持っているのかと考えてしまうが、これから扱う射集合の性質は圏論的に定義されたものだけで事足りる。そのため少し大げさかもしれないが、これから説明する操作や性質を射集合の定義だと考えても良いかもしれない。
   また、ここから一般の圏$\cat{C}$と集合の圏$\cat{Set}$を同時に扱うことになる。そのため、今扱っている対象や射、議論がどの圏上で行われるのかを意識してほしい。
 
-  \begin{define}[共変射写像]
+  \begin{define}[共変射写像]\label{def-covariant-arrow-map}
 		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{A}$に射$f$を左から合成する写像を
 		\begin{align*}
 			&\mor{\arset{C}{X}{f}}{\arset{C}{X}{A}}{\arset{C}{X}{B}}\\
@@ -35,7 +35,7 @@
 
   共変射写像では射を左から合成する写像を考えたが、次は射を右から合成する写像である反変射写像を考える。
 
-	\begin{define}[反変射写像]
+	\begin{define}[反変射写像]\label{def-contravariant-arrow-map}
 		圏$\cat{C}$の対象$A,B$と射$\mor{f}{A}{B}$に対して、任意の射$\mor{g}{X}{B}$に射$f$を右から合成する\textbf{反変射写像}を
 		\begin{align*}
 			&\mor{\arset{C}{f}{X}}{\arset{C}{B}{X}}{\arset{C}{A}{X}}\\
@@ -65,7 +65,8 @@
 
   次に射写像の応用として、対象の同型との関係性を見る。
 
-  \begin{prop}[同型射となる共変射写像]ある圏$\cat{C}$において$B\cong B'\Longrightarrow$任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$
+  \begin{prop}[同型射となる共変射写像]\label{prop-covariant-arrow-map-as-isomorphism}
+    ある圏$\cat{C}$において$B\cong B'\Longrightarrow$任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$
   \end{prop}
 
   \begin{proof}
@@ -106,13 +107,13 @@
   \end{proof}
   
   また同様の性質が反変射写像でも成り立つ
-  \begin{prop}[同型射となる反変射写像]
+  \begin{prop}[同型射となる反変射写像]\label{prop-contravariant-arrow-map-as-isomorphism}
     ある圏$\cat{C}$において$A\cong A'\iff$任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$
   \end{prop}
 
   一つ前の命題の任意の対象$X$に終対象$1$を当てはめると、\[B\cong B'\Longrightarrow \arset{C}{1}{B}\cong\arset{C}{1}{B'}\]となる。$\arset{C}{1}{B}$は$B$の元の集合である。それらが同型であるということは、$B$の元と$B'$の元が一対一対応をするということであり、前に示した元と同型の関係性そのものであることが分かる。\\
   さらに任意の対象$X$に拡張することで、元$\mor{b}{1}{B}$が一対一対応をするだけでなく、射$\mor{f}{X}{B}$までもが一対一対応をすることが分かった。射の対応も元と同様に$f\sim f'$と表すことにする。
-  \begin{define}[評価射]
+  \begin{define}[評価射]\label{def-evaluation-arrow}
 		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して\textbf{評価射}を
 		\begin{align*}
 			\mor{&ev_{A,B}}{\arset{Set}{B}{A}\times B}{A}\\
@@ -123,7 +124,7 @@
 		厳密な証明は行わないが評価射は実際に写像になる。
 	\end{define}
 
-	\begin{define}[余評価射]
+	\begin{define}[余評価射]\label{def-coevaluation-arrow}
 		集合の圏$\cat{Set}$の任意の対象$A,B$と$A$の元$a$に対して\textbf{余評価射}を
 		\begin{align*}
 			\mor{&ce_{A,B}}{A}{\arset{Set}{B}{A\times B}}\\
@@ -163,7 +164,7 @@
   となる。
   余評価射の定義に値の適用を用いたが、これは評価射で表すことができる。次はこのような評価射と余評価射の関係性、性質を見ていく。以下証明する二つの命題は当分使用しないため、興味がなければ飛ばしてもらっても構わない。
 
-  \begin{prop}[冪の三角恒等式1]
+  \begin{prop}[冪の三角恒等式1]\label{prop-triangle-identity-of-exponent-1}
     任意の対象$A,B$において、\[ce\circ \arset{Set}{B}{ev}=id_{\arset{Set}{B}{A}}\]が成り立つ。
     \begin{center}
 			\begin{tikzpicture}[auto]
@@ -192,7 +193,7 @@
     \[ce\circ \arset{Set}{B}{ev}=id_{\arset{Set}{B}{A}}\]となる。
   \end{proof}
 
-  \begin{prop}[冪の三角恒等式2]
+  \begin{prop}[冪の三角恒等式2]\label{prop-triangle-identity-of-exponent-2}
     任意の対象$A,B$において、\[ev\circ(ce\times id_B)=id_{A\times B}\]が成り立つ。
     \begin{center}
 			\begin{tikzpicture}[auto]

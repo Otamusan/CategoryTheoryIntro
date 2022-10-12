@@ -1,6 +1,6 @@
-\subsection{積圏と一点離散圏}
+\subsection{積圏と一点離散圏}\label{chap-6.2-product-category-and-terminal-category}
   一般的に圏は対象の集合や射集合を具体的な元を指定することで定義して、それが公理を満たすか確認していたが、すでに集合や写像は圏論的な操作で扱うことができる。そのため、これから$\cat{Cat}$における積対象となる積圏と、終対象となる一点離散圏、その周辺の関手を集合の圏を用いて定義していく。
-	\begin{define}[積圏]
+	\begin{define}[積圏]\label{def-product-cateogry}
 		ある圏$\cat{A,B}$に対する\textbf{積圏}$\cat{A\times B}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -75,7 +75,7 @@
 	\end{define}
 
 
-	\begin{define}[射影関手]
+	\begin{define}[射影関手]\label{def-projection-functor}
 		\textbf{射影関手}$\functor{\Pi_{L,\cat{A\times B}}}{A\times B}{A}$を以下の写像で定義する。また射影射と同様に紛らわしくない場合に$\Pi_{L,\cat{A\times B}}=\Pi_\cat{A}$と表記する。
 		\begin{quote}
 			\begin{mydescription}
@@ -95,7 +95,7 @@
 		\end{quote}
 	\end{define}
 	また同様に$\functor{\Pi_{R,\cat{A\times B}}}{A\times B}{B}$も定義できる。
-	\begin{define}[関手の対]
+	\begin{define}[関手の対]\label{def-pair-of-functors}
 		関手$\functor{F}{X}{A}$と$\functor{G}{X}{B}$の対である\textbf{関手の対}$\functor{\tuple{F,G}}{X}{A\times B}$を以下の写像で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -153,7 +153,7 @@
 			\end{mydescription}
 		\end{quote}
 	\end{define}
-	\begin{prop}
+	\begin{prop}[$\cat{Cat}$の積]\label{prop-product-of-cat}
 		積圏$\cat{A\times B}$と射影関手$\Pi_\cat{A},\Pi_\cat{B}$の組$(\cat{A\times B},\Pi_\cat{A},\Pi_\cat{B})$は$\cat{Cat}$における積である。
 	\end{prop}
 	\begin{proof}
@@ -192,10 +192,10 @@
 		\end{center}
 		各射関数による積の図式は省略するが、同様に射関数$\tuple{F,G}$が一意に存在することが分かる。よって可換性を満たす対象関数と射関数も一意に存在することから、関手の対は積圏における射の対となり、$(\cat{A\times B},\Pi_\cat{A},\Pi_\cat{B})$は積の普遍性を満たす。
 	\end{proof}
-	\begin{define}[一点離散圏]
+	\begin{define}[一点離散圏]\label{def-unit-discrete-category}
 	一つの対象と一つの恒等射で構成される圏$\cat{1}$を\textbf{一点離散圏}とよぶ。
 	\end{define}
-	\begin{prop}[$\cat{Cat}$の終対象]
+	\begin{prop}[$\cat{Cat}$の終対象]\label{def-terminal-object-of-cat}
 		$\cat{1}$は$\cat{Cat}$における終対象である。
 	\end{prop}
 	\begin{proof}
@@ -221,7 +221,7 @@
 		関手$!_{\cat{C}}$の二つの写像が圏$\cat{C}$に対して一意に存在することわかる。
 		よって任意の圏$\cat{C}$から一点離散圏$\cat{1}$への関手は一意に存在するから、一点離散圏$\cat{1}$は$\cat{Cat}$における終対象であることが示せた。
 	\end{proof}
-	\begin{prop}[対象と関手]
+	\begin{prop}[対象と関手]\label{prop-object-and-functor}
 		任意の圏$\cat{C}$の元、つまり関手$\functor{A}{1}{C}$は圏$\cat{C}$の対象とみなせる。
 	\end{prop}
 	\begin{proof}

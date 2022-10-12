@@ -1,6 +1,6 @@
-\subsection{Hom関手}
+\subsection{Hom関手}\label{chap-6.4-hom-functor}
   いよいよ射集合を取る操作が関手であることを示そう。その前に射写像を取る操作が関手の性質を満たすことを先に示しておく。
-	\begin{prop}[共変射写像の恒等射の保存]
+	\begin{prop}[共変射写像の恒等射の保存]\label{prop-preservation-identity-arrow-by-covariant-arrow-map}
 		圏$\cat{C}$の任意の対象$X,A$において
 		\[\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}\]が成り立つ。
 		\begin{center}
@@ -30,7 +30,7 @@
 		\end{align*}
 		よって$\arset{C}{X}{id_A}=id_{\arset{C}{X}{A}}$が成り立つ。
 	\end{proof}
-	\begin{prop}[共変射写像の合成の保存]
+	\begin{prop}[共変射写像の合成の保存]\label{prop-preservation-composition-by-covariant-arrow-map}
 		圏$\cat{C}$の任意の対象$X,A,B,C$と射$\mor{f}{A}{B}$、$\mor{g}{B}{C}$、$\mor{h}{X}{A}$に対して、
 		\[\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}\]が成り立つ。
 		\begin{center}
@@ -69,7 +69,7 @@
 		\end{align*}
 		よって$\arset{C}{X}{g\circ f}=\arset{C}{X}{g}\circ\arset{C}{X}{f}$が成り立つ。
 	\end{proof}
-	\begin{define}[共変Hom関手]
+	\begin{define}[共変Hom関手]\label{def-covariant-hom-functor}
 		任意の圏$\cat{C}$とそのある対象$X$における共変Hom関手$\functor{\arset{C}{X}{-}}{C}{Set}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -107,7 +107,7 @@
 	\end{define}
 	
 	また反変射写像をとる操作を射関数とした関手は反変関手として定義する。
-		\begin{define}[反変Hom関手]
+		\begin{define}[反変Hom関手]\label{def-contravariant-hom-functor}
 		任意の圏$\cat{C}$とそのある対象$X$における反変Hom関手$\functor{\arset{C}{X}{-}}{C^{op}}{Set}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -144,7 +144,7 @@
 		\end{quote}
 	\end{define}
   さて射集合、射写像を取る操作が関手であることを示せたから、これらが関手としてどのような性質をもつのか少し確認する。
-	\begin{prop}[Hom関手の積の保存]
+	\begin{prop}[Hom関手の積の保存]\label{prop-preservation-product-by-hom-functor}
 		圏$\cat{C}$の積$A\times B$に対して、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
 	\end{prop}
 	\begin{proof}
@@ -251,7 +251,7 @@
   これらの射が既存の射を用いてどのように構成されるかを示したいところではあるが、射の対の種類が更に増えてややこしくなってしまうため、ここでは結果だけを示した。
 
 	次に自明ではあるが、共変Hom関手が終対象を保つことを同様に証明する。
-	\begin{prop}[Hom関手の終対象の保存]
+	\begin{prop}[Hom関手の終対象の保存]\label{prop-preservation-terminal-object-by-hom-functor}
 		圏$\cat{C}$の終対象$1$と圏$\cat{Set}$の任意の対象$X$と終対象$I$に対して\[\arset{C}{X}{1}\cong I\]が成り立つ。
 	\end{prop}
 	\begin{proof}
@@ -293,7 +293,7 @@
 	\end{proof}
 
 	次に積関手を双積関手に一般化したように、共変Hom関手、反変Hom関手を双関手として定義する。
-	\begin{define}[双Hom関手]
+	\begin{define}[双Hom関手]\label{def-dihom-functor}
 		任意の圏$\cat{C}$における\textbf{双Hom関手}$\functor{C(-,-)}{C^{op}\times C}{Set}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -380,7 +380,7 @@
 	\end{define}
 
 	双積関手、双Hom関手を定義したときは完全に新しい関手として対象関数、射関数から定義した。しかし、これらの例のように、右側と左側の関手がそれぞれ定まっていて、ある条件を満たしていれば二つの関手から双関手を定義できる。\\メリットとしてこの定義を用いれば双関手の恒等射の保存と合成の保存を個別に証明しなくても済む。
-	\begin{define}[二つの関手による双関手の定義]
+	\begin{define}[二つの関手による双関手の定義]\label{def-bifunctor-by-two-functors}
 		圏$\cat{B}$の任意の対象$B$に対して定義される関手$\functor{F_B}{A}{C}$と、圏$\cat{A}$の任意の対象$A$に対して定義される関手$\functor{G_A}{B}{C}$が存在し、任意の二対象$A,B$に対して\[{F_B}A={G_A}B\]が成り立ち、	任意の二射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$に対して\[{G_{A'}}g\circ {F_B}f = {F_{B'}}f\circ {G_A}g\]が成り立つとする。
 		\begin{center}
 			\begin{tikzpicture}[auto]

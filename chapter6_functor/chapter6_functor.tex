@@ -1,9 +1,9 @@
-\section{関手}
+\section{関手}\label{chap-6-functor}
   これまで、似たような性質を持つ対象や射を同時に扱う時、それらの対象に添字をつけて量化してきた。対象の量化の例として積対象$A\times B$は圏$\cat{C}$の任意の対象$A$と任意の対象$B$によって添字づけられている。また射の量化の例として、射の積$\mor{f\times g}{\tuple{A,B}}{\tuple{A',B'}}$は圏$\cat{C}$の任意の射$\mor{f}{A}{A'}$、$\mor{g}{B}{B'}$によって添字づけられている。
 
   この章では主に、この添字づけを行うような操作を圏から圏への特殊な写像である関手で一般化する。
 
-	\begin{define}
+	\begin{define}\label{def-functor}
 		ある圏$\cat{C}$からある圏$\cat{D}$への\textbf{関手}$\functor{F}{C}{D}$は以下の関数と公理から構成される。
 		\begin{quote}
 			\begin{mydescription}
@@ -158,12 +158,12 @@
 
   関手$T$の例で言えば、圏$\cat{D}$の対象$X$は$TA$として圏$\cat{C}$の対象$A$によって添字付けられた対象であると考えられる。また、$X$は別の関手$S$によって$SA,SB$として添字付けられていると考えることもできる。
 
-	\begin{define}[関手の同一性]
+	\begin{define}[関手の同一性]\label{def-equality-of-functors}
 		関手$\functor{F,G}{C}{D}$が\textbf{同一}、$F=G$であるとは、それぞれの対象関数、射関数が写像として等しいということである。
 	\end{define}
 
 
-	\begin{prop}[図式の圏論的な定義]
+	\begin{prop}[図式の圏論的な定義]\label{prop-def-diagram-by-category}
 		添字圏と呼ばれる圏$\cat{J}$から図式を取りたい圏$\cat{C}$への関手は図式である。
 		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$J$を図式の骨組み、関手$\functor{F}{I}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
 
@@ -200,7 +200,7 @@
 	\end{prop}
   次に最初に述べた積対象$A\times B$の添字づけについて実際に関手で定式化する。
   ただし、積対象$A\times B$は二つの対象$A,B$によって添字付けられているが、今回は対象$A$にだけを量化し、対象$B$を固定して考える。
-	\begin{define}[積関手]
+	\begin{define}[積関手]\label{def-product-functor}
 		圏$\cat{C}$が積を持つとき、以下の関数で構成されるある対象$B$に対して圏$C$から圏$C$への関手$\functor{-\times B}{C}{C}$を\textbf{積関手}と呼ぶ。
 		\begin{quote}
 			\begin{mydescription}
@@ -268,7 +268,7 @@
 		\end{mydescription}
 		\end{quote}
 	\end{define}
-	\begin{prop}[関手の同型の保存]
+	\begin{prop}[関手の同型の保存]\label{prop-preservation-of-isomorphic-by-functor}
 		任意の圏$\cat{C,D}$と任意の関手$\functor{F}{C}{D}$、圏$\cat{C}$の対象$A,B$において、
 		\[A\cong B \Longrightarrow FA\cong FB\]が成り立つ。
 	\end{prop}

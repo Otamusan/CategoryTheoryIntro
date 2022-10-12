@@ -1,6 +1,6 @@
-\subsection{関手圏}
+\subsection{関手圏}\label{chap-7.1-functor-category}
 	自然変換には恒等射によって定義される恒等自然変換と、射の合成によって定義される垂直変換を考えることができた。これまで様々な圏を考えてきたように、これらの自然変換を用いれば実際に圏を考えることができるようになる。
-	\begin{define}[関手圏]
+	\begin{define}[関手圏]\label{def-functor-category}
 		二つの圏$\cat{C,D}$に対する\textbf{関手圏}$\funccat{C}{D}$を以下の要素で定義する。
 		\begin{quote}
 			\begin{mydescription}
@@ -32,7 +32,7 @@
   まだ圏論的な操作からは関手圏を定義することはできないが、関手圏の対象の集合や射集合が定義できることは関手、自然変換が写像、射集合を用いて定義されていることから簡単に分かる。
 
   関手圏が圏であるということは、関手圏は$\cat{Cat}$の対象である。つまりある圏からある関手圏への関手を考えることができるようになる。その一例として定写像から対角写像を得たように、定関手を得る操作を関手と見なした対角関手を見ていこう。\\
-  \begin{define}[対角関手]
+  \begin{define}[対角関手]\label{def-diagonal-functor}
     圏$\cat{C}$から$\cat{D}$への定関手を与える対角関手$\functor{\varDelta}{D}{\funccat{C}{D}}$を以下のように定義する。
     \begin{quote}
 			\begin{mydescription}
@@ -105,7 +105,7 @@
 
   圏から関手圏への関手が違和感なく定義される事が分かったと思う。次は更に踏み込んで圏と関手圏の間の同型を示す。\\
   また圏の同型についても軽く触れておこう。
-  \begin{define}[圏同型]
+  \begin{define}[圏同型]\label{def-isomorphic-of-categories}
     $\cat{Cat}$において、圏$\cat{C,D}$が関手$\functor{I}{C}{D},\ \functor{I^{-1}}{D}{C}$によって同型、つまり$I\circ I^{-1}=Id_D,\ I^{-1}\circ I=Id_C$である時、圏同型と呼ぶことにする。またこの時関手$I,I^{-1}$を\textbf{同型関手}と呼ぶことにする。
   \end{define}
   一般の圏と同様に元の対応を見てみよう。同型の元の関係より、$\functor{C}{1}{C}$は$\cat{C}$の対象と同一視できるのだった。すなわちある対象$D$が存在して$C\sim D$となる。\\
@@ -137,7 +137,7 @@
       \draw[->,transform canvas={xshift=3pt}] (b) to node[swap] {$I^{-1}$}(a);
     \end{tikzpicture}
   \end{center}  
-  \begin{prop}[圏の元]
+  \begin{prop}[圏の元]\label{prop-elements-of-category}
     一点離散圏$\cat{1}$、任意の圏$\cat{C}$に対して$\cat{C}\cong\funccat{1}{C}$
   \end{prop}
   \begin{proof}

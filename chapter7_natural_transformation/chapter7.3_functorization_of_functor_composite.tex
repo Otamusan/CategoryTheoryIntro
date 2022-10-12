@@ -1,7 +1,7 @@
-\subsection{関手の合成の関手化}
+\subsection{関手の合成の関手化}\label{chap-7.3-functorization-of-functor-of-composite}
   射の合成は$\cat{Set}$の射\[\mor{\circ}{\arset{C}{B}{C}\times\arset{C}{A}{B}}{\arset{C}{A}{C}}\]で表される。これは小さい圏の圏$\cat{Cat}$でも当てはまり、\[\mor{\circ}{\arset{Cat}{\cat{B}}{\cat{C}}\times\arset{Cat}{\cat{A}}{\cat{B}}}{\arset{Cat}{\cat{A}}{\cat{C}}}\]となる。しかし現在では関手の集合である射集合よりも関手を対象に持つ関手圏が定義できている。そこで関手の合成に現れる射集合を関手圏に置き換えることはできないだろうか。
   すなわち、\[\functor{\circ}{\funccat{B}{C}\times\funccat{A}{B}}{\funccat{A}{C}}\]となるような関手を考えたい。対象関数については単に関手の合成で表せるが、射関数をどのように構成するかがこれからの議論の核となる。
-  \begin{define}[自然変換と関手の合成]
+  \begin{define}[自然変換と関手の合成]\label{def-composition-of-nat-and-functor}
     関手$\functor{F,G}{C}{D}$と自然変換$\nat{\alpha}{F}{G}$、関手$\functor{F'}{D}{E}$に対して、自然変換$\nat{F'\circ\alpha}{F'F}{F'G}$を$\cat{C}$の任意の対象$C$に対して$(F'\circ\alpha)_C=F'(\alpha_C)$と定義する。\\
     すなわち、圏$\cat{D}$の$\alpha$の成分を関手$F$の射関数で圏$\cat{E}$に写す。そして得られた$F(\alpha_C)$を自然変換の成分とみなす、という流れである。さてこれが実際に自然変換となることを示そう。\\
     まず$F(\alpha_A)$が圏$\cat{C}$の任意の対象$C$に対して存在することは、$\alpha_A$がそうであることと、関手$F'$が任意の射を何かしらの射へ写すことから分かる。よって後は自然性を示せば良い。だがこれは関手$F'$の合成の保存と$\alpha$の自然性によって簡単に示せる。
@@ -64,7 +64,7 @@
     \end{center}
   \end{define}
   次に自然変換の後ろに関手を合成する操作を考えよう。
-  \begin{define}[関手と自然変換の合成]
+  \begin{define}[関手と自然変換の合成]\label{def-composition-of-functor-and-nat}
     関手$\functor{F',G'}{D}{E}$と自然変換$\nat{\beta}{F'}{G'}$、関手$\functor{F}{C}{D}$に対して自然変換$\nat{\beta\circ F}{F'F}{G'F}$を$\cat{C}$の任意の対象$C$に対して$(\beta\circ F)_C=\beta_{FC}$と定義する。これは自然変換$\beta$の量化の範囲を$F$で写された範囲に限定するという流れである。\\
     ここでの$\mor{\beta_{FC}}{F'FC}{G'FC}$は単に$\beta$の$FC$成分であるから自然性はすでに満たす。圏$\cat{C}$の任意の対象$C$に対して成分$\beta_{FC}$が存在するかどうかであるが、関手$F$は$C$を何らかの対象に写すため、$\beta_{FC}$は存在する。よって$\beta F$は自然変換である。
     \begin{center}
@@ -122,7 +122,7 @@
     \end{center}
   \end{define}
   次にいよいよ合成を行う関手の射関数となるような操作を定義する。またこの合成は関手圏における射の合成である垂直合成と区別するため水平合成と呼ぶことにする。
-  \begin{define}[自然変換の水平合成]
+  \begin{define}[自然変換の水平合成]\label{def-horizonal-compositon-of-natural-transfomations}
     関手$\functor{F,G}{C}{D},\ \functor{F',G'}{D}{E}$と自然変換$\nat{\alpha}{F}{G},\ \nat{\beta}{F'}{G'}$に対して\textbf{垂直合成}された自然変換$\nat{\beta\alpha}{F'F}{G'G}$を\[\beta\circ\alpha = \alpha G'\cdot F\beta = G\beta\cdot\alpha F'\]とする。\\
     \begin{center}
       \begin{tikzpicture}[auto]
@@ -191,7 +191,7 @@
     \end{center}
   \end{define}
   また、$\alpha$を恒等自然変換とすると関手と自然変換の合成になり、$\beta$を恒等自然変換とすると自然変換と関手の合成になる。よってどちらも自然変換の水平合成と呼ぶことにする。
-  \begin{define}[関手を合成する関手]
+  \begin{define}[関手を合成する関手]\label{def-functor-composite-functors}
     関手を合成する関手$\functor{\circ}{\funccat{D}{E}\times \funccat{C}{D}}{\funccat{C}{E}}$を以下のように定義する。
     \begin{quote}
 			\begin{mydescription}
@@ -280,7 +280,7 @@
   \end{define}
   関手の合成を関手として定義できたわけだが、これを$\cat{Cat}$における射の合成の代わりに使用できるかと考えるが、それを行うには圏の定義から考え直さなくてはいけなくなる。現時点で触れる予定は無いが、興味がある場合は2-Categoryに関する文献を読むと良い。\\
   また関手の同型の保存より以下の命題がすぐに成り立つ。
-  \begin{prop}[関手合成の同型の保存]
+  \begin{prop}[関手合成の同型の保存]\label{prop-preservation-of-isomorphism-by-composition-functors}
     関手$\functor{F,F'}{C}{D},\ \functor{G,G'}{D}{E}$に対して$F\cong F',\ G\cong G'\Longrightarrow G\circ F\cong G'\circ F'$
   \end{prop}
   \begin{proof}
