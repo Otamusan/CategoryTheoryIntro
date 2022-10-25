@@ -46,9 +46,15 @@
     \end{tabular}
   \end{table}
 
-  さて圏同値の話に戻るが、この圏同値の例として一点離散圏の普遍性を自然同型によって弱めてみよう。
-  \begin{define}
-    ある圏$\cat{I}$は任意の圏$\cat{X}$に対してある関手$\functor{I_\cat{X}}{X}{I}$が存在して、任意の関手$\functor{F}{X}{I}$に対し$I_X\cong F$が成り立つとする。
-  \end{define}
-  一点離散圏の普遍性では二つの関手の同型$I_X\cong F$ではなく、関手の同一性$I_X=F$が成り立つような性質であったことを思い出してほしい。そういった意味で一点離散圏の普遍性の一般化と言える。\\
-  次にこの圏がどのような対象や射を持つかを調べよう。圏同型$\cat{C}\cong\funccat{1}{C}$により圏$\cat{I}$の任意の対象は関手$\functor{A}{1}{I}$で表せる。ところが圏$\cat{I}$の性質により、ある関手$\functor{I_\cat{1}}{1}{I}$と同型$A\cong I_\cat{1}$になる。すなわち圏
+  %さて圏同値の話に戻るが、この圏同値の例として一点離散圏の普遍性を自然同型によって弱めてみよう。
+  %\begin{define}[双終圏]\label{def-bi-terminal-category}
+  %  圏$\cat{I}$が双終圏であるとは、任意の圏$\cat{X}$に対してある関手$\functor{I_\cat{X}}{X}{BT}$が存在して、任意の関手$\functor{F}{X}{I}$に対し$I_X\cong F$が成り立つとする。
+  %\end{define}
+  %一点離散圏の普遍性では二つの関手の同型$I_X\cong F$ではなく、関手の同一性$I_X=F$が成り立つような性質であったことを思い出してほしい。そういった意味で一点離散圏の普遍性の一般化と言える。\\
+  %次にこの圏がどのような対象や射を持つかを調べる。
+  %\begin{prop}[双終圏の性質]\label{prop-biterminal-and-objects}
+  %  $\cat{I}$が双終圏$\iff \cat{I}$の対象はすべて同型
+  %\end{prop}
+  %\begin{proof}[$\Longrightarrow$]
+  %  圏同型$\cat{C}\cong\funccat{1}{C}$により圏$\cat{I}$の任意の対象は関手$\functor{A}{1}{I}$で表せる。ところが圏$\cat{I}$の性質により、ある関手$\functor{I_\cat{1}}{1}{I}$と同型$A\cong I_\cat{1}$になる。よって圏$\cat{I}$のすべての対象は同型となる。
+  %\end{proof}

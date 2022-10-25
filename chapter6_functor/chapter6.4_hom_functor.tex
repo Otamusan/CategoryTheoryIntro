@@ -147,22 +147,15 @@
 	\begin{prop}[Hom関手の積の保存]\label{prop-preservation-product-by-hom-functor}
 		圏$\cat{C}$の積$A\times B$に対して、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
 	\end{prop}
-	\begin{proof}
-		$\arset{C}{X}{A}\times\arset{C}{X}{B}$は$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であるが、$\arset{C}{X}{A\times B}$も同様に$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であることを示せばよい。
+  \begin{proof}
+    $\arset{C}{X}{A}\times\arset{C}{X}{B}$は$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であるが、$\arset{C}{X}{A\times B}$も同様に$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であることを示せばよい。
 		射影射をそれぞれ
 		\begin{align*}
-			&\pi_{\arset{C}{X}{A}}=\mor{\arset{C}{X}{\pi_A}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{A}}\\
-			&\pi_{\arset{C}{X}{B}}=\mor{\arset{C}{X}{\pi_B}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{B}}
+			\mor{\arset{C}{X}{\pi_A}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{A}}\\
+			\mor{\arset{C}{X}{\pi_B}}{\arset{C}{X}{A\times B}}{\arset{C}{X}{B}}
 		\end{align*}
-		として、組$(\arset{C}{X}{A\times B},\arset{C}{X}{\pi_A},\arset{C}{X}{\pi_B})$が積の普遍性を満たすことを証明する。つまり$\cat{Set}$の任意の対象$Y$と任意の二射$\mor{i}{Y}{\arset{C}{X}{A}}$、$\mor{j}{Y}{\arset{C}{X}{B}}$に対して、
-		\begin{align*}
-			&\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i\\
-			&\arset{C}{X}{\pi_B}\circ\tuple{i,j}=j
-		\end{align*}
-		が成り立つような射$\mor{\tuple{i,j}}{Y}{\arset{C}{X}{A\times B}}$が一意に存在することを示せばよい。\\
-    証明の方向性としては集合の圏$\cat{Set}$の射\[\mor{i}{Y}{\arset{C}{X}{A}},\ \mor{j}{Y}{\arset{C}{X}{A}}\]に$Y$の元$y$を適用すると、圏$\cat{C}$の射\[\mor{i(y)}{X}{A},\ \mor{j(y)}{X}{B}\]が得られるが、集合の圏$\cat{Set}$の射の対$\tuple{i,j}$の存在と一意性を、圏$\cat{C}$の積の普遍性で示すことで証明する。\\
-		まずは図式を可換にする$\tuple{i,j}$を定義し、常に存在することを示す。
-		\begin{center}
+		として、組$(\arset{C}{X}{A\times B},\arset{C}{X}{\pi_A},\arset{C}{X}{\pi_B})$が積の普遍性を満たすことを証明する。
+    \begin{center}
 			\begin{tikzpicture}[auto]
 				\node (set) at (3, 3) {$\cat{Set}$};
 				\node (xa) at (0, 0) {$\arset{C}{X}{A}$};
@@ -171,78 +164,83 @@
 				\node (y) at (3, 2) {$Y$};
 				\draw[->] (xab) to node{$\arset{C}{X}{\pi_A}$}(xa);
 				\draw[->] (xab) to node[swap]{$\arset{C}{X}{\pi_B}$}(xb);
+				\draw[->] (y) to node[swap]{$f$}(xa);
+				\draw[->] (y) to node{$g$}(xb);
+				\draw[->] (y) to node{}(xab);
+			\end{tikzpicture}
+		\end{center}
+    まずは一般の$Y$で考えるのではなく終対象$1$に限定して考える。任意の射$\mor{i}{1}{\arset{C}{X}{A}}$と$\mor{j}{1}{\arset{C}{X}{A}}$とすると、$A\cong\arset{Set}{1}{A}$より$i,j$は圏$\cat{C}$における射$\mor{i}{X}{A}$、$\mor{j}{X}{B}$である。
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (set) at (3, 3) {$\cat{Set}$};
+				\node (xa) at (0, 0) {$\arset{C}{X}{A}$};
+				\node (xab) at (3, 0) {$\arset{C}{X}{A\times B}$};
+				\node (xb) at (6, 0) {$\arset{C}{X}{B}$};
+				\node (y) at (3, 2) {$1$};
+				\draw[->] (xab) to node{$\arset{C}{X}{\pi_A}$}(xa);
+				\draw[->] (xab) to node[swap]{$\arset{C}{X}{\pi_B}$}(xb);
+				\draw[->] (y) to node[swap]{$i$}(xa);
+				\draw[->] (y) to node{$j$}(xb);
+				\draw[->] (y) to node{$\tuple{i,j}$}(xab);
+			\end{tikzpicture}
+      \begin{tikzpicture}[auto]
+				\node (set) at (3, 3) {$\cat{C}$};
+				\node (xa) at (0, 0) {$A$};
+				\node (xab) at (3, 0) {$A\times B$};
+				\node (xb) at (6, 0) {$B$};
+				\node (y) at (3, 2) {$X$};
+				\draw[->] (xab) to node{$\pi_A$}(xa);
+				\draw[->] (xab) to node[swap]{$\pi_B$}(xb);
 				\draw[->] (y) to node[swap]{$i$}(xa);
 				\draw[->] (y) to node{$j$}(xb);
 				\draw[->] (y) to node{$\tuple{i,j}$}(xab);
 			\end{tikzpicture}
 		\end{center}
-		ここで対象$Y$の任意の元$y$を取り適用すると、圏$\cat{C}$の射$\mor{i(y)}{X}{A}$、$\mor{j(y)}{X}{B}$が得られる。
+    この時、$\mor{\tuple{i,j}}{X}{A\times B}$なる射が$i,j$に対して一意に存在するが、この射も同様に$A\cong\arset{Set}{1}{A}$を用いて$\cat{Set}$の射$\mor{\tuple{i,j}}{1}{\arset{C}{X}{A\times B}}$が得られる。当然\[\pi_A\circ\tuple{i,j}=i\]であるから、\[\arset{C}{X}{\pi_A}\circ\tuple{i,j} = \arset{C}{X}{\pi_A}(\tuple{i,j})=i\]であり、実際に射の対となる。また射の対の一意性については、射$\mor{h}{1}{\arset{C}{X}{A\times B}}$が存在して\[\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i,\ \arset{C}{X}{\pi_B}\circ\tuple{i,j}=j\]を満たしたとしても、圏$\cat{C}$における射の対の一意性によって$h=\tuple{i,j}$が成り立ち、同様に$\cat{Set}$でも成り立つ。
 
-		射$i,j$は$\cat{Set}$の射であるが、値を適用した$i(y),j(y)$もまた$\cat{C}$の射であることに注意してほしい。もし圏$\cat{C}$で対象$X$の元$x$が取れるなら、さらに値を適用して対象$A$の元$i(y)(x)$が取れる。
-
-		圏$\cat{C}$の積$(A\times B,\pi_A,\pi_B)$に対して射$i(y),j(y)$の射の対\[\mor{\tuple{i(y),j(y)}}{X}{A\times B}\]を考える。
-		\begin{center}
+    さて、これを任意の対象$Y$に拡張する。任意の射$\mor{f}{Y}{\arset{C}{X}{A}}$、$\mor{g}{Y}{\arset{C}{X}{B}}$と元$\mor{y}{1}{Y}$を考える。すると、先程の結果から$f(y),g(y)$に対して射の対$\tuple{f(y),g(y)}$が一意に定まるのだった。
+    \begin{center}
 			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$A$};
-				\node (b) at (4, 0) {$B$};
-				\node (ab) at (2, 0) {$A\times B$};
-				\node (x) at (2, 2) {$X$};
-				\draw[->] (ab) to node {$\pi_A$}(a);
-				\draw[->] (ab) to node[swap] {$\pi_B$}(b);
-				\draw[->] (x) to node[swap] {$i(y)$}(a);
-				\draw[->] (x) to node {$j(y)$}(b);
-				\draw[->] (x) to node {\scriptsize{$\tuple{i(y),j(y)}$}}(ab);
+        \node (1) at (3, 4) {$1$};
+				\node (set) at (3, 5) {$\cat{Set}$};
+				\node (xa) at (0, 0) {$\arset{C}{X}{A}$};
+				\node (xab) at (3, 0) {$\arset{C}{X}{A\times B}$};
+				\node (xb) at (6, 0) {$\arset{C}{X}{B}$};
+				\node (y) at (3, 2) {$Y$};
+				\draw[->] (xab) to node{$\arset{C}{X}{\pi_A}$}(xa);
+				\draw[->] (xab) to node[swap]{$\arset{C}{X}{\pi_B}$}(xb);
+				\draw[->] (y) to node[swap]{$f$}(xa);
+				\draw[->] (y) to node{$g$}(xb);
+        \draw[->] (1) to node[swap]{$f(y)$}(xa);
+				\draw[->] (1) to node{$g(y)$}(xb);
+        \draw[->] (1) to node{$y$}(y);
+				\draw[->] (y) to node{}(xab);
+			\end{tikzpicture}
+      \begin{tikzpicture}[auto]
+        \node (1) at (3, 4) {$1$};
+				\node (set) at (3, 5) {$\cat{Set}$};
+				\node (xa) at (0, 0) {$\arset{C}{X}{A}$};
+				\node (xab) at (3, 0) {$\arset{C}{X}{A\times B}$};
+				\node (xb) at (6, 0) {$\arset{C}{X}{B}$};
+				\draw[->] (xab) to node{$\arset{C}{X}{\pi_A}$}(xa);
+				\draw[->] (xab) to node[swap]{$\arset{C}{X}{\pi_B}$}(xb);
+        \draw[->] (1) to node[swap]{$f(y)$}(xa);
+				\draw[->] (1) to node{$g(y)$}(xb);
+        \draw[->] (1) to node{\scriptsize$\tuple{f(y),g(y)}$}(xab);
+				\draw[->] (y) to node{}(xab);
 			\end{tikzpicture}
 		\end{center}
-		このような射の対は任意の射$i(y),j(y)$に対して存在するから、任意の$y$に対しても存在する。
-		よって$\cat{Set}$の射の対$\tuple{i,j}$を任意の$y$に対して\[\tuple{i,j}(y)=\tuple{i(y),j(y)}\]と定義できた。
-		次に$\tuple{i,j}$が図式を可換にすることを示す。
+    $\tuple{f(y),g(y)}$は任意の元$y$に対して一意に存在するから、新しい射$\mor{\tuple{f,g}}{Y}{\arset{C}{X}{A\times B}}$を\[\tuple{f,g}(y)=\tuple{f(y),g(y)}\]と定義できる。また
+    \begin{align*}
+      \arset{C}{X}{\pi_A}\circ\tuple{f,g}(y) & =\arset{C}{X}{\pi_A}(\tuple{f(y),g(y)})&\text{($\tuple{f,g}$の定義)}\\
+      &= f(y)&\text{($Y=1$の時の普遍性)}
+    \end{align*}
+    であるから$\tuple{f,g}$は$f,g$における射の対である。仮に射$\mor{h}{Y}{\arset{C}{X}{A\times B}}$が存在して$f,g$の射の対だとしても、$\arset{C}{X}{\pi_A}\circ h(y)= f(y)$となり、$Y=1$の時の射の対の一意性から$h(y) = \tuple{f(y),g(y)}$となり、$h=\tuple{f,g}$が成り立つ。よってこれは積であり、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]となる。
+  \end{proof}
 
-		同様に$Y$の任意の元$y$に対し
-		\begin{align*}
-			\arset{C}{X}{\pi_A}\circ\tuple{i,j}(y)&=\arset{C}{X}{\pi_A}(\tuple{i,j}(y))&\text{(射の合成の定義)}\\
-			&=\arset{C}{X}{\pi_A}(\tuple{i(y),j(y)})&\text{($\tuple{i,j}$の定義)}\\
-			&=\pi_A\circ(\tuple{i(y),j(y)})&\text{(共変射写像の定義)}\\
-			&=i(y)&\text{(射の対の可換性)}
-		\end{align*}
-		よって$\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i$が成り立つ。同様に$\arset{C}{X}{\pi_B}\circ\tuple{i,j}=j$も成り立つ。
+	かなり長い証明になってしまったが、$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$を示すだけなら同型射となるような射を定義して同型射であることを証明すればよい。こちらの方が簡単ではあるが、射集合を用いた議論に慣れてもらうためこのように証明した。
 
-		次に射の対$\tuple{i,j}$の一意性を示す。
-		ある射$\mor{k}{Y}{\arset{C}{X}{A\times B}}$が
-		\begin{align*}
-			&\arset{C}{X}{\pi_A}\circ k=i\\
-			&\arset{C}{X}{\pi_B}\circ k=j
-		\end{align*}
-		を満たすとき、$h=\tuple{i,j}$が成り立つことを示せばよい。
-
-		$Y$の任意の元$y$に対し
-		\begin{align*}
-			i(y)&=(\arset{C}{X}{\pi_A}\circ k)(y)\\
-			&=\arset{C}{X}{\pi_A}(k(y))&\text{(射の合成の定義)}\\
-			&=\pi_A\circ(k(y))&\text{(共変射写像の定義)}
-		\end{align*}
-		よって$\pi_A\circ(k(y))=i(y)$が成り立つ。同様に$\pi_A\circ(k(y))=i(y)$も成り立つ。
-		すると$\cat{C}$の積$A\times B$の射の対$\tuple{i,j}(y)$の一意性より、$k(y)=\tuple{i,j}(y)$となる。
-		これは任意の$y$で成り立つから$k=\tuple{i,j}$となり、$\tuple{i,j}$は$i,j$に対して一意に存在することが示せた。
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (a) at (0, 0) {$A$};
-				\node (b) at (4, 0) {$B$};
-				\node (ab) at (2, 0) {$A\times B$};
-				\node (x) at (2, 2) {$X$};
-				\draw[->] (ab) to node {$\pi_A$}(a);
-				\draw[->] (ab) to node[swap] {$\pi_B$}(b);
-				\draw[->] (x) to node[swap] {$i(y)$}(a);
-				\draw[->] (x) to node {$j(y)$}(b);
-				\draw[->,transform canvas={xshift=+2pt}] (x) to node {\scriptsize{$\tuple{i,j}(y)$}}(ab);
-				\draw[->,transform canvas={xshift=-2pt}] (x) to node[swap] {\scriptsize{$k(y)$}}(ab);
-			\end{tikzpicture}
-		\end{center}
-		よって組$(\arset{C}{X}{A\times B},\arset{C}{X}{\pi_A},\arset{C}{X}{\pi_B})$は積の普遍性を満たす。つまり$\arset{C}{X}{A\times B}$は$\arset{C}{X}{A}$と$\arset{C}{X}{B}$の積であり、積の一意性より、\[\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}\]が成り立つ。
-	\end{proof}
-	かなり長い証明になってしまったが、$\arset{C}{X}{A\times B}\cong \arset{C}{X}{A}\times \arset{C}{X}{B}$を示すだけなら同型射となるような射を定義して同型射であることを証明すればよい。こちらの方が簡単ではあるが、同型射を射集合を用いた議論に慣れてもらうためこのように証明した。
-
-	さてこの同型の意味を考えると、任意の二射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$と射の対$\mor{\tuple{f,g}}{X}{A\times B}$が一対一対応をする、ということになる。ただし現段階では逆は成り立たない。
+	さてこの同型の意味を考えると、任意の二射$\mor{f}{X}{A}$、$\mor{g}{X}{B}$と射の対$\mor{\tuple{f,g}}{X}{A\times B}$が一対一対応をする、ということになる。ただし現段階では必ずしも逆は成り立たない。
 
   また、証明中では特に区別しなかったが、集合の圏の積による射の対を$\mor{[f,g]}{1}{\arset{C}{X}{A}\times\arset{C}{X}{B}}$、圏$\cat{C}$の積による射の対を$\mor{\tuple{f,g}}{X}{A\times B}$として、同型射をそれぞれ、\[\mor{i}{\arset{C}{X}{A\times B}}{\arset{C}{X}{A}\times\arset{C}{X}{B}}\]\[\mor{i^{-1}}{\arset{C}{X}{A}\times\arset{C}{X}{B}}{\arset{C}{X}{A\times B}}\]とすると、\[i(\tuple{f,g})=[f,g],\ i^{-1}([f,g])=\tuple{f,g}\]となる射であることが、積の一意性の証明から分かる。
   つまり、これらの同型射は、圏$\cat{C}$の射の対と集合の圏の射の対を相互に変換する写像であることが分かる。
@@ -254,43 +252,9 @@
 	\begin{prop}[Hom関手の終対象の保存]\label{prop-preservation-terminal-object-by-hom-functor}
 		圏$\cat{C}$の終対象$1$と圏$\cat{Set}$の任意の対象$X$と終対象$I$に対して\[\arset{C}{X}{1}\cong I\]が成り立つ。
 	\end{prop}
-	\begin{proof}
-		$\arset{C}{X}{1}$が$\cat{Set}$における終対象であることを示せばよい。つまり$\cat{Set}$の任意の対象$Y$に対して\[\mor{!_Y}{Y}{\arset{C}{X}{1}}\]が一意に存在することを証明する。
-
-		射$\mor{!_Y}{Y}{\arset{C}{X}{1}}$が少なくとも一つは存在すると仮定する。
-		対象$Y$の任意の元$y$を$!_Y$に適用すると圏$\cat{C}$の射$\mor{!_Y(y)}{X}{1}$が得られるが、終対象$1$の普遍性よりこのような射は少なくとも一つは存在する。よって任意の$y$において$!_Y(y)$が存在するから、実際に射$!_Y$は存在する。
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (set) at (1, 1) {$\cat{Set}$};
-				\node (1) at (0, 0) {$Y$};
-				\node (1') at (2, 0) {$\arset{C}{X}{1}$};
-				\node (set) at (5, 1) {$\cat{C}$};
-				\node (x) at (4, 0) {$X$};
-				\node (t) at (6, 0) {$1$};
-				\draw[->] (1) to node{$!_Y$}(1');
-				\draw[->] (x) to node{$!_Y(y)$}(t);
-			\end{tikzpicture}
-		\end{center}
-		次に$\mor{!_Y}{Y}{\arset{C}{X}{1}}$の一意性を示す。つまり射$\mor{h}{Y}{\arset{C}{X}{1}}$が存在したとき、$!_Y=h$が成り立てばよい。
-
-		対象$Y$の任意の元$y$において射$\mor{h(y)}{X}{1}$に対して圏$\cat{C}$の終対象の普遍性より、$\mor{!_Y(y)}{X}{1}$なる射は一意に存在する。よって$!_Y(y)=h(y)$となり、任意の元$y$で成り立つから$!_Y=h$となる。
-
-		\begin{center}
-			\begin{tikzpicture}[auto]
-				\node (set) at (1, 1) {$\cat{Set}$};
-				\node (1) at (0, 0) {$Y$};
-				\node (1') at (2, 0) {$\arset{C}{X}{1}$};
-				\node (set) at (5, 1) {$\cat{C}$};
-				\node (x) at (4, 0) {$X$};
-				\node (t) at (6, 0) {$1$};
-				\draw[->,transform canvas={yshift=2pt}] (1) to node{$!_Y$}(1');
-				\draw[->,transform canvas={yshift=2pt}] (x) to node{$!_Y(y)$}(t);
-				\draw[->,transform canvas={yshift=-2pt}] (1) to node[swap]{$h$}(1');
-				\draw[->,transform canvas={yshift=-2pt}] (x) to node[swap]{$h(y)$}(t);
-			\end{tikzpicture}
-		\end{center}
-		$\mor{!_Y}{Y}{\arset{C}{X}{1}}$なる射が一意に存在することが示せたから、$\arset{C}{X}{1}$は$\cat{Set}$における終対象となる。よって終対象の一意性より、\[\arset{C}{X}{1}\cong I\]が成り立つ。
-	\end{proof}
+  \begin{proof}
+    圏$\cat{C}$における終対象の定義から、$\arset{C}{X}{1}$は要素を一つしか持たない集合である。この集合は一点集合であり、集合の圏における終対象の定義から、$\arset{C}{X}{1}$もまた終対象であり、終対象の一意性より$\arset{C}{X}{1}\cong I$である。
+  \end{proof}
 
 	次に積関手を双積関手に一般化したように、共変Hom関手、反変Hom関手を双関手として定義する。
 	\begin{define}[双Hom関手]\label{def-dihom-functor}

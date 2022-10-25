@@ -165,7 +165,7 @@
 
 	\begin{prop}[図式の圏論的な定義]\label{prop-def-diagram-by-category}
 		添字圏と呼ばれる圏$\cat{J}$から図式を取りたい圏$\cat{C}$への関手は図式である。
-		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$J$を図式の骨組み、関手$\functor{F}{I}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
+		例えば以下のように対象$I,J,K$と射$i,j$で構成される添字圏$\cat{J}$を図式の骨組み、関手$\functor{F}{J}{C}$を図式の骨組みに圏$C$の対象と射を割り当てる操作とする。
 
 		すると関手の合成の保存より、図式中の射$f,g$の合成射$g\circ f$は図式に必ず存在する。
     また恒等射の保存より、図式中の対象に必ず恒等射となる射が存在し、関手の合成の保存により実際に恒等射のように振る舞う。
@@ -191,7 +191,7 @@
 				\draw[->] (x) to node[yshift =10]{$f$}(y);
 				\draw[->] (y) to node[swap]{$g$}(z);
 				\draw[->] (x) to node{$g\circ f$}(z);
-				\node (catc) at (1, 3) {$\cat{I}$};
+				\node (catc) at (1, 3) {$\cat{J}$};
 				\node (catd) at (5, 3) {$\cat{C}$};
 				\draw[->] (catc) to node{$F$}(catd);
 
