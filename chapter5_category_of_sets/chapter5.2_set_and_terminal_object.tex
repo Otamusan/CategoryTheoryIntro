@@ -7,11 +7,11 @@
 	\end{prop}
   $\cat{Set}$における終対象の一意性は、一点集合のただ一つの元を区別しないということである。
 	\begin{proof}[$\Longrightarrow$]
-		終対象$1$の元、すなわち射$\mor{*}{1}{1}$は終対象から終対象への射であり、恒等射ただ一つであるから終対象の元はただ一つである。
+		終対象$1$の元、すなわち射$\mor{\varDelta *}{1}{1}$は終対象から終対象への射であり、恒等射ただ一つであるから終対象の元はただ一つである。
 	\end{proof}
 	\begin{proof}[$\Longleftarrow$]
 		任意の集合$A$と一点集合$1$においてある写像$\mor{!_A}{A}{1}$が一意に存在することを示せばよい。
-		任意の元$\mor{a}{1}{A}$において$!_A(a)=*$と定義すると、このような写像は任意の集合で定義できることがわかる。
+		任意の要素$a$において$!_A(a)=*$と定義すると、このような写像は任意の集合で定義できることがわかる。
 		また一点集合の元がただ一つしかないので、どのような写像であっても任意の元$a$は必ず$*$に対応することになる。つまり$!_A(a)=*$以外の対応付けが行えないので写像$!_A$は一意に存在することがわかる。
 
 		よって$A$から$1$への写像は一意に存在し、一点集合$1$は終対象となる。
@@ -45,3 +45,32 @@
     \end{align*}
     よって\[\varDelta^{-1}\circ\varDelta=id_A,\ \varDelta\circ\varDelta^{-1}=id_\arset{Set}{1}{A}\]が成り立つから同型射であり、$A\cong\arset{Set}{1}{A}$である。
 	\end{proof}
+  また元を最初に定義した時、集合の圏において$\mor{\varDelta a}{1}{A}$に対して$\mor{f}{A}{B}$を合成する操作は値の適用とみなせると説明したが、元の厳密な定義によって示せるようになったので証明する。
+  \begin{prop}[値の適用と元の合成の同値性]
+    集合の圏$Set$において、$A$の任意の元$a$、$B$の任意の元$b$、任意の射$\mor{f}{A}{B}$に対して、
+    \[f(a)=b \iff f\circ\varDelta a = \varDelta b\]
+    \begin{center}
+			\begin{tikzpicture}[auto]
+				\node (a) at (2, 0) {$A$};
+				\node (b) at (2, -2) {$B$};
+				\node (1) at (0, 0) {$1$};
+				\draw[->] (1) to node {$\varDelta a$}(a);
+				\draw[->] (1) to node[swap] {$f\circ \varDelta a$}(b);
+				\draw[->] (a) to node {$f$}(b);
+			\end{tikzpicture}
+		\end{center}
+  \end{prop}
+  \begin{proof}[$\Longrightarrow$]
+    \begin{align*}
+      f(a) &= b\\
+      f(\varDelta a(*)) &= \varDelta b(*)&\text{(定写像の定義)}\\
+      f\circ \varDelta a(*)&=\varDelta b(*)&\text{(写像の合成の定義)}\\
+      \intertext{$1$の任意の元$*$に対して成り立つから}
+      f\circ \varDelta a &=\varDelta b
+    \end{align*}
+    となる。
+  \end{proof}
+  \begin{proof}[$\Longleftarrow$]
+    上の証明の等式変形を逆に行えば良い。
+  \end{proof}
+

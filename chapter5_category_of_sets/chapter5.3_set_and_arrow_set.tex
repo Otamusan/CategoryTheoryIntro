@@ -65,7 +65,7 @@
 
   次に射写像の応用として、対象の同型との関係性を見る。
 
-  \begin{prop}[同型射となる共変射写像]\label{prop-covariant-arrow-map-as-isomorphism}
+  \begin{prop}[共変射写像の同型の保存]\label{prop-covariant-arrow-map-as-isomorphism}
     ある圏$\cat{C}$において$B\cong B'\Longrightarrow$任意の対象$X$に対し$\arset{C}{X}{B}\cong\arset{C}{X}{B'}$
   \end{prop}
 
@@ -107,12 +107,54 @@
   \end{proof}
   
   また同様の性質が反変射写像でも成り立つ
-  \begin{prop}[同型射となる反変射写像]\label{prop-contravariant-arrow-map-as-isomorphism}
+  \begin{prop}[反変射写像の同型の保存]\label{prop-contravariant-arrow-map-as-isomorphism}
     ある圏$\cat{C}$において$A\cong A'\iff$任意の対象$X$に対し$\arset{C}{A}{X}\cong\arset{C}{A'}{X}$
   \end{prop}
 
   一つ前の命題の任意の対象$X$に終対象$1$を当てはめると、\[B\cong B'\Longrightarrow \arset{C}{1}{B}\cong\arset{C}{1}{B'}\]となる。$\arset{C}{1}{B}$は$B$の元の集合である。それらが同型であるということは、$B$の元と$B'$の元が一対一対応をするということであり、前に示した元と同型の関係性そのものであることが分かる。\\
   さらに任意の対象$X$に拡張することで、元$\mor{b}{1}{B}$が一対一対応をするだけでなく、射$\mor{f}{X}{B}$までもが一対一対応をすることが分かった。射の対応も元と同様に$f\sim f'$と表すことにする。
+
+  射写像によって射集合の振る舞いを圏論的に扱えるようになった。そこで$A\cong\arset{Set}{1}{A}$によって、その間の射はどのように対応するだろうかを調べる。つまり射$\mor{f}{A}{B}$に対して$\mor{\arset{Set}{1}{f}}{\arset{Set}{1}{A}}{\arset{Set}{1}{B}}$は射$f$とどのような関係にあるか、ということである。この考えは$A$と$\arset{Set}{1}{A}$を同一視する上で有用であり、次の命題で表現できる
+  \begin{prop}[元の集合の自然同型性]\label{prop-natural-isomorphism-of-element-set}
+    $\arset{Set}{A}{B}\cong\arset{Set}{\arset{Set}{1}{A}}{\arset{Set}{1}{B}}$
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (a) at (0, 2) {$A$};
+        \node (b) at (0, 0) {$B$};
+        \node (1a) at (2, 2) {$\arset{Set}{1}{A}$};
+        \node (1b) at (2, 0) {$\arset{Set}{1}{B}$};
+        \draw[->] (a) to node[swap]{$f$}(b);
+        \draw[->] (1a) to node{$\arset{Set}{1}{f}$}(1b);
+      \end{tikzpicture}
+    \end{center}
+  \end{prop}
+  \begin{proof}
+    \begin{align*}
+      \arset{Set}{A}{B}&\cong \arset{Set}{A}{\arset{Set}{1}{B}}&\text{(共変射写像の同型の保存)}\\
+      &\cong\arset{Set}{\arset{Set}{1}{A}}{\arset{Set}{1}{B}}&\text{(反変射写像の同型の保存)}\\
+    \end{align*}
+  \end{proof}
+  またこの同型関係は図式の可換性も保つ。つまり、
+  \begin{prop}[$\arset{Set}{1}{-}$の合成の保存]\label{prop-preservation-of-composition-on-1-hom-functor}
+    $g\circ f = h\iff \arset{Set}{1}{g}\circ \arset{Set}{1}{f} = \arset{Set}{1}{h}$である。
+  \end{prop}
+  \begin{proof}[$\Longrightarrow$]
+    $g\circ f=h$であるから、$\arset{Set}{1}{g}\circ \arset{Set}{1}{f} = \arset{Set}{1}{g\circ f}$を示せば良い。
+    任意の射$\mor{a}{1}{A}$に対して、
+    \begin{align*}
+      \arset{Set}{1}{g}\circ\arset{Set}{1}{f}(a)&=\arset{Set}{1}{g}(\arset{Set}{1}{f}(a))&\text{(写像の合成の定義)}\\
+      &=\arset{Set}{1}{g}(f(a))&\text{(共変射写像の定義)}\\
+      &=g(f(a))&\text{(共変射写像の定義)}\\
+      &=(g\circ f)(a)&\text{(写像の合成の定義)}\\
+      &=\arset{Set}{1}{g\circ f}(a)&\text{(共変射写像の定義)}\\
+    \end{align*}
+    よって$\arset{Set}{1}{g}\circ \arset{Set}{1}{f} = \arset{Set}{1}{g\circ f}$となる。
+  \end{proof}
+  \begin{proof}[$\Longleftarrow$]
+    $\arset{Set}{1}{g}\circ \arset{Set}{1}{f} = \arset{Set}{1}{h}$であれば、上の証明から任意の射$\mor{a}{1}{A}$に対して$\arset{Set}{1}{g}\circ \arset{Set}{1}{f}(a) =  g(f(a))$であった。また$\arset{Set}{1}{h}(a)=h(a)$も成り立つから、$g(f(a))=h(a)$であり、$g\circ f = h$となる。
+  \end{proof}
+  これによって元を集合の要素とみなしても、これらの同値性によって妥当であることが分かった。よって以降は紛らわしくない場合、$\mor{\varDelta a}{1}{A}$をそのまま$\mor{a}{1}{A}$と表記することにする。
+  
   \begin{define}[評価射]\label{def-evaluation-arrow}
 		集合の圏$\cat{Set}$の任意の対象$A,B$と$B$の元$b$、$\cat{Set}$の射$\mor{f}{B}{A}$に対して\textbf{評価射}を
 		\begin{align*}

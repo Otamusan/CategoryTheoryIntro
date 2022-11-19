@@ -196,7 +196,7 @@
 				\draw[->] (y) to node{$\tuple{i,j}$}(xab);
 			\end{tikzpicture}
 		\end{center}
-    この時、$\mor{\tuple{i,j}}{X}{A\times B}$なる射が$i,j$に対して一意に存在するが、この射も同様に$A\cong\arset{Set}{1}{A}$を用いて$\cat{Set}$の射$\mor{\tuple{i,j}}{1}{\arset{C}{X}{A\times B}}$が得られる。当然\[\pi_A\circ\tuple{i,j}=i\]であるから、\[\arset{C}{X}{\pi_A}\circ\tuple{i,j} = \arset{C}{X}{\pi_A}(\tuple{i,j})=i\]であり、実際に射の対となる。また射の対の一意性については、射$\mor{h}{1}{\arset{C}{X}{A\times B}}$が存在して\[\arset{C}{X}{\pi_A}\circ\tuple{i,j}=i,\ \arset{C}{X}{\pi_B}\circ\tuple{i,j}=j\]を満たしたとしても、圏$\cat{C}$における射の対の一意性によって$h=\tuple{i,j}$が成り立ち、同様に$\cat{Set}$でも成り立つ。
+    この時、$\mor{\tuple{i,j}}{X}{A\times B}$なる射が$i,j$に対して一意に存在するが、$A\cong\arset{Set}{1}{A}$より、$\arset{C}{X}{A\times B}\cong\arset{Set}{1}{\arset{C}{X}{A\times B}}$が成り立つから$\cat{Set}$の射$\mor{\tuple{i,j}}{1}{\arset{C}{X}{A\times B}}$が一意に存在し、値の適用と元の合成の同値性によって図式を可換にする。
 
     さて、これを任意の対象$Y$に拡張する。任意の射$\mor{f}{Y}{\arset{C}{X}{A}}$、$\mor{g}{Y}{\arset{C}{X}{B}}$と元$\mor{y}{1}{Y}$を考える。すると、先程の結果から$f(y),g(y)$に対して射の対$\tuple{f(y),g(y)}$が一意に定まるのだった。
     \begin{center}

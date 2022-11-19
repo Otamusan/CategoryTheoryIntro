@@ -130,3 +130,130 @@
     \end{tikzpicture}
   \end{center}
 \end{proof}
+  \begin{define}[エンド]\label{def-end}
+    ある圏$\cat{C,D}$と、関手$\functor{F}{C^{op}\times C}{D}$に対するエンド$(\cend{C}{C} F(C,C),\lambda)$を以下のように構成する。
+    \begin{quote}
+      \begin{mydescription}
+        \item[楔]楔と呼ばれる組$(X,\mu)$を以下のように構成する。圏$\cat{D}$の対象である$X$と圏$\cat{C}$の任意の対象$C$に対して$\mor{\mu}{X}{T(C,C)}$なる射が存在して、圏$\cat{C}$の任意の射$\mor{f}{A}{B}$に対して$F(A,f)\circ\mu_A=F(f,B)\circ\mu_B$が成り立つとする。
+        \begin{center}
+          \begin{tikzpicture}[auto]
+            \node (FG) at (0, 0) {$X$};
+            \node (FAGA) at (3, 0) {$F(A,A)$};
+            \node (FBGB) at (0, -2) {$F(B,B)$};
+            \node (FAGB) at (3, -2) {$F(A,B)$};
+    
+            \draw[->] (FG) to node{$\mu_A$}(FAGA);  
+            \draw[->] (FG) to node{$\mu_B$}(FBGB);
+            \draw[->] (FAGA) to node{$F(A,f)$}(FAGB);
+            \draw[->] (FBGB) to node{$F(f,B)$}(FAGB);
+          \end{tikzpicture}
+        \end{center}
+
+        \item[普遍性] 関手$F$に対してある楔$(\cend{C}{C} F(C,C),\lambda)$がエンドであるとは、他の楔$(X,\mu)$に対して、$\mu_C = \lambda_C\circ h$が成り立つような$\mor{h}{X}{\cend{C}{C}F(C,C)}$が一意に存在する時である。
+        \begin{center}
+          \begin{tikzpicture}[auto]
+            \node (FG) at (0, 0) {$\cend{C}{C} F(C,C)$};
+            \node (X) at (-1.5, 1) {$X$};
+            \node (FAGA) at (3, 0) {$F(A,A)$};
+            \node (FBGB) at (0, -2) {$F(B,B)$};
+            \node (FAGB) at (3, -2) {$F(A,B)$};
+    
+            \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+            \draw[->] (X) to node{$h$}(FG);
+    
+            \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+            \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
+            \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
+            \draw[->] (FAGA) to node{$F(A,f)$}(FAGB);
+            \draw[->] (FBGB) to node{$F(f,B)$}(FAGB);
+          \end{tikzpicture}
+        \end{center}
+      \end{mydescription}
+    \end{quote}
+  \end{define}
+  エンドの定義から自然変換の射集合は明らかにエンドである。
+  \begin{prop}
+    $\arset{\funccat{C}{D}}{F}{G}=\cend{C}{C}\arset{D}{FC}{GC}$
+  \end{prop}
+
+  \begin{prop}[エンドの一意性]
+    関手$F$におけるエンド$(\cend{C}{C}F(C,C),\lambda)$に対して、同様に関手$F$に対するエンド$(X,\mu)$が存在するとする。この時$X\cong\cend{C}{C}F(C,C)$が成り立つ。
+  \end{prop}
+  \begin{proof}
+    $(\cend{C}{C}F(C,C),\lambda)$と$(X,\mu)$はどちらも$F$に対する楔であるから、$\mor{h}{\cend{C}{C}F(C,C)}{X}$、$\mor{h^{-1}}{X}{\cend{C}{C}F(C,C)}$なる一意に定まる射が存在する。これらが同型射であることを調べれば良い。
+
+    エンドの普遍性より、
+    \begin{align*}
+      \mu_C\circ(h'\circ h) &=(\mu_C\circ h')\circ h\\
+      &= \lambda_C \circ h\\
+      &=\mu_C\\
+    \end{align*}
+    となるが、$\mor{id_X}{X}{X}$もまた$\mu_C\circ id_X = \mu_C$を満たす。すると$X$のエンドの普遍性により、このような射は一意に定まるから$h'\circ h=id_X$である。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (X) at (0, 0) {$X$};
+        \node (end) at (0, -1.5) {$\cend{C}{C}F(C,C)$};
+        \node (X2) at (0, -3) {$X$};
+        \node (fcc) at (2.5, -1.5) {$F(C,C)$};
+        \draw[->] (X) to node{$h$}(end);
+        \draw[->] (end) to node{$h^{-1}$}(X2);
+        \draw[->] (X) to node{$\mu_C$}(fcc);
+        \draw[->] (X2) to node[swap]{$\mu_C$}(fcc);
+        \draw[->] (end) to node{$\lambda_C$}(fcc);
+      \end{tikzpicture}
+    \end{center}
+    同様に$h\circ h'=id$であるから$X\cong\cend{C}{C}F(C,C)$である。
+  \end{proof}
+  またこの命題の逆もまた成り立つ。
+  \begin{prop}[同型のエンドの保存]
+    エンド$(\cend{C}{C}F(C,C),\lambda)$に対して$X\cong \cend{C}{C}F(C,C)$であれば、$X$もまた$F$に対するエンドとなる。
+  \end{prop}
+  \begin{proof}
+    同型射を$\mor{i}{X}{\cend{C}{C}F(C,C)},\ \mor{i^{-1}}{\cend{C}{C}F(C,C)}{X}$とする。この時$\mor{\lambda_C\circ i}{X}{F(C,C)}$が楔の定義を満たすかどうかを確認する。すなわち
+    \[F(A,f)\circ\lambda_A\circ i=F(f,B)\circ\lambda_B\circ i\]が成り立てば良いが、これは明らかに\[F(A,f)\circ\lambda_A=F(f,B)\circ\lambda_B\]より成り立つ。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (FG) at (0, 0) {$\cend{C}{C} F(C,C)$};
+        \node (X) at (-1.5, 1) {$X$};
+        \node (FAGA) at (3, 0) {$F(A,A)$};
+        \node (FBGB) at (0, -2) {$F(B,B)$};
+        \node (FAGB) at (3, -2) {$F(A,B)$};
+
+        \draw[->] (FG) to node{$\lambda_A$}(FAGA);
+        \draw[->] (X) to node{$i$}(FG);
+
+        \draw[->] (FG) to node{$\lambda_B$}(FBGB);
+        \draw[->,bend left = 20] (X) to node{$\lambda_A\circ i$}(FAGA);
+        \draw[->,bend right = 20] (X) to node[swap]{$\lambda_B\circ i$}(FBGB);
+        \draw[->] (FAGA) to node{$F(A,f)$}(FAGB);
+        \draw[->] (FBGB) to node{$F(f,B)$}(FAGB);
+      \end{tikzpicture}
+    \end{center}
+
+    次に$F$に対する任意の楔$(Y,\mu)$に対して普遍性が成り立つかを調べる。
+    まずエンドの普遍性から$\lambda_C\circ h = \mu_C$なる射$\mor{h}{Y}{\cend{C}{C}F(C,C)}$が一意に存在する。
+
+    $X$をエンドであるならば、同様の条件を満たす射が一意に存在する必要があるが、それを$\mor{i^{-1}\circ h}{Y}{X}$とする。すると、
+    \[\mu_C=\lambda_C\circ h = \lambda_C\circ i\circ i^{-1}\circ h =(\lambda_C\circ i)\circ (i^{-1}\circ h)\]となり、そのような射の存在は示せた。
+    \begin{center}
+      \begin{tikzpicture}[auto]
+        \node (X) at (0, 0) {$Y$};
+        \node (end) at (0, -1.5) {$\cend{C}{C}F(C,C)$};
+        \node (X2) at (0, -3) {$X$};
+        \node (fcc) at (2.5, -1.5) {$F(C,C)$};
+        \draw[->] (X) to node{$h$}(end);
+        \draw[->] (end) to node{$i^{-1}$}(X2);
+        \draw[->] (X) to node{$\mu_C$}(fcc);
+        \draw[->] (X2) to node[swap]{$\lambda_C\circ i$}(fcc);
+        \draw[->] (end) to node{$\lambda_C$}(fcc);
+
+        \node (X) at (4, 0) {$Y$};
+        \node (X2) at (4, -3) {$X$};
+        \node (fcc) at (6.5, -1.5) {$F(C,C)$};
+        \draw[->] (X) to node{$i^{-1}\circ h$}(X2);
+        \draw[->] (X) to node{$\mu_C$}(fcc);
+        \draw[->] (X2) to node[swap]{$\lambda_C\circ i$}(fcc);
+      \end{tikzpicture}
+    \end{center}
+    また$\mu_C =(\lambda_C\circ i)\circ (i^{-1}\circ h')$を満たすような射$h'$が存在しても、$\mu_C=\lambda_C\circ h'$が直ちに成り立つからエンドの普遍性より$h=h'$となり、$i^{-1}\circ h=i^{-1}\circ h'$もまた成り立つ。よって$i^{-1}\circ h$が一意に存在することを示せたから$X$はエンドになる。
+  \end{proof}
