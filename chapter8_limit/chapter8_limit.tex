@@ -143,88 +143,38 @@
 % \begin{proof}
 %   任意の関手$\functor{F}{C}{Set}$と、終対象$1$への定関手$\functor{\varDelta 1}{C}{Set}$の間の自然変換の集合$\arset{\funccat{C}{D}}{\varDelta 1}{F}$を考える。これをエンドと見なしたときの
 % \end{proof}
-\begin{prop}\label{prop-def-limit-by-arrowset}
-  任意の対象$X$、任意の関手$\functor{F}{C}{D}$において\[\arset{D}{X}{\lim F}\cong\arset{\funccat{C}{D}}{\varDelta X}{F}\]
-\end{prop}
-\begin{proof}
-  自然変換の集合はエンドで表せたから、エンドの一意性を用いて証明する。すなわち$\arset{D}{X}{\lim F}$が$\functor{\arset{D}{\varDelta X (-)}{F-}}{C}{Set}$におけるエンドであることを示せばよい。
-  \begin{center}
-    \begin{tikzpicture}[auto]
-      \node (X) at (-1.5, 1) {$Y$};
-
-      \node (FG) at (0, 0) {$\arset{D}{X}{\lim F}$};
-      \node (FAGA) at (3, 0) {$\arset{D}{X}{FA}$};
-      \node (FBGB) at (0, -2) {$\arset{D}{X}{FB}$};
-      \node (FAGB) at (3, -2) {$\arset{D}{X}{FB}$};
-      \draw[->] (X) to node{$h$}(FG);
-
-      \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
-      \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
-      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
-      \draw[->] (FG) to node{$\lambda_B$}(FBGB);
-      \draw[->] (FAGA) to node{$\arset{D}{X}{Ff}$}(FAGB);
-      \draw[->] (FBGB) to node{$\arset{D}{\varDelta X(f)}{FB}$}(FAGB);
-    \end{tikzpicture}
-  \end{center}
-  ただしエンドの図式における$\arset{D}{\varDelta X(f)}{FB}$は$\varDelta X(f)=id_X$により$id_{\arset{D}{X}{FB}}$である。
-  
-  すると少しわかりにくいが、$\lambda_C=\tau_C$とすると前の共変Hom関手の極限の保存の図式そのものとなる。よって$\arset{D}{X}{\lim F}$の極限の普遍性によって$\arset{D}{X}{\lim F}$のエンドの普遍性を満たす。よって$(\arset{D}{X}{\lim F}, \tau)$は極限でもあり、ある種のエンドになることが分かった。ゆえにエンドの一意性から\[\arset{D}{X}{\lim F}\cong\arset{\funccat{C}{D}}{\varDelta X}{F}\]が成り立つ。
-\end{proof}
-またエンドと極限の関係として以下の命題が成り立つ。
-\begin{prop}[エンドによる極限の定義]
-  任意の関手$\functor{F}{C}{D}$に対して$T(A,B)=F(B)$となるような関手$\functor{T}{C^{op}\times C}{D}$を考える。この時、
-  関手$T$に対するエンド$(\cend{C}{C}T(C,C),\lambda)$は$F$に対する極限となる。
-\end{prop}
-\begin{proof}
-  エンド$(\cend{C}{C}T(C,C),\lambda)$は、任意の射$\mor{f}{B}{A}$に対して
-  \[T(A,f)\circ\lambda_A=T(f,B)\circ\lambda_B\]が成り立ち、かつ
-  \[T(A,f)\circ\mu_A=T(f,B)\circ\mu_B\]となるような$\mor{\mu_C}{X}{T(C,C)}$が存在するとき、$\mu_C = \lambda_C\circ h$が成り立つような$\mor{h}{X}{\cend{C}{C}T(C,C)}$が一意に存在する。という普遍性を持つのであった。
-  \begin{center}
-    \begin{tikzpicture}[auto]
-      \node (FG) at (0, 0) {$\cend{C}{C} T(C,C)$};
-      \node (X) at (-1.5, 1) {$X$};
-      \node (FAGA) at (3, 0) {$T(A,A)$};
-      \node (FBGB) at (0, -2) {$T(B,B)$};
-      \node (FAGB) at (3, -2) {$T(A,B)$};
-
-      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
-      \draw[->] (X) to node{$h$}(FG);
-
-      \draw[->] (FG) to node{$\lambda_B$}(FBGB);
-      \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
-      \draw[->,bend right = 20] (X) to node[swap]{$\mu_B$}(FBGB);
-      \draw[->] (FAGA) to node{$T(A,f)$}(FAGB);
-      \draw[->] (FBGB) to node{$T(f,B)$}(FAGB);
-    \end{tikzpicture}
-  \end{center}
-  ここで$T(A,B)=F(B)$を用いると、\[T(A,B)=F(B)=T(B,B),\ F(f,B)=id_{FB}\]が成り立つ。よってエンドの普遍性は以下のように置き換えられる。
-
-  任意の射$\mor{f}{B}{A}$に対して
-  \[F(f)\circ\lambda_A=\lambda_B\]が成り立ち、かつ
-  \[F(f)\circ\mu_A=\mu_B\]となるような$\mor{\mu_C}{X}{F(C)}$が存在するとき、$\mu_C = \lambda_C\circ h$が成り立つような$\mor{h}{X}{\cend{C}{C}F(C)}$が一意に存在する。
-  \begin{center}
-    \begin{tikzpicture}[auto]
-      \node (FG) at (0, 0) {$\cend{C}{C} F(C)$};
-      \node (X) at (-1.5, 1) {$X$};
-      \node (FAGA) at (3, 0) {$F(A)$};
-      \node (FAGB) at (3, -2) {$F(B)$};
-
-      \draw[->] (FG) to node{$\lambda_A$}(FAGA);
-      \draw[->] (X) to node{$h$}(FG);
-
-      \draw[->] (FG) to node{$\lambda_B$}(FAGB);
-      \draw[->,bend left = 20] (X) to node{$\mu_A$}(FAGA);
-      \draw[->,bend right = 40] (X) to node[swap]{$\mu_B$}(FAGB);
-      \draw[->] (FAGA) to node{$F(f)$}(FAGB);
-    \end{tikzpicture}
-  \end{center}
-  このように極限の定義と完全に一致する。よって$(\cend{C}{C}F(C),\lambda)$は関手$F$に対する極限である。
-\end{proof}
 \begin{prop}[同型の極限の保存]
   関手$\functor{F}{C}{D}$に対して$\lim F$が$F$に対する極限対象であり、$\lim F\cong X$であるならば、$X$もまた極限対象である。
 \end{prop}
 \begin{proof}
-  同型のエンドの保存より明らかに成り立つ。
+  同型射を$\mor{i}{X}{\lim F},\ \mor{i^{-1}}{\lim F}{X}$とする。この時極限の分配則より、$\mor{\tau_C\circ i}{X}{FC}$について\[\tau_C\circ i = (\tau\cdot\varDelta i)_C\]が成り立つから$\tau_C\circ i$は自然性を満たし、これを用いて錐$(X,\tau\cdot\varDelta i)$が定義できる。
+
+  次に$F$に対する任意の錐$(Y,\mu)$に対して普遍性が成り立つかを調べる。
+  まず極限の普遍性から$\tau_C\circ h = \mu_C$なる射$\mor{h}{Y}{\lim F}$が一意に存在する。
+
+  $X$が極限であるならば、同様の条件を満たす射が一意に存在する必要があるが、それを$\mor{i^{-1}\circ h}{Y}{X}$とする。すると、
+  \[\mu_C=\tau_C\circ h = \tau_C\circ i\circ i^{-1}\circ h =(\tau_C\circ i)\circ (i^{-1}\circ h)\]となり、そのような射の存在は示せた。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (X) at (0, 0) {$Y$};
+      \node (end) at (0, -1.5) {$\lim F$};
+      \node (X2) at (0, -3) {$X$};
+      \node (fcc) at (2.5, -1.5) {$FC$};
+      \draw[->] (X) to node{$h$}(end);
+      \draw[->] (end) to node{$i^{-1}$}(X2);
+      \draw[->] (X) to node{$\mu_C$}(fcc);
+      \draw[->] (X2) to node[swap]{$\tau_C\circ i$}(fcc);
+      \draw[->] (end) to node{$\tau_C$}(fcc);
+
+      \node (X) at (4, 0) {$Y$};
+      \node (X2) at (4, -3) {$X$};
+      \node (fcc) at (6.5, -1.5) {$F(C,C)$};
+      \draw[->] (X) to node{$i^{-1}\circ h$}(X2);
+      \draw[->] (X) to node{$\mu_C$}(fcc);
+      \draw[->] (X2) to node[swap]{$\tau_C\circ i$}(fcc);
+    \end{tikzpicture}
+  \end{center}
+  また$\mu_C =(\tau_C\circ i)\circ (i^{-1}\circ h')$を満たすような射$h'$が存在しても、$\mu_C=\tau_C\circ h'$が直ちに成り立つからエンドの普遍性より$h=h'$となり、$i^{-1}\circ h=i^{-1}\circ h'$もまた成り立つ。よって$i^{-1}\circ h$が一意に存在することを示せたから$X$は極限となる。
 \end{proof}
 \begin{prop}[極限の関手性]\label{prop-limit-is-functor}
   圏$\cat{D}$が完備であるとする。任意の関手$\functor{F}{C}{D}$に対して極限対象$\lim F$を得る操作は関手である。すなわち$\mor{\lim}{\funccat{C}{D}}{D}$である。
@@ -452,20 +402,19 @@
 
     \end{tikzpicture}
   \end{center}
-  ここで極限の分配則より、\[\tuple{\arset{D}{Y}{\tau}}\circ\arset{D}{f}{\lim F}=\tuple{\arset{D}{Y}{\tau}\cdot\varDelta\arset{D}{f}{\lim F}}\]が成り立つ。
-  また圏$\cat{C}$の任意の対象$C$に対して、
+  それぞれ、
   \begin{align*}
-    (\arset{D}{Y}{\tau}\cdot\varDelta \arset{D}{f}{\lim F})_C
-    &=\arset{D}{Y}{\tau}_C\circ\arset{D}{f}{\lim F}&\text{(自然変換の垂直合成の定義)}\\
-    &=\arset{D}{Y}{\tau_C}\circ\arset{D}{f}{\lim F}&\text{(自然変換の水平合成の定義)}\\
-    &=\arset{D}{f}{\tau_C}&\text{(双Hom関手の定義)}\\
-    &=\arset{D}{f}{\tau}_C&\text{(自然変換の水平合成の定義)}\\
+    \tuple{\arset{D}{Y}{\tau}}\circ\arset{D}{f}{\lim F}&=\tuple{\arset{D}{Y}{\tau}\cdot\varDelta\arset{D}{f}{\lim F}}&\text{(極限の分配則)}\\
+    &=\tuple{\natlat{\arset{D}{Y}{\tau_C}\circ\arset{D}{f}{\lim F}}{C}{C}}&\text{(自然変換の垂直合成の定義)}\\
+    &=\tuple{\natlat{\arset{D}{f}{\tau_C}}{C}{C}}&\text{(双Hom関手の定義)}\\
+    &=\tuple{\arset{D}{f}{\tau}}&\text{(自然変換の水平合成の定義)}\\
   \end{align*}
-  よって$\arset{D}{Y}{\tau}\cdot\varDelta \arset{D}{f}{\lim F}=\arset{D}{f}{\tau}$が成り立つから、
-  \begin{align*}
-    \tuple{\arset{D}{Y}{\tau}}\circ\arset{D}{f}{\lim F}&=\tuple{\arset{D}{Y}{\tau}}\\
-  \end{align*}
+
   となる。もう一つの射$\lim\arset{D}{f}{F-}\circ\tuple{\arset{D}{X}{\tau}}$についても、自然変換の極限$\lim\arset{D}{f}{F-}$の適用より、
+  \begin{align*}
+    \lim\arset{D}{f}{F-}\circ\tuple{\arset{D}{X}{\tau}} &= \tuple{\arset{D}{f}{F-}\cdot\arset{D}{X}{\tau}}&\text{(自然変換の極限の適用)}\\
+    &=\tuple{\natlat{\arset{D}{f}{FC}\circ\arset{D}{X}{\tau_C}}{C}{C}}&\text{(自然変換の水平合成の定義)}\\
+  \end{align*}
   \[\lim\arset{D}{f}{F-}\circ\tuple{\arset{D}{X}{\tau}} = \tuple{\arset{D}{f}{F-}\cdot\arset{D}{X}{\tau}}\]が成り立つ。圏$\cat{C}$の任意の対象$C$に対して、
   \begin{align*}
     (\arset{D}{f}{F-}\cdot\arset{D}{X}{\tau})_C &= \arset{D}{f}{FC}\circ\arset{D}{X}{\tau_C}&\text{(自然変換の垂直合成の定義)}\\
@@ -514,4 +463,68 @@
   \[\tuple{\arset{D}{X}{\nu}}\circ\arset{D}{X}{\lim \alpha}=\arset{D}{X}{(\alpha\cdot\tau)}\]が成り立ち、
 
   \[\lim\arset{D}{X}{\alpha}\circ\tuple{\arset{D}{X}{\tau}}=\arset{D}{X}{(\alpha\cdot\tau)}=\tuple{\arset{D}{X}{\nu}}\circ\arset{D}{X}{\lim \alpha}\]となるから$F$に対して自然である。
+\end{proof}
+
+\begin{prop}
+  \[\arset{D}{X}{\lim F}\cong\arset{\funccat{C}{D}}{\varDelta X}{F}\]であり、$X,F$に対して自然である。
+\end{prop}
+\begin{proof}[同型性]
+  同型射をそれぞれ\[\mor{\phi}{\arset{D}{X}{\lim F}}{\arset{\funccat{C}{D}}{\varDelta X}{F}}\]\[\mor{\phi^{-1}}{\arset{\funccat{C}{D}}{\varDelta X}{F}}{\arset{D}{X}{\lim F}}\]とし、任意の射$\mor{h}{X}{\lim F}$、$\nat{\mu}{\varDelta X}{F}$に対して、
+  \[\phi(h) = \tau\cdot\varDelta h\]
+  \[\phi^{-1}(\mu) = \tuple{\mu}\]と定義する。
+  
+  $\phi\circ\phi^{-1}(\mu)=\tau\cdot\varDelta \tuple{\mu}$であるが、任意の対象$C$に対して、
+  \begin{align*}
+    (\tau\cdot\varDelta \tuple{\mu})_C &= \tau_C\circ\tuple{\mu}&\text{(自然変換の垂直合成の定義)}\\
+    &=\mu_C&\text{(射影射$\tau$による分解)}\\
+  \end{align*}
+  であるから$\tau\cdot\varDelta \tuple{\mu}=\mu$であり、$\phi\circ\phi^{-1}=id_\arset{\funccat{C}{D}}{\varDelta X}{F}$である。
+
+  また、
+  \begin{align*}
+    \phi^{-1}\circ\phi(h) &= \tuple{\tau\cdot\varDelta h}&\text{(定義による展開)}\\
+    &=\tuple{\tau}\circ h&\text{(極限の分配則)}\\
+    &=h &\text{(極限関手の恒等射の保存)}
+  \end{align*}
+  よって$\phi^{-1}\circ\phi=id_\arset{D}{X}{\lim F}$となるから$\arset{D}{X}{\lim F}\cong\arset{\funccat{C}{D}}{\varDelta X}{F}$が成り立つ。
+\end{proof}
+\begin{proof}[自然性]
+  まずは$X$に対して自然であることを示す。極限$(\lim F, \tau)$と射$\mor{f}{Y}{X}$に対して、以下の図式が可換になれば良い。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (xlf) at (0, 0) {$\arset{D}{X}{\lim F}$};
+      \node (ylf) at (0, -2) {$\arset{D}{Y}{\lim F}$};
+      \node (lxf) at (4, 0) {$\arset{\funccat{C}{D}}{\varDelta X}{F}$};
+      \node (lyf) at (4, -2) {$\arset{\funccat{C}{D}}{\varDelta Y}{F}$};
+
+      \draw[->] (xlf) to node[swap]{$\arset{D}{f}{\lim F}$}(ylf);
+      \draw[->] (lxf) to node{$\arset{\funccat{C}{D}}{\varDelta f}{F}$}(lyf);
+      \draw[<-] (lxf) to node[swap]{$\phi$}(xlf);
+      \draw[<-] (lyf) to node{$\phi$}(ylf);
+    \end{tikzpicture}
+  \end{center}
+  任意の射$\mor{h}{X}{\lim F}$に対して
+  \begin{align*}
+    \arset{\funccat{C}{D}}{\varDelta f}{F}\circ\phi(h) 
+    &=\tau\cdot\varDelta h\cdot\varDelta f&\text{(定義による展開)}\\
+    &=\tau\cdot\varDelta (h\circ f)&\text{(対角関手の合成の保存)}\\
+    &=\phi\circ\arset{D}{f}{\lim F}(h)&\text{(定義による展開)}\\
+  \end{align*}
+  よって$\arset{\funccat{C}{D}}{\varDelta f}{F}\circ\phi=\phi\circ\arset{D}{f}{\lim F}$で$X$に対して自然である。
+
+  次に$F$に対する自然性を調べる。極限$(\lim F, \tau),\ (\lim G, \nu)$と自然変換$\mor{\alpha}{F}{G}$に対して以下の図式が可換になれば良い。
+  \begin{center}
+    \begin{tikzpicture}[auto]
+      \node (xlf) at (0, 0) {$\arset{D}{X}{\lim F}$};
+      \node (ylf) at (0, -2) {$\arset{D}{X}{\lim G}$};
+      \node (lxf) at (4, 0) {$\arset{\funccat{C}{D}}{\varDelta X}{G}$};
+      \node (lyf) at (4, -2) {$\arset{\funccat{C}{D}}{\varDelta X}{G}$};
+
+      \draw[->] (xlf) to node[swap]{$\arset{D}{X}{\lim \alpha}$}(ylf);
+      \draw[->] (lxf) to node{$\arset{\funccat{C}{D}}{\varDelta X}{\alpha}$}(lyf);
+      \draw[<-] (lxf) to node[swap]{$\phi_F$}(xlf);
+      \draw[<-] (lyf) to node{$\phi_G$}(ylf);
+    \end{tikzpicture}
+  \end{center}
+
 \end{proof}

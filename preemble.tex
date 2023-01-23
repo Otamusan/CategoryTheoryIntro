@@ -7,6 +7,8 @@
 \newcommand{\cat}[1]{\mathbbm{#1}}
 \newcommand{\arrow}{\rightarrow}
 \newcommand{\functor}[3]{#1:\cat{#2}\arrow \cat{#3}}
+\newcommand{\profunctor}[3]{#1:\cat{#2}\nrightarrow \cat{#3}}
+
 \newcommand{\nat}[3]{#1:#2\Rightarrow #3}
 \newcommand{\natf}[5]{#1:#2\Rightarrow #3:\cat{#4}\arrow \cat{#5}}
 \newcommand{\tuple}[1]{\langle #1\rangle}
@@ -21,8 +23,13 @@
 \newcommand{\arsetr}[3]{#1(#2,#3)}
 \newcommand{\pcobj}[1]{[#1]}
 \newcommand{\funccat}[2]{\cat{#2}^\cat{#1}}
+
 \newcommand{\coend}[2]{\displaystyle\int^{#2:\cat{#1}}\!\!\!\!\!\!\!}
 \newcommand{\cend}[2]{\displaystyle\int_{#2:\cat{#1}}\!\!\!\!\!\!\!}
+\newcommand{\natlat}[3]{\{#1\}_{#3\in #2}}
+\newcommand{\inset}[2]{[#1,#2]}
+\newcommand{\incat}[2]{[\cat{#1},\cat{#2}]}
+\newcommand{\incatp}[2]{[#1,#2]}
 
 \newtheorem{proof}{証明}[section]
 \newtheorem{prop}[proof]{命題}
